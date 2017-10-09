@@ -1,0 +1,54 @@
+---
+title: "R for STATEC"
+author: "Bruno Rodrigues"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "In this book, statisticians and economists working at STATEC will learn how use R for their needs. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed."
+---
+
+# What is R?
+
+Read R's official answer to this question
+[here](https://cran.r-project.org/doc/FAQ/R-FAQ.html#What-is-R_003f). To make it short: R is
+multi-paradigm (procedural, imperative, object-oriented and functional) ^[In this book we are going
+to focus on R's functional programming capabilities] programming language that
+focuses on applications in *statistics*. By *statistics* I mean any field that uses statistics such
+as official statistics, economics, finance, data science, etc.
+
+## Prerequisites
+
+R and Rstudio are the two main pieces of software that we are going to use. Both are already installed
+on your desktop computer. R is the programming language and Rstudio is a modern IDE for it.
+R and Rstudio are both open source: this means that the source code is freely available on the internet
+and contributions by anyone are welcome and integrated; provided they are meaningful and useful.
+
+If you wish to install R and Rstudio at home to follow the examples in this book you can do it as
+both pieces of software are available free of charge (for firms paid options for Rstudio exist).
+Installation is simple, but operating system dependent. To download and install R for Windows,
+follow [this link](https://cloud.r-project.org/bin/windows/base/).
+For macOS, follow [this one](https://cloud.r-project.org/bin/macosx/). If you run a GNU+Linux
+distribution, you can install R using the system's package manager. On Ubuntu, install `r-base`.
+
+For Rstudio, look for your operating system [here](https://www.rstudio.com/products/rstudio/download/#download).
+
+## What are packages?
+
+There is one more step; we are going to install some packages. Packages are additional pieces of
+code that can be installed from within R with the following function: `install.packages()`. These
+packages extend R's capabilities significantly, and are probably one of the main reasons R is so
+popular. As of October 2017, R has over 11000 packages.
+
+To install the packages we need, first open Rstudio and then copy and paste this line in the console:
+
+```{r eval=FALSE}
+install.packages(c("tidyverse", "checkpoint", "eurostat", "ggthemes", "janitor", "openxlsx"))
+```
+
+
+```{r, echo=FALSE}
+knitr::include_graphics("pics/install_packages.png")
+```

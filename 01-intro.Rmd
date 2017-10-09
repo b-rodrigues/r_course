@@ -1,0 +1,4 @@
+# Getting to know Rstudio
+
+Rstudio is a modern IDE that makes writing R code easier. In this chapter, we will learn about some
+of Rstudio's most useful features.
