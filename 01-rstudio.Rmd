@@ -26,6 +26,24 @@ knitr::include_graphics("pics/rstudio_new_script.gif")
 In this gif, we see the user creating a new R script. R scripts are simple text files that hold R
 code. Think of `.do` files in STATA or `.c` files for C. R scripts have the extension `.r` or `.R`.
 
+### The help pane
+
+The *Help* pane allows you to consult documentation for functions or packages. The gif below shows
+how it works:
+
+```{r, echo=FALSE}
+knitr::include_graphics("pics/rstudio_help.gif")
+```
+
+you can also access help using the following syntax: `?lm`. This will bring up the documentation for
+the function `lm()`. You can also type `??lm` which will look for the string `lm` in every package.
+
+### The Environment pane
+
+The *Environment* pane shows every object created in the current section. It is especially useful
+if you have defined lists or have loaded data into R as it makes it easy to explore these more
+complex objects.
+
 ## Options
 
 It is also possible to customize Rstudio's look and feel:
@@ -46,6 +64,32 @@ knitr::include_graphics("pics/rstudio_shortcuts.gif")
 ```
 
 If there is only one keyboard shortcut you need to know, it's `Ctrl-Enter` that executes a line of code
-from your script.
+from your script. However, these other shortcuts are also worth knowing:
+
+* `CTRL-ALT-R`: run entire script
+* `CTRL-ALT-UP or DOWN`: make cursor taller or shorter, allowing you to edit multiple lines at the same time
+* `CTRL-F`: Search and replace
+* `ALT-UP or DOWN`: Move line up or down
+* `CTRL-SHIFT-C`: Comment/uncomment line
+* `ALT-SHIFT-K`: Bring up the list of keyboard shortcuts
+* `CTRL-SHIFT-M`: Insert the pipe operator (`%>%`, more on this later)
+* `CTRL-S`: Save script
+
+This is just a few keyboard shortcuts that I personally find useful. However, I strongly advise you
+to learn and use whatever shortcuts are useful to you!
 
 ## Projects
+
+One of the best features of Rstudio are projects. Creating a project is simple; the gif below
+shows how you can create a project and how you can switch between projects.
+
+```{r, echo=FALSE}
+knitr::include_graphics("pics/rstudio_projects.gif")
+```
+
+Projects make a lot of things easier, such as managing paths. More on this in the chapter about
+reading data. Another useful feature of projects is that the scripts you open in project A will
+stay open even if you switch to another project B, and then switch back to the project A again.
+
+You can also use version control (with git) inside a project. Version control is very useful, but
+I won't discuss it here. You can find a lot of resources online to get you started with git.

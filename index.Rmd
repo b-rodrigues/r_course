@@ -1,5 +1,5 @@
 ---
-title: "R for STATEC"
+title: "Modern R for STATEC"
 author: "Bruno Rodrigues"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
