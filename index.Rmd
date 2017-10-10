@@ -48,7 +48,12 @@ To install the packages we need, first open Rstudio and then copy and paste this
 install.packages(c("tidyverse", "checkpoint", "eurostat", "ggthemes", "janitor", "openxlsx"))
 ```
 
-
 ```{r, echo=FALSE}
 knitr::include_graphics("pics/install_packages.png")
+```
+
+or go to the **Packages** pane and then click on *Install*:
+
+```{r, echo=FALSE}
+knitr::include_graphics("pics/rstudio_install_packages.gif")
 ```
