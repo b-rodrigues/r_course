@@ -1,1 +1,3 @@
-This is a minimal example of a book based on R Markdown and **bookdown** (https://github.com/rstudio/bookdown). Please see the page "Get Started" at https://bookdown.org/ for how to compile this example.
+In this book, statisticians and economists working at STATEC will learn how use R for their needs.
+Importing data, computing descriptive statistics, running regressions and generating reports are
+some of the topics covered. No previous experience with R is needed.

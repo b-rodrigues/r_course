@@ -3,22 +3,49 @@
 Rstudio is a modern IDE that makes writing R code easier. In this chapter, we will learn about some
 of Rstudio's most useful features.
 
+## Panes
 
+Rstudio is divided into different panes. Each pane has a specific function. The gif below shows
+some of these panes:
 
 ```{r, echo=FALSE}
 knitr::include_graphics("pics/rstudio_panes.gif")
 ```
 
+Take some time to look around what each pane shows you. Some panes are empty; for example the *Plots*
+pane or the *Viewer* pane. *Plots* shows you the plots you make. You can browse the plots and save
+them. We will see this in more detail in a later chapter. *Viewer* shows you previews of documents
+that you generate with R. More on this later.
+
+Look at the gif below:
 
 ```{r, echo=FALSE}
 knitr::include_graphics("pics/rstudio_new_script.gif")
 ```
 
+In this gif, we see the user creating a new R script. R scripts are simple text files that hold R
+code. Think of `.do` files in STATA or `.c` files for C. R scripts have the extension `.r` or `.R`.
+
+## Options
+
+It is also possible to customize Rstudio's look and feel:
 
 ```{r, echo=FALSE}
 knitr::include_graphics("pics/rstudio_options.gif")
 ```
 
+Take some time to go through the options.
+
+## Keyboard shortcuts
+
+It is a good idea to familiarize yourself with at least some keyboard shortcuts. This is more
+convenient than having to move the mouse around:
+
 ```{r, echo=FALSE}
 knitr::include_graphics("pics/rstudio_shortcuts.gif")
 ```
+
+If there is only one keyboard shortcut you need to know, it's `Ctrl-Enter` that executes a line of code
+from your script.
+
+## Projects

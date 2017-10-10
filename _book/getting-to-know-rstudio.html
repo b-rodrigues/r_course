@@ -49,6 +49,43 @@
 
 
 
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -63,14 +100,19 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">A Minimal Book Example</a></li>
+<li><a href="./">R for STATEC</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> What is R?</a><ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i><b>1.1</b> Prerequisites</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#what-are-packages"><i class="fa fa-check"></i><b>1.2</b> What are packages?</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html"><i class="fa fa-check"></i><b>2</b> Getting to know Rstudio</a></li>
+<li class="chapter" data-level="2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html"><i class="fa fa-check"></i><b>2</b> Getting to know Rstudio</a><ul>
+<li class="chapter" data-level="2.1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#panes"><i class="fa fa-check"></i><b>2.1</b> Panes</a></li>
+<li class="chapter" data-level="2.2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#options"><i class="fa fa-check"></i><b>2.2</b> Options</a></li>
+<li class="chapter" data-level="2.3" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#keyboard-shortcuts"><i class="fa fa-check"></i><b>2.3</b> Keyboard shortcuts</a></li>
+<li class="chapter" data-level="2.4" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#projects"><i class="fa fa-check"></i><b>2.4</b> Projects</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
 <li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
 <li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a><ul>
@@ -78,7 +120,7 @@
 <li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
-<li class="chapter" data-level="7" data-path="placeholder.html"><a href="placeholder.html"><i class="fa fa-check"></i><b>7</b> Placeholder</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -101,11 +143,31 @@
 <div id="getting-to-know-rstudio" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> Getting to know Rstudio</h1>
 <p>Rstudio is a modern IDE that makes writing R code easier. In this chapter, we will learn about some of Rstudio’s most useful features.</p>
+<div id="panes" class="section level2">
+<h2><span class="header-section-number">2.1</span> Panes</h2>
+<p>Rstudio is divided into different panes. Each pane has a specific function. The gif below shows some of these panes:</p>
 <p><img src="pics/rstudio_panes.gif" /><!-- --></p>
+<p>Take some time to look around what each pane shows you. Some panes are empty; for example the <em>Plots</em> pane or the <em>Viewer</em> pane. <em>Plots</em> shows you the plots you make. You can browse the plots and save them. We will see this in more detail in a later chapter. <em>Viewer</em> shows you previews of documents that you generate with R. More on this later.</p>
+<p>Look at the gif below:</p>
 <p><img src="pics/rstudio_new_script.gif" /><!-- --></p>
+<p>In this gif, we see the user creating a new R script. R scripts are simple text files that hold R code. Think of <code>.do</code> files in STATA or <code>.c</code> files for C. R scripts have the extension <code>.r</code> or <code>.R</code>.</p>
+</div>
+<div id="options" class="section level2">
+<h2><span class="header-section-number">2.2</span> Options</h2>
+<p>It is also possible to customize Rstudio’s look and feel:</p>
 <p><img src="pics/rstudio_options.gif" /><!-- --></p>
+<p>Take some time to go through the options.</p>
+</div>
+<div id="keyboard-shortcuts" class="section level2">
+<h2><span class="header-section-number">2.3</span> Keyboard shortcuts</h2>
+<p>It is a good idea to familiarize yourself with at least some keyboard shortcuts. This is more convenient than having to move the mouse around:</p>
 <p><img src="pics/rstudio_shortcuts.gif" /><!-- --></p>
+<p>If there is only one keyboard shortcut you need to know, it’s <code>Ctrl-Enter</code> that executes a line of code from your script.</p>
+</div>
+<div id="projects" class="section level2">
+<h2><span class="header-section-number">2.4</span> Projects</h2>
 
+</div>
 </div>
             </section>
 
