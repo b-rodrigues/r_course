@@ -1,0 +1,2066 @@
+\documentclass[a4paper,10pt,oneside]{book}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage[cmex10]{amsmath}
+\usepackage{color}
+\usepackage[noae]{Sweave}
+\usepackage{color}
+\definecolor{Blue}{rgb}{0,0,0.5}
+\definecolor{Green}{rgb}{0,0.5,0}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\usepackage[table]{xcolor}
+\usepackage[space]{grffile}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[top=3cm, bottom=3cm, left=3cm, right=3cm]{geometry}
+\usepackage[colorlinks]{hyperref}
+%\defaultfontfeatures{Ligatures=TeX}
+\usepackage{hypernat}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{ragged2e} 
+
+\RecustomVerbatimEnvironment{Sinput}{Verbatim}{% 
+xleftmargin=2em,%
+fontsize=\footnotesize,%
+fontshape=sl,%
+formatcom=\color{Blue}%
+}
+\RecustomVerbatimEnvironment{Soutput}{Verbatim}{%
+ xleftmargin=2em,%
+ fontsize=\footnotesize,%
+ formatcom=\color{Green}%
+}
+\RecustomVerbatimEnvironment{Scode}{Verbatim}{xleftmargin=2em}
+\renewenvironment{Schunk}{\vspace{\topsep}}{\vspace{\topsep}}
+\fvset{listparameters={\setlength{\topsep}{6pt}}}
+
+
+%\setromanfont{Linux Libertine O}
+%\setsansfont{Linux Libertine O}
+\definecolor{titlepagecolor}{cmyk}{.22,.71,0,0.69}
+\definecolor{namecolor}{cmyk}{1,.4371,0,.3451}
+
+\definecolor{grey}{cmyk}{1,0.45,0,0.35} % Color of the box surrounding the title - these values can be changed to give the box a different color   
+
+\newcommand{\HRule}[1]{\hfill \rule{0.2\linewidth}{#1}} % Horizontal rule at the bottom of the page, adjust width here
+
+%opening
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{Introduction to programming Econometrics with R}
+\fancyhead[RE,LO]{\thechapter}
+\fancyfoot[CE,CO]{\leftmark}
+\fancyfoot[LE,RO]{\thepage}
+
+
+\renewcommand{\headrulewidth}{2pt}
+\renewcommand{\footrulewidth}{1pt}
+
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+
+\thispagestyle{empty} % Remove page numbering on this page
+
+%----------------------------------------------------------------------------------------
+%       TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\colorbox{grey}{
+        \parbox[t]{1.0\linewidth}{
+                \centering \fontsize{30pt}{30pt}\selectfont % The first argument for fontsize is the font size of the text and the second is the line spacing - you may need to play with these for your particular title
+                \vspace*{0.5cm} % Space between the start of the title and the top of the grey box
+                
+                \textcolor{white}{Introduction to programming Econometrics with R}\par
+                
+                \vspace*{0.5cm} % Space between the end of the title and the bottom of the grey box
+        }
+}
+
+%----------------------------------------------------------------------------------------
+
+%\vfill % Space between the title box and author information
+
+%\begin{figure}[htp]
+% \centering
+% \includegraphics[scale=0.1]{Images/cover_code.png}
+%\end{figure}
+
+\vfill
+%----------------------------------------------------------------------------------------
+%       AUTHOR NAME AND INFORMATION SECTION
+%----------------------------------------------------------------------------------------
+
+{\centering \large 
+\hfill Bruno Rodrigues \\
+\hfill University of Strasbourg \\
+\hfill FSEG, Beta-CNRS \\
+\hfill \texttt{http://www.brodrigues.co} \\
+
+\HRule{1pt}} % Horizontal line, thickness changed here
+
+%----------------------------------------------------------------------------------------
+
+\clearpage % Whitespace to the end of the page
+
+\newpage
+\thispagestyle{empty}
+\null
+\vfill
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.1]{Images/CC BY-NC 4.0.png}
+\end{figure}
+
+$1^{st}$ edition, 2014
+
+This work, including its figures, \LaTeX and accompanying R source code, is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit \url{http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+
+Get the book's source code here: \url{https://bitbucket.org/b-rodrigues/programmingeconometrics}
+
+\newpage
+\thispagestyle{empty}
+\section*{Preface}
+
+This book is primarily intended for third year students of the Quantitative Economics section at the faculty of economics from the University of Strasbourg, France. The goal is to teach them the basics of programming with R, and applying this knowledge to solve problems in economics, finance and marketing. You are free to redistribute free copies of this book. You are also free to modify, remix, transform or adapt the contents of this book, but please, give appropriate credit if you do use this book. 
+
+
+\newpage
+
+\tableofcontents
+
+\chapter{A short history of R, installation instructions and asking for help}
+
+\section{History of R: Bell Labs' "S"}
+
+\justify
+R is a modern implementation of the S language. S was developed at Bell Labs where the UNIX operating system, the C language as well as the C++ language were developed. As such R and S are very similar, but R is much more widely used, in part due to its free license, the GPL. The GPL allows users to freely share their own modifications of the software, thus allowing the widespread use of R worldwide.
+
+R is an interpreted language, making it very easy to use: you don't need to compile the code to get the results of your analysis. A lot of pre-programmed routines are included, and you can add more through \emph{packages}. As such, you can use R in two ways, as S's creator suggests:
+
+\begin{quotation}
+" [W]e wanted users to be able to begin in an interactive environment, where they did not consciously think of themselves as programming. Then as their needs became clearer and their sophistication increased, they should be able to slide gradually into programming, when the language and system aspects would become more important."
+
+\begin{flushright}
+John Chambers, the creator of S, in \emph{Stages in the Evolution of S}. \end{flushright}
+
+\end{quotation}
+
+The main idea behind this quote, is that you could use S without knowing a lot about programming or the language itself. However, when your needs would grow, you could go beyond using simple built-in commands, and program your own. This is possible with R of course, and this book will focus on programming your own functions and routines to solve economic, financial, and marketing problems.
+
+\section{Why use R? Why not Excel?}
+
+R and Excel are very different tools, for very different purposes. Just like you wouldn't use a hammer to cut bread, you shouldn't use Excel (or similar software) to do econometrics. R, and other programming languages, make it very easy to go far beyond the pre-programmed routines. R has also other advantages, such as:
+
+\begin{enumerate}
+ \item Runs on any modern operating system 
+\item Very rapid and active development. There are yearly releases, and minor releases in between to fix bugs
+\item Very nice graphs (especially with \texttt{ggplot2}, a package that makes beautiful graphs)
+\item Huge user community, getting help is easy
+\item R is free software; which means
+\begin{itemize}
+ \item No vendor-lockin
+ \item Free to download
+\end{itemize}
+\end{enumerate}
+
+All this makes R a very attractive alternative to other data analysis tools like Excel, STATA or SAS. So much so that R is, according to the TIOBE index\footnote{\url{http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html}}, the most popular programming language for data analysis. In December 2014, R was the $12^{th}$ most popular programming language. All the other languages in front of R were general purpose languages. MATLAB was at the $20^{th}$ position and SAS at the $21^{st}$. R is not only used in academia for teaching purposes, but is also used by Bank of America, Bing, Facebook, Ford, Google, Kickstarter, Mozilla, The New York Times, Twitter, Uber\footnote{\url{http://www.revolutionanalytics.com/companies-using-r}} and much more.
+
+\section{Installation}
+
+This section contains installation instructions for Windows, OSX and some Linux distributions. We will install two things: R itself, and Rstudio, an IDE for R. An IDE (Integrated Development Environment) is an interface that allows the user to program more efficiently. There are other IDE available for R, but Rstudio is probably the best one.
+
+\subsection{Windows}
+
+Go to the following url \url{http://cran.r-project.org/bin/windows/base/} and download the latest version of R. Since you're probably using a modern computer, install the 64-bit version. Once the installation is complete, you can download Rstudio here: \url{http://www.rstudio.com/ide/download/desktop}. Install Rstudio, and you're done.
+
+\subsection{Linux}
+
+For Debian-based systems, run the following command in a terminal: \texttt{sudo apt-get install r-base}. Once the installation is complete, you can download Rstudio here: \url{http://www.rstudio.com/ide/download/desktop}. 
+
+\subsection{OSX}
+
+You can find R at the following \url{http://cran.r-project.org/bin/macosx/}. For Rstudio, follow the instructions above.
+
+\subsection{Other versions of R}
+
+There are other versions of R available that you can install. The most interesting one is probably Revolution R Open. You can get this version here: \url{http://mran.revolutionanalytics.com/download/}. This version is made by Revolution Analytics and is fully compatible with the \emph{traditional} version of R, but is much, much faster. For our purposes though, good old R is enough. But if sometime down the road you need more speed, Revolution R Open is a very good option.
+
+\section{How to ask for help}
+\subsection{Mailing lists, chat rooms and forums}
+Something very important you need to learn very early on when you start programming: how to ask for help. Let's make something clear; this is probably the most important skill that you'll need. 90\% of programming is googling for solutions to your problems, copy/paste code and then adapt it to your problem. As you get more experience, you will be able to do a lot yourself but there will always be something that you will not know how to do. Asking for help, and knowing how to ask for help is crucial.
+
+Before asking for help, you should consult R's built-in help. For example, to get information of the \texttt{lm()} function, you would type:
+
+<<cache = True>>=
+options(continue="
+ ")
+ help(lm)
+@
+
+At the end of the help file, examples are often given. If after reading the help file you still have trouble, try to read the error messages and understand them. For instance, the following command:
+
+<<eval = F>>=
+ lm(y~x)
+@
+
+could return the following error: \texttt{Error in eval(expr, envir, enclos) : object 'y' not found} and you need to understand what this means: here, you tried to run a linear regression without telling R what the variable \texttt{y} is. Do not forget that R only does what you ask him to, and that it can't read your mind. If you are really at a loss, you can ask for help in the official mailing list. Here is the guide to post in the mailing list \url{http://www.r-project.org/posting-guide.html}. You can also ask for help on irc. Go to \url{http://webchat.freenode.net/}, enter a nickname and put "\#r" as the channel you want to connect to. You'll enter a chat room dedicated to help R users. You can also ask for at stackoverflow\footnote{\url{https://stackoverflow.com/}}. This is a website dedicated to programming in general, so you will have to specify that you have trouble with R.
+
+Another piece of advice: you should type every command you read here in this book and try them for yourself. It is the best way to learn.
+
+Now that you know all this, I suggest you watch this video I made that shows you how to use Rstudio: \url{https://copy.com/HoLU9eqjB6eK9Qhr}. The video uses the \texttt{.mp4} format, and works on Firefox and Chrome. 
+
+\section*{Exercises}
+
+\emph{Exercise 1} After having installed R and Rstudio, launch Rstudio and run the following command: \texttt{R.Version()}. Email me the output in a \texttt{.txt} at \texttt{brodrigues@unistra.fr}. 
+
+\chapter{R basics}
+
+In this chapter, we will learn some basic vocabulary. Knowing how things are called makes it easier for you to ask for help and also get help. Most definitions are taken from Wikipedia.
+
+\section{Vocabulary}
+
+\begin{itemize}
+ \item Programming language: a formal constructed language designed to communicate instructions to a computer. R is a programming language dedicated to statistics and econometrics.
+
+ \item Source code: the source code is the file in which you write the instructions. In R, these files have a \texttt{.R} extension. So for example, for you would save the instructions to complete exercise 1 in a file called \texttt{ex1.R}.
+
+ \item Command prompt: In Rstudio, you have a pane where you write your script, and another pane that is the command prompt. You can write commands directly in the command prompt, and the results are shown in the command prompt.
+
+\begin{center}
+ \includegraphics[scale=0.3]{Images/rstudio1.png}
+\end{center}
+
+\item Object: in a programming language, an object is a location in memory with a value and an identifier. An object can be a variable, a data structure (such as a matrix) or a function. An object has generally a type or a class.
+
+\item Class: determines the nature of an object. For example, if A is a matrix, then A would be of class matrix.
+
+\item Identifier: the name of an object. In the example above, A is the identifier.
+
+\item Comments: in your script file, you can also add comments. Comments begin with a \# symbol and are not executed by R.
+\end{itemize}
+
+\section{Style Guidelines}
+
+These guidelines ensure that you write nice code that everyone can understand. These are all shamelessly taken from \emph{Google's R Style Guide}.\footnote{\url{https://google-styleguide.googlecode.com/svn/trunk/Rguide.xml}} For more details and examples, read the whole guide online.
+
+\begin{itemize}
+ \item File names should end in \texttt{.R}
+ 
+ \item Identifiers for numbers and vectors should be written in lowercase. For matrices in uppercase. Function names should use the CapsWords convention.
+
+\item Indentation: two spaces.
+
+\item Spacing: put spaces around all operators \texttt{=, +, -, <-, etc.}.
+ 
+\item Curly braces: first on same line, last on own line.
+
+\item Comments: after the \# symbol, add a space.
+
+\item Constants: constants are defined only with uppercase letters.Example, say you want to define a constant: $\alpha = 3$, define it like this: \texttt{ALPHA = 3}.
+\end{itemize}
+
+
+\section{Data types and objects}
+
+R use a variety of data types. You already know most of them, actually! Integers (\emph{nombres entiers}), floating point numbers, or floats (\emph{nombres réels}), matrices, etc, are all objects you already use on a daily basis. But R has a lot of other data types (that you can find in a lot of other programming languages) that you need to become familiar with.
+
+\subsection{Integers}
+
+Integers are numbers that can be written without a fractional or decimal component, such as 2, -78, 1024, etc. You can assign an integer to a \emph{variable} of your choice. For instance:
+
+<<cache = True>>=
+p <- as.integer(3)
+@
+
+The above code means: "put the integer 3 in a variable called p". The \texttt{<-} is very important; it's the assignment operator. You can check if p is an integer with the class command:
+
+<<cache = True>>=
+class(p)
+@
+
+\subsection{Floating point numbers}
+
+Floating point numbers are representations of real numbers.  These are easier to define:
+
+<<cache = True>>=
+p <- 3
+@
+
+and if you check its type:
+
+<<cache = True>>=
+class(p)
+@
+
+In R, floats are called \texttt{numeric}. As you can see, there is no need to define integers actually, unless you really want to. You can simply assign whatever value you want to give to a variable, and let it be of class \texttt{numeric}.
+
+Decimals are defined with the character \texttt{.}:
+
+<<cache = True>>=
+p <- 3.14
+@
+
+\subsection{Strings}
+
+Strings are chain of characters:
+
+<<cache = True>>=
+a <- "this is a string"
+@
+
+if you check its type:
+
+<<cache = True>>=
+class(a)
+@
+
+
+\subsection{Vectors and matrices}
+
+You can create a vector in different ways. But first of all, it is important to understand that a vector in most programming languages is nothing more than a list of things. These things can be numbers (either integers or floats), strings, or even other vectors. The same applies for matrices.
+
+\subsection{The \texttt{c} command}
+
+A very important command that allows you to build a vector is \texttt{c}:
+
+<<cache = True>>=
+a <- c(1,2,3,4,5)
+@
+
+This creates a vector with elements are the numbers 1, 2, 3, 4, 5. If you check its class:
+
+<<cache = True>>=
+class(a)
+@
+
+This can be confusing: you where probably expecting a to be of class \emph{vector} or something similar. This is not the case if you use \texttt{c} to create the vector, because \texttt{c} doesn't build a vector in the mathematical sense, but rather a list with numbers. You can even check its dimension:
+
+<<cache = True>>=
+dim(a)
+@
+
+A list doesn't have a dimension, that's why the \texttt{dim} command returns \emph{NULL}. If you want to create a true vector, you need to use another command instead of \texttt{c}.
+
+\subsection{The \texttt{cbind} command (and \texttt{rbind} also)}
+
+You can create a \emph{true} vector with \texttt{cbind}:
+
+<<cache = True>>=
+a <- cbind(1,2,3,4,5)
+@
+
+Check its class now:
+
+<<cache = True>>=
+class(a)
+@
+
+This is exactly what we expected. Let's check its dimension:
+
+<<cache = True>>=
+dim(a)
+@
+
+This returns the dimension of \texttt{a} using the LICO notation (number of LInes first, the number of COlumns).
+
+Let's create a bigger matrix:
+
+<<cache = True>>=
+b <- cbind(6,7,8,9,10)
+@
+
+Now let's put vector \texttt{a} and \texttt{b} into a matrix called \texttt{c} using \texttt{rbind}. \texttt{rbind} functions the same way as \texttt{cbind} but glues the vectors together by rows and not by columns.
+
+<<cache = True>>=
+c <- rbind(a,b)
+print(c)
+@
+
+\subsection{The Matrix class}
+
+R also has support for matrices. You can create a matrix of dimension (5,5) filled with 0's with the following command:
+
+<<cache = True>>=
+A <- matrix(0, nrow = 5, ncol = 5)
+@
+
+If you want to create the following matrix:
+
+$$B = \left(
+\begin{array}{ccc}
+ 2 & 4 & 3 \\
+ 1 & 5 & 7
+\end{array} \right)
+$$
+
+you would do it like this:
+
+<<cache = True>>=
+B <- matrix(c(2, 4, 3, 1, 5, 7), nrow = 2, byrow = TRUE)
+@
+
+The option \texttt{byrow = TRUE} means that the rows of the matrix will be filled first.
+
+\subsubsection{Access elements of a matrix or vector}
+
+The above matrix \texttt{A}, has 5 rows and 5 columns. What if we want to access the element at the $2^{nd}$ row, $3^{rd}$ column? Very simple:
+
+<<cache = True>>=
+A[2, 3]
+@
+
+and R returns its value, 0. We can assign a new value to this element if we want. Try:
+
+<<cache = True>>=
+A[2, 3] <- 7
+@
+
+and now take a look at \texttt{A} again. 
+
+<<>>=
+print(A)
+@
+
+Recall our vector \texttt{b}:
+
+<<cache = True>>=
+b <- cbind(6,7,8,9,10)
+@
+
+To access its $3^{rd}$ element, you can simply write:
+
+<<cache = True>>=
+b[3]
+@
+
+
+\subsection{The logical class}
+
+In R, there is a class called logical. This class is the result of logical comparisons, for example, if you type:
+
+<<cache = True>>=
+4 > 3
+@
+
+R returns true. If we save this in a variable \texttt{l}:
+
+<<cache = True>>=
+l <- 4 > 3
+@
+
+and check \texttt{l}'s class:
+
+<<cache = True>>=
+class(l)
+@
+
+R returns \texttt{"logical"}. In other programming languages, \texttt{logical}s are often called \texttt{bool}s. 
+
+A \texttt{logical} variable can only have two values, either \texttt{TRUE} or \texttt{FALSE}. 
+
+\section*{Exercises}
+
+\emph{Write the answers to this exercise inside a file called yourname\_chap2.R and send it to me: \texttt{brodrigues@unistra.fr}. Use comments to explain what you do!}\newline
+
+\emph{Exercise 1} Try to create the following vector:
+
+$$a = (6,3,8,9)$$
+
+and add it this other vector:
+
+$$b = (9,1,3,5)$$
+
+and save the result to a new variable called \texttt{c}. If you have trouble with this exercise, try to Google: "how to add two vectors in R". Same question, but now save the difference of \texttt{a} and \texttt{b} in a new variable \texttt{d}. \newline
+
+\emph{Exercise 2} Using \texttt{a} and \texttt{b} from before, try to get their dot product.\footnote{Produit scalaire}
+
+Try with \texttt{a * b} in the R command prompt. What happened? Try to find the right command to get the dot product. \footnote{Google: "dot product R".} \newline
+
+\emph{Exercise 3} Create a matrix of dimension (30,30) filled with 2's and a matrix of the same dimension filled with 4's. Try to get their dot product with the following operator: \texttt{*}. What happens? Try to find the right operator for the dot product. What can you say about these two operators? \newline
+
+\emph{Exercise 4} Save your first name in a variable \texttt{a} and your surname in a variable \texttt{b}. What does the command:
+
+<<eval = False, cache = True>>=
+paste(a,b)
+@
+
+do? \newline
+
+\emph{Exercise 5} Define the following variables: \texttt{a <- 8, b <- 3, c <- 19}. What do the following lines check? What do they return?
+
+<<eval = F>>=
+a > b
+a == b
+a != b
+a < b
+(a > b) && (a < c)
+(a > b) && (a > c)
+(a > b) || (a < b)
+@
+
+
+\emph{Exercise 6} Define the following matrix:
+
+$$A = \left(
+\begin{array}{ccc}
+ 9 & 4 & 12 \\
+ 5 & 0 & 7 \\
+ 2 & 6 & 8 \\
+ 9 & 2 & 9
+\end{array} \right)
+$$
+
+% A <- matrix( c(9, 4, 12, 5, 0, 7, 2, 6, 8, 9, 2, 9), nrow = 4, byrow = TRUE)
+\begin{enumerate}
+ \item  What does \texttt{A >= 5} do?
+ \item What does \texttt{A[ , 2]} do?
+ \item What command gives you the transpose of this matrix?\footnote{Google: "matrix transpose R".}
+\end{enumerate}
+
+\emph{Exercise 7} Solve the following system of equations:
+
+$$\left(
+\begin{array}{cccc}
+ 9 & 4 & 12 & 2 \\
+ 5 & 0 & 7 & 9\\
+ 2 & 6 & 8 & 0\\
+ 9 & 2 & 9 & 11
+\end{array} \right) \times \left(
+\begin{array}{ccc}
+ x \\
+ y \\
+ z \\
+ t \\
+\end{array}\right) = 
+\left(
+\begin{array}{ccc}
+7\\
+18\\
+1\\
+0
+\end{array}
+\right)
+$$
+
+This is equivalent as writing the following: $A * X = B$. Thus, by pre-multiplying each side of the equation by $A^{-1}$ you get the result for $X$. Thus, you only need the inverse of matrix A and then the product of $A^{-1}$ and $B$. Try finding out how you can invert a matrix in R using your friend Google.
+
+\section{Control Flow}
+It is often very useful to sometimes execute actions only if certain conditions are met, or to execute the same action a certain number of times. In this chapter, we will see how we can achieve that in R. Looping was discovered by Ada Lovelace while she was working with Babbage on the \emph{Analytical Engine}, the first programmable computer\footnote{The Analytical Engine was a mechanical computer of course, but a computer nonetheless.}, sketched in the 19th century but never built. If the Analytical Engine was built, it would have been the first Turing-complete computer in history.
+
+\begin{quotation}
+ \emph{A cycle of operations, then, must be understood to signify any set of operations which is repeated more than once . It is equally a cycle , whether it be repeated twice only, or an indefinite number of times; for it is the fact of a repetition occurring at all that constitutes it such. In many cases of analysis there is a recurring group of one or more cycles; that is, a cycle of cycle , or a cycle of cycles.}
+\end{quotation}
+
+Control flow is probably what makes computer much more useful than calculators and so useful for implementing mathematical algorithms. In the next few sections, we will learn about some of these algorithms to illustrate control flow.
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[scale=0.5]{Images/adalovelace.png}
+ \caption{Ada Lovelace, an English mathematician, discovered the notion of looping and is often credited as being the first computer programmer in history.}
+\end{figure}
+
+
+\subsection{If-else}
+
+Imagine you want a variable \texttt{c} to be equal to 4 if \texttt{a > b}. You could achieve that very easily by using the \texttt{if ... else ...} syntax. Let us suppose the following:
+
+<<cache = True>>=
+a <- 4
+b <- 5
+@
+
+If \texttt{a > b} then \texttt{c} should be equal to 20, else \texttt{c} should be equal to 10. In R code, this would be written like this:
+
+<<cache = True>>=
+if (a > b) { c <- 20
+    } else {
+                c <- 10
+               }
+@
+
+Obviously, here \texttt{c = 10}. There is another command, maybe a bit more complicated to understand at first, but much faster, called \texttt{ifelse}. One can achieve the same result as above by writing the following code:
+
+<<cache = True>>=
+c <- ifelse(a > b, 20, 10)
+@
+
+The above command means exactly the same as previously. If \texttt{(a > b)} then the result is 20, else this result is 10. Then the result is saved in variable \texttt{c}. So why not just use \texttt{ifelse}? This is because the whole \texttt{if ... else} construct is much more general than \texttt{ifelse}. \texttt{ifelse} only works for assigning values conditionally, but that's not always what we want to do.
+
+It is also possible to add multiple statements. For example:
+
+<<cache = True>>=
+if (10 %% 3 == 0) {
+  print("10 is divisible by 3") 
+  } else if (10 %% 2 == 0) {
+    print("10 is divisible by 2")
+}
+@
+
+10 being obviously divisible by 2 and not 3, it is the second phrase that will be printed. The \texttt{\%\%} operator is the modulus operator, which gives the rest of the division of 10 by 2.
+
+\subsection{For loops}
+
+For loops make it possible to repeat a set of instructions \texttt{i} times. For example, try the following:
+
+<<cache = True>>=
+for (i in 1:10){
+  print("hello")
+}
+@
+
+It is also possible to do calculations using for loops. Let's compute the sum of the first 100 integers:
+
+<<cache = True>>=
+result = 0
+for (i in 1:100){
+  result <- result + i
+}
+
+print(result)
+@
+
+\texttt{result} is equal to 5050, the expected result. What happened in that loop? First, we defined a variable called \texttt{result} and set it to 0. Then, when the loops starts, \texttt{i} equals 1, so we add \texttt{result} to \texttt{1}, which is 1. Then, \texttt{i} equals 2, and again, we add \texttt{result} to \texttt{i}. But this time, \texttt{result} equals 1 and \texttt{i} equals 2, so now \texttt{result} equals 3, and we repeat this until \texttt{i} equals 100.
+
+\subsection{While loops}
+\label{whileloops}
+While loops are very similar to for loops. The instructions inside a while loop are repeat while a certain condition holds true. Let's consider the sum of the first 100 integers again:
+
+<<cache = True>>=
+result = 0
+i = 1
+while (i<=100){
+  result <- result + i
+  i <- i + 1
+}
+
+print(result)
+@
+
+Here, we first set \texttt{result} and \texttt{i} to 0. Then, while \texttt{i} is inferior, or equal to 100, we add \texttt{i} to \texttt{result}. Notice that there is a line more than in the for loop: we need to increment the value of \texttt{i}, if not, \texttt{i} would stay equal to 1, and the condition would always be fulfilled, and the program would run forever (not really, only until your computer runs out of memory).
+
+\section*{Exercises}
+
+\emph{Write the answers to this exercise inside a file called yourname\_flow.R and send it to me: \texttt{brodrigues@unistra.fr}. Use comments to explain what you do!}\newline
+
+\emph{Exercise 1} Create the following vector: 
+
+$$a = (1,6,7,8,8,9,2)$$
+
+Using a for loop and a while loop, compute the sum of its elements. To avoid issues, use \texttt{i} as the counter inside the for loop, and \texttt{j} as the counter for the while loop.
+
+%result <- 0
+%for(i in 1:length(a)){
+%result <- result + a[i]
+%}
+
+%result <- 0
+%while (i<=length(a)){
+%result <- result + a[i]
+%i <- i + 1
+%}
+
+\emph{Exercise 2} Let's use a loop to get the matrix product of a matrix A and B. Follow these steps to create the loop:
+
+\begin{enumerate}
+ \item Create matrix A:
+ 
+ $$A = \left(
+\begin{array}{ccc}
+ 9 & 4 & 12 \\
+ 5 & 0 & 7 \\
+ 2 & 6 & 8 \\
+ 9 & 2 & 9
+\end{array} \right)
+$$
+
+\item Create matrix B:
+
+$$B = \left(
+\begin{array}{cccc}
+ 5 & 4 & 2 & 5 \\
+ 2 & 7 & 2 & 1 \\
+ 8 & 3 & 2 & 6 \\
+\end{array} \right)
+$$
+
+\item Create a matrix C, with dimension 4x4 that will hold the result. Use this command: \texttt{C <- matrix(rep(0,16), nrow = 4)}
+
+\item Using a for loop, loop over the rows of A first: \texttt{for(i in 1:nrow(A))}
+
+\item Inside this loop, loop over the columns of B: \texttt{for(j in 1:ncol(B))}
+
+\item Again, inside this loop, loop over the rows of B: \texttt{for(k in 1:nrow(B))}
+
+\item Inside this last loop, compute the result and save it inside C: \texttt{C[i,j] <- C[i,j] + A[i,k] * B[k,j]}
+
+\end{enumerate}
+
+
+%A <- matrix( c(9, 4, 12, 5, 0, 7, 2, 6, 8, 9, 2, 9), nrow = 4, byrow = TRUE)
+
+%B <- matrix( c(5, 4, 2, 5, 2, 7, 2, 1, 8, 3, 2, 6), nrow = 3, byrow = TRUE)
+
+%C <- matrix(rep(0,16), nrow = 4)
+
+%for(i in 1:nrow(A)){
+%  for(j in 1:ncol(B)){
+%    for(k in 1:nrow(B)){
+%      C[i,j] <- C[i,j] + A[i,k] * B[k,j]
+%    }
+%  }
+%}
+
+\emph{Exercise 3} Fizz Buzz: Print integers from 1 to 100. If a number is divisible by 3, print the word \texttt{Fizz} if it's divisible by 5, print \texttt{Buzz}. Use a for loop and if statements.
+
+%for (i in 1:100){
+%if (i %% 15 == 0) {
+%  print("FizzBuzz") 
+%} else if (i %% 3 == 0) {
+%  print("Fizz")
+%} else if (i %% 5 == 0) {
+%  print("Buzz")
+%} else {
+%  print(i)
+%}
+%}
+
+\emph{Exercise 4} Fizz Buzz 2: Same as above, but now add this third condition: if a number is both divisible by 3 and 5, print \texttt{"FizzBuzz"}.
+
+\section{Functions}
+
+One of the goals of a computer is to alleviate you from doing repetitive and boring tasks. In the previous section, we have seen how we can use loops to let the computer repeat hundreds of instructions for us. In this section, we will discover another object, called functions. In programming languages such as R, functions have the same meaning as in mathematics. A function takes one, or several, argument(s) and return a value. For example, you should be familiar with the function $f(x) = \sqrt{x}$ that returns the square root of x. Of course, this function is already pre-programmed inside R. Try the following:
+
+<<cache = True>>=
+sqrt(4)
+@
+
+R should give you the result, \texttt{2}. But very often, it is useful to define your own functions. This is what we are going to learn in this section.
+
+\subsection{Declaring functions in R}
+
+Suppose you want to create the following function: $f(x) = \dfrac{1}{\sqrt{x}}$. This is the syntax you would use:
+
+<<cache = True>>=
+MyFunction <- function(x){
+return(1/sqrt(x))
+}
+@
+
+It is always a good idea to add some comments that explain what the function does:
+
+<<cache = True>>=
+MyFunction <- function(x){
+  # This function takes one argument, x, and return the inverse of its square root.
+return(1/sqrt(x))
+}
+@
+
+Function names should be of the form: \texttt{FunctionName}. Always give your function very explicit names! In mathematics it is standard to give functions just one letter as a name. Never do that in programming! Functions are very flexible. But remember that you can only return one value, or one object. Sometimes you may need to return more that one value. To be able to do this, you must put your values in a list, and return the list of values. You can put a lot of instructions inside a function, such as loops. Let's create the function that returns Fibonacci numbers. 
+
+\subsection{Fibonacci numbers}
+\label{fibonumbers}
+The Fibonacci sequence is the following:
+
+$$1, 1, 2, 3, 5, 8, 13, 21, 34, 55, ...$$
+
+Each subsequent number is composed of the sum of the two preceding ones. In R, it is possible to define a function that returns the $n^{th}$ Fibonacci number:
+
+<<cache = True>>=
+Fibo <- function(n){
+ a <- 0
+ b <- 1
+ for (i in 1:n){
+  temp <- b
+  b <- a
+  a <- a + temp
+ }
+ return(a)
+}
+@
+
+Inside the loop, we defined a variable called \texttt{temp}. Defining temporary variables is usually very useful inside loops. Let's try to understand what happens inside this loop:
+
+\begin{enumerate}
+ \item First, we assign the value 0 to variable \texttt{a} and value 1 to variable \texttt{b}. 
+ \item We start a loop, that goes from 1 to \texttt{n}.
+ \item We assign the value inside of \texttt{b} to a temporary variable, called \texttt{temp}.
+ \item \texttt{b} becomes \texttt{a}.
+ \item We assign the sum of \texttt{a} and \texttt{temp} to a.
+ \item When the loop is finished, we return \texttt{a}.
+\end{enumerate}
+
+What happens if we want the $3^{rd}$ Fibonacci number? At \texttt{n = 1} we have first \texttt{a = 0} and \texttt{b = 1}, then \texttt{temp = 1}, \texttt{b = 0} and \texttt{a = 0 + 1}. Then \texttt{n = 2}. Now \texttt{b = 0} and \texttt{temp = 0}. The previous result, \texttt{a = 0 + 1} is now assigned to \texttt{b}, so \texttt{b = 1}. Then, \texttt{a = 1 + 0}. Finally, \texttt{n = 3}. \texttt{temp = 1} (because \texttt{b = 1}), the previous result \texttt{a = 1} is assigned to \texttt{b} and finally, \texttt{a = 1 + 1}. So the third Fibonacci number equals 2. Reading this might be a bit confusing; I strongly advise you to run the algorithm on a sheet of paper, step by step.
+
+The above algorithm is called an iterative algorithm, because it uses a loop to compute the result. Let's look at another way to think about the problem, with a recursive algorithm.
+
+<<cache = True>>=
+FiboRecur <- function(n){
+ if (n == 0 || n == 1){
+ return(n)} else {
+ return(FiboRecur(n-1) + FiboRecur(n-2))
+}
+}
+@
+
+This algorithm should be easier to understand: if \texttt{n = 0} or \texttt{n = 1} the function should return \texttt{n} (0 or 1). If \texttt{n} is strictly bigger than \texttt{1}, \texttt{FiboRecur} should return the sum of \texttt{FiboRecur(n-1)} and \texttt{FiboRecur(n-2)}. This version of the function is very much the same as the mathematical definition of the Fibonacci sequence. So why not use only recursive algorithms then? Try to run the following:
+
+<<cache = True>>=
+system.time(Fibo(30))
+@
+
+The result should be printed very fast (the \texttt{system.time()} function returns the time that it took to execute \texttt{Fibo(30)}). Let's try with the recursive version:
+
+<<cache = True>>=
+system.time(FiboRecur(30))
+@
+
+It takes much longer to execute! Recursive algorithms are very CPU demanding, so if speed is critical, it's best to avoid recursive algorithms. Also, in \texttt{FiboRecur} try to remove this: \texttt{if (n == 0 || n == 1)} and try to run \texttt{FiboRecur(5)} for example and see what happens. You should get an error: this is because for recursive algorithms you need a stopping condition, or else, it would run forever. This is not the case for iterative algorithms, because the stopping condition is the last step of the loop.
+
+\section*{Exercises}
+
+\emph{Write the answers to this exercise inside a file called yourname\_functions.R and send it to me: \texttt{brodrigues@unistra.fr}. Use comments to explain what you do!}\newline
+
+\emph{Exercise 1} In this exercise, you will write a function to compute the sum of the n first integers. Combine the algorithm we saw in section \ref{whileloops} and what you learned about functions in this section.
+
+ 
+%MySum <- function(n){
+%result = 0
+%i = 1
+%while (i<=n){
+%result <- result + i
+%i <- i + 1
+%}
+%return(result)
+%}
+
+
+\emph{Exercise 2} Write a function called \texttt{MyFactorial} that computes the factorial of a number \texttt{n}. Do it iteratively and recursively.
+
+%MyFactorialIter <- function(n){
+%result = 1
+%for(i in 1:n){
+%result = result * i
+%i = i + 1
+%}
+%return(result)
+%}
+
+
+%MyFactorialRecur <- function(n){
+%if(n == 0 || n == 1){
+%result = 1 } else {
+%return(n * MyFactorialRecur(n-1))
+%}
+%}
+
+\emph{Exercise 3} In this exercise, we will find the eigenvalues of the following matrix:
+
+$$A = \left(
+\begin{array}{ccc}
+3 & 1\\
+1 & 3\\
+\end{array}
+\right)$$
+
+For this exercise, we will first think about the problem at hand, and try to simplify it as much as possible before writing any code.
+
+Remember that if A is full column rank, there will be 2 eigenvalues. Also, remember that the sum of the eigenvalues equals the trace of the matrix and that the product of the eigenvalues equals the determinant of the matrix. This gives you a system of 2 equations. Replace one equation into the other. What do you get? What is it that you finally have to do? Program a function to solve your problem now.
+
+% To solve the problem, we need to solve a quadratic function. Below is a
+% function that returns the roots of a quadratic function
+
+% A <- matrix(c(3, 1, 1, 3), nrow = 2, ncol = 2, byrow = TRUE)
+
+% QuadRoot <- function(a, b, c){
+% fonction that return the root of a quadratic function
+% very basic, doesn't cover the case where delta < 0
+%  delta <- b**2 - 4 * a * c
+%  x1 <- (-b + sqrt(delta)) / (2 * a)
+%  x2 <- (-b - sqrt(delta)) / (2 * a)
+%  return(c(x1, x2))
+%}
+
+% QuadRoot(1, -sum(diag(A)), det(A))
+
+\section{Preprogrammed functions available in R}
+
+In R, a lot of mathematical functions are readily available. We already saw the \texttt{sqrt()} function in the previous section. In this section, we will take a look to some of the more useful functions you need to know about.
+
+\subsection{Numeric functions}
+
+\begin{itemize}
+ \item \texttt{abs(x)}: return the absolute value of x
+ \item \texttt{sqrt(x)}: return the square root of x
+ \item \texttt{round(x, digits = n)}: round a number to the \texttt{n}${}^{th}$ place
+ \item \texttt{exp(x)}: return the exponential of x
+ \item \texttt{log(x)}: return the natural log of x
+ \item \texttt{log10(x)}: return the common log of x
+ \item \texttt{cos(x), sin(x), tan(x)}: trigonometric functions
+ \item \texttt{factorial(x)}: return the factorial of x
+ \item \texttt{sum(x)}: if x is a vector, return the sum of its elements
+ \item \texttt{min(x)}: if x is a vector, return the smallest of its elements
+ \item \texttt{max(x)}: if x is a vector, return the biggest of its elements
+\end{itemize}
+
+\subsection{Statistical and probability functions}
+
+\begin{itemize}
+ \item \texttt{dnorm(x)}: return the normal density function
+ \item \texttt{pnorm(q)}: return the cumulative normal probability for quantile \texttt{q} 
+ \item \texttt{qnorm(p)}: return the quantile at percentile \texttt{p}
+ \item \texttt{rnorm(n, mean = 0, sd = 1)}: return n random numbers from the standard normal distribution
+ \item \texttt{mean(x)}: if x is a vector of observations, return the mean of its elements
+ \item \texttt{sd(x)}: if x is a vector of observations, return its standard deviation
+ \item \texttt{cor(x)}: gives the linear correlation coefficient
+ \item \texttt{median(x)}: if x is a vector of observations, return its median
+ \item \texttt{table(x)}: makes a table of all values of x with frequencies
+ \item \texttt{summary(x)}: if x is a vector, return a number of summary statistics for x
+\end{itemize}
+
+It is also possible to replace the word \texttt{norm} by \texttt{unif} to get the same functions but for the uniform distribution, \texttt{pois} for poisson, \texttt{binom} for the binomial etc.
+
+\subsection{Matrix manipulation}
+
+In the following definitions, A and B are both matrices of conformable dimensions.
+
+\begin{itemize}
+ \item \texttt{A * B}: return the element-wise multiplication of A and B
+ \item \texttt{A \%*\% B}: return the matrix multiplication of A and B
+ \item \texttt{A \%x\% B} or \texttt{kronecker(A, B)}: return the Kronecker product of A and B
+ \item \texttt{t(A)}: return the transpose of A
+ \item \texttt{diag(A)}: return the diagonal of A
+ \item \texttt{eigen(A)}: return the eigenvalues and eigenvectors of A
+ \item \texttt{chol(A)}: Choleski factorization of A
+ \item \texttt{qr(A)}: QR decomposition of A
+\end{itemize}
+
+\subsection{Other useful commands}
+
+\begin{itemize}
+ \item \texttt{rep(a, n)}: repeat a n times
+ \item \texttt{seq(a,b,k)}: creates a sequence of numbers from a to b, by step k
+ \item \texttt{cbind(n1, n2, n3,...)}: creates a vector of numbers
+ \item \texttt{c(n1, n2, n3, ...)}: similar to cbind, but the resulting object doesn't have a dimension
+ \item \texttt{typeof(a)}: check the type of a
+ \item \texttt{dim(a)}: chick dimension of a
+ \item \texttt{length(a)}: returns length of a vector
+ \item \texttt{ls()}: lists memory contents (doesn't take an argument)
+ \item \texttt{sort(x)}: sort the values of vector x
+ \item \texttt{?keyword}: looks up help for keyword. keyword must be an existing command
+ \item \texttt{??keyword}: looks up help for keyword, even if the user is not sure the command exists
+\end{itemize}
+
+\section{Unit testing}
+
+This section is going to be a very short introduction to unit testing. It could be possible to dedicate hours to unit testing, but we're just going to scrap the surface. Even though this section is going to be short, what you will learn here is going to make your life much easier when programming.
+
+Unit tests\footnote{Not to be confused with unit root tests for time series.} are small functions that test your code and help you make sure everything is alright. For example, let's look at the function \texttt{Fibo} from subsection \ref{fibonumbers} again:
+
+
+<<cache = True>>=
+Fibo <- function(n){
+ a <- 0
+ b <- 1
+ for (i in 1:n){
+  temp <- b
+  b <- a
+  a <- a + temp
+ }
+ return(a)
+}
+@
+
+and suppose we save it in a script called \texttt{Fibo.R}. We can then create a new file with the following content:
+
+<<cache = True, eval = False>>=
+test_that("Test Fibo(15)",{
+  phi <- (1 + sqrt(5))/2
+  psi <- (1 - sqrt(5))/2
+  expect_equal(Fibo(15), (phi**15 - psi**15)/sqrt(5))
+})
+
+@
+
+What this script will do is test that \texttt{Fibo(15)} returns indeed the correct result. We compare the result returned by \texttt{Fibo(15)} to Binet's formula, which gives the nth Fibonacci number:
+
+$$F_n = \dfrac{\phi^n - \psi^n}{\sqrt{5}}$$
+
+where $\phi = \dfrac{1 + \sqrt{5}}{2}$ and $\psi = \dfrac{1 - \sqrt{5}}{2}$. If you didn't know about Binet's formula, you could have computed the 4th Fibonacci number by hand and compare it to \texttt{Fibo(4)}, for example.
+
+We then save this new script with a name that \textbf{must} start with \texttt{test}, so name it something like \texttt{testFibo.R}. \texttt{testthat} is a special function from the package \texttt{testthat}, you must install \texttt{testthat} before using it. We will talk more about packages later, for now, simply type
+
+<<eval=False>>=
+install.packages("testthat")
+@
+
+to install \texttt{testthat}. You only need to do this once. Now what you want to do is run the tests and see if your implementation works. 
+
+Now we can run the tests. Run the following commands in the console:
+
+<<eval = False>>=
+library(testthat) #This loads the package testthat so that we can 
+      #use the functions for unit testing
+
+source("Fibo.R")
+
+test_results <- test_dir("path/to/tests", reporter="summary")
+@
+
+Of course, you will have to change the string \texttt{"path/to/tests"} to where you saved your unit tests. If everything goes well, you should see \texttt{DONE} in the console and if you type \texttt{test\_results} in the console you should see this:
+
+\begin{verbatim}
+          file context  test 
+1 test_debug.R         Test Fibo(15) 
+
+nb failed skipped error  user  system  real
+1      0       0  FALSE  0.004    0    0.004
+\end{verbatim}
+
+This summary tells us which files contained the tests, the name of the tests, how many failed or were skipped, if there were errors and the time it took to run everything.
+
+Ok, now you know what unit tests are. But what are they good for? Well, they can really make your life easier if your code get's complicated and if you want to make sure that you do not mess with the parts that work already. 
+
+Imagine the following scenario: I've written \texttt{Fibo.R} and the unit test that goes with it. I decide now to extend \texttt{Fibo.R}, so that it shows the sequence of the nth first Fibonacci numbers instead of just the nth Fibonacci number:
+
+<<cache = True>>=
+Fibo2 <- function(n) {
+  x <- rep(0,n)
+  x[1] <- 1
+  for(i in 3:n) x[i] = x[i-1] + x[i-2]
+  return(x)
+}
+@
+
+What this does is create a vector \texttt{x} that will contain every Fibonacci number. The first is equal to 1, and then the next one are defined in the usual way. Let's just check it:
+
+<<cache = True>>=
+Fibo2(7)
+@
+
+Seems to be working just fine! But let's not stop here. Actually let's write a test to make sure and add it the \texttt{test\_debug.R} and see if everything is alright:
+
+<<cache = True, eval = False>>=
+test_that("Test Fibo2(7)",{
+  expect_equal(Fibo2(7), c(1, 1, 2, 3, 5, 8, 13) )
+})
+@
+
+I computed the vector \texttt{c(1, 1, 2, 3, 5, 8, 13)} by hand to compare it with the result of my function.
+
+This will this if \texttt{Fibo2(7)} returns the correct first 7 Fibonacci numbers.
+
+Let's run the tests:
+
+<<eval = False>>=
+library(testthat) #This loads the package testthat so that we can 
+      #use the functions for unit testing
+
+source("Fibo.R")
+
+test_results <- test_dir("path/to/tests", reporter="summary")
+@
+
+This is the message we get when we run the test:
+
+\begin{verbatim}
+.1
+1. Failure (at test_debug.R#11): Is our new implementation working? --------
+Fibo2(7) not equal to c(1, 1, 2, 3, 5, 8, 13)
+6/7 mismatches (average diff: 3.33).
+First 6:
+ pos  x y diff
+   2  1 0    1
+   3  2 1    1
+   4  3 1    2
+   5  5 2    3
+   6  8 3    5
+   7 13 5    8
+\end{verbatim}
+
+It show the output of \texttt{Fibo2(7)} compared to the vector I computed by hand. It would seem that \texttt{Fibo2(7)} is not working correctly after all! Turns out that \texttt{Fibo2(7)} starts with 1 and then 0. It should start with two 1's and then continue. Let's correct this:
+
+<<cache = True>>=
+Fibo3 <- function(n) {
+  x <- rep(0,n)
+  x[1:2] <- c(1,1)
+  for(i in 1:n){
+    x[i] = x[i-1] + x[i-2]
+  }
+  return(x)
+}
+@
+
+and write a new test:
+
+<<eval = False>>=
+test_that("Test Fibo3(7)",{
+  expect_equal(Fibo3(7), c(1, 1, 2, 3, 5, 8, 13) )
+})
+@
+
+\begin{verbatim}
+          file context        test    nb
+1 test_debug.R         Test Fibo(15)  1
+2 test_debug.R         Test Fibo3(7)  1
+  failed skipped error  user system  real
+1      0       0 FALSE 0.002  0.001 0.003
+2      0       0 FALSE 0.003  0.000 0.003
+\end{verbatim}
+
+Now everything works fine. When you want to write complicated functions, it is considered good practice to write unit tests for it, and especially to test corner cases. It is also a good idea to run your tests each time you change something in your function, to make sure you didn't introduce regressions in your code (i.e. that you changed your working code into non-working code). Each script contain one or more function should have a file with the same name but starting with \verb{test_} that tests the code. You can write more than one test per function and each test should serve a purpose.\footnote{For example, if you write a function that returns the square root of a number, it might not be useful to test that \verb{my_sqrt(4)==2} and that \verb{my_sqrt(9)==3}.}
+
+\section{Putting it all together}
+
+\subsection{Maximum Likelihood estimation}
+
+The goal of this section is to teach you about Maximum Likelihood estimation. After a short theoretical reminder, we will see how we can program our own likelihood function and use R to maximize it.
+
+\subsubsection{Theoretical reminder and motivation}
+
+Maximum likelihood estimation (and its variants) is probably the most used method to estimate parameters of a statistical model. The idea is the following: given a fixed data set, one writes down the likelihood function of the underlying data generating process, usually called the model, which gives the probability of the whole data set, as a function of the parameters. Then, to make the data set as \emph{likely} as possible, one finds the parameters that maximize the likelihood function. In very simple cases, there is no need to perform maximum likelihood estimation as there are closed form solutions for the parameters. For example, for a linear model:
+
+$$Y = X' \beta + \epsilon$$
+
+one can get $\widehat{\beta}$ with the following formula:
+
+$$\widehat{\beta} = (X'X)^{-1}X'Y.$$
+
+However, in more general and complicated cases, such a nice closed form solution does not exist and you will need to program your own likelihood function. Of course, there are functions in R that estimate the most standard models. For example, to estimate the parameters of a linear model in R you can use the \texttt{lm()} function:
+
+<<eval = False>>=
+lm(y ~ x)
+@
+
+where \texttt{y} is a vector and \texttt{x} is a matrix. The command \texttt{lm} regresses \texttt{y} on \texttt{x} and returns $\widehat{\beta}$. However, the goal of this section is to review everything we have learned until now by writing our own likelihood function and then maximize it.
+
+\subsubsection{A simple example: tossing an unfair coin}
+
+Suppose we have an unfair coin, but do not know with which probability it falls on head (or tails). The first thing we can do is observe a sequence of throws. For the sake of the exercise, let us suppose that this probability is 0.7. We will first generate data, and then, using maximum likelihood, try to find this value of 0.7 again.
+
+To generate data from a binomial distribution, run the following command:
+
+<<cache = True>>=
+proba <- 0.7
+mydata <- rbinom(100, 1, proba)
+@
+
+This will create a vector of data with 100 observations from a binomial distribution, with $P(X_i = 1) = 0.7$. Now suppose you give this data to your colleague and ask him to find the value of \texttt{proba} (or the parameter of the model) that generated this data. Your colleague knows that the data generating process behind this data set must be a binomial distribution, because your observations only take on two values, 0 or 1. He knows that the log-likelihood for the binomial model is this\footnote{And most importantly, he forgot that there is a very simple solution to find the parameter very fast...}:
+
+$$\log(L) = \sum_{i = 1}^{n} y_i * \log(p) + (1-y_i) * \log(1-p)$$
+
+He then writes this log-likelihood in R:
+
+<<cache = True>>=
+BinomLogLik <- function(data, proba){
+  result <- 0
+  for(i in 1:length(data)){
+    result <- result + (data[i] * log(proba) + (1 - data[i]) * log(1 - proba))
+    }
+  return(result)
+}    
+@
+
+Below is another way to write the log-likelihood\footnote{From: \url{http://www.johnmyleswhite.com/notebook/2010/04/21/doing-maximum-likelihood-estimation-by-hand-in-r/}}:
+
+<<cache = True>>=
+BinomLogLik2 <- function(data, proba){
+result <- 0
+for (i in 1:length(data)){
+  if (data[i] == 1){
+    result <- result + log(proba)
+    }
+  else {
+    result <- result + log(1-proba)
+    }
+  }
+  return(result)
+}
+@
+
+Usually, a likelihood function always has at least two arguments: the data, and a vector of parameters. Here we don't have a vector but only a scalar, because there is only one parameter to estimate. 
+
+There is still one step missing: this likelihood function must be maximized to recover the estimated value of $p$. For this, we use the \texttt{optim} function in R:
+
+<<eval = False>>=
+optim(par = 0.5, fn = BinomLogLik, data = mydata, method="Brent", 
+  lower=0, upper=1, control = list(fnscale= -1))
+@
+
+This function takes a lot of arguments: 
+
+\begin{itemize}
+ \item \texttt{par} is an initial value for the parameter. Your colleague chose 0.5, because that's the probability that a fair coin lands on heads or tails, but he could have chosen any other value. Usually, it is a good idea to try to find good initial values
+ \item \texttt{fn} is the function to maximize, here \texttt{BinomLogLik}
+ \item \texttt{data} is the argument of our function \texttt{BinomLogLik}. You need to specify every other argument like this
+ \item \texttt{method} this is the optimization method to use. For problems one-dimensional problems, you must use \texttt{Brent}. If you don't specify a method, \texttt{optim} will use the Nelder and Mead algorithm but it only works for multi-dimensional problems. So here, you have to use the \texttt{Brent} method
+ \item \texttt{lower} and \texttt{upper} are the lower and upper bounds to look for the parameter. It is always a good idea to specify bounds, if possible
+ \item \texttt{control = list(fnscale = -1)} By default, \texttt{optim} performs minimization, but with this option it will perform maximization. You can add more arguments to this list, if necessary. 
+\end{itemize}
+
+Another way to maximize the log-likelihood, is to minimize the negative of the log-likelihood:
+
+<<cache = True>>=
+MinusBinomLogLik <- function(data, proba){
+  result <- 0
+  for(i in 1:length(data)){
+    result <- result + (data[i] * log(proba) + (1 - data[i]) * log(1 - proba))
+    }
+  return(-result)
+} 
+@
+
+The only difference with the above function is the minus sign in the \texttt{return} statement. We can now minimize this function, which is equivalent to maximization of the first function:
+
+<<cache = True>>=
+optim(par = 0.5, fn = MinusBinomLogLik, data = mydata, method="Brent", 
+  lower=0, upper=1)
+@
+
+\texttt{\$par} is the value of the estimated parameter and is equal to 0.77 which is quite close to the true value, 0.7. \texttt{\$value} is the value of the likelihood at this point. The other useful thing to look at is \texttt{\$convergence}. This tells you if the optimization algorithm converged correctly. This is very important to know, because if the algorithm didn't converge, it means that you may need to use another algorithm or change some options.
+
+\emph{Exercise 1} The goal of this exercise is to make you write and maximize your own likelihood function. For this, you will need to download and import some data into R. First download the data here: \url{https://www.dropbox.com/s/tv1difslka6jvy0/data_mle.csv?dl=0} and save it somewhere on your computer. Then, from Rstudio, go to the \emph{Environment} tab, and then click on \emph{Import Dataset}. Select the dataset from earlier and leave all the options as they are.
+
+\begin{figure}[t!]
+\centering
+\includegraphics[scale=0.4]{Images/importdatamle.png}
+\end{figure}
+
+Just one more step before you continue; write this in your script:
+
+<<eval = False>>=
+data_mle <- data_mle$x
+@
+
+This way, your data is only a vector instead of a data frame. Don't think too much about it for now, we will learn about all this in the next chapter. Once you have imported the data, you can now start thinking about which probability density, or mass, function to choose. Take a look at the data (type \texttt{data\_mle} in the console). What do you notice? It's also a good idea to take a look at some descriptive statistics and a graph. Try \texttt{mean(data\_mle)}. This should give you a hint about the value of the parameter you're looking for. Also, try this: \texttt{hist(data\_mle)} (in the next chapter we will learn more about \texttt{hist}). One more hint: the data was generated with a density (or mass) function with only one parameter. Now, write the likelihood function in R!
+
+Now that you have written down the likelihood in R, it's a good idea to plot it. We didn't talk much about plots yet, but don't worry, this is going to be easy. Create the following vector:
+
+<<eval = False>>=
+param <- seq(0.1,10, length.out = length(data_mle))
+@
+
+and now type this:
+
+<<eval = False>>=
+plot(param, myLogLik(data_mle, param), type = "l", col = "blue", lwd = 2)
+@
+
+where, of course, you have replaced \texttt{myLogLik} by your own likelihood. Forget about the options to plot. What do you see? Do you think this graph can be useful? Can you think of at least two reasons?
+
+Now, use the \texttt{optim()} function to get the estimated parameter value. Compare it to \texttt{mean(data\_mle)}. Is this surprising?
+
+\chapter{Applied econometrics with R}
+
+Now that you are familiar with R, we can start working with data. There are numerous ways to analyze data. We will start with descriptive statistics, then plots such as histograms and line plots, and conclude with linear models.
+
+\section{Importing data}
+
+The first step to analyze a data set is to import the data into R. Usually, your data is saved somewhere in your computer. R has "to know" where this data set is to work with it. For this chapter, we are going to work with wage data. The data is taken from \emph{An Introduction to classical econometric theory} (Oxford University Press, 2010). You can download the data set and a description here: \url{https://www.dropbox.com/s/32ujx00stvnbcvp/wage.zip?dl=0}. My advice: if you are using a tool such as Dropbox, create a folder in it called something like \emph{programming\_econometrics} and inside this folder another one called \emph{Wage}. Save the data in it. This data set has the \texttt{.csv} extension which is a very common format to save data. CSV stands for \emph{Comma-separated value}. As the name implies, columns in such a file are separated with the symbol \texttt{,}. But the separator could be any other symbol! Always open your file to check the separator if you are having trouble to import the file in R.
+
+Now suppose you want to import the data. On my computer, the data is saved in:
+
+\texttt{/Dropbox/Documents/Work/TDs/Applied Econometrics with R/Data/Wage/wage.csv}
+
+First, we are going to create a new project from Rstudio. In Rstudio, click on \emph{File} and then \emph{New Project}. You should see a window appear with different options. Select the second option \emph{Existing Directory}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{Images/newproj.png}
+\end{figure}
+
+Then select the folder where you save the data. Creating a new project has a lot of advantages. It is easier to load the data, and everyting you do, such as save figures are exported in that folder. Creating a project also allows you to use Git, a version control system. We are not going to talk about Git here, however.
+
+Now we can import the data with the command \texttt{read.csv()}:
+
+<<echo = False>>=
+Wage <- read.csv(file = "Data/Wage/wage.csv", header = T, sep = ",")
+@
+
+<<eval = False>>=
+Wage <- read.csv(file = "wage.csv", header = T, sep = ",")
+@
+
+The \texttt{header = T} part means that the first line of the file contains a \emph{header}, or simply the names of the columns. The columns are separated by a \texttt{,} symbol, so you need to add this with the option \texttt{sep = ","}. In some cases, columns may be separated with different separators so this is where you can specify them.
+
+These are the basics of importing data. But depending on the extension of the data, you may have to use different commands to import it. A very important package for importing data is the \texttt{foreign} package and a more recent one, \texttt{haven}\footnote{haven is very recent and thus not available on CRAN. Check the project's github page for installation instructions \url{https://github.com/hadley/haven}. This package won't be needed for this course.}. But before discussing \texttt{foreign}, let's make a small digression about packages.
+
+\subsection{A small digression: packages}
+
+What are \emph{packages}? Packages are a very neat way to extend R's functionality and probably what makes R so popular. After you install R, you can already do a lot of things. However, sometimes, R's default capabilities are not enough. This is were packages come into play. There are more than 6000 packages (as of 2015) that extend R's capabilities. Some important packages for econometrics are \emph{np} for non-parametric regressions, \emph{gmm} for generalized method of moments estimations, \emph{foreign} and \emph{haven} to import data sets in various formats, \emph{knitr} to generate reports (more on this in the next chapter), \emph{TSA} for time series analysis, \emph{quantreg} for quantile regression... Packages are probably what makes R so attractive. Everything you need is out there, and for a lot of people using R, there is most of the time no need to program anything, just use what is pre-programmed. You can view other useful packages for econometrics here: \url{http://cran.r-project.org/web/views/Econometrics.html}
+
+For the purposes of this course, we will only use a handful of packages. \emph{foreign} is one of them. If your data comes in a format that R cannot read, you should try using the \texttt{foreign} package. To install this package in R, use the following command:
+
+<<eval = False>>=
+install.packages("foreign")
+@
+
+You only need to run this once. You can also use the \emph{Install} button from the \emph{Packages} tab in Rstudio:
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.8]{Images/installpackage.png}
+\end{figure}
+
+Once you click this button a new window appears:
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.8]{Images/installpackages2.png}
+\end{figure}
+
+\newpage
+
+From this window you can then download packages. Once a package is installed, you need to load it to be able to use it. For this, always write at the top of your script the following line:
+
+<<cache>>=
+library("foreign")
+@
+
+To know more about a package, it is always useful to read the associated documentation:
+
+<<cache = True>>=
+help(package=foreign)
+@
+
+You can also achieve this by clicking on the package's name in the \emph{Packages} tab in Rstudio.
+
+It is also possible to write your own packages with your own functions. This is a very clean way to share your source code among colleagues. We won't see how to create our own packages in this course, but if you're interested, I highly recommend \emph{R packages} by Hadley Wickham.\footnote{\url{http://r-pkgs.had.co.nz/}}
+
+\newpage
+
+\subsection{Back to importing data}
+
+To make your life easier, it is possible to import data using Rstudio. For this, click on the \emph{Environment} tab and then the \emph{Import Dataset} button:
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.85]{Images/importdata.png}
+\end{figure}
+
+You can then navigate to the folder where you saved your data and click on it. The following window will appear:
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.7]{Images/importdata2.png}
+\end{figure}
+
+The bottom right window is a preview of your data. Here it looks good, so we can click on import. Now look at the \emph{Console} tab. You should see the command \texttt{read.csv()} appear with the whole path to the data set. Loading data through Rstudio's GUI only works for \texttt{.csv} files though. 
+
+You also will encounter data in the \texttt{.xlsx} format, which is the format used by Microsoft Excel. There are packages to read such data, but the best is to save your Excel sheet into a \texttt{.csv} file. You can do this directly from Excel or Libreoffice. Once you saved the data in the \texttt{.csv} format, it is easy to import it in Rstudio. Now that you imported the data, we can start working with it.
+
+\newpage
+
+\section{One last data type: the data frame type}
+
+Data that is loaded in an R session is usually of a special type, called \emph{data frame}. It is nothing more that a list of vectors, with some useful attributes such as column names. Knowing how to work on data frames is important, because more often than not, data is very messy and you need to clean it before using it. Manipulation of data frames is outside the scope of this introductory book. If you want to know more about data frame manipulation, you can learn more about the \texttt{dplyr} package\footnote{\url{http://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html}} that makes these kind of tasks very easy. You should take a look at \texttt{dplyr} if you plan on being serious with data analysis.
+
+\section{Summary statistics}
+
+One of the first steps analysts do after loading data is look at descriptive statistics and plots. A very useful command for this is \texttt{summary()}:
+
+<<cache = True>>=
+summary(Wage)
+@
+
+You see the mean, median, 1st and 3rd quartiles, minimum and maximum for every variable in your data set. Sometimes you only need summary statistics of one variable. You can do that with:
+
+<<cache = True>>=
+mean(Wage$w)
+@
+
+To access variable \texttt{w} from data set \texttt{wage} you use the \texttt{\$} symbol. If you need to access this variable often, you can save it with a shorter name:
+
+<<cache = True>>=
+wage <- Wage$w
+@
+
+and to get the mean:
+
+<<cache = True>>=
+mean(wage)
+@
+
+Sometimes, it useful to get summary statistics only for a subset of data. Before continuing, here is the description of the data set:
+
+\begin{quotation}
+An extract from the March, 1995 Current Population Survey of the U. S. Census Bureau. 1289 observations, 8 variables, including:
+\end{quotation}
+
+
+\begin{itemize}
+ \item w: wage
+ \item fe: female indicator variable
+ \item nw: nonwhite indicator variable
+ \item un: union indicator
+ \item ed: years of schooling
+ \item ex: years of \emph{potential} experience
+ \item wk: weekly earnings indicator variable
+\end{itemize}
+
+For easier access, it is a good idea to save the columns you need inside new variables:
+
+<<cache = True>>=
+fe <- Wage$fe
+nw <- Wage$nw
+un <- Wage$un
+ed <- Wage$ed
+ex <- Wage$ex
+wk <- Wage$wk
+@
+
+There is a way to do that faster in R, with the command \texttt{attach}:
+
+<<cache = True>>=
+attach(Wage)
+@
+
+This gives you access directly to the columns of \texttt{wage}. Be careful though: sometimes, you may load more than one dataset which can potentially have columns with the same names. It is good practice to save the columns you need in new variables with explicit names, for example:
+
+<<eval = False>>=
+fe_d1 <- data_set1$fe
+fe_d2 <- data_set2$fe
+@
+
+\subsection{Conditional summary statistics}
+
+Let's say you are only interested in knowing the mean of \texttt{wage} for women. You can achieve with \emph{array slicing}:
+
+<<cache = True>>=
+mean(wage[fe == 1])
+@
+
+This means "return the mean of \texttt{wage\$w} where \texttt{wage\$fe} equals 1". This also works with \texttt{summary()} of course. You can add any condition you need. 
+
+Another useful function to know is \texttt{table}. This gives the frequencies of a variable:
+
+<<cache = True>>=
+table(fe)
+@
+
+To get the relative frequencies, you can divide by the number of observations:
+
+<<cache = True>>=
+table(fe) / length(fe)
+@
+
+or use the following command:
+
+<<cache = True>>=
+prop.table(table(fe))
+@
+
+\subsection{Getting descriptive statistics easier with dplyr}
+
+\texttt{dplyr} is one of the packages developed by Hadley Wickham, assistant professor at Rice University and R guru. With \texttt{dplyr} getting summary statistics is easier than with the built-in R commands. For this, you must learn a new operator, \texttt{\%>\%} which is called "pipe". In computing, piping is an old and very useful concept. The best way to understand this new operator is with an example. Let's define a function:
+
+<<cache = True>>=
+my_f <- function(x){
+  return(x+x)
+}
+@
+
+This function takes a number \texttt{x} and returns \texttt{x+x}. Very simple. One way to use it in R is like this:
+
+<<cache = True>>=
+my_f(3)
+@
+
+which returns 6. Now, let's use \texttt{\%>\%} (do not forget to load the \texttt{dplyr} package first!):
+
+<<>>=
+library(dplyr)
+@
+
+<<cache = True>>=
+3 %>% my_f()
+@
+
+and this also returns 6. What \texttt{\%>\%} does is that it passes the object on the left hand side as the first argument of the function on the right hand side. This may seem more complicated than the usual way of doing things, but you'll will see very shortly that it actually increases readability.
+
+Let's try the following: what is the average wage for people of different \emph{races}? This can be done very easily with the \texttt{dplyr} package:
+
+<<cache = True>>=
+Wage %>% group_by(nw) %>% summarise(mean(w))
+@
+
+The command is read like this: "take the \texttt{wage} data set and pipe it to the function \texttt{group\_by}\footnote{A function from the \texttt{dplyr} package.} and now pipe this data set grouped by race to the function summarise. Finally, the function \texttt{summarise} will compute the mean of the wage, by race". Without the \texttt{\%>\%} operator, this would look like this:
+
+<<eval = False>>=
+summarise(group_by(Wage, nw), mean(w))
+@
+
+which is much less readable than above. If you want to have the average wages by education level and marital status, you do it this way:
+
+<<cache = True>>=
+Wage %>% group_by(nw, fe) %>% summarise(mean(w))
+@
+
+If you want more descriptive statistics, just add more summary functions:
+
+<<cache = True>>=
+Wage%>% group_by(nw, fe) %>% summarise(min(w), mean(w), max(w))
+@
+
+You can also save these summary statistics inside variables:
+
+<<cache = True>>=
+wage_by_nw <-  Wage %>% group_by(nw, fe) %>% summarise(min(w), mean(w), max(w))
+@
+
+But to make it look even better you can use another operator: \texttt{->}
+
+<<cache = True>>=
+Wage %>% group_by(nw) %>% summarise(min(w), mean(w), max(w)) -> wage_by_nw
+@
+
+This reads like this: "take the wage data set, group it by race and gender, return the minimum, mean and maximum for these groups and save this table inside \texttt{wage\_by\_nw}". \texttt{dplyr} is capable of much more, but we won't look into the rest of \texttt{dplyr}'s functionality. For more info, you can take a look at the \texttt{Data Wrangling with dplyr and tidyr Cheat Sheet} here: \url{www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf}.
+
+\section{Plots}
+After summary statistics, it also a very good idea to make some plots of the data. There are two main commands that you need to know, \texttt{hist} and \texttt{plot}. \texttt{hist} creates histograms. Histograms are used for discrete data. Age is expressed in years, so it is discrete. In our data set \texttt{age} only has a handful of values. We can know how many like this:
+
+<<cache = True>>=
+length(unique(ed))
+@
+
+We see that \texttt{ed} only has 12 unique values. To have a visual representation of \texttt{ed} a histogram is thus suited.
+
+\subsection{Histograms}
+
+
+To get a basic histogram, use the \texttt{hist()} command:
+
+<<fig = True>>=
+hist(ed)
+@
+
+You can add color, change the name of the plot and much more with different options:
+
+<<fig = True>>=
+hist(ed, main = "Histogram of education", xlab = "Education", ylab = "Density", 
+freq = F, col = "light blue")
+@
+
+You can switch from densities to frequencies by changes the option \texttt{freq = F} to \texttt{freq = T}. You can also add more options, such as the limits of the \texttt{x} and \texttt{y} axis and add a grid:
+
+<<fig = True>>=
+hist(ed, main = "Histogram of education", xlab = "Education", 
+ylab = "Frequency", freq = F, col = "light blue", 
+ylim = c(0, 0.4), xlim = c(0,20))
+grid()
+@
+
+%\begin{center}
+% \includegraphics[scale=0.35]{Images/hist_ed.png}
+%\end{center}
+
+Consult \texttt{hist}'s help to learn about all the options I used above.
+
+
+\subsection{Scatter plots and line graphs}
+
+When graphing wages, it is usually useful to graph the \texttt{log} of the wage instead of just the wage. Let's define a new variable:
+
+<<cache = True>>=
+lnw <- log(w)
+@
+
+Scatter plots can display values for two variables. Try the following:
+
+<<fig = True>>=
+plot(age, lnw)
+@
+
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[scale=0.35]{Images/plot_age_logw.png}
+%\end{figure}
+
+It is not very easy to read, but it seems that the older a person gets, the more he earns. It would be also nice to see the wage conditionally on gender for example. But if you try the above command and replace \texttt{age} with \texttt{fe}, you will not get something very readable. What can be done however, is to just plot the values of wage only for women for example:
+
+<<fig = True>>=
+plot(sort(lnw[fe == 1]))
+@
+
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[scale=0.35]{Images/plot_lnw_fe1.png}
+%\end{figure}
+
+This sorts by ascending order the wages only for women and then plots them. To add the same line for men, we use the command \texttt{line()}:
+
+%\begin{figure}[h!]
+%\centering
+% \includegraphics[scale=0.35]{Images/plot_lnw_fe0.png}
+%\end{figure}
+
+<<fig = True>>=
+plot(sort(lnw[fe == 1]))
+lines(sort(lnw[fe == 0]))
+@
+
+This is not very readable. Let's make it better by adding colors and a legend:
+
+<<fig = True>>=
+plot(sort(lnw[fe == 1]), col = "red", ylab = "Log(Wage)", 
+main = "Wage by gender", type = "l", lwd = 4)
+
+lines(sort(lnw[fe == 0]), col = "blue", lwd = 4)
+
+legend("topleft", legend = c("Women", "Men"), pch = "_", col = c("red", "blue"))
+@
+
+This is the result we get in the end:
+
+%\begin{center}
+% \includegraphics[scale=0.35]{Images/wage_by_gender_colors.png}
+%\end{center}
+
+This already looks much better. To add the legend to the plot, we used the \texttt{legend()} command, with different options, to specify where we want the legend, and what we want in it. The \texttt{pch} option allows you to change the symbols that appear in the legend. Since we are only using lines (as specified by the option \texttt{type = "l"}) I put the symbol \texttt{"\_"}. The option \texttt{lwd()} allows you to change the line width. Change these values and see what happens!
+
+\newpage
+
+\section{Linear Models}
+
+Linear regression models are the most simple type of statistical models that you can use to analyze a dependent variable, conditionally on explanatory variables. A linear model in matrix notation looks like this:
+
+$$Y = X' \beta + epsilon$$
+
+Here, an economists tries to show how a dependent variable $Y$ varies with $X$. $X$ is a matrix where each column is an explanatory variable. For example, one might be interested in the different wage levels for people with different socio-economic backgrounds and/or education levels, age, etc.
+
+But why not just compute means and compare? For example, let's say we want to compare the wages of white and nonwhite workers in the US. Using the data from the previous section, we could compute the means for these groups like this:
+
+<<cache = True>>=
+mean(lnw[nw == 1])
+
+mean(lnw[nw == 0])
+@
+
+We get a result of 2.38  for white workers and 2.16 (both in logs) for black workers, and conclude that black workers earn less because of racism in the US and go to the bar next to the faculty and enjoy a hard-earned Alsatian beer. However, this analysis may be too simple to reach that conclusion. Remember, correlation does not equal causation. What if we also \emph{control} for gender? For example, the following commands compute the wage for female white and black workers:
+
+<<cache = True>>=
+mean(lnw[nw == 1 & fe == 1])
+
+mean(lnw[nw == 0 & fe == 1])
+@
+
+As you can see, the gap is smaller for female workers than for male workers. What if we control for education? More specifically, let's focus on women with less that 12 years of schooling:
+
+<<cache = True>>=
+mean(lnw[nw == 1 & ed < 12 & fe == 1])
+
+mean(lnw[nw == 0 & ed < 12 & fe == 1])
+@
+
+The gap keeps getting lower. We cannot keep adding variables like this however, because we have a lot of them, and these variable can take on a lot of different values. A simple way to study the problem at hand is to estimate a linear model. If we go back to the equation of a linear model defined at the start of the section, what we want to have is $\widehat{\beta}$ which is the vector of parameters of the model. Let us suppose we want to estimate the parameters of the following model:
+
+$$wage = \beta_0 + \beta_1 * nw + \beta_2 * ed + \beta_3 * fe + \varepsilon.$$
+
+$\widehat{\beta_0}$ is called the intercept. Different approaches are possible to estimate $\widehat{\beta_0}, \widehat{\beta_1}$, $\widehat{\beta_2}$ and $\widehat{\beta_3}$. For the linear model, we have a closed form solution for the vector of parameters $\widehat{\beta}$:
+
+$$\widehat{\beta} = (X'X)^{-1}X'Y$$
+
+where $X$ is the following matrix 
+
+$$
+X = \left(\begin{array}{cccc}
+     1 & nw_1 & ed_1 & fe_1\\
+     1 & nw_2 & ed_2 & fe_2\\
+     \vdots & \vdots & \vdots & \vdots\\
+     1 & nw_N & ed_N & fe_N
+    \end{array}\right)
+$$
+
+The first column, which only contains ones is for the intercept. The other columns contain the observed values for variable \texttt{nw} and \texttt{ed}. How would you create the vector of estimated parameters with R? First, you need to create the matrix X. Recall the commands we've seen in the previous chapters:
+
+<<cache = True>>=
+X <- cbind(1, nw, ed, fe)
+@
+
+We should have a matrix that has 4 columns and 1289 lines (because we have 3000 observations in our data set):
+
+<<cache = True>>=
+dim(X)
+@
+
+returns 1289 lines and 4 columns indeed. What more do we need? It would be useful to have the transpose of X:
+
+<<cache = True>>=
+tX <- t(X)
+@
+
+and we have all we need to compute $\widehat{\beta}$:
+
+<<cache = True>>=
+beta_hat <- solve(tX %*% X) %*% tX %*% lnw
+@
+
+You should get the following result for \texttt{beta\_hat}:
+
+<<cache = True>>=
+print(beta_hat)
+@
+
+What does it mean? Suppose that you want to predict the wage of a female, nonwhite worker and control by schooling years. You would simply compute it like this:
+
+$$\widehat{lnw} = 1.311 - 0.14 * 1 + 0.09 * 1 - 0.27 * 1$$
+
+You simply use the obtained results and replace the values of \texttt{nw}, \texttt{ed} and \texttt{fe} for which you want to get the predicated wage. The intercept can be interpreted as the minimum wage. For each year of supplementary schooling the individual gets 0.09 log dollars added to her wage. But being a woman carries a penalty of -0.27 log dollars. 
+
+The second method you can use to obtain the same result is to use the command \texttt{lm()}. Run the following and see what happens:
+
+<<cache = True>>=
+lm(lnw ~ nw + ed + fe)
+@
+
+You should obtain the very same result. The difference between the two methods is that the \texttt{lm()} function does not use the closed form solution from before, but uses a numerical procedure, just like we did at the end of the  previous chapter with the \texttt{optim()} function. If you want more details you can use \texttt{summary()} with \texttt{lm()}:
+
+<<cache = True>>=
+model <-lm(lnw ~ nw + ed + fe)
+summary(model)
+@
+
+The second column of \texttt{summary()} is very important, because it shows the standard errors of the estimated parameters. We see that the standard errors are very small, and that the t values are larger than 2. What this means is that the coefficient is different from 0 at the 5\% threshold. Look at the last column: this shows you the critical probabilities. They're all much smaller than 0.05, meaning, again, that the coefficients are different from 0 at the 5\% threshold. 
+
+\section*{Exercises}
+
+\emph{Exercise 1} 
+
+Estimate the parameters of the following model:
+
+$$wage = \beta_0 + \beta_1 * nw + \beta_2 * ed + \beta_3 * un + \beta_4 * fe + \beta_5 * age + \varepsilon.$$
+
+with the closed form solution formula. Also use the closed form solution to obtain the estimation of the standard error of the parameters:
+
+$$\widehat{SE(\widehat{\beta})} = \sqrt{\sigma^2 * (X'X)_{jj} ^ {-1}}$$
+
+($jj$ means that we only need the diagonal elements of the matrix $(X'X) ^ {-1}$ ) where $\sigma^2$ is replaced by its estimation $s^2$:
+
+$$s^2 = \dfrac{e'e}{n-p} = \dfrac{(Y-X \widehat{\beta})' (Y-X \widehat{\beta})}{n - p}$$
+
+where $n$ is the number of observations and $p$ is the number of estimated parameters. Compare your results with the results obtained with $lm()$.
+
+
+%X <- cbind(1, nw, ed, un, fe, age)
+
+%tX <- t(X)
+
+%beta <- solve((t(X)%*%X))%*%t(X)%*%lnw
+
+%summary(lm(lnw ~ nw + ed + un + fe + age))
+
+%s2 <- t((lnw-X%*%beta))%*%(lnw-X%*%beta)/(length(lnw)-ncol(X))
+
+%estimatedSE <- sqrt(s2*diag(solve((tX%*%X))))
+
+%my_lm <- function(Y, X){
+%  # Get beta first
+%  tX <- t(X)
+%  beta <- solve((t(X)%*%X))%*%t(X)%*%Y
+%  # Now get the estimates for the standard errors
+%  s2 <- t((Y-X%*%beta))%*%(Y-X%*%beta)/(length(Y)-ncol(X))
+%  estimatedSE <- sqrt(s2*diag(solve((tX%*%X))))
+%  result <- data.frame(cbind(beta, estimatedSE))
+%  names(result) <- c("Estimate", "Std. Error")
+%  return(result)
+%}
+
+%my_lm(lnw, X)
+
+How can you get the t values? Take a close look at your estimated parameters and the standard errors. Then take a close look a the t values. Notice something?
+
+%tval <- beta / estimatedSE
+
+Now estimate this model:
+
+$$wage = \beta_0 + \beta_1 * nw + \beta_2 * ed + \beta_3 * un + \beta_4 * fe + \beta_5 * age + \beta_6 * ex + \varepsilon.$$
+
+again with both the closed form solution and the \texttt{lm()} function. What happens? Can you think of a reason of why this happens? Remember that \texttt{ex} is the potential, and not observed, experience. Regress age on a constant, education and experience and see what happens.
+
+% ex == age - ed - 6
+% lm(age ~ ed + ex)
+
+\emph{Exercise 2}
+
+The goal of this exercise is to study the residuals of the regression:
+
+$$wage = \beta_0 + \beta_1 * nw + \beta_2 * ed + \beta_3 * un + \beta_4 * fe + \beta_5 * age + \varepsilon.$$
+
+\begin{itemize}
+ \item Using the closed form solution for $\widehat{\beta}$, get the estimates of the above model.
+ 
+%X <- cbind(1, nw, ed, un, fe, age)
+
+%dim(X)
+
+%tX <- t(X)
+
+%beta_hat <- solve(tX %*% X) %*% tX %*% lnw
+ 
+ \item Compute the fitted values: $\widehat{y} = X' \widehat{\beta}$
+ 
+ %yhat <- X%*%beta_hat
+ 
+ \item Compute the residuals: $\widehat{\varepsilon} = y - \widehat{y}$
+ 
+ %eps <- yhat - lnw
+ 
+ \item Plot  $\widehat{\varepsilon}$. 
+ 
+ %plot(eps)
+ 
+ \item Now estimate the same model, but with $lm()$ and save the regression in a variable called \texttt{my\_model}.
+ 
+%my_model <-lm(lnw ~ nw + ed + un + fe + age)
+ 
+ \item Save the residuals of the regression like this: \texttt{my\_residuals <- my\_model\$residuals}.
+ 
+ % my_residuals <- plot(model$residuals)
+ 
+ \item Plot \texttt{my\_residuals} and compare it to the previous plot to check if your calculations are right.
+\end{itemize}
+
+Does this residual plot seem good? Why / why not? Take a look at a histogram of the residuals. Thoughts?
+
+What should you expect if you plot the fitted values against the residuals? Take a look at the plot:
+
+<<eval = False>>=
+plot(yhat, eps)
+@
+
+Is what you see good? What about:
+
+<<eval = False>>=
+plot(lnw, eps)
+@
+
+Is this surprising?
+
+% P_X=X(X'X)^{-1}X'
+
+% Cov(\hat{Y},\hat{e})=Cov(P_XY,(I-P_X)Y)=P_XCov(Y,Y)(I-P_X)'=\sigma^2P_X(I-P_X)=0
+
+% Cov(Y,\hat{e})=Cov(Y,(I-P_X)Y)=Cov(Y,Y)(I-P_X)'=\sigma^2(I-P_X)
+
+
+\emph{Exercise 3}\footnote{Inspired by \emph{A guide to modern Econometrics} by Marno Verbeek.}
+
+For this exercise, we are going to use data that is available directly from an R package called \texttt{Ecdat}. First install \texttt{Ecdat}:
+
+<<eval = False>>=
+install.packages("Ecdat")
+@
+
+and then you can load the relevant data set:
+
+<<eval = False>>=
+library("Ecdat")
+data(Capm)
+@
+
+We are going to study the risk premium of the food, durables and construction industries using the \emph{Capital asset pricing model}. Remember the formula of the CAPM:
+
+$$E(R_i) - R_f = \beta_i(E(R_m) - R_f)$$
+
+where $E(R_i)$ is the expected return of the capital asset, $R_f$ is the risk free interest rate, $E(R_m)$ is the expected return of market and the $\beta_i$, called the \emph{beta} is the sensitivity of the expected excess asset returns to the expected excess market return. $i$ indexes the different industries. In our data set, we already have the risk premium, $E(R_i) - R_f$ as \texttt{rfood} for the food, \texttt{rcon} for the construction and \texttt{rdur} for the durables industry. The market premium, $E(R_m) - R_f$ is the variable \texttt{rmrf}. How can you obtain the $\beta_i$ for the food, durables and construction industries? Pay attention to the fact that there is no intercept in the formula of the CAPM. Compare this result to the formula you should already now from your introduction to finance course:
+
+$$\beta_i = \dfrac{Cov(R_i, R_m)}{Var(R_m)}$$
+
+What happens if you estimate the CAPM again, but this time by adding an intercept? Are there any significant differences between the estimated \emph{beta}s of the model without intercept? Why / why not? Is this surprising?
+
+% # Capm estimation
+% 
+% # Estimation of: risk_premium of industry = beta * market_premium
+% 
+% capm_food_model <- lm(rfood ~ -1 + rmrf, data=Capm)
+% 
+% summary(capm_food_model)
+% 
+% capm_dur_model <- lm(rdur ~ -1 + rmrf, data=Capm)
+% 
+% summary(capm_dur_model)
+% 
+% capm_con_model <- lm(rcon ~ -1 + rmrf, data=Capm)
+% 
+% summary(capm_con_model)
+% 
+% # an excess return on the market of, say, 10% corresponds to an expected excess return on the food, durables and construction portfolios of 7.9, 11.1 and 11.6% respectively.
+% 
+% #attach(Capm)
+% #cov(rfood + rf, rmrf + rf) / var(rmrf + rf)
+% #cov(rdur + rf, rmrf + rf) / var(rmrf + rf)
+% #cov(rcon + rf, rmrf + rf) / var(rmrf + rf)
+
+
+Now, we want to test for the \emph{January effect}. First, create a new variable called \texttt{month} that repeats the numbers 1 through 12, 43 times (the number of years in the data set). Look into the \texttt{rep} and \texttt{seq} functions. Append this new variable to the data set:
+
+<<eval = False>>=
+Capm$month <- month
+@
+
+Now using \texttt{ifelse()}, create a dummy variable for the month of January. Call this dummy \texttt{jan} and also append it to the data.
+
+% month <- rep(seq(1,12), 516/12)
+
+% Capm$jan <- ifelse(Capm$month == 1, 1, 0)
+
+Now regress the risk premiums of each industry on a constant, the January dummy and the market premium. For each of these industries, is there a positive January effect?
+
+% summary(lm(rfood ~ jan + rmrf, data=Capm)) 
+% negative january effect
+
+% summary(lm(rdur ~ jan + rmrf, data=Capm)) 
+% summary(lm(rcon ~ jan + rmrf, data=Capm)) 
+% no january effect
+
+\chapter{Reproducible research}
+
+\section{What is reproducible research?}
+
+I could not write a better definition than the one you can find on Wikipedia\footnote{\url{https://en.wikipedia.org/wiki/Reproducibility\#Reproducible\_research}}, so let's just quote that:
+
+\begin{quotation}
+\emph{The term reproducible research refers to the idea that the ultimate product of academic research is the paper along with the full computational environment used to produce the results in the paper such as the code, data, etc. that can be used to reproduce the results and create new work based on the research.}
+\end{quotation}
+
+For a study to be credible, people have to be able to reproduce it, this means they need to have access to the data and the computer code of the statistical analysis from the study. Sometimes, it is impossible to share data due to confidentiality issues\footnote{As an example, some researchers in our lab have access to very fine-grained information on 1\% of every French citizen. This includes gender, diploma, wage, taxes paid, etc... The data is accessed remotely and authentication of the researchers is made his fingerprints.} but the code can and should be always shared. How can you trust results if you cannot take a look at the analysis. How can you be sure that the researchers didn't make a mistake, or worse, are not outright lying? 
+
+
+\section{Using R and Rstudio for reproducible research}
+\subsection{Quick introduction to Rmarkdown}
+This semester, you will study a topic that interests you using R and Rstudio. You will write a report and send it to me... But you will write the report with Rstudio directly, and not with Word or Libreoffice. Why not you may ask? Because it's easier with Rstudio, and you will soon see why. 
+
+To start writing a report with Rstudio, click on \texttt{File} $\rightarrow$ \texttt{New File} $\rightarrow$ \texttt{R Markdown...}
+
+The following window should pop up:
+\begin{center}
+ \includegraphics[scale=0.8]{Images/rmarkdown1.png}
+\end{center}
+
+Put whatever title you want (you can change this later), your name and leave the rest as is. 
+ 
+Now you should see this in your editor window:
+
+ \includegraphics[scale=0.55]{Images/rmarkdown2.png}
+
+Before doing anything else, read the document; the information written there is basically all you need to know about R Markdown. Then, click on \texttt{Knit HTML}:
+
+\begin{center}
+ \includegraphics[scale=1]{Images/rmarkdown3.png}
+\end{center}
+
+and wait a few seconds... See what happens? That's right, you get a document with text and R code, and the output directly embedded. If you go back to the \texttt{Knit HTML} button, you can click on the little triangle at the end of the bottom and create a Word document instead of the HTML one (leave the PDF option alone. For this, you need \LaTeX installed on your system. If you don't know what \LaTeX is, don't worry about it). If you then click on \texttt{Knit Word}, Microsoft Word or Libreoffice should open (depending on what's installed on your computer) with the same output as for the HTML file. So to summarise: you create a new R Markdown document (notice that the extension of a R Markdown document is \texttt{.Rmd}) and in it, you put your R code and directly write the text accompanying the code. Then you either knit an HTML file or a \texttt{.docx} file. Beware though, sometimes kniting a \texttt{.docx} file doesn't work very well. In case your document doesn't look like how it's supposed to look, it's better to knit an HTML document (which you can open with any web browser).
+
+What file do you think you have to share if you want to make your study reproducible? You guessed it, the \texttt{.Rmd} file. That way, another researcher can re-knit the documents if he wants to, or change them (for example to adapt your code to his own study).
+
+So what you'll have to do is send me the \texttt{.Rmd} file of your project. As an example, go to the following link: \url{https://www.dropbox.com/s/igw645r4xug46mg/maxLike.rmd?dl=0} and download the \texttt{.Rmd} file and knit it! (As I told you above, kniting a \texttt{.docx} file may not always work, and it seems to be case for this file. It's better to knit an HTML document.) This document shows you how to write the likelihood of a linear regression model. Do not worry if you find the code in that document complicated for now. Just study the structure of the \texttt{.Rmd} file and try to change things. As you can see in the document, there is not only R code, but also another kind of code between \$ sings. This is \LaTeX code and is very useful to write mathematical formulas. For those interested, we will see in the next section how to write some simple \LaTeX formulas. In case you want simple formulas, without using \LaTeX, just write them in plain text like this:
+
+\begin{verbatim}
+```
+y = a + b1 * x1 + e
+```
+\end{verbatim}
+
+To learn more about R Markdown, I strongly invite you to take a look at the R Markdwon cheat sheets made by the developers of Rstudio:
+
+\url{http://shiny.rstudio.com/articles/rm-cheatsheet.html}
+
+Do not forget that the goal of R Markdown is to make research reproducible. So don't forget that you need to make your code portable. This means that if you share a \texttt{.Rmd} file, the person who downloads it only has to push \texttt{Knit HTML} to get the document and nothing more. That is why you should put the data in the same folder as the \texttt{.Rmd} document. So share the whole folder, and in your \texttt{.Rmd} document load your data with the following command:
+
+<<eval = False>>=
+read.csv("data.csv")
+@
+
+and not with the entire path because this is only valid for your computer! 
+
+\subsection{Using Rmarkdown to write simple \LaTeX documents}
+
+\LaTeX is a markup language (such as HTML or Markdown) and is extensively used in academia and in industry to write documents with mathematical formulas. What makes \LaTeX very interesting, is that you can only focus on the contents of your paper and not the form. \LaTeX takes care of the form for you, and makes writing documents easier and faster. However, the entry cost can be a bit high but it is definitely worth it. 
+
+With Rstudio, you can export a RMarkdown file to a PDF, and this actually uses \LaTeX behind the scenes. So if you want to compile such a PDF, you will need to have \LaTeX installed on your system. You need to be aware that this is a very large program. 
+
+For GNU+Linux users, you should find \LaTeX in your system's repositories. For example, for Debian and Ubuntu, install the package called \texttt{texlive-full}. Other distributions should have a similar package that installs everything you need. For Windows users, you will need to install MiKTex. You can find it here: \url{http://miktex.org/download}. I would suggest the 64-bit Netinstaller, and then, choose a complete installation during the installation process. This way, you should have everything you need. For OSX users, MacTeX should be what you need: \url{https://www.tug.org/mactex/}. Once you have installed \LaTeX on your system, you should easily compile PDFs. The result should look much better than a Word document and formulas are always rendered beautifully. 
+
+Below is a preamble I suggest you use:
+
+\begin{verbatim}
+---
+title: "My Title"
+author: "My Name"
+date: "The Date"
+output:
+  pdf_document:
+    toc: yes
+  html_document:
+    toc: yes
+  word_document: default
+header-includes: \usepackage[french]{babel}
+---
+\end{verbatim}
+
+This is a preamble that adds a table of contents and allows the use of French characters such as ç, é, è, à, etc. If you're not writing French documents, you can erase the last line.\footnote{Actually, it seems to depend on the encoding of the document. Documents that are using UTF-8 enconding might not need the last line at all.}
+
+\subsection{pander: good looking tables with RMarkdown}
+
+If you are writing a document with RMarkdown, you may have noticed that the tables and summaries produced are not very good-looking. There is a library that takes care of that though, called \texttt{pander}. As an example, let's take a look at a summary of a linear regression:
+
+<<>>=
+library(Ecdat)
+data(Griliches)
+@
+
+<<cache=TRUE>>=
+model <- lm(lw ~ expr + school + med + iq, data = Griliches)
+@
+
+<<cache=TRUE>>=
+summary(model)
+@
+
+This doesn't look very good inside a document, right? Here is how you can make it look better using \texttt{pander}:
+
+<<eval=FALSE>>=
+library(pander)
+pander(summary(model))
+@
+
+
+<<echo=FALSE, results=tex>>=
+library(xtable)
+print(xtable(summary(model)))
+@
+
+This already looks much better right?\footnote{Your table may look a bit different: I am not writing this document using RMarkdown but Sweave, which is similar but uses \LaTeX directly instead of writing Markdown which is then converted to \LaTeX.}
+
+\newpage
+Now suppose you want to run a new regression, with more variables:
+
+
+<<cache=TRUE>>=
+model2 <- lm(lw ~ expr + school + med + iq + rns + mrt + kww, data = Griliches)
+@
+
+I added 3 new variables. In a "traditional" workflow, I would need to create a new table manually, and copy paste the results by hand, losing a lot of time. Using RMarkdown, a new table can be generated with a single line of code:
+
+<<eval=FALSE>>=
+pander(summary(model2))
+@
+
+
+<<echo=FALSE, results=tex>>=
+library(xtable)
+print(xtable(summary(model2)))
+@
+
+To know more about \texttt{pander} I highly recommend you visit \url{https://rapporter.github.io/pander/}. You can change table titles, change variable names inside the table, etc.
+
+
+
+
+\end{document}
