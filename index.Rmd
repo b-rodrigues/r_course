@@ -3,21 +3,22 @@ title: "Modern R for STATEC"
 author: "Bruno Rodrigues"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-documentclass: book
+documentclass: gitbook
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-cover-image: pics/cover.png
 description: "In this book, statisticians and economists working at STATEC will learn how use R for their needs. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed."
+cover-image: pics/cover.png
 ---
 
+# Preface {-}
 
 
 ```{r, echo=FALSE}
 knitr::include_graphics("pics/cover.png")
 ```
 
-# What is R?
+## What is R? {-}
 
 Read R's official answer to this question
 [here](https://cran.r-project.org/doc/FAQ/R-FAQ.html#What-is-R_003f). To make it short: R is
@@ -26,7 +27,12 @@ to focus on R's functional programming capabilities] programming language that
 focuses on applications in *statistics*. By *statistics* I mean any field that uses statistics such
 as official statistics, economics, finance, data science, etc.
 
-## Prerequisites
+## What is Rstudio? {-}
+
+Rstudio is a modern IDE that makes writing R code easier. The first
+thing we are going to learn is how to use it.
+
+## Prerequisites {-}
 
 R and Rstudio are the two main pieces of software that we are going to use. Both are already installed
 on your desktop computer. R is the programming language and Rstudio is a modern IDE for it.
@@ -42,7 +48,7 @@ distribution, you can install R using the system's package manager. On Ubuntu, i
 
 For Rstudio, look for your operating system [here](https://www.rstudio.com/products/rstudio/download/#download).
 
-## What are packages?
+## What are packages? {-}
 
 There is one more step; we are going to install some packages. Packages are additional pieces of
 code that can be installed from within R with the following function: `install.packages()`. These

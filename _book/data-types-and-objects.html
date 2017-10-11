@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Modern R for STATEC</title>
+  <meta name="description" content="In this book, statisticians and economists working at STATEC will learn how use R for their needs. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed.">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Modern R for STATEC" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="pics/cover.png" />
+  <meta property="og:description" content="In this book, statisticians and economists working at STATEC will learn how use R for their needs. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Modern R for STATEC" />
+  
+  <meta name="twitter:description" content="In this book, statisticians and economists working at STATEC will learn how use R for their needs. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed." />
+  <meta name="twitter:image" content="pics/cover.png" />
+
+<meta name="author" content="Bruno Rodrigues">
+
+
+<meta name="date" content="2017-10-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="packages.html">
+<link rel="next" href="reading-and-writing-data.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Modern R for STATEC</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> What is R?</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i><b>1.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#what-are-packages"><i class="fa fa-check"></i><b>1.2</b> What are packages?</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html"><i class="fa fa-check"></i><b>2</b> Getting to know Rstudio</a><ul>
+<li class="chapter" data-level="2.1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#panes"><i class="fa fa-check"></i><b>2.1</b> Panes</a></li>
+<li class="chapter" data-level="2.2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#console"><i class="fa fa-check"></i><b>2.2</b> Console</a></li>
+<li class="chapter" data-level="2.3" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#scripts"><i class="fa fa-check"></i><b>2.3</b> Scripts</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#the-help-pane"><i class="fa fa-check"></i><b>2.3.1</b> The help pane</a></li>
+<li class="chapter" data-level="2.3.2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#the-environment-pane"><i class="fa fa-check"></i><b>2.3.2</b> The Environment pane</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#options"><i class="fa fa-check"></i><b>2.4</b> Options</a></li>
+<li class="chapter" data-level="2.5" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#keyboard-shortcuts"><i class="fa fa-check"></i><b>2.5</b> Keyboard shortcuts</a></li>
+<li class="chapter" data-level="2.6" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#projects"><i class="fa fa-check"></i><b>2.6</b> Projects</a></li>
+<li class="chapter" data-level="2.7" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#history"><i class="fa fa-check"></i><b>2.7</b> History</a></li>
+<li class="chapter" data-level="2.8" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#plots"><i class="fa fa-check"></i><b>2.8</b> Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>3</b> Packages</a></li>
+<li class="chapter" data-level="4" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html"><i class="fa fa-check"></i><b>4</b> Data types and objects</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-numeric-class"><i class="fa fa-check"></i><b>4.1</b> The <code>numeric</code> class</a></li>
+<li class="chapter" data-level="4.2" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-character-class"><i class="fa fa-check"></i><b>4.2</b> The <code>character</code> class</a></li>
+<li class="chapter" data-level="4.3" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#vectors-and-matrices"><i class="fa fa-check"></i><b>4.3</b> Vectors and matrices</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-c-function"><i class="fa fa-check"></i><b>4.3.1</b> The <code>c()</code> function</a></li>
+<li class="chapter" data-level="4.3.2" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#cbind-and-rbind"><i class="fa fa-check"></i><b>4.3.2</b> <code>cbind()</code> and <code>rbind()</code></a></li>
+<li class="chapter" data-level="4.3.3" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-matrix-class"><i class="fa fa-check"></i><b>4.3.3</b> The <code>matrix</code> class</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-logical-class"><i class="fa fa-check"></i><b>4.4</b> The <code>logical</code> class</a></li>
+<li class="chapter" data-level="4.5" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-list-class"><i class="fa fa-check"></i><b>4.5</b> The <code>list</code> class</a></li>
+<li class="chapter" data-level="4.6" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercises"><i class="fa fa-check"></i><b>4.6</b> Exercises</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-1"><i class="fa fa-check"></i><b>4.6.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="4.6.2" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-2"><i class="fa fa-check"></i><b>4.6.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="4.6.3" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-3"><i class="fa fa-check"></i><b>4.6.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="4.6.4" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-4"><i class="fa fa-check"></i><b>4.6.4</b> Exercise 4</a></li>
+<li class="chapter" data-level="4.6.5" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-5"><i class="fa fa-check"></i><b>4.6.5</b> Exercise 5</a></li>
+<li class="chapter" data-level="4.6.6" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-6"><i class="fa fa-check"></i><b>4.6.6</b> Exercise 6</a></li>
+<li class="chapter" data-level="4.6.7" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-7"><i class="fa fa-check"></i><b>4.6.7</b> Exercise 7</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html"><i class="fa fa-check"></i><b>5</b> Reading and writing data</a></li>
+<li class="chapter" data-level="6" data-path="descriptive-statistics.html"><a href="descriptive-statistics.html"><i class="fa fa-check"></i><b>6</b> Descriptive statistics</a></li>
+<li class="chapter" data-level="7" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>7</b> Graphs</a><ul>
+<li class="chapter" data-level="7.1" data-path="graphs.html"><a href="graphs.html#ggplot2"><i class="fa fa-check"></i><b>7.1</b> ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="programming-with-r.html"><a href="programming-with-r.html"><i class="fa fa-check"></i><b>8</b> Programming with R</a><ul>
+<li class="chapter" data-level="8.1" data-path="programming-with-r.html"><a href="programming-with-r.html#writing-your-own-functions"><i class="fa fa-check"></i><b>8.1</b> Writing your own functions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="9" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>9</b> Statistical models</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modern R for STATEC</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-types-and-objects" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Data types and objects</h1>
+<p>R use a variety of data types. You already know most of them, actually! Integers (), floating point numbers, or floats (), matrices, etc, are all objects you already use on a daily basis. But R has a lot of other data types (that you can find in a lot of other programming languages) that you need to become familiar with.</p>
+<p>But first, we need to learn how to assign a variable. This can be done in two ways:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="dv">3</span></code></pre></div>
+<p>or</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="dv">3</span></code></pre></div>
+<p>there is almost no difference between these two approaches. Out of habit, I use <code>=</code>, but you can use <code>=</code> if you wish.</p>
+<div id="the-numeric-class" class="section level2">
+<h2><span class="header-section-number">4.1</span> The <code>numeric</code> class</h2>
+<p>To define single numbers, you can do the following:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="dv">3</span></code></pre></div>
+<p>The <code>class()</code> function allows you to check the class of an object:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(a)</code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<p>Decimals are defined with the character `.}:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="fl">3.14</span></code></pre></div>
+</div>
+<div id="the-character-class" class="section level2">
+<h2><span class="header-section-number">4.2</span> The <code>character</code> class</h2>
+<p>Use <code>&quot; &quot;</code> to define characters (called strings in other programming languages):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> &quot;this is a string&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(a)</code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+</div>
+<div id="vectors-and-matrices" class="section level2">
+<h2><span class="header-section-number">4.3</span> Vectors and matrices</h2>
+<p>You can create a vector in different ways. But first of all, it is important to understand that a vector in most programming languages is nothing more than a list of things. These things can be numbers (either integers or floats), strings, or even other vectors. The same applies for matrices.</p>
+<div id="the-c-function" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> The <code>c()</code> function</h3>
+<p>matrix_a very important function that allows you to build a vector is <code>c()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</code></pre></div>
+<p>This creates a vector with elements 1, 2, 3, 4, 5. If you check its class:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(a)</code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<p>This can be confusing: you where probably expecting a to be of class  or something similar. This is not the case if you use <code>c()</code> to create the vector, because <code>c()</code> doesn’t build a vector in the mathematical sense, but rather a list with numbers. Checking its dimension:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(a)</code></pre></div>
+<pre><code>## NULL</code></pre>
+<p>matrix_a list doesn’t have a dimension, that’s why the <code>dim()</code> command returns <code>NULL</code>. If you want to create a true vector, you need to use <code>cbind()</code> or <code>rbind()</code>.</p>
+</div>
+<div id="cbind-and-rbind" class="section level3">
+<h3><span class="header-section-number">4.3.2</span> <code>cbind()</code> and <code>rbind()</code></h3>
+<p>You can create a <em>true</em> vector with <code>cbind()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</code></pre></div>
+<p>Check its class now:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(a)</code></pre></div>
+<pre><code>## [1] &quot;matrix&quot;</code></pre>
+<p>This is exactly what we expected. Let’s check its dimension:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(a)</code></pre></div>
+<pre><code>## [1] 1 5</code></pre>
+<p>This returns the dimension of <code>a</code> using the LICO notation (number of LInes first, the number of COlumns).</p>
+<p>It is also possible to bind vectors together to create a matrix.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b =<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)</code></pre></div>
+<p>Now let’s put vector <code>a</code> and <code>b</code> into a matrix called <code>matrix_c</code> using <code>rbind()</code>. <code>rbind()</code> functions the same way as <code>cbind()</code> but glues the vectors together by rows and not by columns.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matrix_c =<span class="st"> </span><span class="kw">rbind</span>(a,b)
+<span class="kw">print</span>(matrix_c)</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    2    3    4    5
+## [2,]    6    7    8    9   10</code></pre>
+</div>
+<div id="the-matrix-class" class="section level3">
+<h3><span class="header-section-number">4.3.3</span> The <code>matrix</code> class</h3>
+<p>R also has support for matrices. For example, you can create a matrix of dimension (5,5) filled with 0’s with the <code>matrix()</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matrix_a =<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">ncol =</span> <span class="dv">5</span>)</code></pre></div>
+<p>If you want to create the following matrix:</p>
+<p><span class="math display">\[
+B = \left(
+\begin{array}{ccc}
+ 2 &amp; 4 &amp; 3 \\
+ 1 &amp; 5 &amp; 7
+\end{array} \right)
+\]</span></p>
+<p>you would do it like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">B =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>The option <code>byrow = TRUE</code> means that the rows of the matrix will be filled first.</p>
+<p>You can access individual elements of <code>matrix_A</code> like so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matrix_a[<span class="dv">2</span>, <span class="dv">3</span>]</code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p>and R returns its value, 0. We can assign a new value to this element if we want. Try:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matrix_a[<span class="dv">2</span>, <span class="dv">3</span>] =<span class="st"> </span><span class="dv">7</span></code></pre></div>
+<p>and now take a look at <code>matrix_a</code> again.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(matrix_a)</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    0    0    0    0    0
+## [2,]    0    0    7    0    0
+## [3,]    0    0    0    0    0
+## [4,]    0    0    0    0    0
+## [5,]    0    0    0    0    0</code></pre>
+<p>Recall our vector <code>b</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b =<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)</code></pre></div>
+<p>To access its third element, you can simply write:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b[<span class="dv">3</span>]</code></pre></div>
+<pre><code>## [1] 8</code></pre>
+</div>
+</div>
+<div id="the-logical-class" class="section level2">
+<h2><span class="header-section-number">4.4</span> The <code>logical</code> class</h2>
+<p>This class is the result of logical comparisons, for example, if you type:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">4</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>R returns true. If we save this in a variable <code>l</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l =<span class="st"> </span><span class="dv">4</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span></code></pre></div>
+<p>and check <code>l</code>’s class:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(l)</code></pre></div>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<p>R returns <code>logical</code>. In other programming languages, <code>logical</code>s are often called <code>bool</code>s.</p>
+<p>A <code>logical</code> variable can only have two values, either <code>TRUE</code> or <code>FALSE</code>.</p>
+</div>
+<div id="the-list-class" class="section level2">
+<h2><span class="header-section-number">4.5</span> The <code>list</code> class</h2>
+<p>The <code>list</code> class is a very flexible class, and thus, very useful. You can put anything inside a list, such as numbers:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">list1 =<span class="st"> </span><span class="kw">list</span>(<span class="dv">3</span>, <span class="dv">2</span>)</code></pre></div>
+<p>or vectors:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">list2 =<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>))</code></pre></div>
+<p>you can also put objects of different classes in the same list:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">list3 =<span class="st"> </span><span class="kw">list</span>(<span class="dv">3</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="st">&quot;lists are amazing!&quot;</span>)</code></pre></div>
+<p>and of course create list of lists:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_lists =<span class="st"> </span><span class="kw">list</span>(list1, list2, list3)</code></pre></div>
+</div>
+<div id="exercises" class="section level2">
+<h2><span class="header-section-number">4.6</span> Exercises</h2>
+<div id="exercise-1" class="section level3">
+<h3><span class="header-section-number">4.6.1</span> Exercise 1</h3>
+<p>Try to create the following vector:</p>
+<p><span class="math display">\[a = (6,3,8,9)\]</span></p>
+<p>and add it this other vector:</p>
+<p><span class="math display">\[b = (9,1,3,5)\]</span></p>
+<p>and save the result to a new variable called <code>result</code>.</p>
+</div>
+<div id="exercise-2" class="section level3">
+<h3><span class="header-section-number">4.6.2</span> Exercise 2</h3>
+<p>Using <code>a</code> and <code>b</code> from before, try to get their dot product.</p>
+<p>Try with <code>a * b</code> in the R command prompt. What happened? Try to find the right command to get the dot product. Don’t hesitate to google the answer!</p>
+</div>
+<div id="exercise-3" class="section level3">
+<h3><span class="header-section-number">4.6.3</span> Exercise 3</h3>
+<p>Can you create a matrix of dimension (30,30) filled with 2’s by only using the function <code>matrix()</code>?</p>
+</div>
+<div id="exercise-4" class="section level3">
+<h3><span class="header-section-number">4.6.4</span> Exercise 4</h3>
+<p>Save your first name in a variable <code>a</code> and your surname in a variable <code>b</code>. What does the command:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste</span>(a,b)</code></pre></div>
+<pre><code>## [1] &quot;1 6&quot;  &quot;2 7&quot;  &quot;3 8&quot;  &quot;4 9&quot;  &quot;5 10&quot;</code></pre>
+<p>do? Look at the help for <code>paste()</code> with <code>?paste</code> or using the <em>Help</em> pane in Rstudio. What does the optional argument <code>sep</code> do?</p>
+</div>
+<div id="exercise-5" class="section level3">
+<h3><span class="header-section-number">4.6.5</span> Exercise 5</h3>
+<p>Define the following variables: <code>a = 8</code>, <code>b = 3</code>, <code>c = 19</code>. What do the following lines check? What do they return?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a <span class="op">&gt;</span><span class="st"> </span>b
+a <span class="op">==</span><span class="st"> </span>b
+a <span class="op">!=</span><span class="st"> </span>b
+a <span class="op">&lt;</span><span class="st"> </span>b
+(a <span class="op">&gt;</span><span class="st"> </span>b) <span class="op">&amp;&amp;</span><span class="st"> </span>(a <span class="op">&lt;</span><span class="st"> </span>c)
+(a <span class="op">&gt;</span><span class="st"> </span>b) <span class="op">&amp;&amp;</span><span class="st"> </span>(a <span class="op">&gt;</span><span class="st"> </span>c)
+(a <span class="op">&gt;</span><span class="st"> </span>b) <span class="op">||</span><span class="st"> </span>(a <span class="op">&lt;</span><span class="st"> </span>b)</code></pre></div>
+</div>
+<div id="exercise-6" class="section level3">
+<h3><span class="header-section-number">4.6.6</span> Exercise 6</h3>
+<p>Define the following matrix:</p>
+<p><span class="math display">\[
+matrix_a = \left(
+\begin{array}{ccc}
+ 9 &amp; 4 &amp; 12 \\
+ 5 &amp; 0 &amp; 7 \\
+ 2 &amp; 6 &amp; 8 \\
+ 9 &amp; 2 &amp; 9
+\end{array} \right)
+\]</span></p>
+<ul>
+<li>What does <code>matrix_a &gt;= 5</code> do?</li>
+<li>What does <code>matrix_a[ , 2]</code> do?</li>
+<li>Can you find which function gives you the transpose of this matrix?</li>
+</ul>
+</div>
+<div id="exercise-7" class="section level3">
+<h3><span class="header-section-number">4.6.7</span> Exercise 7</h3>
+<p>Solve the following system of equations:</p>
+<p><span class="math display">\[
+\left(
+\begin{array}{cccc}
+ 9 &amp; 4 &amp; 12 &amp; 2 \\
+ 5 &amp; 0 &amp; 7 &amp; 9\\
+ 2 &amp; 6 &amp; 8 &amp; 0\\
+ 9 &amp; 2 &amp; 9 &amp; 11
+\end{array} \right) \times \left(
+\begin{array}{ccc}
+ x \\
+ y \\
+ z \\
+ t \\
+\end{array}\right) =
+\left(
+\begin{array}{ccc}
+7\\
+18\\
+1\\
+0
+\end{array}
+\right)
+\]</span></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="packages.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="reading-and-writing-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

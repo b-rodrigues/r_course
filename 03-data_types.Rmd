@@ -1,0 +1,333 @@
+# Data types and objects
+
+R use a variety of data types. You already know most of them, actually!
+Integers (\emph{nombres entiers}), floating point numbers, or floats (\emph{nombres réels}),
+matrices, etc, are all objects you already use on a daily basis.
+But R has a lot of other data types (that you can find in a lot of other programming languages)
+that you need to become familiar with.
+
+But first, we need to learn how to assign a variable. This can be done in two ways:
+
+```{r}
+a = 3
+```
+
+or
+
+```{r}
+a = 3
+```
+
+there is almost no difference between these two approaches. Out of habit, I use `=`, but you can
+use `=` if you wish.
+
+## The `numeric` class
+
+To define single numbers, you can do the following:
+
+```{r}
+a = 3
+```
+
+The `class()` function allows you to check the class of an object:
+
+```{r}
+class(a)
+```
+
+Decimals are defined with the character `.}:
+
+```{r}
+a = 3.14
+```
+
+## The `character` class
+
+Use `" "` to define characters (called strings in other programming languages):
+
+```{r}
+a = "this is a string"
+```
+
+```{r}
+class(a)
+```
+
+## Vectors and matrices
+
+You can create a vector in different ways. But first of all, it is important to understand that a
+vector in most programming languages is nothing more than a list of things. These things can be
+numbers (either integers or floats), strings, or even other vectors. The same applies for matrices.
+
+### The `c()` function
+
+matrix_a very important function that allows you to build a vector is `c()`:
+
+```{r}
+a = c(1,2,3,4,5)
+```
+
+This creates a vector with elements 1, 2, 3, 4, 5. If you check its class:
+
+```{r}
+class(a)
+```
+
+This can be confusing: you where probably expecting a to be of class \emph{vector} or
+something similar. This is not the case if you use `c()` to create the vector, because `c()`
+doesn't build a vector in the mathematical sense, but rather a list with numbers.
+Checking its dimension:
+
+```{r}
+dim(a)
+```
+
+matrix_a list doesn't have a dimension, that's why the `dim()` command returns `NULL`. If you want to
+create a true vector, you need to use `cbind()` or `rbind()`.
+
+### `cbind()` and `rbind()`
+
+You can create a *true* vector with `cbind()`:
+
+```{r}
+a = cbind(1,2,3,4,5)
+```
+
+Check its class now:
+
+```{r}
+class(a)
+```
+
+This is exactly what we expected. Let's check its dimension:
+
+```{r}
+dim(a)
+```
+
+This returns the dimension of `a` using the LICO notation (number of LInes first, the number of COlumns).
+
+It is also possible to bind vectors together to create a matrix.
+
+```{r}
+b = cbind(6,7,8,9,10)
+```
+
+Now let's put vector `a` and `b` into a matrix called `matrix_c` using `rbind()`.
+`rbind()` functions the same way as `cbind()` but glues the vectors together by rows and not by columns.
+
+```{r}
+matrix_c = rbind(a,b)
+print(matrix_c)
+```
+
+### The `matrix` class
+
+R also has support for matrices. For example, you can create a matrix of dimension (5,5) filled
+with 0's with the `matrix()` function:
+
+```{r}
+matrix_a = matrix(0, nrow = 5, ncol = 5)
+```
+
+If you want to create the following matrix:
+
+\[
+B = \left(
+\begin{array}{ccc}
+ 2 & 4 & 3 \\
+ 1 & 5 & 7
+\end{array} \right)
+\]
+
+you would do it like this:
+
+```{r}
+B = matrix(c(2, 4, 3, 1, 5, 7), nrow = 2, byrow = TRUE)
+```
+
+The option `byrow = TRUE` means that the rows of the matrix will be filled first.
+
+You can access individual elements of `matrix_A` like so:
+
+
+```{r}
+matrix_a[2, 3]
+```
+
+and R returns its value, 0. We can assign a new value to this element if we want. Try:
+
+```{r}
+matrix_a[2, 3] = 7
+```
+
+and now take a look at `matrix_a` again.
+
+```{r}
+print(matrix_a)
+```
+
+Recall our vector `b`:
+
+```{r}
+b = cbind(6,7,8,9,10)
+```
+
+To access its third element, you can simply write:
+
+```{r}
+b[3]
+```
+
+## The `logical` class
+
+This class is the result of logical comparisons, for example, if you type:
+
+```{r}
+4 > 3
+```
+
+R returns true. If we save this in a variable `l`:
+
+```{r}
+l = 4 > 3
+```
+
+and check `l`'s class:
+
+```{r}
+class(l)
+```
+
+R returns `logical`. In other programming languages, `logical`s are often called `bool`s.
+
+A `logical` variable can only have two values, either `TRUE` or `FALSE`.
+
+
+## The `list` class
+
+The `list` class is a very flexible class, and thus, very useful. You can put anything inside a list,
+such as numbers:
+
+```{r}
+list1 = list(3, 2)
+```
+
+or vectors:
+
+```{r}
+list2 = list(c(1, 2), c(3, 4))
+```
+
+you can also put objects of different classes in the same list:
+
+```{r}
+list3 = list(3, c(1, 2), "lists are amazing!")
+```
+
+and of course create list of lists:
+
+```{r}
+my_lists = list(list1, list2, list3)
+```
+
+## Exercises
+
+### Exercise 1
+
+Try to create the following vector:
+
+$$a = (6,3,8,9)$$
+
+and add it this other vector:
+
+$$b = (9,1,3,5)$$
+
+and save the result to a new variable called `result`.
+
+### Exercise 2
+
+Using `a` and `b` from before, try to get their dot product.
+
+Try with `a * b` in the R command prompt. What happened?
+Try to find the right command to get the dot product. Don't hesitate to google the answer!
+
+### Exercise 3
+
+Can you create a matrix of dimension (30,30) filled with 2's by only using the function `matrix()`?
+
+### Exercise 4
+
+Save your first name in a variable `a` and your surname in a variable `b`. What does the command:
+
+```{r}
+paste(a,b)
+```
+
+do? Look at the help for `paste()` with `?paste` or using the *Help* pane in Rstudio. What does the
+optional argument `sep` do?
+
+### Exercise 5
+
+Define the following variables: `a = 8`, `b = 3`, `c = 19`. What do the following lines check?
+What do they return?
+
+```{r, eval=FALSE}
+a > b
+a == b
+a != b
+a < b
+(a > b) && (a < c)
+(a > b) && (a > c)
+(a > b) || (a < b)
+```
+
+### Exercise 6
+
+Define the following matrix:
+
+\[
+matrix_a = \left(
+\begin{array}{ccc}
+ 9 & 4 & 12 \\
+ 5 & 0 & 7 \\
+ 2 & 6 & 8 \\
+ 9 & 2 & 9
+\end{array} \right)
+\]
+
+```{r, echo=FALSE}
+matrix_a = matrix( c(9, 4, 12, 5, 0, 7, 2, 6, 8, 9, 2, 9), nrow = 4, byrow = TRUE)
+```
+
+* What does `matrix_a >= 5` do?
+* What does `matrix_a[ , 2]` do?
+* Can you find which function gives you the transpose of this matrix?
+
+### Exercise 7
+
+Solve the following system of equations:
+
+\[
+\left(
+\begin{array}{cccc}
+ 9 & 4 & 12 & 2 \\
+ 5 & 0 & 7 & 9\\
+ 2 & 6 & 8 & 0\\
+ 9 & 2 & 9 & 11
+\end{array} \right) \times \left(
+\begin{array}{ccc}
+ x \\
+ y \\
+ z \\
+ t \\
+\end{array}\right) =
+\left(
+\begin{array}{ccc}
+7\\
+18\\
+1\\
+0
+\end{array}
+\right)
+\]
