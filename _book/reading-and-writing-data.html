@@ -153,8 +153,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7" data-path="programming-with-r.html"><a href="programming-with-r.html"><i class="fa fa-check"></i><b>7</b> Programming with R</a><ul>
 <li class="chapter" data-level="7.1" data-path="programming-with-r.html"><a href="programming-with-r.html#writing-your-own-functions"><i class="fa fa-check"></i><b>7.1</b> Writing your own functions</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="placeholder.html"><a href="placeholder.html"><i class="fa fa-check"></i><b>8</b> Placeholder</a></li>
-<li class="chapter" data-level="9" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>9</b> Statistical models</a></li>
+<li class="chapter" data-level="8" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>8</b> Statistical models</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -338,6 +338,17 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
