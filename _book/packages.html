@@ -153,8 +153,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7" data-path="programming-with-r.html"><a href="programming-with-r.html"><i class="fa fa-check"></i><b>7</b> Programming with R</a><ul>
 <li class="chapter" data-level="7.1" data-path="programming-with-r.html"><a href="programming-with-r.html#writing-your-own-functions"><i class="fa fa-check"></i><b>7.1</b> Writing your own functions</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
-<li class="chapter" data-level="8" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>8</b> Statistical models</a></li>
+<li class="chapter" data-level="8" data-path="placeholder.html"><a href="placeholder.html"><i class="fa fa-check"></i><b>8</b> Placeholder</a></li>
+<li class="chapter" data-level="9" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>9</b> Statistical models</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -181,6 +181,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Vignettes are valuable documents; inside vignettes, the purpose of the package is explained in plain English, usually with accompanying examples. The reference manuals list the available functions inside the packages. You can also find vignettes from within Rstudio:</p>
 <p><img src="pics/rstudio_vignette.gif" /><!-- --></p>
 <p>Go to the <em>Packages</em> pane and click on the package you’re interested in. Then you can consult the help for the functions that come with the package as well as the package’s vignettes.</p>
+<p>Once you installed a package, you have to load it before you can use it. To load packages you use the <code>library()</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+<span class="kw">library</span>(janitor)
+<span class="co"># and so on...</span></code></pre></div>
+<p>If you only need to use one single function once, you don’t need to load an entire package. You can write the following:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dplyr<span class="op">::</span><span class="kw">full_join</span>(A, B)</code></pre></div>
+<p>using the <code>::</code> operator, you can access functions from packages without having to load the whole package beforehand.</p>
 <p>It is possible and easy to create your own packages. This is useful if you have to write a lot of functions that you use daily. This is outside the scope of this book, but if you’re interested you can read this <a href="https://b-rodrigues.github.io/fput/packages.html">other one</a> I wrote.</p>
 
 </div>
@@ -230,17 +237,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
