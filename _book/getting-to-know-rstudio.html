@@ -12,7 +12,7 @@
   <meta property="og:title" content="Modern R for STATEC" />
   <meta property="og:type" content="book" />
   
-  
+  <meta property="og:image" content="pics/cover.png" />
   <meta property="og:description" content="In this book, statisticians and economists working at STATEC will learn how use R for their needs. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed." />
   
 
@@ -20,12 +20,12 @@
   <meta name="twitter:title" content="Modern R for STATEC" />
   
   <meta name="twitter:description" content="In this book, statisticians and economists working at STATEC will learn how use R for their needs. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed." />
-  
+  <meta name="twitter:image" content="pics/cover.png" />
 
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2017-10-10">
+<meta name="date" content="2017-10-11">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="index.html">
-<link rel="next" href="reading-and-writing-data.html">
+<link rel="next" href="packages.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -108,22 +108,27 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#what-are-packages"><i class="fa fa-check"></i><b>1.2</b> What are packages?</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html"><i class="fa fa-check"></i><b>2</b> Getting to know Rstudio</a><ul>
-<li class="chapter" data-level="2.1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#panes"><i class="fa fa-check"></i><b>2.1</b> Panes</a><ul>
-<li class="chapter" data-level="2.1.1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#the-help-pane"><i class="fa fa-check"></i><b>2.1.1</b> The help pane</a></li>
-<li class="chapter" data-level="2.1.2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#the-environment-pane"><i class="fa fa-check"></i><b>2.1.2</b> The Environment pane</a></li>
+<li class="chapter" data-level="2.1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#panes"><i class="fa fa-check"></i><b>2.1</b> Panes</a></li>
+<li class="chapter" data-level="2.2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#console"><i class="fa fa-check"></i><b>2.2</b> Console</a></li>
+<li class="chapter" data-level="2.3" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#scripts"><i class="fa fa-check"></i><b>2.3</b> Scripts</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#the-help-pane"><i class="fa fa-check"></i><b>2.3.1</b> The help pane</a></li>
+<li class="chapter" data-level="2.3.2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#the-environment-pane"><i class="fa fa-check"></i><b>2.3.2</b> The Environment pane</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#options"><i class="fa fa-check"></i><b>2.2</b> Options</a></li>
-<li class="chapter" data-level="2.3" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#keyboard-shortcuts"><i class="fa fa-check"></i><b>2.3</b> Keyboard shortcuts</a></li>
-<li class="chapter" data-level="2.4" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#projects"><i class="fa fa-check"></i><b>2.4</b> Projects</a></li>
+<li class="chapter" data-level="2.4" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#options"><i class="fa fa-check"></i><b>2.4</b> Options</a></li>
+<li class="chapter" data-level="2.5" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#keyboard-shortcuts"><i class="fa fa-check"></i><b>2.5</b> Keyboard shortcuts</a></li>
+<li class="chapter" data-level="2.6" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#projects"><i class="fa fa-check"></i><b>2.6</b> Projects</a></li>
+<li class="chapter" data-level="2.7" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#history"><i class="fa fa-check"></i><b>2.7</b> History</a></li>
+<li class="chapter" data-level="2.8" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#plots"><i class="fa fa-check"></i><b>2.8</b> Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html"><i class="fa fa-check"></i><b>3</b> Reading and writing data</a></li>
-<li class="chapter" data-level="4" data-path="descriptive-statistics.html"><a href="descriptive-statistics.html"><i class="fa fa-check"></i><b>4</b> Descriptive statistics</a></li>
-<li class="chapter" data-level="5" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>5</b> Graphs</a><ul>
-<li class="chapter" data-level="5.1" data-path="graphs.html"><a href="graphs.html#ggplot2"><i class="fa fa-check"></i><b>5.1</b> ggplot2</a></li>
+<li class="chapter" data-level="3" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>3</b> Packages</a></li>
+<li class="chapter" data-level="4" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html"><i class="fa fa-check"></i><b>4</b> Reading and writing data</a></li>
+<li class="chapter" data-level="5" data-path="descriptive-statistics.html"><a href="descriptive-statistics.html"><i class="fa fa-check"></i><b>5</b> Descriptive statistics</a></li>
+<li class="chapter" data-level="6" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>6</b> Graphs</a><ul>
+<li class="chapter" data-level="6.1" data-path="graphs.html"><a href="graphs.html#ggplot2"><i class="fa fa-check"></i><b>6.1</b> ggplot2</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>6</b> Statistical models</a></li>
-<li class="chapter" data-level="7" data-path="programming-with-r.html"><a href="programming-with-r.html"><i class="fa fa-check"></i><b>7</b> Programming with R</a><ul>
-<li class="chapter" data-level="7.1" data-path="programming-with-r.html"><a href="programming-with-r.html#writing-your-own-functions"><i class="fa fa-check"></i><b>7.1</b> Writing your own functions</a></li>
+<li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical models</a></li>
+<li class="chapter" data-level="8" data-path="programming-with-r.html"><a href="programming-with-r.html"><i class="fa fa-check"></i><b>8</b> Programming with R</a><ul>
+<li class="chapter" data-level="8.1" data-path="programming-with-r.html"><a href="programming-with-r.html#writing-your-own-functions"><i class="fa fa-check"></i><b>8.1</b> Writing your own functions</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -153,28 +158,38 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Rstudio is divided into different panes. Each pane has a specific function. The gif below shows some of these panes:</p>
 <p><img src="pics/rstudio_panes.gif" /><!-- --></p>
 <p>Take some time to look around what each pane shows you. Some panes are empty; for example the <em>Plots</em> pane or the <em>Viewer</em> pane. <em>Plots</em> shows you the plots you make. You can browse the plots and save them. We will see this in more detail in a later chapter. <em>Viewer</em> shows you previews of documents that you generate with R. More on this later.</p>
+</div>
+<div id="console" class="section level2">
+<h2><span class="header-section-number">2.2</span> Console</h2>
+<p>The <em>Console</em> pane is where you can execute R code. Write the following in the console:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span></code></pre></div>
+<p>and you’ll get the answer, <code>5</code>. However, do not write a lot of lines in the console. It is better write your code inside a script.</p>
+</div>
+<div id="scripts" class="section level2">
+<h2><span class="header-section-number">2.3</span> Scripts</h2>
 <p>Look at the gif below:</p>
 <p><img src="pics/rstudio_new_script.gif" /><!-- --></p>
 <p>In this gif, we see the user creating a new R script. R scripts are simple text files that hold R code. Think of <code>.do</code> files in STATA or <code>.c</code> files for C. R scripts have the extension <code>.r</code> or <code>.R</code>.</p>
+<p>It is possible to create a lot of other files. We’ll take a look at <code>R Markdown</code> files later.</p>
 <div id="the-help-pane" class="section level3">
-<h3><span class="header-section-number">2.1.1</span> The help pane</h3>
+<h3><span class="header-section-number">2.3.1</span> The help pane</h3>
 <p>The <em>Help</em> pane allows you to consult documentation for functions or packages. The gif below shows how it works:</p>
 <p><img src="pics/rstudio_help.gif" /><!-- --></p>
 <p>you can also access help using the following syntax: <code>?lm</code>. This will bring up the documentation for the function <code>lm()</code>. You can also type <code>??lm</code> which will look for the string <code>lm</code> in every package.</p>
 </div>
 <div id="the-environment-pane" class="section level3">
-<h3><span class="header-section-number">2.1.2</span> The Environment pane</h3>
+<h3><span class="header-section-number">2.3.2</span> The Environment pane</h3>
 <p>The <em>Environment</em> pane shows every object created in the current section. It is especially useful if you have defined lists or have loaded data into R as it makes it easy to explore these more complex objects.</p>
 </div>
 </div>
 <div id="options" class="section level2">
-<h2><span class="header-section-number">2.2</span> Options</h2>
+<h2><span class="header-section-number">2.4</span> Options</h2>
 <p>It is also possible to customize Rstudio’s look and feel:</p>
 <p><img src="pics/rstudio_options.gif" /><!-- --></p>
 <p>Take some time to go through the options.</p>
 </div>
 <div id="keyboard-shortcuts" class="section level2">
-<h2><span class="header-section-number">2.3</span> Keyboard shortcuts</h2>
+<h2><span class="header-section-number">2.5</span> Keyboard shortcuts</h2>
 <p>It is a good idea to familiarize yourself with at least some keyboard shortcuts. This is more convenient than having to move the mouse around:</p>
 <p><img src="pics/rstudio_shortcuts.gif" /><!-- --></p>
 <p>If there is only one keyboard shortcut you need to know, it’s <code>Ctrl-Enter</code> that executes a line of code from your script. However, these other shortcuts are also worth knowing:</p>
@@ -191,11 +206,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>This is just a few keyboard shortcuts that I personally find useful. However, I strongly advise you to learn and use whatever shortcuts are useful to you!</p>
 </div>
 <div id="projects" class="section level2">
-<h2><span class="header-section-number">2.4</span> Projects</h2>
+<h2><span class="header-section-number">2.6</span> Projects</h2>
 <p>One of the best features of Rstudio are projects. Creating a project is simple; the gif below shows how you can create a project and how you can switch between projects.</p>
 <p><img src="pics/rstudio_projects.gif" /><!-- --></p>
 <p>Projects make a lot of things easier, such as managing paths. More on this in the chapter about reading data. Another useful feature of projects is that the scripts you open in project A will stay open even if you switch to another project B, and then switch back to the project A again.</p>
 <p>You can also use version control (with git) inside a project. Version control is very useful, but I won’t discuss it here. You can find a lot of resources online to get you started with git.</p>
+</div>
+<div id="history" class="section level2">
+<h2><span class="header-section-number">2.7</span> History</h2>
+<p>The history pane saves all the previous lines you executed. You can then select these lines and send them back to the console or the script.</p>
+<p><img src="pics/rstudio_history.gif" /><!-- --></p>
+</div>
+<div id="plots" class="section level2">
+<h2><span class="header-section-number">2.8</span> Plots</h2>
+<p>All the plots you make during a session are visible in the <em>Plots</em> pane. From there, you can export them in different formats.</p>
+<p><img src="pics/rstudio_plots.gif" /><!-- --></p>
+<p>The plots shown in the gif are made using basic R functions. Later, we will learn how to make nicer looking plots using the package <code>ggplot2</code>.</p>
 
 </div>
 </div>
@@ -205,7 +231,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="reading-and-writing-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="packages.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

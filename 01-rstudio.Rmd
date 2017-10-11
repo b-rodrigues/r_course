@@ -17,6 +17,19 @@ pane or the *Viewer* pane. *Plots* shows you the plots you make. You can browse 
 them. We will see this in more detail in a later chapter. *Viewer* shows you previews of documents
 that you generate with R. More on this later.
 
+## Console
+
+The *Console* pane is where you can execute R code. Write the following in the console:
+
+```{r, eval=FALSE}
+2 + 3
+```
+
+and you'll get the answer, `5`. However, do not write a lot of lines in the console. It is better
+write your code inside a script.
+
+## Scripts
+
 Look at the gif below:
 
 ```{r, echo=FALSE}
@@ -25,6 +38,8 @@ knitr::include_graphics("pics/rstudio_new_script.gif")
 
 In this gif, we see the user creating a new R script. R scripts are simple text files that hold R
 code. Think of `.do` files in STATA or `.c` files for C. R scripts have the extension `.r` or `.R`.
+
+It is possible to create a lot of other files. We'll take a look at `R Markdown` files later.
 
 ### The help pane
 
@@ -93,3 +108,24 @@ stay open even if you switch to another project B, and then switch back to the p
 
 You can also use version control (with git) inside a project. Version control is very useful, but
 I won't discuss it here. You can find a lot of resources online to get you started with git.
+
+## History
+
+The history pane saves all the previous lines you executed. You can then select these lines and
+send them back to the console or the script.
+
+```{r, echo=FALSE}
+knitr::include_graphics("pics/rstudio_history.gif")
+```
+
+## Plots
+
+All the plots you make during a session are visible in the *Plots* pane. From there, you can
+export them in different formats.
+
+```{r, echo=FALSE}
+knitr::include_graphics("pics/rstudio_plots.gif")
+```
+
+The plots shown in the gif are made using basic R functions. Later, we will learn how to make nicer
+looking plots using the package `ggplot2`.

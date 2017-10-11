@@ -1,0 +1,28 @@
+# Packages
+
+You can think of packages as addons that extend R's core functionality. You can browse all available
+package on [CRAN](https://cloud.r-project.org/). To make it easier to find what you might be
+interested in, you can also browes the [CRAN Task Views](https://cloud.r-project.org/web/views/).
+Each package has a landing page that summarises its dependencies, version number etc. For example,
+for the `dplyr` package: [https://cran.r-project.org/web/packages/dplyr/index.html](https://cran.r-project.org/web/packages/dplyr/index.html).
+Take a look at the *Downloads* section, and especially at the Reference Manual and Vignettes:
+
+```{r, echo=FALSE}
+knitr::include_graphics("pics/packages_vignette.png")
+```
+
+Vignettes are valuable documents; inside vignettes, the purpose of the package is explained in
+plain English, usually with accompanying examples. The reference manuals list the available functions
+inside the packages. You can also find vignettes from within Rstudio:
+
+
+```{r, echo=FALSE}
+knitr::include_graphics("pics/rstudio_vignette.gif")
+```
+
+Go to the *Packages* pane and click on the package you're interested in. Then you can consult the
+help for the functions that come with the package as well as the package's vignettes.
+
+It is possible and easy to create your own packages. This is useful if you have to write a lot of
+functions that you use daily. This is outside the scope of this book, but if you're interested
+you can read this [other one](https://b-rodrigues.github.io/fput/packages.html) I wrote.
