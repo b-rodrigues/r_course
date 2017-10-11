@@ -231,17 +231,51 @@ and of course create list of lists:
 my_lists = list(list1, list2, list3)
 ```
 
+To check the contents of a list, you can use the structure function `str()`:
+
+```{r}
+str(my_lists)
+```
+
+or you can use Rstudio's *Environment* pane:
+
+```{r, echo=FALSE}
+knitr::include_graphics("pics/rstudio_environment_list.gif")
+```
+
+You can also create named lists:
+
+```{r}
+list4 = list("a" = 2, "b" = 8, "c" = "this is a named list")
+```
+
+and you can access the elements in two ways:
+
+```{r}
+list4[[1]]
+```
+
+or, for named lists:
+
+```{r}
+list4$c
+```
+
+Lists are used extensively because they are so flexible. You can build lists of datasets and apply
+functions to all the datasets at once, build lists of models, lists of plots, etc... In the later
+chapters we are going to learn all about them.
+
 ## Exercises
 
-### Exercise 1
+### Exercise 1 {-}
 
 Try to create the following vector:
 
-$$a = (6,3,8,9)$$
+\[a = (6,3,8,9)\]
 
 and add it this other vector:
 
-$$b = (9,1,3,5)$$
+\[b = (9,1,3,5)\]
 
 and save the result to a new variable called `result`.
 
@@ -249,18 +283,18 @@ and save the result to a new variable called `result`.
 
 Using `a` and `b` from before, try to get their dot product.
 
-Try with `a * b` in the R command prompt. What happened?
-Try to find the right command to get the dot product. Don't hesitate to google the answer!
+Try with `a * b` in the R console. What happened?
+Try to find the right function to get the dot product. Don't hesitate to google the answer!
 
 ### Exercise 3
 
-Can you create a matrix of dimension (30,30) filled with 2's by only using the function `matrix()`?
+How can you create a matrix of dimension (30,30) filled with 2's by only using the function `matrix()`?
 
 ### Exercise 4
 
-Save your first name in a variable `a` and your surname in a variable `b`. What does the command:
+Save your first name in a variable `a` and your surname in a variable `b`. What does the function:
 
-```{r}
+```{r, eval = FALSE}
 paste(a,b)
 ```
 
@@ -287,7 +321,7 @@ a < b
 Define the following matrix:
 
 \[
-matrix_a = \left(
+\text{matrix_a} = \left(
 \begin{array}{ccc}
  9 & 4 & 12 \\
  5 & 0 & 7 \\
@@ -296,7 +330,7 @@ matrix_a = \left(
 \end{array} \right)
 \]
 
-```{r, echo=FALSE}
+```{r, include=FALSE}
 matrix_a = matrix( c(9, 4, 12, 5, 0, 7, 2, 6, 8, 9, 2, 9), nrow = 4, byrow = TRUE)
 ```
 
@@ -306,7 +340,7 @@ matrix_a = matrix( c(9, 4, 12, 5, 0, 7, 2, 6, 8, 9, 2, 9), nrow = 4, byrow = TRU
 
 ### Exercise 7
 
-Solve the following system of equations:
+Solve the following system of equations using the `solve()` function:
 
 \[
 \left(
@@ -331,3 +365,14 @@ Solve the following system of equations:
 \end{array}
 \right)
 \]
+
+
+```{r, include=FALSE}
+matrix_a = matrix( c(9, 4, 12, 5, 0, 7, 2, 6, 8, 9, 2, 9, ), nrow = 4, byrow = TRUE)
+
+matrix_x = cbind(matrix_a, c(2,9,0,11))
+
+result = c(7, 8, 1, 0)
+
+solve(matrix_x, result)
+```

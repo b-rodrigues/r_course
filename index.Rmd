@@ -14,8 +14,8 @@ cover-image: pics/cover.png
 # Preface {-}
 
 
-```{r, echo=FALSE}
-knitr::include_graphics("pics/cover.png")
+```{r, fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics("pics/cover.png", dpi = NA)
 ```
 
 ## What is R? {-}
@@ -32,12 +32,14 @@ as official statistics, economics, finance, data science, etc.
 Rstudio is a modern IDE that makes writing R code easier. The first
 thing we are going to learn is how to use it.
 
+R and Rstudio are both open source: this means that the source code is freely available on the internet
+and contributions by anyone are welcome and integrated; provided they are meaningful and useful.
+
 ## Prerequisites {-}
 
 R and Rstudio are the two main pieces of software that we are going to use. Both are already installed
-on your desktop computer. R is the programming language and Rstudio is a modern IDE for it.
-R and Rstudio are both open source: this means that the source code is freely available on the internet
-and contributions by anyone are welcome and integrated; provided they are meaningful and useful.
+on your desktop computer. R is the programming language and Rstudio is a modern IDE for it. You can use R without Rstudio;
+but you cannot use Rstudio without R.
 
 If you wish to install R and Rstudio at home to follow the examples in this book you can do it as
 both pieces of software are available free of charge (for firms paid options for Rstudio exist).
@@ -70,3 +72,13 @@ or go to the **Packages** pane and then click on *Install*:
 ```{r, echo=FALSE}
 knitr::include_graphics("pics/rstudio_install_packages.gif")
 ```
+
+### The author {-}
+
+My name is Bruno Rodrigues and I work in the research department of STATEC. I program almost
+exclusively in R and have been teaching some R courses for a few years now (first started teaching
+for students at the Université of Strasbourg). These notes are an update of those I used at the
+time, plus a lot of things I've learned about R since I started working at STATEC. I also am writing
+another [book](https://b-rodrigues.github.io/fput/) that is more advanced than this one. In my free
+time I like cooking, boxing and [blogging](https://www.brodrigues.co). You can follow me
+on [twitter](https://www.twitter.com/brodriguesco) if you'd like!

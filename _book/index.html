@@ -107,7 +107,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-r"><i class="fa fa-check"></i>What is R?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-rstudio"><i class="fa fa-check"></i>What is Rstudio?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-are-packages"><i class="fa fa-check"></i>What are packages?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-are-packages"><i class="fa fa-check"></i>What are packages?</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-author"><i class="fa fa-check"></i>The author</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html"><i class="fa fa-check"></i><b>1</b> Getting to know Rstudio</a><ul>
 <li class="chapter" data-level="1.1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#panes"><i class="fa fa-check"></i><b>1.1</b> Panes</a></li>
@@ -179,7 +181,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="preface" class="section level1 unnumbered">
 <h1>Preface</h1>
-<p><img src="pics/cover.png" width="250" /></p>
+<p><img src="pics/cover.png" style="display: block; margin: auto;" /></p>
 <div id="what-is-r" class="section level2 unnumbered">
 <h2>What is R?</h2>
 <p>Read R’s official answer to this question <a href="https://cran.r-project.org/doc/FAQ/R-FAQ.html#What-is-R_003f">here</a>. To make it short: R is multi-paradigm (procedural, imperative, object-oriented and functional)<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> programming language that focuses on applications in <em>statistics</em>. By <em>statistics</em> I mean any field that uses statistics such as official statistics, economics, finance, data science, etc.</p>
@@ -187,10 +189,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="what-is-rstudio" class="section level2 unnumbered">
 <h2>What is Rstudio?</h2>
 <p>Rstudio is a modern IDE that makes writing R code easier. The first thing we are going to learn is how to use it.</p>
+<p>R and Rstudio are both open source: this means that the source code is freely available on the internet and contributions by anyone are welcome and integrated; provided they are meaningful and useful.</p>
 </div>
 <div id="prerequisites" class="section level2 unnumbered">
 <h2>Prerequisites</h2>
-<p>R and Rstudio are the two main pieces of software that we are going to use. Both are already installed on your desktop computer. R is the programming language and Rstudio is a modern IDE for it. R and Rstudio are both open source: this means that the source code is freely available on the internet and contributions by anyone are welcome and integrated; provided they are meaningful and useful.</p>
+<p>R and Rstudio are the two main pieces of software that we are going to use. Both are already installed on your desktop computer. R is the programming language and Rstudio is a modern IDE for it. You can use R without Rstudio; but you cannot use Rstudio without R.</p>
 <p>If you wish to install R and Rstudio at home to follow the examples in this book you can do it as both pieces of software are available free of charge (for firms paid options for Rstudio exist). Installation is simple, but operating system dependent. To download and install R for Windows, follow <a href="https://cloud.r-project.org/bin/windows/base/">this link</a>. For macOS, follow <a href="https://cloud.r-project.org/bin/macosx/">this one</a>. If you run a GNU+Linux distribution, you can install R using the system’s package manager. On Ubuntu, install <code>r-base</code>.</p>
 <p>For Rstudio, look for your operating system <a href="https://www.rstudio.com/products/rstudio/download/#download">here</a>.</p>
 </div>
@@ -202,7 +205,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><img src="pics/install_packages.png" width="536" /></p>
 <p>or go to the <strong>Packages</strong> pane and then click on <em>Install</em>:</p>
 <p><img src="pics/rstudio_install_packages.gif" /><!-- --></p>
+<div id="the-author" class="section level3 unnumbered">
+<h3>The author</h3>
+<p>My name is Bruno Rodrigues and I work in the research department of STATEC. I program almost exclusively in R and have been teaching some R courses for a few years now (first started teaching for students at the Université of Strasbourg). These notes are an update of those I used at the time, plus a lot of things I’ve learned about R since I started working at STATEC. I also am writing another <a href="https://b-rodrigues.github.io/fput/">book</a> that is more advanced than this one. In my free time I like cooking, boxing and <a href="https://www.brodrigues.co">blogging</a>. You can follow me on <a href="https://www.twitter.com/brodriguesco">twitter</a> if you’d like!</p>
 
+</div>
 </div>
 </div>
 <div class="footnotes">
@@ -257,6 +264,17 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
