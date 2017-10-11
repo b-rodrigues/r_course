@@ -1,3 +1,78 @@
 # Reading and writing data
 
-Here is a review of existing methods.
+R can import some formats without the need of external packages, such as the `.csv` format. However,
+for other formats, you will need to use different packages. Because there are a lot of different
+formats available I suggest you use `rio`. `rio` is basically a wrapper around every package that
+exists to import/export data. This package is nice because you don't need to remember which package
+to use to import, say, STATA datasets.
+Read `rio`'s [vignette](https://cran.r-project.org/web/packages/rio/vignettes/rio.html) for more
+details. Below I show some of `rio`'s functions presented in the vignette.
+
+To import data with `rio`, `import()` is all you need:
+
+```{r}
+mtcars = import("datasets/mtcars.csv")
+```
+
+```{r}
+head(mtcars)
+```
+
+`import()` needs the path to the data, and you can specify additional options if needed. Importing
+a STATA or a SAS file is done just the same:
+
+```{r}
+mtcars_stata = import("datasets/mtcars.dta")
+head(mtcars_stata)
+
+mtcars_sas = import("datasets/mtcars.sas7bdat")
+head(mtcars_sas)
+```
+
+It is also possible to import Excel files where each sheet is a single table, but you will need
+`import_list()` for that. The file `multi.xlsx` has two sheets, each with a table in it:
+
+```{r}
+multi = import_list("datasets/multi.xlsx")
+str(multi)
+```
+
+As you can see `multi` is a list of datasets. Told you lists were very flexible! It is also possible
+to import all the datasets in a single directory at once. For this, you first need a vector of paths:
+
+```{r}
+paths = Sys.glob("datasets/unemployment/*.csv")
+```
+
+`Sys.glob()` allows you to find files using a regular expression. "datasets/unemployment/*.csv" matches
+all the `.csv` files inside "datasets/unemployment".
+
+```{r}
+all_data = import_list(paths)
+
+str(all_data)
+```
+
+in a subsequent chapter we will learn how to actually use these lists of datasets.
+
+If something goes wrong, you might need to take a look at the underlying function `rio` is
+actually using to import the file. Let's look at the following example:
+
+```{r}
+testdata = import("datasets/problems/mtcars.csv")
+
+head(testdata)
+```
+
+as you can see, the import didn't work quite well! This is because the separator is the `&` for
+some reason. Because we are trying to read a `.csv` file, `rio::import()` is trying to use
+`data.table::fread()` under the hood (you can read this in `imports()`'s help). If you go and read
+`data.table::fread()`'s help, you see that the `fread()` has an optional `sep = ` argument that you
+can use to specify the separator. You can use this argument in `import()` too, and it will be passed
+down to `fread()`:
+
+```{r}
+testdata = import("datasets/problems/mtcars.csv", sep = "&")
+
+head(testdata)
+```

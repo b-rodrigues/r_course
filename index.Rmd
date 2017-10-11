@@ -60,7 +60,7 @@ popular. As of October 2017, R has over 11000 packages.
 To install the packages we need, first open Rstudio and then copy and paste this line in the console:
 
 ```{r eval=FALSE}
-install.packages(c("tidyverse", "checkpoint", "eurostat", "ggthemes", "janitor", "openxlsx"))
+install.packages(c("tidyverse", "checkpoint", "eurostat", "ggthemes", "janitor", "openxlsx", "rio"))
 ```
 
 ```{r, echo=FALSE}
