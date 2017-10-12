@@ -1,3 +1,106 @@
 # Descriptive statistics
 
-We describe our methods in this chapter.
+Now that we are familiar with some R objects and know how to import data, it is time to actually
+write some code. In this chapter, we are going to compute descriptive statistics for a single dataset,
+but also for a list of datasets.
+
+R has a lot of built-in functions for descriptive statistics; however, if you want to compute statistics
+by, say, gender, some more complex manipulations are needed. At least this was true in the past.
+Nowadays, thanks to the packages from the tidyverse (remember those we installed at the beginning
+of the book?), it is very easy and fast to compute descriptive statistics by any stratifying variable(s).
+
+The package we are going to use for this is called `dplyr`. `dplyr` contains a lot of functions that
+make manipulating data and computing descriptive statistics very easy. To make things easier for now,
+we are going to use example data included with dplyr. So no need to import an external dataset; this
+does not change anything to the example that we are going to study here; the source of the data does
+not matter for this.
+
+## Working with a single dataset
+
+First, let's load `dplyr` and the included `starwars` dataset. Let's also take a look at the first 5
+lines of the dataset:
+
+```{r}
+library(dplyr)
+
+data(starwars)
+
+head(starwars)
+```
+
+`data(starwars)` loads the example dataset called `starwars` that is included in the package `dplyr`.
+As I said earlier, this is just an example; you could have loaded an external dataset, from a `.csv`
+for instance. This does not matter for what comes next.
+
+R includes a lot of function for descriptive statistics, such as `mean()`, `sd()`, `cov()`, and many
+more. What `dplyr` brings to the table is the possibility to apply these functions to the dataset
+easily. For example, imagine you want the average height of everyone in the dataset. Using the basic
+R functions, you could write this:
+
+```{r}
+mean(starwars$height)
+```
+
+`starwars$height` means that the user wants to access the column called `height` from the dataset
+`starwars`. This is then given as an argument to the function `mean()`. But what if the user
+wants the average height by species? Before `dplyr`, a solution to this simple problem would have
+required more than a single command. Now this is as easy as:
+
+```{r}
+starwars %>%
+  group_by(species) %>%
+  summarise(mean(height))
+```
+
+Ok, I know what you're thinking. *What the hell is this weird `%>%` thing?`. That is called the
+pipe operator. What it does is taking the left-hand side argument and piping it as the first argument
+of the function on the right-hand side. Try the following in the command line:
+
+```{r}
+4 %>% sqrt()
+```
+
+It is equivalent to `sqrt(4)`. Why use that though? You will see in the next examples that using the
+`%>%` makes writing and reading code, much, much easier. For example, the previous manipulation I
+did could be read as "Take the starwars data, give it to the `group_by()` function and then
+compute the mean height". Without the `%>%`, one would need to write:
+
+```{r}
+summarise(group_by(starwars, species), mean(height))
+```
+
+as you can see, it is much more difficult to read. Imagine now that I want average height by species,
+but only for males. Again, this is very easy using `%>%`:
+
+```{r}
+starwars %>%
+  filter(gender == "male") %>%
+  group_by(species) %>%
+  summarise(mean(height))
+```
+
+Again, the `%>%` makes the above lines of code very easy to read. Without it, one would write:
+
+```{r}
+summarise(group_by(filter(starwars, gender == "male"), species), mean(height))
+```
+
+so really not easy.
+
+To make things clearer; `filter()`, `group_by()` and `summarise()` are functions that are included
+in `dplyr`. `%>%` is actually a function from `magrittr`, but this package gets loaded when you
+load `dplyr` automatically, so you do not need to worry about it. `mean()` is a function *native* to R.
+
+Another thing very nice about using `dplyr`; the result of all these operations are datasets, or
+`tibbles`. This means that you can save them in variable, and then work with these as any other
+datasets.
+
+```{r}
+mean_height = starwars %>%
+  group_by(species) %>%
+  summarise(mean(height))
+
+class(mean_height)
+
+head(mean_height)
+```

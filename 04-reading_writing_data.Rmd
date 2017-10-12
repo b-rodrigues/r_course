@@ -1,5 +1,8 @@
 # Reading and writing data
 
+In this chapter, we are going to import example datasets that are available in R, `mtcars` and
+`iris`. I have converted these datasets into several formats
+
 R can import some formats without the need of external packages, such as the `.csv` format. However,
 for other formats, you will need to use different packages. Because there are a lot of different
 formats available I suggest you use `rio`. `rio` is basically a wrapper around every package that
@@ -11,6 +14,8 @@ details. Below I show some of `rio`'s functions presented in the vignette.
 To import data with `rio`, `import()` is all you need:
 
 ```{r}
+library(rio)
+
 mtcars = import("datasets/mtcars.csv")
 ```
 
@@ -76,3 +81,6 @@ testdata = import("datasets/problems/mtcars.csv", sep = "&")
 
 head(testdata)
 ```
+
+`rio` should cover all your needs, but if not, there is very likely a package out there that will
+import the data you need.
