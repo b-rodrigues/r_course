@@ -146,8 +146,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html"><i class="fa fa-check"></i><b>4</b> Reading and writing data</a></li>
-<li class="chapter" data-level="5" data-path="descriptive-statistics.html"><a href="descriptive-statistics.html"><i class="fa fa-check"></i><b>5</b> Descriptive statistics</a><ul>
-<li class="chapter" data-level="5.1" data-path="descriptive-statistics.html"><a href="descriptive-statistics.html#working-with-a-single-dataset"><i class="fa fa-check"></i><b>5.1</b> Working with a single dataset</a></li>
+<li class="chapter" data-level="5" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html"><i class="fa fa-check"></i><b>5</b> Data manipulation and descriptive statistics</a><ul>
+<li class="chapter" data-level="5.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-single-dataset"><i class="fa fa-check"></i><b>5.1</b> Working with a single dataset</a></li>
+<li class="chapter" data-level="5.2" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-list-of-datasets"><i class="fa fa-check"></i><b>5.2</b> Working with a list of datasets</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>6</b> Graphs</a><ul>
 <li class="chapter" data-level="6.1" data-path="graphs.html"><a href="graphs.html#ggplot2"><i class="fa fa-check"></i><b>6.1</b> ggplot2</a></li>
@@ -156,7 +157,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8" data-path="programming-with-r.html"><a href="programming-with-r.html"><i class="fa fa-check"></i><b>8</b> Programming with R</a><ul>
 <li class="chapter" data-level="8.1" data-path="programming-with-r.html"><a href="programming-with-r.html#writing-your-own-functions"><i class="fa fa-check"></i><b>8.1</b> Writing your own functions</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="placeholder.html"><a href="placeholder.html"><i class="fa fa-check"></i><b>9</b> Placeholder</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -176,8 +177,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="descriptive-statistics" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Descriptive statistics</h1>
+<div id="data-manipulation-and-descriptive-statistics" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Data manipulation and descriptive statistics</h1>
 <p>Now that we are familiar with some R objects and know how to import data, it is time to actually write some code. In this chapter, we are going to compute descriptive statistics for a single dataset, but also for a list of datasets. However, I will not give a list of functions to compute descriptive statistics; if you need a specific function you can find easily in the <em>Help</em> pane in Rstudio or using any modern internet searh engine. What I will do is show you a workflow that allows you to compute the statisics you need fast.</p>
 <p>R has a lot of built-in functions for descriptive statistics; however, if you want to compute statistics by, say, gender, some more complex manipulations are needed. At least this was true in the past. Nowadays, thanks to the packages from the tidyverse (remember those we installed at the beginning of the book?), it is very easy and fast to compute descriptive statistics by any stratifying variable(s).</p>
 <p>The package we are going to use for this is called <code>dplyr</code>. <code>dplyr</code> contains a lot of functions that make manipulating data and computing descriptive statistics very easy. To make things easier for now, we are going to use example data included with dplyr. So no need to import an external dataset; this does not change anything to the example that we are going to study here; the source of the data does not matter for this.</p>
@@ -464,6 +465,179 @@ starwars[na_species, ]</code></pre></div>
 ## $ height   &lt;int&gt; 172, 167, 96, 202, 150, 178, 165, 97, 183, 182, 188, ...
 ## $ height_m &lt;dbl&gt; 1.72, 1.67, 0.96, 2.02, 1.50, 1.78, 1.65, 0.97, 1.83,...
 ## $ gender   &lt;chr&gt; &quot;male&quot;, NA, NA, &quot;male&quot;, &quot;female&quot;, &quot;male&quot;, &quot;female&quot;, N...</code></pre>
+<p>The last thing I want to show you are the so-called <em>scoped</em> version of these functions. For example, what if I am only interested in columns that contains text? Is there a way to select them automatically? For this type of tasks, you can use <code>select_if()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select_if</span>(is.character)</code></pre></div>
+<pre><code>## # A tibble: 87 x 7
+##                  name    hair_color  skin_color eye_color gender homeworld
+##                 &lt;chr&gt;         &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;
+##  1     Luke Skywalker         blond        fair      blue   male  Tatooine
+##  2              C-3PO          &lt;NA&gt;        gold    yellow   &lt;NA&gt;  Tatooine
+##  3              R2-D2          &lt;NA&gt; white, blue       red   &lt;NA&gt;     Naboo
+##  4        Darth Vader          none       white    yellow   male  Tatooine
+##  5        Leia Organa         brown       light     brown female  Alderaan
+##  6          Owen Lars   brown, grey       light      blue   male  Tatooine
+##  7 Beru Whitesun lars         brown       light      blue female  Tatooine
+##  8              R5-D4          &lt;NA&gt;  white, red       red   &lt;NA&gt;  Tatooine
+##  9  Biggs Darklighter         black       light     brown   male  Tatooine
+## 10     Obi-Wan Kenobi auburn, white        fair blue-gray   male   Stewjon
+## # ... with 77 more rows, and 1 more variables: species &lt;chr&gt;</code></pre>
+<p><code>select_if()</code> selects every column that is of type character. There is also <code>select_all()</code> and <code>select_at()</code>, each with they’re own use. I will not go into more detail here. If you are interested, I advise you read <code>dplyr</code>’s help and also the section I wrote in my other <a href="https://b-rodrigues.github.io/fput/tidyverse.html">book</a> which goes into much more detail.</p>
+</div>
+<div id="working-with-a-list-of-datasets" class="section level2">
+<h2><span class="header-section-number">5.2</span> Working with a list of datasets</h2>
+<p>Let’s read the list of datasets from the previous chapter:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">paths =<span class="st"> </span><span class="kw">Sys.glob</span>(<span class="st">&quot;datasets/unemployment/*.csv&quot;</span>)
+
+all_datasets =<span class="st"> </span><span class="kw">import_list</span>(paths)
+
+<span class="kw">str</span>(all_datasets)</code></pre></div>
+<pre><code>## List of 4
+##  $ :&#39;data.frame&#39;:    118 obs. of  7 variables:
+##   ..$ Commune                   : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ Total employed population : int [1:118] 223407 17802 1703 844 1431 4094 2146 971 1218 3002 ...
+##   ..$ of which: Wage-earners    : int [1:118] 203535 15993 1535 750 1315 3800 1874 858 1029 2664 ...
+##   ..$ of which: Non-wage-earners: int [1:118] 19872 1809 168 94 116 294 272 113 189 338 ...
+##   ..$ Unemployed                : int [1:118] 19287 1071 114 25 74 261 98 45 66 207 ...
+##   ..$ Active population         : int [1:118] 242694 18873 1817 869 1505 4355 2244 1016 1284 3209 ...
+##   ..$ Unemployment rate (in %)  : num [1:118] 7.95 5.67 6.27 2.88 4.92 ...
+##  $ :&#39;data.frame&#39;:    118 obs. of  7 variables:
+##   ..$ Commune                   : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ Total employed population : int [1:118] 228423 18166 1767 845 1505 4129 2172 1007 1268 3124 ...
+##   ..$ of which: Wage-earners    : int [1:118] 208238 16366 1606 757 1390 3840 1897 887 1082 2782 ...
+##   ..$ of which: Non-wage-earners: int [1:118] 20185 1800 161 88 115 289 275 120 186 342 ...
+##   ..$ Unemployed                : int [1:118] 19362 1066 122 19 66 287 91 38 61 202 ...
+##   ..$ Active population         : int [1:118] 247785 19232 1889 864 1571 4416 2263 1045 1329 3326 ...
+##   ..$ Unemployment rate (in %)  : num [1:118] 7.81 5.54 6.46 2.2 4.2 ...
+##  $ :&#39;data.frame&#39;:    118 obs. of  7 variables:
+##   ..$ Commune                   : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ Total employed population : int [1:118] 233130 18310 1780 870 1470 4130 2170 1050 1300 3140 ...
+##   ..$ of which: Wage-earners    : int [1:118] 212530 16430 1620 780 1350 3820 1910 920 1100 2770 ...
+##   ..$ of which: Non-wage-earners: int [1:118] 20600 1880 160 90 120 310 260 130 200 370 ...
+##   ..$ Unemployed                : int [1:118] 18806 988 106 29 73 260 80 41 72 169 ...
+##   ..$ Active population         : int [1:118] 251936 19298 1886 899 1543 4390 2250 1091 1372 3309 ...
+##   ..$ Unemployment rate (in %)  : num [1:118] 7.46 5.12 5.62 3.23 4.73 ...
+##  $ :&#39;data.frame&#39;:    118 obs. of  7 variables:
+##   ..$ Commune                   : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ Total employed population : int [1:118] 236100 18380 1790 870 1470 4160 2160 1030 1330 3150 ...
+##   ..$ of which: Wage-earners    : int [1:118] 215430 16500 1640 780 1350 3840 1900 900 1130 2780 ...
+##   ..$ of which: Non-wage-earners: int [1:118] 20670 1880 150 90 120 320 260 130 200 370 ...
+##   ..$ Unemployed                : int [1:118] 18185 975 91 27 66 246 76 35 70 206 ...
+##   ..$ Active population         : int [1:118] 254285 19355 1881 897 1536 4406 2236 1065 1400 3356 ...
+##   ..$ Unemployment rate (in %)  : num [1:118] 7.15 5.04 4.84 3.01 4.3 ...</code></pre>
+<p>For working with lists, another package from the <code>tidyverse</code> is very useful, and that would be <code>purrr</code>. <code>purrr</code> has functions to work with lists, and we are going to focus on two of them, <code>map()</code> and <code>reduce()</code>. <code>map()</code>… maps a function to each element of a list. <code>reduce()</code> is a bit more complicated so we’ll leave that for later.</p>
+<p>The first thing we are going to do is use a function to clean the names of the datasets. These names are not very easy to work with; there’s spaces, and it would be better if the names of the columns would be all lowercase. For this we are going to use the function <code>clean_names()</code> from the <code>janitor</code> package. For a sing dataset, I would write this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">one_dataset =<span class="st"> </span>one_dataset <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">clean_names</span>()</code></pre></div>
+<p>and I would get a dataset with column names in lowercase and spaces replaced by <code>_</code>. How can I apply, or map, this function to each dataset in the list? To do this I need to use <code>purrr::map()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(purrr)
+
+all_datasets =<span class="st"> </span>all_datasets <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">map</span>(clean_names)
+
+all_datasets <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">glimpse</span>()</code></pre></div>
+<pre><code>## List of 4
+##  $ :&#39;data.frame&#39;:    118 obs. of  7 variables:
+##   ..$ commune                     : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ total_employed_population   : int [1:118] 223407 17802 1703 844 1431 4094 2146 971 1218 3002 ...
+##   ..$ of_which_wage_earners       : int [1:118] 203535 15993 1535 750 1315 3800 1874 858 1029 2664 ...
+##   ..$ of_which_non_wage_earners   : int [1:118] 19872 1809 168 94 116 294 272 113 189 338 ...
+##   ..$ unemployed                  : int [1:118] 19287 1071 114 25 74 261 98 45 66 207 ...
+##   ..$ active_population           : int [1:118] 242694 18873 1817 869 1505 4355 2244 1016 1284 3209 ...
+##   ..$ unemployment_rate_in_percent: num [1:118] 7.95 5.67 6.27 2.88 4.92 ...
+##  $ :&#39;data.frame&#39;:    118 obs. of  7 variables:
+##   ..$ commune                     : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ total_employed_population   : int [1:118] 228423 18166 1767 845 1505 4129 2172 1007 1268 3124 ...
+##   ..$ of_which_wage_earners       : int [1:118] 208238 16366 1606 757 1390 3840 1897 887 1082 2782 ...
+##   ..$ of_which_non_wage_earners   : int [1:118] 20185 1800 161 88 115 289 275 120 186 342 ...
+##   ..$ unemployed                  : int [1:118] 19362 1066 122 19 66 287 91 38 61 202 ...
+##   ..$ active_population           : int [1:118] 247785 19232 1889 864 1571 4416 2263 1045 1329 3326 ...
+##   ..$ unemployment_rate_in_percent: num [1:118] 7.81 5.54 6.46 2.2 4.2 ...
+##  $ :&#39;data.frame&#39;:    118 obs. of  7 variables:
+##   ..$ commune                     : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ total_employed_population   : int [1:118] 233130 18310 1780 870 1470 4130 2170 1050 1300 3140 ...
+##   ..$ of_which_wage_earners       : int [1:118] 212530 16430 1620 780 1350 3820 1910 920 1100 2770 ...
+##   ..$ of_which_non_wage_earners   : int [1:118] 20600 1880 160 90 120 310 260 130 200 370 ...
+##   ..$ unemployed                  : int [1:118] 18806 988 106 29 73 260 80 41 72 169 ...
+##   ..$ active_population           : int [1:118] 251936 19298 1886 899 1543 4390 2250 1091 1372 3309 ...
+##   ..$ unemployment_rate_in_percent: num [1:118] 7.46 5.12 5.62 3.23 4.73 ...
+##  $ :&#39;data.frame&#39;:    118 obs. of  7 variables:
+##   ..$ commune                     : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ total_employed_population   : int [1:118] 236100 18380 1790 870 1470 4160 2160 1030 1330 3150 ...
+##   ..$ of_which_wage_earners       : int [1:118] 215430 16500 1640 780 1350 3840 1900 900 1130 2780 ...
+##   ..$ of_which_non_wage_earners   : int [1:118] 20670 1880 150 90 120 320 260 130 200 370 ...
+##   ..$ unemployed                  : int [1:118] 18185 975 91 27 66 246 76 35 70 206 ...
+##   ..$ active_population           : int [1:118] 254285 19355 1881 897 1536 4406 2236 1065 1400 3356 ...
+##   ..$ unemployment_rate_in_percent: num [1:118] 7.15 5.04 4.84 3.01 4.3 ...</code></pre>
+<p>So now, what if I want to know, for each dataset, which <em>communes</em> have an unemployment rate that is less than, say, 3%? For a single dataset I would do something like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">all_datasets <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">filter</span>(., unemployment_rate_in_percent <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span>))</code></pre></div>
+<pre><code>## [[1]]
+##      commune total_employed_population of_which_wage_earners
+## 1    Garnich                       844                   750
+## 2 Leudelange                      1064                   937
+## 3       Bech                       526                   463
+##   of_which_non_wage_earners unemployed active_population
+## 1                        94         25               869
+## 2                       127         32              1096
+## 3                        63         16               542
+##   unemployment_rate_in_percent
+## 1                     2.876870
+## 2                     2.919708
+## 3                     2.952030
+## 
+## [[2]]
+##      commune total_employed_population of_which_wage_earners
+## 1    Garnich                       845                   757
+## 2 Leudelange                      1102                   965
+## 3       Bech                       543                   476
+## 4 Flaxweiler                       879                   789
+##   of_which_non_wage_earners unemployed active_population
+## 1                        88         19               864
+## 2                       137         34              1136
+## 3                        67         15               558
+## 4                        90         27               906
+##   unemployment_rate_in_percent
+## 1                     2.199074
+## 2                     2.992958
+## 3                     2.688172
+## 4                     2.980132
+## 
+## [[3]]
+##   commune total_employed_population of_which_wage_earners
+## 1    Bech                       520                   450
+## 2    Bous                       750                   680
+##   of_which_non_wage_earners unemployed active_population
+## 1                        70         14               534
+## 2                        70         22               772
+##   unemployment_rate_in_percent
+## 1                     2.621723
+## 2                     2.849741
+## 
+## [[4]]
+##             commune total_employed_population of_which_wage_earners
+## 1 Reckange-sur-Mess                       980                   850
+## 2              Bech                       520                   450
+## 3          Betzdorf                      1500                  1350
+## 4        Flaxweiler                       910                   820
+##   of_which_non_wage_earners unemployed active_population
+## 1                       130         30              1010
+## 2                        70         11               531
+## 3                       150         45              1545
+## 4                        90         24               934
+##   unemployment_rate_in_percent
+## 1                     2.970297
+## 2                     2.071563
+## 3                     2.912621
+## 4                     2.569593</code></pre>
+<p>I know what you’re thinking… <em>what the hell?</em>. Let me explain: <code>map()</code> needs a function to map to each element of the list. <code>all_datasets</code> is the list to which I want to map the function. But what function? <code>filter()</code> is the function I need, so why doesn’t:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">all_datasets <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">map</span>(<span class="kw">filter</span>(unemployment_rate_in_percent <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span>))</code></pre></div>
+<p>work? This is a bit complicated, and has to do with what is called environments. If you try to run the code above, you will get this error message:</p>
+<pre><code>Error in filter(unemployment_rate_in_percent &lt; 3) :
+  object &#39;unemployment_rate_in_percent&#39; not found</code></pre>
+<p>I won’t go into details, but by writing <code>~filter(., unemployment_rate_in_percent &lt; 3)</code>, which is a formula (<code>~</code> is the symbol to define formulas, more on this in the later chapters), <code>map()</code> converts it to a function that can be used.</p>
 
 </div>
 </div>
@@ -513,6 +687,17 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

@@ -1,8 +1,11 @@
-# Descriptive statistics
+# Data manipulation and descriptive statistics
 
 Now that we are familiar with some R objects and know how to import data, it is time to actually
 write some code. In this chapter, we are going to compute descriptive statistics for a single dataset,
-but also for a list of datasets.
+but also for a list of datasets. However, I will not give a list of functions to compute descriptive
+statistics; if you need a specific function you can find easily in the *Help* pane in Rstudio or
+using any modern internet searh engine. What I will do is show you a workflow that allows you
+to compute the statisics you need fast.
 
 R has a lot of built-in functions for descriptive statistics; however, if you want to compute statistics
 by, say, gender, some more complex manipulations are needed. At least this was true in the past.
@@ -52,7 +55,7 @@ starwars %>%
   summarise(mean(height))
 ```
 
-Ok, I know what you're thinking. *What the hell is this weird `%>%` thing?`. That is called the
+Ok, I know what you're thinking. *What the hell is this weird `%>%` thing?*. That weird thing is called the
 pipe operator. What it does is taking the left-hand side argument and piping it as the first argument
 of the function on the right-hand side. Try the following in the command line:
 
@@ -104,3 +107,191 @@ class(mean_height)
 
 head(mean_height)
 ```
+
+You could then write this data to disk using `rio::export()` for instance. If you need more than the
+mean of the height, you can keep adding as many functions as needed:
+
+```{r}
+summary_table = starwars %>%
+  group_by(species) %>%
+  summarise(ave_height = mean(height), var_height = var(height), n_obs = n())
+
+print(summary_table)
+```
+
+I did several things there; I've added more functions, `var()` to get the variance and `n()` (which
+is a function from `dplyr`, not base R) to get the number of observations. This is quite useful,
+because we see that for a lot of species we only have one single individual! Let's focus on the
+species for which we have more than 1 individual. Since we save all the previous operations (which
+produce a `tibble`) in a variable, we can keep going from there:
+
+```{r}
+summary_table2 = summary_table %>%
+  filter(n_obs > 1)
+
+print(summary_table2)
+```
+
+There's a lot of `NA`s; this is because by default, `mean()` and `var()` return `NA` if even one single
+observation is `NA` (unlike STATA). `mean()` and `var()` have a `na.rm` option that the user can set
+to `TRUE` to get the result by ignoring the `NA`s:
+
+```{r}
+starwars %>%
+  group_by(species) %>%
+  summarise(ave_height = mean(height, na.rm = TRUE), var_height = var(height, na.rm = TRUE), n_obs = n()) %>%
+  filter(n_obs > 1)
+```
+
+In the code above, I have combined the two previous steps to get the result I'm interested in. There's
+a line in the final output that says `NA` for the spcies. Let's go back to the raw data and find
+this line with the function `which()` (which is a basic R function):
+
+```{r}
+na_species <- which(is.na(starwars$species))
+
+starwars[na_species, ]
+```
+
+To test for `NA`, one uses the function `is.na()` and then `which()` returns the index where this
+condition is `TRUE`. So what I did above is save the row number where `species` is `NA` and then
+using the `[]` I slive the original raw data to get the entire line. As you can see, there's a few
+of them. An alternative way of doing that, using `dplyr` would be the following:
+
+```{r}
+starwars %>%
+  filter(is.na(species))
+```
+
+or if you want to remove these lines:
+
+```{r}
+starwars %>%
+  filter(!is.na(species))
+```
+
+The `!()` function negates a predicate function (a predicate function is a function that returns
+`TRUE` or `FALSE`). We can then rerun our analysis from before:
+
+```{r}
+starwars %>%
+  filter(!is.na(species)) %>%
+  group_by(species) %>%
+  summarise(ave_height = mean(height, na.rm = TRUE), var_height = var(height, na.rm = TRUE), n_obs = n()) %>%
+  filter(n_obs > 1)
+```
+
+`dplyr` contains a lot of different functions, one of which is `mutate()`. `mutate()` allows you to
+create new columns. For instance, suppose you need a column of the height of the individuals in
+meters, and not in centimeters:
+
+```{r}
+starwars = starwars %>%
+  mutate(height_m = height/100)
+
+glimpse(starwars)
+```
+
+I have used `mutate()` to compute the column I need and `glimpse()` is an alternative to `print()`
+that I find very interesting. We can see the column we created at the very bottom. It might be
+interesting to reorder the columns; this is possible with `select()` another `dplyr` function:
+
+```{r}
+starwars = starwars %>%
+  select(name, height, height_m, everything())
+
+glimpse(starwars)
+```
+
+`select()` allows you to reorder columns by writing the order of the columns you want, and then you
+can use `everything()` (another `dplyr` function) to just tell `select()` that you want everything
+else in there. But `select()` also allows you to only select a subset of columns, if needed:
+
+```{r}
+starwars %>%
+  select(name, height, height_m, gender) %>%
+  glimpse()
+```
+
+The last thing I want to show you are the so-called *scoped* version of these functions. For
+example, what if I am only interested in columns that contains text? Is there a way to select them
+automatically? For this type of tasks, you can use `select_if()`:
+
+```{r}
+starwars %>%
+  select_if(is.character)
+```
+
+`select_if()` selects every column that is of type character. There is also `select_all()` and
+`select_at()`, each with they're own use. I will not go into more detail here. If you are
+interested, I advise you read `dplyr`'s help and also the section I wrote in my other
+[book](https://b-rodrigues.github.io/fput/tidyverse.html) which goes into much more detail.
+
+
+## Working with a list of datasets
+
+Let's read the list of datasets from the previous chapter:
+
+```{r}
+paths = Sys.glob("datasets/unemployment/*.csv")
+
+all_datasets = import_list(paths)
+
+str(all_datasets)
+```
+
+For working with lists, another package from the `tidyverse` is very useful, and that would be
+`purrr`. `purrr` has functions to work with lists, and we are going to focus on two of them,
+`map()` and `reduce()`. `map()`... maps a function to each element of a list. `reduce()` is a bit
+more complicated so we'll leave that for later.
+
+The first thing we are going to do is use a function to clean the names of the datasets. These
+names are not very easy to work with; there's spaces, and it would be better if the names of the
+columns would be all lowercase. For this we are going to use the function `clean_names()` from the
+`janitor` package. For a sing dataset, I would write this:
+
+```{r, eval = FALSE}
+one_dataset = one_dataset %>%
+  clean_names()
+```
+
+and I would get a dataset with column names in lowercase and spaces replaced by `_`. How can I
+apply, or map, this function to each dataset in the list? To do this I need to use `purrr::map()`:
+
+```{r}
+library(purrr)
+
+all_datasets = all_datasets %>%
+  map(clean_names)
+
+all_datasets %>%
+  glimpse()
+```
+
+So now, what if I want to know, for each dataset, which *communes* have an unemployment rate that is
+less than, say, 3%? For a single dataset I would do something like this:
+
+```{r}
+all_datasets %>%
+  map(~filter(., unemployment_rate_in_percent < 3))
+```
+
+I know what you're thinking... *what the hell?*. Let me explain: `map()` needs a function to map to
+each element of the list. `all_datasets` is the list to which I want to map the function. But what
+function? `filter()` is the function I need, so why doesn't:
+
+```{r, eval = FALSE}
+all_datasets %>%
+  map(filter(unemployment_rate_in_percent < 3))
+```
+work? This is a bit complicated, and has to do with what is called environments. If you try to run
+the code above, you will get this error message:
+
+```
+Error in filter(unemployment_rate_in_percent < 3) :
+  object 'unemployment_rate_in_percent' not found
+```
+
+I won't go into details, but by writing `~filter(., unemployment_rate_in_percent < 3)`, which is a
+formula (`~` is the symbol to define formulas, more on this in the later chapters), `map()`
+converts it to a function that can be used.
