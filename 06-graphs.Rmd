@@ -7,3 +7,47 @@ works in a very different way than what you would expect. But the resulting grap
 the effort.
 
 ## ggplot2
+
+### Barplots
+
+```{r}
+library(ggplot2)
+library(ggthemes)
+```
+
+```{r}
+ggplot(starwars, aes(gender)) +
+  geom_bar()
+```
+
+### Density
+
+```{r}
+ggplot(starwars, aes(height)) +
+  geom_density()
+```
+
+```{r}
+starwars %>%
+  filter(gender %in% c("female", "male")) %>%
+  ggplot(aes(height, fill = gender)) +
+  geom_density()
+```
+
+```{r}
+starwars %>%
+  filter(gender %in% c("female", "male")) %>%
+  ggplot(aes(height, fill = gender)) +
+  geom_density(alpha = 0.5)
+```
+
+### Line plots
+
+```{r}
+unemp_lux_data = import("datasets/unemployment/all/unemployment_lux_all.csv")
+
+unemp_lux_data %>%
+  filter(division == "Luxembourg") %>%
+  ggplot(aes(year, unemployment_rate_in_percent)) +
+  geom_line()
+```
