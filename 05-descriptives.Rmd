@@ -88,12 +88,15 @@ Again, the `%>%` makes the above lines of code very easy to read. Without it, on
 summarise(group_by(filter(starwars, gender == "male"), species), mean(height))
 ```
 
-I think you agree with me that this is not very readable. To make things clearer; `filter()`,
-`group_by()` and `summarise()` are functions that are included in `dplyr`. `%>%` is actually a
-function from `magrittr`, but this package gets loaded when you load `dplyr` automatically, so you
-do not need to worry about it. `mean()` is a function *native* to R. Another thing very nice about
-using `dplyr`; the result of all these operations are datasets, or `tibbles`. This means that you
-can save them in variable, and then work with these as any other datasets.
+I think you agree with me that this is not very readable. Once you're used to `%>%`, you won't go
+back to not use it.
+
+To make things clearer; `filter()`, `group_by()` and `summarise()` are functions that are included
+in `dplyr`. `%>%` is actually a function from `magrittr`, but this package gets loaded when you
+load `dplyr` automatically, so you do not need to worry about it. `mean()` is a function *native*
+to R. Another thing very nice about using `dplyr`; the result of all these operations are datasets,
+or `tibbles`. This means that you can save them in variable, and then work with these as any other
+datasets.
 
 ```{r}
 mean_height = starwars %>%
@@ -141,7 +144,7 @@ starwars %>%
 ```
 
 In the code above, I have combined the two previous steps to get the result I'm interested in. There's
-a line in the final output that says `NA` for the spcies. Let's go back to the raw data and find
+a line in the final output that says `NA` for the species. Let's go back to the raw data and find
 this line with the function `which()` (which is a basic R function):
 
 ```{r}
@@ -167,7 +170,7 @@ starwars %>%
   filter(!is.na(species))
 ```
 
-The `!()` function negates a predicate function (a predicate function is a function that returns
+The `!` function negates a predicate function (a predicate function is a function that returns
 `TRUE` or `FALSE`). We can then rerun our analysis from before:
 
 ```{r}
@@ -190,8 +193,9 @@ glimpse(starwars)
 ```
 
 I have used `mutate()` to compute the column I need and `glimpse()` is an alternative to `print()`
-that I find very interesting. We can see the column we created at the very bottom. It might be
-interesting to reorder the columns; this is possible with `select()` another `dplyr` function:
+that I find very useful because it shows all the columns with as many observations that fit on your
+screen. We can see the column we created at the very bottom. It might be interesting to reorder the
+columns; this is possible with `select()` another `dplyr` function:
 
 ```{r}
 starwars = starwars %>%
@@ -243,9 +247,9 @@ For working with lists, another package from the `tidyverse` is very useful, and
 more complicated so we'll leave that for later.
 
 The first thing we are going to do is use a function to clean the names of the datasets. These
-names are not very easy to work with; there's spaces, and it would be better if the names of the
+names are not very easy to work with; there are spaces, and it would be better if the names of the
 columns would be all lowercase. For this we are going to use the function `clean_names()` from the
-`janitor` package. For a sing dataset, I would write this:
+`janitor` package. For a single dataset, I would write this:
 
 ```{r, include=FALSE}
 library(janitor)
@@ -258,8 +262,9 @@ one_dataset = one_dataset %>%
   clean_names()
 ```
 
-and I would get a dataset with column names in lowercase and spaces replaced by `_`. How can I
-apply, or map, this function to each dataset in the list? To do this I need to use `purrr::map()`:
+and I would get a dataset with column names in lowercase and spaces replaced by `_` (and other
+corrections). How can I apply, or map, this function to each dataset in the list? To do this I need
+to use `purrr::map()`:
 
 ```{r}
 library(purrr)
@@ -273,6 +278,13 @@ all_datasets %>%
 
 So now, what if I want to know, for each dataset, which *communes* have an unemployment rate that is
 less than, say, 3%? For a single dataset I would do something like this:
+
+```{r, eval=FALSE}
+one_dataset %>%
+  filter(unemployment_rate_in_percent < 3)
+```
+
+But for a list of datasets, `map()` is needed (and as you will see, that is not all that is needed):
 
 ```{r}
 all_datasets %>%
@@ -297,4 +309,6 @@ Error in filter(unemployment_rate_in_percent < 3) :
 
 I won't go into details, but by writing `~filter(., unemployment_rate_in_percent < 3)`, which is a
 formula (`~` is the symbol to define formulas, more on this in the later chapters), `map()`
-converts it to a function that can be used.
+converts it to a function that it can use. If you want to know more about this, you can read it in
+[Advanced R](http://adv-r.had.co.nz/Functional-programming.html#closures) by Hadley Wickham, but it
+is an advanced topic.
