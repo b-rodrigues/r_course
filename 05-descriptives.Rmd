@@ -181,6 +181,16 @@ starwars %>%
   filter(n_obs > 1)
 ```
 
+And why not compute the same table, but adding another stratifying variable?
+
+```{r}
+starwars %>%
+  filter(!is.na(species)) %>%
+  group_by(species, gender) %>%
+  summarise(ave_height = mean(height, na.rm = TRUE), var_height = var(height, na.rm = TRUE), n_obs = n()) %>%
+  filter(n_obs > 1)
+```
+
 `dplyr` contains a lot of different functions, one of which is `mutate()`. `mutate()` allows you to
 create new columns. For instance, suppose you need a column of the height of the individuals in
 meters, and not in centimeters:
@@ -230,6 +240,8 @@ interested, I advise you read `dplyr`'s help and also the section I wrote in my 
 
 
 ## Working with a list of datasets
+
+### Getting to know `map()`
 
 Let's read the list of datasets from the previous chapter:
 
@@ -312,3 +324,72 @@ formula (`~` is the symbol to define formulas, more on this in the later chapter
 converts it to a function that it can use. If you want to know more about this, you can read it in
 [Advanced R](http://adv-r.had.co.nz/Functional-programming.html#closures) by Hadley Wickham, but it
 is an advanced topic.
+
+
+### Getting to know `reduce()`
+
+Using `map()` we now know how to apply a function to each dataset of a list. But maybe it would be
+easier to merge all the datasets first, and then manipulate them? Before that though, I am going to
+teach you how to use `purrr::reduce()`, another very powerful function that works on lists. This is
+a function that you can find in other programming languages, but sometimes it is called fold.
+
+I think that the following example illustrates the power of `reduce()` well:
+
+```{r}
+numbers = seq(1, 5) # Create a vector with the numbers 1 to 5
+
+reduce(numbers, `+`, .init = 0)
+```
+
+`reduce()` takes a function as an argument, here the function `+`^[This is simply the `+` operator
+you're used to. Try this out: `` `+`(1, 5) `` and you'll see `+` is a function like any other. You
+just have to write backticks around the plus symbol to make it work.] and then does the following
+computation:
+
+```
+0 + numbers[1] + numbers[2] + numbers[3]...
+```
+
+It applies the user supplied function successively but has to start with something, so we give it
+the argument `init` also. This argument is actually optional, but I show it here because in some
+cases it might be useful to start the computations at another value than `0`.`reduce()`
+generalizes functions that only take two arguments. If you were to write a function that returns
+the minimum between two numbers:
+
+```{r}
+my_min = function(a, b){
+    if(a < b){
+        return(a)
+    } else {
+        return(b)
+    }
+}
+```
+
+You could use `reduce()` to get the minimum of a list of numbers:
+
+```{r}
+numbers2 = c(3, 1, -8, 9)
+
+reduce(numbers2, my_min)
+```
+
+As long as you provide a function and a list of elements to `reduce()`, you will get a single
+output. So how could `reduce()` help us with merging all the datasets that are in the list? `dplyr`
+comes with a lot of function to merge *two* datasets. Remember that I said before that `reduce()`
+allows you to generalize a function of two arguments? Let's try it with our list of datasets:
+
+
+```{r}
+unemp_lux = reduce(all_datasets, full_join)
+
+glimpse(unemp_lux)
+```
+
+`full_join()` is one of the `dplyr` function that merges data. There are others that might be
+useful depending on the kind of join operation you need. Let's write this data to disk as we're
+going to keep using it for the next chapters:
+
+```{r}
+export(unemp_lux, "datasets/unemp_lux.csv")
+```

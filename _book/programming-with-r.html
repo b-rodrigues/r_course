@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="statistical-models.html">
-<link rel="next" href="references.html">
+<link rel="next" href="placeholder.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -149,7 +149,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4" data-path="reading-and-writing-data-with-rio.html"><a href="reading-and-writing-data-with-rio.html"><i class="fa fa-check"></i><b>4</b> Reading and writing data with <code>rio</code></a></li>
 <li class="chapter" data-level="5" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html"><i class="fa fa-check"></i><b>5</b> Data manipulation and descriptive statistics</a><ul>
 <li class="chapter" data-level="5.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-single-dataset"><i class="fa fa-check"></i><b>5.1</b> Working with a single dataset</a></li>
-<li class="chapter" data-level="5.2" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-list-of-datasets"><i class="fa fa-check"></i><b>5.2</b> Working with a list of datasets</a></li>
+<li class="chapter" data-level="5.2" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-list-of-datasets"><i class="fa fa-check"></i><b>5.2</b> Working with a list of datasets</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#getting-to-know-map"><i class="fa fa-check"></i><b>5.2.1</b> Getting to know <code>map()</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#getting-to-know-reduce"><i class="fa fa-check"></i><b>5.2.2</b> Getting to know <code>reduce()</code></a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>6</b> Graphs</a><ul>
 <li class="chapter" data-level="6.1" data-path="graphs.html"><a href="graphs.html#ggplot2"><i class="fa fa-check"></i><b>6.1</b> ggplot2</a></li>
@@ -158,7 +161,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8" data-path="programming-with-r.html"><a href="programming-with-r.html"><i class="fa fa-check"></i><b>8</b> Programming with R</a><ul>
 <li class="chapter" data-level="8.1" data-path="programming-with-r.html"><a href="programming-with-r.html#writing-your-own-functions"><i class="fa fa-check"></i><b>8.1</b> Writing your own functions</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="9" data-path="placeholder.html"><a href="placeholder.html"><i class="fa fa-check"></i><b>9</b> Placeholder</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -182,6 +185,49 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 8</span> Programming with R</h1>
 <div id="writing-your-own-functions" class="section level2">
 <h2><span class="header-section-number">8.1</span> Writing your own functions</h2>
+<p>Before merging these datasets together, we would need them to have a <code>year</code> column indicating the year. It would also be helpful if gave names to these datasets. For this task, we can use <code>purrr::set_names()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">all_datasets =<span class="st"> </span><span class="kw">set_names</span>(all_datasets, <span class="kw">as.character</span>(<span class="kw">seq</span>(<span class="dv">2013</span>, <span class="dv">2016</span>)))</code></pre></div>
+<p>Let’s take a look at the list now:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(all_datasets)</code></pre></div>
+<pre><code>## List of 4
+##  $ 2013:&#39;data.frame&#39;:    118 obs. of  8 variables:
+##   ..$ commune                     : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ total_employed_population   : int [1:118] 223407 17802 1703 844 1431 4094 2146 971 1218 3002 ...
+##   ..$ of_which_wage_earners       : int [1:118] 203535 15993 1535 750 1315 3800 1874 858 1029 2664 ...
+##   ..$ of_which_non_wage_earners   : int [1:118] 19872 1809 168 94 116 294 272 113 189 338 ...
+##   ..$ unemployed                  : int [1:118] 19287 1071 114 25 74 261 98 45 66 207 ...
+##   ..$ active_population           : int [1:118] 242694 18873 1817 869 1505 4355 2244 1016 1284 3209 ...
+##   ..$ unemployment_rate_in_percent: num [1:118] 7.95 5.67 6.27 2.88 4.92 ...
+##   ..$ year                        : int [1:118] 2013 2013 2013 2013 2013 2013 2013 2013 2013 2013 ...
+##  $ 2014:&#39;data.frame&#39;:    118 obs. of  8 variables:
+##   ..$ commune                     : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ total_employed_population   : int [1:118] 228423 18166 1767 845 1505 4129 2172 1007 1268 3124 ...
+##   ..$ of_which_wage_earners       : int [1:118] 208238 16366 1606 757 1390 3840 1897 887 1082 2782 ...
+##   ..$ of_which_non_wage_earners   : int [1:118] 20185 1800 161 88 115 289 275 120 186 342 ...
+##   ..$ unemployed                  : int [1:118] 19362 1066 122 19 66 287 91 38 61 202 ...
+##   ..$ active_population           : int [1:118] 247785 19232 1889 864 1571 4416 2263 1045 1329 3326 ...
+##   ..$ unemployment_rate_in_percent: num [1:118] 7.81 5.54 6.46 2.2 4.2 ...
+##   ..$ year                        : int [1:118] 2014 2014 2014 2014 2014 2014 2014 2014 2014 2014 ...
+##  $ 2015:&#39;data.frame&#39;:    118 obs. of  8 variables:
+##   ..$ commune                     : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ total_employed_population   : int [1:118] 233130 18310 1780 870 1470 4130 2170 1050 1300 3140 ...
+##   ..$ of_which_wage_earners       : int [1:118] 212530 16430 1620 780 1350 3820 1910 920 1100 2770 ...
+##   ..$ of_which_non_wage_earners   : int [1:118] 20600 1880 160 90 120 310 260 130 200 370 ...
+##   ..$ unemployed                  : int [1:118] 18806 988 106 29 73 260 80 41 72 169 ...
+##   ..$ active_population           : int [1:118] 251936 19298 1886 899 1543 4390 2250 1091 1372 3309 ...
+##   ..$ unemployment_rate_in_percent: num [1:118] 7.46 5.12 5.62 3.23 4.73 ...
+##   ..$ year                        : int [1:118] 2015 2015 2015 2015 2015 2015 2015 2015 2015 2015 ...
+##  $ 2016:&#39;data.frame&#39;:    118 obs. of  8 variables:
+##   ..$ commune                     : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ total_employed_population   : int [1:118] 236100 18380 1790 870 1470 4160 2160 1030 1330 3150 ...
+##   ..$ of_which_wage_earners       : int [1:118] 215430 16500 1640 780 1350 3840 1900 900 1130 2780 ...
+##   ..$ of_which_non_wage_earners   : int [1:118] 20670 1880 150 90 120 320 260 130 200 370 ...
+##   ..$ unemployed                  : int [1:118] 18185 975 91 27 66 246 76 35 70 206 ...
+##   ..$ active_population           : int [1:118] 254285 19355 1881 897 1536 4406 2236 1065 1400 3356 ...
+##   ..$ unemployment_rate_in_percent: num [1:118] 7.15 5.04 4.84 3.01 4.3 ...
+##   ..$ year                        : int [1:118] 2016 2016 2016 2016 2016 2016 2016 2016 2016 2016 ...</code></pre>
+<p>As you can see, each <code>data.frame</code> object contained in the list has been renamed. You can thus access them with the <code>$</code> operator:</p>
+<p><img src="pics/all_datasets_names.png" width="135" /></p>
 
 </div>
 </div>
@@ -191,7 +237,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         </div>
       </div>
 <a href="statistical-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="placeholder.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -231,17 +277,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

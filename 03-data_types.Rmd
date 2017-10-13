@@ -9,7 +9,7 @@ that you need to become familiar with.
 But first, we need to learn how to assign a variable. This can be done in two ways:
 
 ```{r}
-a = 3
+a <- 3
 ```
 
 or
@@ -20,6 +20,12 @@ a = 3
 
 there is almost no difference between these two approaches. Out of habit, I use `=`, but you can
 use `=` if you wish.
+
+Another thing you must know is that you can convert from one type to another using
+`as.character()`, `as.numeric()`, `as.logical()`, etc... For example, `as.character(1)` converts
+the number `1` to the character (or string) "1". There are also `is.character()`, `is.numeric()`
+and so on that test if the object is of the required class. These functions exist for each object
+type, and are very useful. Make sure you remember them!
 
 ## The `numeric` class
 

@@ -1,3 +1,26 @@
 # Programming with R
 
 ## Writing your own functions
+
+
+
+Before merging these datasets together, we would need them to have a `year` column indicating the
+year. It would also be helpful if gave names to these datasets. For this task, we can use
+`purrr::set_names()`:
+
+```{r}
+all_datasets = set_names(all_datasets, as.character(seq(2013, 2016)))
+```
+
+Let's take a look at the list now:
+
+```{r}
+str(all_datasets)
+```
+
+As you can see, each `data.frame` object contained in the list has been renamed. You can thus
+access them with the `$` operator:
+
+```{r, echo=FALSE}
+knitr::include_graphics("pics/all_datasets_names.png")
+```
