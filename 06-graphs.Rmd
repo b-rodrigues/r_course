@@ -1,5 +1,9 @@
 # Graphs
 
-Some _significant_ applications are demonstrated in this chapter.
+By default, it is possible to make a lot of graphs with R without the need of any external
+packages. However, in this chapter, we are going to learn how to make graphs using `ggplot2` which
+is a very powerful package that produces amazing graphs. There is an entry cost to `ggplot2` as it
+works in a very different way than what you would expect. But the resulting graphs are well worth
+the effort.
 
 ## ggplot2

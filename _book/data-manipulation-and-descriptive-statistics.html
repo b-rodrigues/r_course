@@ -161,7 +161,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8" data-path="programming-with-r.html"><a href="programming-with-r.html"><i class="fa fa-check"></i><b>8</b> Programming with R</a><ul>
 <li class="chapter" data-level="8.1" data-path="programming-with-r.html"><a href="programming-with-r.html#writing-your-own-functions"><i class="fa fa-check"></i><b>8.1</b> Writing your own functions</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="placeholder.html"><a href="placeholder.html"><i class="fa fa-check"></i><b>9</b> Placeholder</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -189,9 +189,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="working-with-a-single-dataset" class="section level2">
 <h2><span class="header-section-number">5.1</span> Working with a single dataset</h2>
 <p>First, let’s load <code>dplyr</code> and the included <code>starwars</code> dataset. Let’s also take a look at the first 5 lines of the dataset:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-
-<span class="kw">data</span>(starwars)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(starwars)
 
 <span class="kw">head</span>(starwars)</code></pre></div>
 <pre><code>## # A tibble: 6 x 13
@@ -683,7 +690,7 @@ all_datasets <span class="op">%&gt;%</span>
 
 <span class="kw">reduce</span>(numbers, <span class="st">`</span><span class="dt">+</span><span class="st">`</span>, <span class="dt">.init =</span> <span class="dv">0</span>)</code></pre></div>
 <pre><code>## [1] 15</code></pre>
-<p><code>reduce()</code> takes a function as an argument, here the function <code>+</code><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> and then does the following computation:</p>
+<p><code>reduce()</code> takes a function as an argument, here the function <code>+</code><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> and then does the following computation:</p>
 <pre><code>0 + numbers[1] + numbers[2] + numbers[3]...</code></pre>
 <p>It applies the user supplied function successively but has to start with something, so we give it the argument <code>init</code> also. This argument is actually optional, but I show it here because in some cases it might be useful to start the computations at another value than <code>0</code>.<code>reduce()</code> generalizes functions that only take two arguments. If you were to write a function that returns the minimum between two numbers:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_min =<span class="st"> </span><span class="cf">function</span>(a, b){
@@ -722,8 +729,8 @@ all_datasets <span class="op">%&gt;%</span>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="1">
-<li id="fn1"><p>This is simply the <code>+</code> operator you’re used to. Try this out: <code>`+`(1, 5)</code> and you’ll see <code>+</code> is a function like any other. You just have to write backticks around the plus symbol to make it work.<a href="data-manipulation-and-descriptive-statistics.html#fnref1">↩</a></p></li>
+<ol start="2">
+<li id="fn2"><p>This is simply the <code>+</code> operator you’re used to. Try this out: <code>`+`(1, 5)</code> and you’ll see <code>+</code> is a function like any other. You just have to write backticks around the plus symbol to make it work.<a href="data-manipulation-and-descriptive-statistics.html#fnref2">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -772,6 +779,17 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
