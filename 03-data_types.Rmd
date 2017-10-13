@@ -265,6 +265,17 @@ Lists are used extensively because they are so flexible. You can build lists of 
 functions to all the datasets at once, build lists of models, lists of plots, etc... In the later
 chapters we are going to learn all about them.
 
+## The `data.frame` and `tibble` classes
+
+In the next chapter we are going to learn how to import datasets into R. Once you import data, the
+resulting object is either a `data.frame` or a `tibble` depending on which package you used to
+import the data. `tibble`s extend `data.frame`s so if you know about `data.frame` objects already,
+working with `tibble`s will be very easy. `tibble`s have a better `print()` method, and some other
+niceties. If you want to know more, I go into more detail in my [other
+book](https://b-rodrigues.github.io/fput/tidyverse.html#getting-data-into-r-with-readr-readxl-haven-and-what-are-tibbles)
+but for our purposes, there's not much you need to know about `data.frame` and `tibble` objects,
+apart that this the representation of a dataset when loaded into R.
+
 ## Exercises
 
 ### Exercise 1 {-}

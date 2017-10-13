@@ -88,15 +88,12 @@ Again, the `%>%` makes the above lines of code very easy to read. Without it, on
 summarise(group_by(filter(starwars, gender == "male"), species), mean(height))
 ```
 
-so really not easy.
-
-To make things clearer; `filter()`, `group_by()` and `summarise()` are functions that are included
-in `dplyr`. `%>%` is actually a function from `magrittr`, but this package gets loaded when you
-load `dplyr` automatically, so you do not need to worry about it. `mean()` is a function *native* to R.
-
-Another thing very nice about using `dplyr`; the result of all these operations are datasets, or
-`tibbles`. This means that you can save them in variable, and then work with these as any other
-datasets.
+I think you agree with me that this is not very readable. To make things clearer; `filter()`,
+`group_by()` and `summarise()` are functions that are included in `dplyr`. `%>%` is actually a
+function from `magrittr`, but this package gets loaded when you load `dplyr` automatically, so you
+do not need to worry about it. `mean()` is a function *native* to R. Another thing very nice about
+using `dplyr`; the result of all these operations are datasets, or `tibbles`. This means that you
+can save them in variable, and then work with these as any other datasets.
 
 ```{r}
 mean_height = starwars %>%
@@ -250,7 +247,13 @@ names are not very easy to work with; there's spaces, and it would be better if 
 columns would be all lowercase. For this we are going to use the function `clean_names()` from the
 `janitor` package. For a sing dataset, I would write this:
 
+```{r, include=FALSE}
+library(janitor)
+```
+
 ```{r, eval = FALSE}
+library(janitor)
+
 one_dataset = one_dataset %>%
   clean_names()
 ```

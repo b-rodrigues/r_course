@@ -1,15 +1,17 @@
-# Reading and writing data
+# Reading and writing data with `rio`
 
 In this chapter, we are going to import example datasets that are available in R, `mtcars` and
-`iris`. I have converted these datasets into several formats
-
-R can import some formats without the need of external packages, such as the `.csv` format. However,
-for other formats, you will need to use different packages. Because there are a lot of different
-formats available I suggest you use `rio`. `rio` is basically a wrapper around every package that
-exists to import/export data. This package is nice because you don't need to remember which package
-to use to import, say, STATA datasets.
-Read `rio`'s [vignette](https://cran.r-project.org/web/packages/rio/vignettes/rio.html) for more
-details. Below I show some of `rio`'s functions presented in the vignette.
+`iris`. I have converted these datasets into several formats. Download those datasets
+[here](https://github.com/b-rodrigues/r_for_statec/tree/master/datasets) if you want to follow the
+examples below. R can import some formats without the need of external packages, such as the `.csv`
+format. However, for other formats, you will need to use different packages. Because there are a
+lot of different formats available I suggest you use `rio`. `rio` is basically a wrapper around a
+lot of packages that exist to import/export data. This package is nice because you don't need to
+remember which package to use to import, say, STATA datasets and then you need to remember which
+one for SAS datasets, and so on. Read `rio`'s
+[vignette](https://cran.r-project.org/web/packages/rio/vignettes/rio.html) for more details. Below
+I show some of `rio`'s functions presented in the vignette. It is also possible to import data from
+other, less "traditional" sources, such as your clipboard.
 
 To import data with `rio`, `import()` is all you need:
 
@@ -49,8 +51,8 @@ to import all the datasets in a single directory at once. For this, you first ne
 paths = Sys.glob("datasets/unemployment/*.csv")
 ```
 
-`Sys.glob()` allows you to find files using a regular expression. "datasets/unemployment/*.csv" matches
-all the `.csv` files inside "datasets/unemployment".
+`Sys.glob()` allows you to find files using a regular expression. "datasets/unemployment/*.csv"
+matches all the `.csv` files inside "datasets/unemployment".
 
 ```{r}
 all_data = import_list(paths)
@@ -81,6 +83,48 @@ testdata = import("datasets/problems/mtcars.csv", sep = "&")
 
 head(testdata)
 ```
+
+`export()` allows you to write data to disk, by simply providing the path and name of the file you
+wish to save.
+
+```{r, eval=FALSE}
+export(testdata, "path/where/to/save/testdata.csv")
+```
+
+If you end the name with `.csv` the file is exported to the csv format, if instead you write `.dta`
+the data will be exported to the STATA format, etc.
+
+If you wish to export to Excel, this is possible, but requires that you change a file on your
+computer (you only have to do this once). Run the following lines in Rstudio:
+
+```{r, eval=FALSE}
+if(!file.exists("~/.Rprofile")) # only create if not already there
+    file.create("~/.Rprofile")    # (don't overwrite it)
+file.edit("~/.Rprofile")
+```
+These lines, taken shamelessly from [Efficient R
+programming](https://csgillespie.github.io/efficientR/3-3-r-startup.html#rprofile) (go read it,
+it's a very great resource) look for and open the `.Rprofile` file which is a file that is run
+every time you open Rstudio. This means that you can put any line of code there that will always be
+executed whenever you launch Rstudio. The line you need to add is this:
+
+```{r, eval=FALSE}
+Sys.setenv("R_ZIPCMD" = "C:/Program Files (x86)/Rtools/zip.exe")
+```
+
+This tells Rstudio to use `zip.exe` as the default zip tool, which is needed to export files to the
+Excel format. Try it out by restarting Rstudio, and then running the following lines:
+
+```{r, eval=FALSE}
+library(rio)
+
+data(mtcars)
+
+export(mtcars, "mtcars.xlsx")
+```
+
+You should find the `mtcars.xlsx` inside your working directory (it should be your Documents
+folder. You can use `getwd()` to check where you are).
 
 `rio` should cover all your needs, but if not, there is very likely a package out there that will
 import the data you need.

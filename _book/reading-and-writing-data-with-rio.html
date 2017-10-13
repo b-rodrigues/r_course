@@ -145,7 +145,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.6.6" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-7"><i class="fa fa-check"></i><b>3.6.6</b> Exercise 7</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html"><i class="fa fa-check"></i><b>4</b> Reading and writing data</a></li>
+<li class="chapter" data-level="4" data-path="reading-and-writing-data-with-rio.html"><a href="reading-and-writing-data-with-rio.html"><i class="fa fa-check"></i><b>4</b> Reading and writing data with <code>rio</code></a></li>
 <li class="chapter" data-level="5" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html"><i class="fa fa-check"></i><b>5</b> Data manipulation and descriptive statistics</a><ul>
 <li class="chapter" data-level="5.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-single-dataset"><i class="fa fa-check"></i><b>5.1</b> Working with a single dataset</a></li>
 <li class="chapter" data-level="5.2" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-list-of-datasets"><i class="fa fa-check"></i><b>5.2</b> Working with a list of datasets</a></li>
@@ -157,7 +157,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8" data-path="programming-with-r.html"><a href="programming-with-r.html"><i class="fa fa-check"></i><b>8</b> Programming with R</a><ul>
 <li class="chapter" data-level="8.1" data-path="programming-with-r.html"><a href="programming-with-r.html#writing-your-own-functions"><i class="fa fa-check"></i><b>8.1</b> Writing your own functions</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="9" data-path="placeholder.html"><a href="placeholder.html"><i class="fa fa-check"></i><b>9</b> Placeholder</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -177,10 +177,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="reading-and-writing-data" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Reading and writing data</h1>
-<p>In this chapter, we are going to import example datasets that are available in R, <code>mtcars</code> and <code>iris</code>. I have converted these datasets into several formats</p>
-<p>R can import some formats without the need of external packages, such as the <code>.csv</code> format. However, for other formats, you will need to use different packages. Because there are a lot of different formats available I suggest you use <code>rio</code>. <code>rio</code> is basically a wrapper around every package that exists to import/export data. This package is nice because you don’t need to remember which package to use to import, say, STATA datasets. Read <code>rio</code>’s <a href="https://cran.r-project.org/web/packages/rio/vignettes/rio.html">vignette</a> for more details. Below I show some of <code>rio</code>’s functions presented in the vignette.</p>
+<div id="reading-and-writing-data-with-rio" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Reading and writing data with <code>rio</code></h1>
+<p>In this chapter, we are going to import example datasets that are available in R, <code>mtcars</code> and <code>iris</code>. I have converted these datasets into several formats. Download those datasets <a href="https://github.com/b-rodrigues/r_for_statec/tree/master/datasets">here</a> if you want to follow the examples below. R can import some formats without the need of external packages, such as the <code>.csv</code> format. However, for other formats, you will need to use different packages. Because there are a lot of different formats available I suggest you use <code>rio</code>. <code>rio</code> is basically a wrapper around a lot of packages that exist to import/export data. This package is nice because you don’t need to remember which package to use to import, say, STATA datasets and then you need to remember which one for SAS datasets, and so on. Read <code>rio</code>’s <a href="https://cran.r-project.org/web/packages/rio/vignettes/rio.html">vignette</a> for more details. Below I show some of <code>rio</code>’s functions presented in the vignette. It is also possible to import data from other, less “traditional” sources, such as your clipboard.</p>
 <p>To import data with <code>rio</code>, <code>import()</code> is all you need:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rio)
 
@@ -236,9 +235,7 @@ mtcars =<span class="st"> </span><span class="kw">import</span>(<span class="st"
 ##   ..$ Species     : chr [1:150] &quot;setosa&quot; &quot;setosa&quot; &quot;setosa&quot; &quot;setosa&quot; ...</code></pre>
 <p>As you can see <code>multi</code> is a list of datasets. Told you lists were very flexible! It is also possible to import all the datasets in a single directory at once. For this, you first need a vector of paths:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">paths =<span class="st"> </span><span class="kw">Sys.glob</span>(<span class="st">&quot;datasets/unemployment/*.csv&quot;</span>)</code></pre></div>
-<p><code>Sys.glob()</code> allows you to find files using aSys.setenv(“R_ZIPCMD” = “C:/Program Files (x86)/Rtools/zip.exe”)</p>
-<p>regular expression. “datasets/unemployment/*.csv&quot; matches all the <code>.csv</code> files inside “datasets/unemSys.setenv(”R_ZIPCMD&quot; = “C:/Program Files (x86)/Rtools/zip.exe”)</p>
-<p>ployment“.</p>
+<p><code>Sys.glob()</code> allows you to find files using a regular expression. “datasets/unemployment/*.csv&quot; matches all the <code>.csv</code> files inside “datasets/unemployment”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">all_data =<span class="st"> </span><span class="kw">import_list</span>(paths)
 
 <span class="kw">str</span>(all_data)</code></pre></div>
@@ -305,7 +302,7 @@ mtcars =<span class="st"> </span><span class="kw">import</span>(<span class="st"
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;~/.Rprofile&quot;</span>)) <span class="co"># only create if not already there</span>
     <span class="kw">file.create</span>(<span class="st">&quot;~/.Rprofile&quot;</span>)    <span class="co"># (don&#39;t overwrite it)</span>
 <span class="kw">file.edit</span>(<span class="st">&quot;~/.Rprofile&quot;</span>)</code></pre></div>
-<p>This looks and opens the <code>.Rprofile</code> file which is a file that is run every time you open Rstudio. This means that you can put any line of code there that will always be executed whenever you launch Rstudio. The line you need to add is this:</p>
+<p>These lines, taken shamelessly from <a href="https://csgillespie.github.io/efficientR/3-3-r-startup.html#rprofile">Efficient R programming</a> (go read it, it’s a very great resource) look for and open the <code>.Rprofile</code> file which is a file that is run every time you open Rstudio. This means that you can put any line of code there that will always be executed whenever you launch Rstudio. The line you need to add is this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.setenv</span>(<span class="st">&quot;R_ZIPCMD&quot;</span> =<span class="st"> &quot;C:/Program Files (x86)/Rtools/zip.exe&quot;</span>)</code></pre></div>
 <p>This tells Rstudio to use <code>zip.exe</code> as the default zip tool, which is needed to export files to the Excel format. Try it out by restarting Rstudio, and then running the following lines:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rio)
@@ -363,17 +360,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
