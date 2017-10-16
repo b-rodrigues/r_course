@@ -8,6 +8,16 @@ the effort.
 
 ## ggplot2
 
+Resources: [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/)
+
+[Tufte in R](http://motioninsocial.com/tufte/)
+
+[ggplot2 extensions](http://www.ggplot2-exts.org/gallery/)
+
+[R graph gallery](http://www.r-graph-gallery.com/portfolio/ggplot2-package/)
+
+[ggthemes Vignette](https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html)
+
 ### Barplots
 
 ```{r}
@@ -48,6 +58,44 @@ unemp_lux_data = import("datasets/unemployment/all/unemployment_lux_all.csv")
 
 unemp_lux_data %>%
   filter(division == "Luxembourg") %>%
-  ggplot(aes(year, unemployment_rate_in_percent)) +
+  ggplot(aes(year, unemployment_rate_in_percent, group = 1)) +
+  geom_line()
+```
+
+
+```{r}
+unemp_lux_data %>%
+  filter(division == "Luxembourg" | division == "Esch-sur-Alzette") %>%
+  ggplot(aes(year, unemployment_rate_in_percent, group = division, color = division)) +
+  geom_line()
+```
+
+```{r}
+unemp_lux_data %>%
+  filter(division == "Luxembourg" | division == "Esch-sur-Alzette") %>%
+  ggplot(aes(year, unemployment_rate_in_percent, group = division, color = division)) +
+  theme(legend.position = "bottom") + 
+  labs(title="Unemployment in Luxembourg and Esch/Alzette", x="Year", y = "Rate")+
+  geom_line()
+```
+
+```{r}
+unemp_lux_data %>%
+  filter(division == "Luxembourg" | division == "Esch-sur-Alzette") %>%
+  ggplot(aes(year, unemployment_rate_in_percent, group = division, color = division)) +
+    theme_stata() + 
+    theme(legend.position = "bottom") + 
+  labs(title="Unemployment in Luxembourg and Esch/Alzette", x="Year", y = "Rate") +
+  geom_line()
+```
+
+```{r}
+unemp_lux_data %>%
+  filter(division == "Luxembourg" | division == "Esch-sur-Alzette") %>%
+  ggplot(aes(year, unemployment_rate_in_percent, group = division, color = division)) +
+  theme_minimal() + 
+  scale_color_hc() + 
+  theme(legend.position = "bottom", legend.title = element_blank()) + 
+  labs(title="Unemployment in Luxembourg and Esch/Alzette", x = "Year", y = "Rate") +
   geom_line()
 ```
