@@ -3,40 +3,88 @@
 By default, it is possible to make a lot of graphs with R without the need of any external
 packages. However, in this chapter, we are going to learn how to make graphs using `ggplot2` which
 is a very powerful package that produces amazing graphs. There is an entry cost to `ggplot2` as it
-works in a very different way than what you would expect. But the resulting graphs are well worth
-the effort.
+works in a very different way than what you would expect, especially if you know how to make plots
+with the basic R functions already. But the resulting graphs are well worth the effort and once
+you'll know more about `ggplot2` you'll see that it in a lot of situations it is actually faster
+and easier.
 
-## ggplot2
+## Resources
 
-Resources: [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/)
+Before showing some examples and the general functionality of `ggplot2`, I list here some online
+resources that I keep coming back to:
 
-[Tufte in R](http://motioninsocial.com/tufte/)
+* [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/)
 
-[ggplot2 extensions](http://www.ggplot2-exts.org/gallery/)
+* [R graph gallery](http://www.r-graph-gallery.com/portfolio/ggplot2-package/)
 
-[R graph gallery](http://www.r-graph-gallery.com/portfolio/ggplot2-package/)
+* [Tufte in R](http://motioninsocial.com/tufte/)
 
-[ggthemes Vignette](https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html)
+* [ggplot2 extensions](http://www.ggplot2-exts.org/gallery/)
+
+* [ggthemes Vignette](https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html)
+
+* [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
+
+I have a cookbook approach to using `ggplot2`; I try to find an example online that looks similar
+to what I have in mind, copy and paste the code and then adapt it to my case. The above resources
+are the ones I consult the most in these situations (I also go back to past code I've written, of
+course). Don't hesitate to skim these resources for inspiration and to learn more about some
+extensions to `ggplot2`. In the next subsections I am going to show you how to draw the most common
+plots, as well as show you how to customize your plots with `ggthemes`.
+
+
+## Examples
 
 ### Barplots
+
+To follow the examples below, load the following libraries:
 
 ```{r}
 library(ggplot2)
 library(ggthemes)
 ```
 
+`ggplot2` is an implementation of the *Grammar of Graphics* by @wilkinson2006, but you don't need
+to read the books to start using it. If we go back to the Star Wars data (contained in `dplyr`),
+and wish to draw a barplot of the gender, the following lines are enough:
+
+
 ```{r}
+data(starwars)
+
 ggplot(starwars, aes(gender)) +
   geom_bar()
 ```
 
+The first argument of the function is the data (called `starwars` in this example), and then the
+function `aes()`. This function is where you list the variables you want to map, and to quote the
+help file of `aes()`, *describes how the variables are mapped to visual properties (aesthetics) of
+geoms*. You can get different kind of plots by using different `geom_` functions.
+
+
 ### Density
+
+`geom_density()` is the *geom* that allows you to get density plots:
 
 ```{r}
 ggplot(starwars, aes(height)) +
   geom_density()
 ```
 
+Let's go into more detail now; what if you would like to plot the densities for females and males
+only (removing the droids from the data first)? This can be done by first filtering the data using
+`dplyr` and then separating the dataset by gender:
+
+
+```{r, eval=FALSE}
+starwars %>%
+  filter(gender %in% c("female", "male"))
+```
+
+The above lines do the filtering; only keep gender if gender is in the vector `"female", "male"`.
+This is much easier than having to write `gender == "female" | gender == "male"`. Then, we pipe
+this dataset to `ggplot`:
+
 ```{r}
 starwars %>%
   filter(gender %in% c("female", "male")) %>%
@@ -44,14 +92,24 @@ starwars %>%
   geom_density()
 ```
 
-```{r}
-starwars %>%
-  filter(gender %in% c("female", "male")) %>%
-  ggplot(aes(height, fill = gender)) +
-  geom_density(alpha = 0.5)
-```
+Let's take a closer look to the `aes()` function: I've added `fill = gender`. This means that the
+there will be one density plot for each gender in the data, and each will be colored accordingly.
+This is where `ggplot2` might be confusing; there is no need to write explicitly (even if it is
+possible) that you want the *female* density to be red and the *male* density to be blue. You just
+map the variable `gender` to this particular aesthetic. You conclude the plot by adding
+`geom_density()` which is this case is the plot you want. We will see late on how to change the
+colors of your plot.
+
 
 ### Line plots
+
+For the line plots, we are going to use official unemployment data (the same as in the previous
+chapter, but with all the available years). Get it from
+[here](https://github.com/b-rodrigues/r_for_statec/tree/master/datasets/unemployment/all)
+(downloaded from:
+http://www.statistiques.public.lu/stat/TableViewer/tableView.aspx?ReportId=12950&IF_Language=eng&MainTheme=2&FldrName=3&RFPath=91).
+
+Let's plot the unemployment for the canton of Luxembourg only:
 
 ```{r}
 unemp_lux_data = import("datasets/unemployment/all/unemployment_lux_all.csv")
@@ -62,6 +120,9 @@ unemp_lux_data %>%
   geom_line()
 ```
 
+Because line plots are 2D, you need to specify the y and x axes. There is also another option you
+need to add, `group = 1`. This is to tell `aes()` that the dots have to be connected with a single
+line. What if you want to plot more than one commune?
 
 ```{r}
 unemp_lux_data %>%
@@ -70,32 +131,62 @@ unemp_lux_data %>%
   geom_line()
 ```
 
+This time, I've specified `group = division` which means that there has to be one line per as many
+communes as in the variable `division`. I do the same for colors. I think the next example
+illustrates how `ggplot2` is actually brilliant; if you need to add a third commune, there is no
+need to specify anything else; no need to add anything to the legend, no need to specify a third
+color etc:
+
 ```{r}
 unemp_lux_data %>%
-  filter(division == "Luxembourg" | division == "Esch-sur-Alzette") %>%
+  filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, color = division)) +
-  theme(legend.position = "bottom") + 
-  labs(title="Unemployment in Luxembourg and Esch/Alzette", x="Year", y = "Rate")+
+  geom_line()
+```
+
+### Facets
+
+```{r}
+starwars %>%
+  mutate(human = case_when(species == "Human" ~ "Human",
+                           species != "Human" ~ "Not Human")) %>%
+  filter(gender %in% c("female", "male"), !is.na(human)) %>%
+  ggplot(aes(height, fill = gender)) +
+  facet_grid(~human) +
+  geom_density()
+```
+
+
+### Customization
+
+Let's go back to the unemployment line plots.
+
+```{r}
+unemp_lux_data %>%
+  filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
+  ggplot(aes(year, unemployment_rate_in_percent, group = division, color = division)) +
+  theme(legend.position = "bottom") +
+  labs(title="Unemployment in Luxembourg, Esch/Alzette and Wiltz", x="Year", y = "Rate")+
   geom_line()
 ```
 
 ```{r}
 unemp_lux_data %>%
-  filter(division == "Luxembourg" | division == "Esch-sur-Alzette") %>%
+  filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, color = division)) +
-    theme_stata() + 
-    theme(legend.position = "bottom") + 
-  labs(title="Unemployment in Luxembourg and Esch/Alzette", x="Year", y = "Rate") +
+    theme_stata() +
+    theme(legend.position = "bottom") +
+  labs(title="Unemployment in Luxembourg, Esch/Alzette and Wiltz", x="Year", y = "Rate") +
   geom_line()
 ```
 
 ```{r}
 unemp_lux_data %>%
-  filter(division == "Luxembourg" | division == "Esch-sur-Alzette") %>%
+  filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, color = division)) +
-  theme_minimal() + 
-  scale_color_hc() + 
-  theme(legend.position = "bottom", legend.title = element_blank()) + 
-  labs(title="Unemployment in Luxembourg and Esch/Alzette", x = "Year", y = "Rate") +
+  theme_minimal() +
+  scale_color_hc() +
+  theme(legend.position = "bottom", legend.title = element_blank()) +
+  labs(title="Unemployment in Luxembourg, Esch/Alzette and Wiltz", x = "Year", y = "Rate") +
   geom_line()
 ```
