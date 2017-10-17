@@ -6,7 +6,8 @@ is a very powerful package that produces amazing graphs. There is an entry cost 
 works in a very different way than what you would expect, especially if you know how to make plots
 with the basic R functions already. But the resulting graphs are well worth the effort and once
 you'll know more about `ggplot2` you'll see that it in a lot of situations it is actually faster
-and easier.
+and easier. Even if you're not interested in plotting, I advise you read this chapter, as I will
+continue showing you neat functions to manipulate data, such as `dplyr::rowwise()` and `dplyr::pull()`.
 
 ## Resources
 
@@ -50,8 +51,6 @@ and wish to draw a barplot of the gender, the following lines are enough:
 
 
 ```{r}
-data(starwars)
-
 ggplot(starwars, aes(gender)) +
   geom_bar()
 ```
@@ -61,6 +60,13 @@ function `aes()`. This function is where you list the variables you want to map,
 help file of `aes()`, *describes how the variables are mapped to visual properties (aesthetics) of
 geoms*. You can get different kind of plots by using different `geom_` functions.
 
+You can also change the coordinate system in your barplot:
+
+```{r}
+ggplot(starwars, aes(gender)) +
+  geom_bar() +
+  coord_flip()
+```
 
 ### Density
 
@@ -146,16 +152,98 @@ unemp_lux_data %>%
 
 ### Facets
 
+In some case you have a factor variable that separates the data you wish to plot into different
+categories. If you want to have a plot per category you can use the `facet_grid()` function.
+Careful though, this function does not take a variable as an argument, but a formula, hence the `~`
+symbol in the code below:
+
 ```{r}
 starwars %>%
   mutate(human = case_when(species == "Human" ~ "Human",
                            species != "Human" ~ "Not Human")) %>%
   filter(gender %in% c("female", "male"), !is.na(human)) %>%
   ggplot(aes(height, fill = gender)) +
-  facet_grid(~human) +
+  facet_grid(. ~ human) + #<--- this is a formula
   geom_density()
 ```
 
+By changing the formula, you change how the facetting is done:
+
+```{r}
+starwars %>%
+  mutate(human = case_when(species == "Human" ~ "Human",
+                           species != "Human" ~ "Not Human")) %>%
+  filter(gender %in% c("female", "male"), !is.na(human)) %>%
+  ggplot(aes(height, fill = gender)) +
+  facet_grid(human ~ .) +
+  geom_density()
+```
+
+Recall the categorical variable `more_1` that we computed in the previous chapter? Let's use it as
+a faceting variable:
+
+```{r}
+starwars %>%
+  rowwise() %>%
+  mutate(n_films = length(films)) %>%
+  mutate(more_1 = case_when(n_films == 1 ~ "Exactly one movie",
+                            n_films != 1 ~ "More than 1 movie")) %>%
+  mutate(human = case_when(species == "Human" ~ "Human",
+                           species != "Human" ~ "Not Human")) %>%
+  filter(gender %in% c("female", "male"), !is.na(human)) %>%
+  ggplot(aes(height, fill = gender)) +
+  facet_grid(human ~ more_1) +
+  geom_density()
+```
+
+### Pie Charts
+
+I am not a huge fan of pie charts, but sometimes this is what you have to do. So let's see how you
+can create pie charts.
+First, let's create a mock dataset with the function `tibble::tribble()` which allows you to create a
+dataset line by line:
+
+```{r}
+test_data <- tribble(
+  ~id, ~var1, ~var2,  ~var3, ~var4, ~var5,
+  "a", 16.5, 18, 20, 22, 24,
+  "b", 20, 20, 18, 22, 20,
+  "c", 24, 22, 20, 18, 16.5
+)
+```
+
+This data is not in the right format though, which is wide. We need to have it in the long format
+for it to work with `ggplot2`. For this, let's use `tidyr::gather()` as seen in the previous chapter:
+
+```{r}
+test_data_long = test_data %>%
+  gather(variable, value, starts_with("var"))
+```
+
+Now, let's plot this data, first by creating 3 bar plots:
+
+```{r}
+ggplot(test_data_long) +
+  facet_wrap(~id) +
+  geom_bar(aes(variable, value, fill = variable), stat = "identity")
+```
+
+In the code above, I introduce a new option, called `stat = "identity"`. By default, `geom_bar()` counts
+the number of observations of each category that is plotted, which is a statistical transformation.
+By adding `stat = "identity"`, I force the statistical transformation to be the identity function, and
+thus plot the data as is.
+
+To create the pie chart, it is enough to add the option `coord_polar()` at the end of the code: this
+is because a pie chart can be seen as a barplot living in a world with polar coordinates:
+
+```{r}
+ggplot(test_data_long) +
+  facet_wrap(~id) +
+  geom_bar(aes(variable, value, fill = variable), stat = "identity") +
+  coord_polar()
+```
+
+### Adding text to plots
 
 ### Customization
 

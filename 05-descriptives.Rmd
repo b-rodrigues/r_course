@@ -12,11 +12,12 @@ by, say, gender, some more complex manipulations are needed. At least this was t
 Nowadays, thanks to the packages from the tidyverse (remember those we installed at the beginning
 of the book?), it is very easy and fast to compute descriptive statistics by any stratifying variable(s).
 
-The package we are going to use for this is called `dplyr`. `dplyr` contains a lot of functions that
+The packages we are going to use for this are called `dplyr` and `tidyr`. `dplyr` contains a lot of functions that
 make manipulating data and computing descriptive statistics very easy. To make things easier for now,
-we are going to use example data included with dplyr. So no need to import an external dataset; this
+we are going to use example data included with `dplyr`. So no need to import an external dataset; this
 does not change anything to the example that we are going to study here; the source of the data does
-not matter for this.
+not matter for this. `tidyr` is very useful to reshape data. We are goig to focus on two 
+functions from `tidyr`, `gather()` and `spread()`.
 
 ## Working with a single dataset
 
@@ -56,7 +57,7 @@ starwars %>%
 ```
 
 Ok, I know what you're thinking. *What the hell is this weird `%>%` thing?*. That weird thing is called the
-pipe operator. What it does is taking the left-hand side argument and piping it as the first argument
+pipe operator. What it does is take the left-hand side argument and pipe it as the first argument
 of the function on the right-hand side. Try the following in the command line:
 
 ```{r}
@@ -145,25 +146,15 @@ starwars %>%
 
 In the code above, I have combined the two previous steps to get the result I'm interested in. There's
 a line in the final output that says `NA` for the species. Let's go back to the raw data and find
-this line with the function `which()` (which is a basic R function):
-
-```{r}
-na_species <- which(is.na(starwars$species))
-
-starwars[na_species, ]
-```
-
-To test for `NA`, one uses the function `is.na()` and then `which()` returns the index where this
-condition is `TRUE`. So what I did above is save the row number where `species` is `NA` and then
-using the `[]` I slive the original raw data to get the entire line. As you can see, there's a few
-of them. An alternative way of doing that, using `dplyr` would be the following:
+these lines:
 
 ```{r}
 starwars %>%
   filter(is.na(species))
 ```
 
-or if you want to remove these lines:
+To test for `NA`, one uses the function `is.na()` not something like `species == "NA"` or anything
+like that.`!is.na()` does the opposite:
 
 ```{r}
 starwars %>%
@@ -237,6 +228,16 @@ starwars %>%
 `select_at()`, each with they're own use. I will not go into more detail here. If you are
 interested, I advise you read `dplyr`'s help and also the section I wrote in my other
 [book](https://b-rodrigues.github.io/fput/tidyverse.html) which goes into much more detail.
+
+### Reshaping data with `tidyr`
+
+Another important package from the `tidyverse` that goes hand in hand with `dplyr` is `tidyr`. `tidyr`
+is the package you need when it's time to reshape data. The basic functions from `tidyr`, `spread()`
+and `gather()` make it possible to go from long to wide datasets respectively.
+
+```{r}
+library(tidyr)
+```
 
 
 ## Working with a list of datasets
@@ -393,3 +394,76 @@ going to keep using it for the next chapters:
 ```{r}
 export(unemp_lux, "datasets/unemp_lux.csv")
 ```
+
+## List-columns
+
+To learn about list-columns, let's first focus on a single character of the `starwars` dataset:
+
+```{r}
+data(starwars)
+```
+
+```{r}
+starwars %>%
+  filter(name == "Luke Skywalker") %>%
+  glimpse()
+```
+
+We see that the columns `films`, `vehicles` and `starships` are all lists, and in the case of 
+`films`, it lists all the films where Luke Skywalker has appeared. What if you want to take a closer look at this list?
+
+```{r}
+starwars %>%
+  filter(name == "Luke Skywalker") %>%
+  pull(films)
+```
+
+`pull()` is a `dplyr` function that extract (pulls) the column you're interested in. It is quite
+useful when you want to inspect a column. 
+
+Suppose we want to create a categorical variable which counts the number of movies in which the
+characters have appeared. For this we need to compute the length of the list, or count the number
+of elements this list has. Let's try with `length()` a base R function:
+
+```{r}
+starwars %>%
+  filter(name == "Luke Skywalker") %>%
+  pull(films) %>%
+  length()
+```
+
+This might be surprising at first, because we know that Luke Skywalker has appeared in more than 1
+movie... the problem here is that for each individual, `films` is a list, whose single element is 
+a vector of characters. This means that `length(films)` computes the length of the list, which is
+one, and not the length of the vector contained in the list! How can we get the length of the
+vector of characters contained in the list and for each character? For this we need to use
+`dplyr::rowwise()` and remove the `filter()` function and use `mutate()` to add this column to the
+dataset:
+
+
+```{r}
+starwars = starwars %>%
+  rowwise() %>%
+  mutate(n_films = length(films)) 
+```
+
+`dplyr::rowwise()` is useful when working with list-columns: columns that have lists as elements.
+
+Let's take a look at the characters and the number of films they have appeared in:
+
+```{r}
+starwars %>% 
+  select(name, n_films)
+```
+
+Now we can create a factor variable that groups characters by asking whether they appeared only 1
+movie, or more:
+
+```{r}
+starwars = starwars %>%
+  mutate(more_1 = case_when(n_films == 1 ~ "Exactly one movie",
+                            n_films != 1 ~ "More than 1 movie"))
+```
+
+
+List columns are very useful, and we will look more into them in the coming chapters.

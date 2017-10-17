@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2017-10-16">
+<meta name="date" content="2017-10-17">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -148,11 +148,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="4" data-path="reading-and-writing-data-with-rio.html"><a href="reading-and-writing-data-with-rio.html"><i class="fa fa-check"></i><b>4</b> Reading and writing data with <code>rio</code></a></li>
 <li class="chapter" data-level="5" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html"><i class="fa fa-check"></i><b>5</b> Data manipulation and descriptive statistics</a><ul>
-<li class="chapter" data-level="5.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-single-dataset"><i class="fa fa-check"></i><b>5.1</b> Working with a single dataset</a></li>
+<li class="chapter" data-level="5.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-single-dataset"><i class="fa fa-check"></i><b>5.1</b> Working with a single dataset</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>5.1.1</b> Reshaping data with <code>tidyr</code></a></li>
+</ul></li>
 <li class="chapter" data-level="5.2" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-list-of-datasets"><i class="fa fa-check"></i><b>5.2</b> Working with a list of datasets</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#getting-to-know-map"><i class="fa fa-check"></i><b>5.2.1</b> Getting to know <code>map()</code></a></li>
 <li class="chapter" data-level="5.2.2" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#getting-to-know-reduce"><i class="fa fa-check"></i><b>5.2.2</b> Getting to know <code>reduce()</code></a></li>
 </ul></li>
+<li class="chapter" data-level="5.3" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#list-columns"><i class="fa fa-check"></i><b>5.3</b> List-columns</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>6</b> Graphs</a><ul>
 <li class="chapter" data-level="6.1" data-path="graphs.html"><a href="graphs.html#resources"><i class="fa fa-check"></i><b>6.1</b> Resources</a></li>
@@ -161,7 +164,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.2.2" data-path="graphs.html"><a href="graphs.html#density"><i class="fa fa-check"></i><b>6.2.2</b> Density</a></li>
 <li class="chapter" data-level="6.2.3" data-path="graphs.html"><a href="graphs.html#line-plots"><i class="fa fa-check"></i><b>6.2.3</b> Line plots</a></li>
 <li class="chapter" data-level="6.2.4" data-path="graphs.html"><a href="graphs.html#facets"><i class="fa fa-check"></i><b>6.2.4</b> Facets</a></li>
-<li class="chapter" data-level="6.2.5" data-path="graphs.html"><a href="graphs.html#customization"><i class="fa fa-check"></i><b>6.2.5</b> Customization</a></li>
+<li class="chapter" data-level="6.2.5" data-path="graphs.html"><a href="graphs.html#pie-charts"><i class="fa fa-check"></i><b>6.2.5</b> Pie Charts</a></li>
+<li class="chapter" data-level="6.2.6" data-path="graphs.html"><a href="graphs.html#adding-text-to-plots"><i class="fa fa-check"></i><b>6.2.6</b> Adding text to plots</a></li>
+<li class="chapter" data-level="6.2.7" data-path="graphs.html"><a href="graphs.html#customization"><i class="fa fa-check"></i><b>6.2.7</b> Customization</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical models</a></li>
@@ -190,7 +195,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="graphs" class="section level1">
 <h1><span class="header-section-number">Chapter 6</span> Graphs</h1>
-<p>By default, it is possible to make a lot of graphs with R without the need of any external packages. However, in this chapter, we are going to learn how to make graphs using <code>ggplot2</code> which is a very powerful package that produces amazing graphs. There is an entry cost to <code>ggplot2</code> as it works in a very different way than what you would expect, especially if you know how to make plots with the basic R functions already. But the resulting graphs are well worth the effort and once you’ll know more about <code>ggplot2</code> you’ll see that it in a lot of situations it is actually faster and easier.</p>
+<p>By default, it is possible to make a lot of graphs with R without the need of any external packages. However, in this chapter, we are going to learn how to make graphs using <code>ggplot2</code> which is a very powerful package that produces amazing graphs. There is an entry cost to <code>ggplot2</code> as it works in a very different way than what you would expect, especially if you know how to make plots with the basic R functions already. But the resulting graphs are well worth the effort and once you’ll know more about <code>ggplot2</code> you’ll see that it in a lot of situations it is actually faster and easier. Even if you’re not interested in plotting, I advise you read this chapter, as I will continue showing you neat functions to manipulate data, such as <code>dplyr::rowwise()</code> and <code>dplyr::pull()</code>.</p>
 <div id="resources" class="section level2">
 <h2><span class="header-section-number">6.1</span> Resources</h2>
 <p>Before showing some examples and the general functionality of <code>ggplot2</code>, I list here some online resources that I keep coming back to:</p>
@@ -212,12 +217,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 <span class="kw">library</span>(ggthemes)</code></pre></div>
 <p><code>ggplot2</code> is an implementation of the <em>Grammar of Graphics</em> by <span class="citation">Wilkinson (<a href="#ref-wilkinson2006">2006</a>)</span>, but you don’t need to read the books to start using it. If we go back to the Star Wars data (contained in <code>dplyr</code>), and wish to draw a barplot of the gender, the following lines are enough:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(starwars)
-
-<span class="kw">ggplot</span>(starwars, <span class="kw">aes</span>(gender)) <span class="op">+</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(starwars, <span class="kw">aes</span>(gender)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_bar</span>()</code></pre></div>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
 <p>The first argument of the function is the data (called <code>starwars</code> in this example), and then the function <code>aes()</code>. This function is where you list the variables you want to map, and to quote the help file of <code>aes()</code>, <em>describes how the variables are mapped to visual properties (aesthetics) of geoms</em>. You can get different kind of plots by using different <code>geom_</code> functions.</p>
+<p>You can also change the coordinate system in your barplot:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(starwars, <span class="kw">aes</span>(gender)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_flip</span>()</code></pre></div>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
 </div>
 <div id="density" class="section level3">
 <h3><span class="header-section-number">6.2.2</span> Density</h3>
@@ -225,7 +233,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(starwars, <span class="kw">aes</span>(height)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>()</code></pre></div>
 <pre><code>## Warning: Removed 6 rows containing non-finite values (stat_density).</code></pre>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
 <p>Let’s go into more detail now; what if you would like to plot the densities for females and males only (removing the droids from the data first)? This can be done by first filtering the data using <code>dplyr</code> and then separating the dataset by gender:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>))</code></pre></div>
@@ -235,7 +243,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(height, <span class="dt">fill =</span> gender)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>()</code></pre></div>
 <pre><code>## Warning: Removed 5 rows containing non-finite values (stat_density).</code></pre>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-112-1.png" width="672" /></p>
 <p>Let’s take a closer look to the <code>aes()</code> function: I’ve added <code>fill = gender</code>. This means that the there will be one density plot for each gender in the data, and each will be colored accordingly. This is where <code>ggplot2</code> might be confusing; there is no need to write explicitly (even if it is possible) that you want the <em>female</em> density to be red and the <em>male</em> density to be blue. You just map the variable <code>gender</code> to this particular aesthetic. You conclude the plot by adding <code>geom_density()</code> which is this case is the plot you want. We will see late on how to change the colors of your plot.</p>
 </div>
 <div id="line-plots" class="section level3">
@@ -248,34 +256,87 @@ unemp_lux_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(division <span class="op">==</span><span class="st"> &quot;Luxembourg&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> <span class="dv">1</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
 <p>Because line plots are 2D, you need to specify the y and x axes. There is also another option you need to add, <code>group = 1</code>. This is to tell <code>aes()</code> that the dots have to be connected with a single line. What if you want to plot more than one commune?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">unemp_lux_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(division <span class="op">==</span><span class="st"> &quot;Luxembourg&quot;</span> <span class="op">|</span><span class="st"> </span>division <span class="op">==</span><span class="st"> &quot;Esch-sur-Alzette&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">color =</span> division)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
 <p>This time, I’ve specified <code>group = division</code> which means that there has to be one line per as many communes as in the variable <code>division</code>. I do the same for colors. I think the next example illustrates how <code>ggplot2</code> is actually brilliant; if you need to add a third commune, there is no need to specify anything else; no need to add anything to the legend, no need to specify a third color etc:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">unemp_lux_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">color =</span> division)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-115-1.png" width="672" /></p>
 </div>
 <div id="facets" class="section level3">
 <h3><span class="header-section-number">6.2.4</span> Facets</h3>
+<p>In some case you have a factor variable that separates the data you wish to plot into different categories. If you want to have a plot per category you can use the <code>facet_grid()</code> function. Careful though, this function does not take a variable as an argument, but a formula, hence the <code>~</code> symbol in the code below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">human =</span> <span class="kw">case_when</span>(species <span class="op">==</span><span class="st"> &quot;Human&quot;</span> <span class="op">~</span><span class="st"> &quot;Human&quot;</span>,
                            species <span class="op">!=</span><span class="st"> &quot;Human&quot;</span> <span class="op">~</span><span class="st"> &quot;Not Human&quot;</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>), <span class="op">!</span><span class="kw">is.na</span>(human)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(height, <span class="dt">fill =</span> gender)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_grid</span>(<span class="op">~</span>human) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_grid</span>(. <span class="op">~</span><span class="st"> </span>human) <span class="op">+</span><span class="st"> </span><span class="co">#&lt;--- this is a formula</span>
 <span class="st">  </span><span class="kw">geom_density</span>()</code></pre></div>
 <pre><code>## Warning: Removed 4 rows containing non-finite values (stat_density).</code></pre>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-116-1.png" width="672" /></p>
+<p>By changing the formula, you change how the facetting is done:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">human =</span> <span class="kw">case_when</span>(species <span class="op">==</span><span class="st"> &quot;Human&quot;</span> <span class="op">~</span><span class="st"> &quot;Human&quot;</span>,
+                           species <span class="op">!=</span><span class="st"> &quot;Human&quot;</span> <span class="op">~</span><span class="st"> &quot;Not Human&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>), <span class="op">!</span><span class="kw">is.na</span>(human)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(height, <span class="dt">fill =</span> gender)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_grid</span>(human <span class="op">~</span><span class="st"> </span>.) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>()</code></pre></div>
+<pre><code>## Warning: Removed 4 rows containing non-finite values (stat_density).</code></pre>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
+<p>Recall the categorical variable <code>more_1</code> that we computed in the previous chapter? Let’s use it as a faceting variable:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n_films =</span> <span class="kw">length</span>(films)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">more_1 =</span> <span class="kw">case_when</span>(n_films <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;Exactly one movie&quot;</span>,
+                            n_films <span class="op">!=</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;More than 1 movie&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">human =</span> <span class="kw">case_when</span>(species <span class="op">==</span><span class="st"> &quot;Human&quot;</span> <span class="op">~</span><span class="st"> &quot;Human&quot;</span>,
+                           species <span class="op">!=</span><span class="st"> &quot;Human&quot;</span> <span class="op">~</span><span class="st"> &quot;Not Human&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>), <span class="op">!</span><span class="kw">is.na</span>(human)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(height, <span class="dt">fill =</span> gender)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_grid</span>(human <span class="op">~</span><span class="st"> </span>more_<span class="dv">1</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>()</code></pre></div>
+<pre><code>## Warning: Removed 4 rows containing non-finite values (stat_density).</code></pre>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-118-1.png" width="672" /></p>
+</div>
+<div id="pie-charts" class="section level3">
+<h3><span class="header-section-number">6.2.5</span> Pie Charts</h3>
+<p>I am not a huge fan of pie charts, but sometimes this is what you have to do. So let’s see how you can create pie charts. First, let’s create a mock dataset with the function <code>tibble::tribble()</code> which allows you to create a dataset line by line:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_data &lt;-<span class="st"> </span><span class="kw">tribble</span>(
+  <span class="op">~</span>id, <span class="op">~</span>var1, <span class="op">~</span>var2,  <span class="op">~</span>var3, <span class="op">~</span>var4, <span class="op">~</span>var5,
+  <span class="st">&quot;a&quot;</span>, <span class="fl">16.5</span>, <span class="dv">18</span>, <span class="dv">20</span>, <span class="dv">22</span>, <span class="dv">24</span>,
+  <span class="st">&quot;b&quot;</span>, <span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">18</span>, <span class="dv">22</span>, <span class="dv">20</span>,
+  <span class="st">&quot;c&quot;</span>, <span class="dv">24</span>, <span class="dv">22</span>, <span class="dv">20</span>, <span class="dv">18</span>, <span class="fl">16.5</span>
+)</code></pre></div>
+<p>This data is not in the right format though, which is wide. We need to have it in the long format for it to work with <code>ggplot2</code>. For this, let’s use <code>tidyr::gather()</code> as seen in the previous chapter:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_data_long =<span class="st"> </span>test_data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(variable, value, <span class="kw">starts_with</span>(<span class="st">&quot;var&quot;</span>))</code></pre></div>
+<p>Now, let’s plot this data, first by creating 3 bar plots:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(test_data_long) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(variable, value, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>)</code></pre></div>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
+<p>In the code above, I introduce a new option, called <code>stat = &quot;identity&quot;</code>. By default, <code>geom_bar()</code> counts the number of observations of each category that is plotted, which is a statistical transformation. By adding <code>stat = &quot;identity&quot;</code>, I force the statistical transformation to be the identity function, and thus plot the data as is.</p>
+<p>To create the pie chart, it is enough to add the option <code>coord_polar()</code> at the end of the code: this is because a pie chart can be seen as a barplot living in a world with polar coordinates:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(test_data_long) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(variable, value, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_polar</span>()</code></pre></div>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-122-1.png" width="672" /></p>
+</div>
+<div id="adding-text-to-plots" class="section level3">
+<h3><span class="header-section-number">6.2.6</span> Adding text to plots</h3>
 </div>
 <div id="customization" class="section level3">
-<h3><span class="header-section-number">6.2.5</span> Customization</h3>
+<h3><span class="header-section-number">6.2.7</span> Customization</h3>
 <p>Let’s go back to the unemployment line plots.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">unemp_lux_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span>
@@ -283,7 +344,7 @@ unemp_lux_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>)<span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-123-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">unemp_lux_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">color =</span> division)) <span class="op">+</span>
@@ -291,7 +352,7 @@ unemp_lux_data <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-124-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">unemp_lux_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">color =</span> division)) <span class="op">+</span>
@@ -300,7 +361,7 @@ unemp_lux_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">legend.title =</span> <span class="kw">element_blank</span>()) <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
 
 </div>
 </div>

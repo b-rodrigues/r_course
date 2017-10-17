@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2017-10-16">
+<meta name="date" content="2017-10-17">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -148,11 +148,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="4" data-path="reading-and-writing-data-with-rio.html"><a href="reading-and-writing-data-with-rio.html"><i class="fa fa-check"></i><b>4</b> Reading and writing data with <code>rio</code></a></li>
 <li class="chapter" data-level="5" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html"><i class="fa fa-check"></i><b>5</b> Data manipulation and descriptive statistics</a><ul>
-<li class="chapter" data-level="5.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-single-dataset"><i class="fa fa-check"></i><b>5.1</b> Working with a single dataset</a></li>
+<li class="chapter" data-level="5.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-single-dataset"><i class="fa fa-check"></i><b>5.1</b> Working with a single dataset</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>5.1.1</b> Reshaping data with <code>tidyr</code></a></li>
+</ul></li>
 <li class="chapter" data-level="5.2" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-list-of-datasets"><i class="fa fa-check"></i><b>5.2</b> Working with a list of datasets</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#getting-to-know-map"><i class="fa fa-check"></i><b>5.2.1</b> Getting to know <code>map()</code></a></li>
 <li class="chapter" data-level="5.2.2" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#getting-to-know-reduce"><i class="fa fa-check"></i><b>5.2.2</b> Getting to know <code>reduce()</code></a></li>
 </ul></li>
+<li class="chapter" data-level="5.3" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#list-columns"><i class="fa fa-check"></i><b>5.3</b> List-columns</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>6</b> Graphs</a><ul>
 <li class="chapter" data-level="6.1" data-path="graphs.html"><a href="graphs.html#resources"><i class="fa fa-check"></i><b>6.1</b> Resources</a></li>
@@ -161,7 +164,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.2.2" data-path="graphs.html"><a href="graphs.html#density"><i class="fa fa-check"></i><b>6.2.2</b> Density</a></li>
 <li class="chapter" data-level="6.2.3" data-path="graphs.html"><a href="graphs.html#line-plots"><i class="fa fa-check"></i><b>6.2.3</b> Line plots</a></li>
 <li class="chapter" data-level="6.2.4" data-path="graphs.html"><a href="graphs.html#facets"><i class="fa fa-check"></i><b>6.2.4</b> Facets</a></li>
-<li class="chapter" data-level="6.2.5" data-path="graphs.html"><a href="graphs.html#customization"><i class="fa fa-check"></i><b>6.2.5</b> Customization</a></li>
+<li class="chapter" data-level="6.2.5" data-path="graphs.html"><a href="graphs.html#pie-charts"><i class="fa fa-check"></i><b>6.2.5</b> Pie Charts</a></li>
+<li class="chapter" data-level="6.2.6" data-path="graphs.html"><a href="graphs.html#adding-text-to-plots"><i class="fa fa-check"></i><b>6.2.6</b> Adding text to plots</a></li>
+<li class="chapter" data-level="6.2.7" data-path="graphs.html"><a href="graphs.html#customization"><i class="fa fa-check"></i><b>6.2.7</b> Customization</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical models</a></li>
@@ -192,13 +197,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 5</span> Data manipulation and descriptive statistics</h1>
 <p>Now that we are familiar with some R objects and know how to import data, it is time to actually write some code. In this chapter, we are going to compute descriptive statistics for a single dataset, but also for a list of datasets. However, I will not give a list of functions to compute descriptive statistics; if you need a specific function you can find easily in the <em>Help</em> pane in Rstudio or using any modern internet searh engine. What I will do is show you a workflow that allows you to compute the statisics you need fast.</p>
 <p>R has a lot of built-in functions for descriptive statistics; however, if you want to compute statistics by, say, gender, some more complex manipulations are needed. At least this was true in the past. Nowadays, thanks to the packages from the tidyverse (remember those we installed at the beginning of the book?), it is very easy and fast to compute descriptive statistics by any stratifying variable(s).</p>
-<p>The package we are going to use for this is called <code>dplyr</code>. <code>dplyr</code> contains a lot of functions that make manipulating data and computing descriptive statistics very easy. To make things easier for now, we are going to use example data included with dplyr. So no need to import an external dataset; this does not change anything to the example that we are going to study here; the source of the data does not matter for this.</p>
+<p>The packages we are going to use for this are called <code>dplyr</code> and <code>tidyr</code>. <code>dplyr</code> contains a lot of functions that make manipulating data and computing descriptive statistics very easy. To make things easier for now, we are going to use example data included with <code>dplyr</code>. So no need to import an external dataset; this does not change anything to the example that we are going to study here; the source of the data does not matter for this. <code>tidyr</code> is very useful to reshape data. We are goig to focus on two functions from <code>tidyr</code>, <code>gather()</code> and <code>spread()</code>.</p>
 <div id="working-with-a-single-dataset" class="section level2">
 <h2><span class="header-section-number">5.1</span> Working with a single dataset</h2>
 <p>First, let’s load <code>dplyr</code> and the included <code>starwars</code> dataset. Let’s also take a look at the first 5 lines of the dataset:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-
-<span class="kw">data</span>(starwars)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(starwars)
 
 <span class="kw">head</span>(starwars)</code></pre></div>
 <pre><code>## # A tibble: 6 x 13
@@ -234,7 +246,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  9 Geonosian       183.0000
 ## 10    Gungan       208.6667
 ## # ... with 28 more rows</code></pre>
-<p>Ok, I know what you’re thinking. <em>What the hell is this weird <code>%&gt;%</code> thing?</em>. That weird thing is called the pipe operator. What it does is taking the left-hand side argument and piping it as the first argument of the function on the right-hand side. Try the following in the command line:</p>
+<p>Ok, I know what you’re thinking. <em>What the hell is this weird <code>%&gt;%</code> thing?</em>. That weird thing is called the pipe operator. What it does is take the left-hand side argument and pipe it as the first argument of the function on the right-hand side. Try the following in the command line:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">4</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sqrt</span>()</code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>It is equivalent to <code>sqrt(4)</code>. Why use that though? You will see in the next examples that using the <code>%&gt;%</code> makes writing and reading code, much, much easier. For example, the previous manipulation I did could be read as “Take the starwars data, give it to the <code>group_by()</code> function and then compute the mean height”. Without the <code>%&gt;%</code>, one would need to write:</p>
@@ -360,21 +372,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 7  Wookiee   231.0000    18.0000     2
 ## 8   Zabrak   173.0000     8.0000     2
 ## 9     &lt;NA&gt;   160.0000  1826.0000     5</code></pre>
-<p>In the code above, I have combined the two previous steps to get the result I’m interested in. There’s a line in the final output that says <code>NA</code> for the species. Let’s go back to the raw data and find this line with the function <code>which()</code> (which is a basic R function):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">na_species &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">is.na</span>(starwars<span class="op">$</span>species))
-
-starwars[na_species, ]</code></pre></div>
-<pre><code>## # A tibble: 5 x 13
-##             name height  mass hair_color  skin_color eye_color birth_year
-##            &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;      &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;
-## 1       Ric Olié    183    NA      brown        fair      blue         NA
-## 2  Quarsh Panaka    183    NA      black        dark     brown         62
-## 3         R4-P17     96    NA       none silver, red red, blue         NA
-## 4      Sly Moore    178    48       none        pale     white         NA
-## 5 Captain Phasma     NA    NA    unknown     unknown   unknown         NA
-## # ... with 6 more variables: gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;,
-## #   films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
-<p>To test for <code>NA</code>, one uses the function <code>is.na()</code> and then <code>which()</code> returns the index where this condition is <code>TRUE</code>. So what I did above is save the row number where <code>species</code> is <code>NA</code> and then using the <code>[]</code> I slive the original raw data to get the entire line. As you can see, there’s a few of them. An alternative way of doing that, using <code>dplyr</code> would be the following:</p>
+<p>In the code above, I have combined the two previous steps to get the result I’m interested in. There’s a line in the final output that says <code>NA</code> for the species. Let’s go back to the raw data and find these lines:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">is.na</span>(species))</code></pre></div>
 <pre><code>## # A tibble: 5 x 13
@@ -387,7 +385,7 @@ starwars[na_species, ]</code></pre></div>
 ## 5 Captain Phasma     NA    NA    unknown     unknown   unknown         NA
 ## # ... with 6 more variables: gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;,
 ## #   films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
-<p>or if you want to remove these lines:</p>
+<p>To test for <code>NA</code>, one uses the function <code>is.na()</code> not something like <code>species == &quot;NA&quot;</code> or anything like that.<code>!is.na()</code> does the opposite:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(species))</code></pre></div>
 <pre><code>## # A tibble: 82 x 13
@@ -511,6 +509,11 @@ starwars[na_species, ]</code></pre></div>
 ## 10     Obi-Wan Kenobi auburn, white        fair blue-gray   male   Stewjon
 ## # ... with 77 more rows, and 1 more variables: species &lt;chr&gt;</code></pre>
 <p><code>select_if()</code> selects every column that is of type character. There is also <code>select_all()</code> and <code>select_at()</code>, each with they’re own use. I will not go into more detail here. If you are interested, I advise you read <code>dplyr</code>’s help and also the section I wrote in my other <a href="https://b-rodrigues.github.io/fput/tidyverse.html">book</a> which goes into much more detail.</p>
+<div id="reshaping-data-with-tidyr" class="section level3">
+<h3><span class="header-section-number">5.1.1</span> Reshaping data with <code>tidyr</code></h3>
+<p>Another important package from the <code>tidyverse</code> that goes hand in hand with <code>dplyr</code> is <code>tidyr</code>. <code>tidyr</code> is the package you need when it’s time to reshape data. The basic functions from <code>tidyr</code>, <code>spread()</code> and <code>gather()</code> make it possible to go from long to wide datasets respectively.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)</code></pre></div>
+</div>
 </div>
 <div id="working-with-a-list-of-datasets" class="section level2">
 <h2><span class="header-section-number">5.2</span> Working with a list of datasets</h2>
@@ -723,8 +726,76 @@ all_datasets <span class="op">%&gt;%</span>
 ## $ year                         &lt;int&gt; 2013, 2013, 2013, 2013, 2013, 201...</code></pre>
 <p><code>full_join()</code> is one of the <code>dplyr</code> function that merges data. There are others that might be useful depending on the kind of join operation you need. Let’s write this data to disk as we’re going to keep using it for the next chapters:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">export</span>(unemp_lux, <span class="st">&quot;datasets/unemp_lux.csv&quot;</span>)</code></pre></div>
-
 </div>
+</div>
+<div id="list-columns" class="section level2">
+<h2><span class="header-section-number">5.3</span> List-columns</h2>
+<p>To learn about list-columns, let’s first focus on a single character of the <code>starwars</code> dataset:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(starwars)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(name <span class="op">==</span><span class="st"> &quot;Luke Skywalker&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">glimpse</span>()</code></pre></div>
+<pre><code>## Observations: 1
+## Variables: 13
+## $ name       &lt;chr&gt; &quot;Luke Skywalker&quot;
+## $ height     &lt;int&gt; 172
+## $ mass       &lt;dbl&gt; 77
+## $ hair_color &lt;chr&gt; &quot;blond&quot;
+## $ skin_color &lt;chr&gt; &quot;fair&quot;
+## $ eye_color  &lt;chr&gt; &quot;blue&quot;
+## $ birth_year &lt;dbl&gt; 19
+## $ gender     &lt;chr&gt; &quot;male&quot;
+## $ homeworld  &lt;chr&gt; &quot;Tatooine&quot;
+## $ species    &lt;chr&gt; &quot;Human&quot;
+## $ films      &lt;list&gt; [&lt;&quot;Revenge of the Sith&quot;, &quot;Return of the Jedi&quot;, &quot;Th...
+## $ vehicles   &lt;list&gt; [&lt;&quot;Snowspeeder&quot;, &quot;Imperial Speeder Bike&quot;&gt;]
+## $ starships  &lt;list&gt; [&lt;&quot;X-wing&quot;, &quot;Imperial shuttle&quot;&gt;]</code></pre>
+<p>We see that the columns <code>films</code>, <code>vehicles</code> and <code>starships</code> are all lists, and in the case of <code>films</code>, it lists all the films where Luke Skywalker has appeared. What if you want to take a closer look at this list?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(name <span class="op">==</span><span class="st"> &quot;Luke Skywalker&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">pull</span>(films)</code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;Revenge of the Sith&quot;     &quot;Return of the Jedi&quot;     
+## [3] &quot;The Empire Strikes Back&quot; &quot;A New Hope&quot;             
+## [5] &quot;The Force Awakens&quot;</code></pre>
+<p><code>pull()</code> is a <code>dplyr</code> function that extract (pulls) the column you’re interested in. It is quite useful when you want to inspect a column.</p>
+<p>Suppose we want to create a categorical variable which counts the number of movies in which the characters have appeared. For this we need to compute the length of the list, or count the number of elements this list has. Let’s try with <code>length()</code> a base R function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(name <span class="op">==</span><span class="st"> &quot;Luke Skywalker&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">pull</span>(films) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">length</span>()</code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>This might be surprising at first, because we know that Luke Skywalker has appeared in more than 1 movie… the problem here is that for each individual, <code>films</code> is a list, whose single element is a vector of characters. This means that <code>length(films)</code> computes the length of the list, which is one, and not the length of the vector contained in the list! How can we get the length of the vector of characters contained in the list and for each character? For this we need to use <code>dplyr::rowwise()</code> and remove the <code>filter()</code> function and use <code>mutate()</code> to add this column to the dataset:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars =<span class="st"> </span>starwars <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n_films =</span> <span class="kw">length</span>(films)) </code></pre></div>
+<p><code>dplyr::rowwise()</code> is useful when working with list-columns: columns that have lists as elements.</p>
+<p>Let’s take a look at the characters and the number of films they have appeared in:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(name, n_films)</code></pre></div>
+<pre><code>## Source: local data frame [87 x 2]
+## Groups: &lt;by row&gt;
+## 
+## # A tibble: 87 x 2
+##                  name n_films
+##                 &lt;chr&gt;   &lt;int&gt;
+##  1     Luke Skywalker       5
+##  2              C-3PO       6
+##  3              R2-D2       7
+##  4        Darth Vader       4
+##  5        Leia Organa       5
+##  6          Owen Lars       3
+##  7 Beru Whitesun lars       3
+##  8              R5-D4       1
+##  9  Biggs Darklighter       1
+## 10     Obi-Wan Kenobi       6
+## # ... with 77 more rows</code></pre>
+<p>Now we can create a factor variable that groups characters by asking whether they appeared only 1 movie, or more:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars =<span class="st"> </span>starwars <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">more_1 =</span> <span class="kw">case_when</span>(n_films <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;Exactly one movie&quot;</span>,
+                            n_films <span class="op">!=</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;More than 1 movie&quot;</span>))</code></pre></div>
+<p>List columns are very useful, and we will look more into them in the coming chapters.</p>
+
 </div>
 </div>
 <div class="footnotes">
