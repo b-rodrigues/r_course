@@ -167,7 +167,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.2.4" data-path="graphs.html"><a href="graphs.html#facets"><i class="fa fa-check"></i><b>6.2.4</b> Facets</a></li>
 <li class="chapter" data-level="6.2.5" data-path="graphs.html"><a href="graphs.html#pie-charts"><i class="fa fa-check"></i><b>6.2.5</b> Pie Charts</a></li>
 <li class="chapter" data-level="6.2.6" data-path="graphs.html"><a href="graphs.html#adding-text-to-plots"><i class="fa fa-check"></i><b>6.2.6</b> Adding text to plots</a></li>
-<li class="chapter" data-level="6.2.7" data-path="graphs.html"><a href="graphs.html#customization"><i class="fa fa-check"></i><b>6.2.7</b> Customization</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="graphs.html"><a href="graphs.html#customization"><i class="fa fa-check"></i><b>6.3</b> Customization</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="graphs.html"><a href="graphs.html#titles-axes-names-and-more"><i class="fa fa-check"></i><b>6.3.1</b> Titles, axes names and more</a></li>
+<li class="chapter" data-level="6.3.2" data-path="graphs.html"><a href="graphs.html#themes"><i class="fa fa-check"></i><b>6.3.2</b> Themes</a></li>
+<li class="chapter" data-level="6.3.3" data-path="graphs.html"><a href="graphs.html#color-schemes-from-ggthemes"><i class="fa fa-check"></i><b>6.3.3</b> Color schemes from <code>ggthemes</code></a></li>
+<li class="chapter" data-level="6.3.4" data-path="graphs.html"><a href="graphs.html#using-your-own-colors"><i class="fa fa-check"></i><b>6.3.4</b> Using your own colors</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical models</a></li>
@@ -225,7 +230,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>You can create a vector in different ways. But first of all, it is important to understand that a vector in most programming languages is nothing more than a list of things. These things can be numbers (either integers or floats), strings, or even other vectors. The same applies for matrices.</p>
 <div id="the-c-function" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> The <code>c()</code> function</h3>
-<p>matrix_a very important function that allows you to build a vector is <code>c()</code>:</p>
+<p>A very important function that allows you to build a vector is <code>c()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</code></pre></div>
 <p>This creates a vector with elements 1, 2, 3, 4, 5. If you check its class:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(a)</code></pre></div>
@@ -233,7 +238,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>This can be confusing: you where probably expecting a to be of class  or something similar. This is not the case if you use <code>c()</code> to create the vector, because <code>c()</code> doesn’t build a vector in the mathematical sense, but rather a list with numbers. Checking its dimension:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(a)</code></pre></div>
 <pre><code>## NULL</code></pre>
-<p>matrix_a list doesn’t have a dimension, that’s why the <code>dim()</code> command returns <code>NULL</code>. If you want to create a true vector, you need to use <code>cbind()</code> or <code>rbind()</code>.</p>
+<p>A list doesn’t have a dimension, that’s why the <code>dim()</code> command returns <code>NULL</code>. If you want to create a true vector, you need to use <code>cbind()</code> or <code>rbind()</code>.</p>
 </div>
 <div id="cbind-and-rbind" class="section level3">
 <h3><span class="header-section-number">3.3.2</span> <code>cbind()</code> and <code>rbind()</code></h3>
@@ -270,7 +275,7 @@ B = \left(
 <p>you would do it like this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">B =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p>The option <code>byrow = TRUE</code> means that the rows of the matrix will be filled first.</p>
-<p>You can access individual elements of <code>matrix_A</code> like so:</p>
+<p>You can access individual elements of <code>matrix_a</code> like so:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matrix_a[<span class="dv">2</span>, <span class="dv">3</span>]</code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>and R returns its value, 0. We can assign a new value to this element if we want. Try:</p>
@@ -340,7 +345,7 @@ B = \left(
 </div>
 <div id="the-data.frame-and-tibble-classes" class="section level2">
 <h2><span class="header-section-number">3.6</span> The <code>data.frame</code> and <code>tibble</code> classes</h2>
-<p>In the next chapter we are going to learn how to import datasets into R. Once you import data, the resulting object is either a <code>data.frame</code> or a <code>tibble</code> depending on which package you used to import the data. <code>tibble</code>s extend <code>data.frame</code>s so if you know about <code>data.frame</code> objects already, working with <code>tibble</code>s will be very easy. <code>tibble</code>s have a better <code>print()</code> method, and some other niceties. If you want to know more, I go into more detail in my <a href="https://b-rodrigues.github.io/fput/tidyverse.html#getting-data-into-r-with-readr-readxl-haven-and-what-are-tibbles">other book</a> but for our purposes, there’s not much you need to know about <code>data.frame</code> and <code>tibble</code> objects, apart that this the representation of a dataset when loaded into R.</p>
+<p>In the next chapter we are going to learn how to import datasets into R. Once you import data, the resulting object is either a <code>data.frame</code> or a <code>tibble</code> depending on which package you used to import the data. <code>tibble</code>s extend <code>data.frame</code>s so if you know about <code>data.frame</code> objects already, working with <code>tibble</code>s will be very easy. <code>tibble</code>s have a better <code>print()</code> method, and some other niceties. If you want to know more, I go into more detail in my <a href="https://b-rodrigues.github.io/fput/tidyverse.html#getting-data-into-r-with-readr-readxl-haven-and-what-are-tibbles">other book</a> but for our purposes, there’s not much you need to know about <code>data.frame</code> and <code>tibble</code> objects, apart that this is the representation of a dataset when loaded into R.</p>
 </div>
 <div id="exercises" class="section level2">
 <h2><span class="header-section-number">3.7</span> Exercises</h2>

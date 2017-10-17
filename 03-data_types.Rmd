@@ -67,7 +67,7 @@ numbers (either integers or floats), strings, or even other vectors. The same ap
 
 ### The `c()` function
 
-matrix_a very important function that allows you to build a vector is `c()`:
+A very important function that allows you to build a vector is `c()`:
 
 ```{r}
 a = c(1,2,3,4,5)
@@ -88,7 +88,7 @@ Checking its dimension:
 dim(a)
 ```
 
-matrix_a list doesn't have a dimension, that's why the `dim()` command returns `NULL`. If you want to
+A list doesn't have a dimension, that's why the `dim()` command returns `NULL`. If you want to
 create a true vector, you need to use `cbind()` or `rbind()`.
 
 ### `cbind()` and `rbind()`
@@ -154,7 +154,7 @@ B = matrix(c(2, 4, 3, 1, 5, 7), nrow = 2, byrow = TRUE)
 
 The option `byrow = TRUE` means that the rows of the matrix will be filled first.
 
-You can access individual elements of `matrix_A` like so:
+You can access individual elements of `matrix_a` like so:
 
 
 ```{r}
@@ -280,7 +280,7 @@ working with `tibble`s will be very easy. `tibble`s have a better `print()` meth
 niceties. If you want to know more, I go into more detail in my [other
 book](https://b-rodrigues.github.io/fput/tidyverse.html#getting-data-into-r-with-readr-readxl-haven-and-what-are-tibbles)
 but for our purposes, there's not much you need to know about `data.frame` and `tibble` objects,
-apart that this the representation of a dataset when loaded into R.
+apart that this is the representation of a dataset when loaded into R.
 
 ## Exercises
 
