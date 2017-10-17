@@ -206,9 +206,9 @@ dataset line by line:
 ```{r}
 test_data <- tribble(
   ~id, ~var1, ~var2,  ~var3, ~var4, ~var5,
-  "a", 16.5, 18, 20, 22, 24,
-  "b", 20, 20, 18, 22, 20,
-  "c", 24, 22, 20, 18, 16.5
+  "a", 26.5, 38, 30, 32, 34,
+  "b", 30, 30, 28, 32, 30,
+  "c", 34, 32, 30, 28, 26.5
 )
 ```
 
@@ -233,17 +233,61 @@ the number of observations of each category that is plotted, which is a statisti
 By adding `stat = "identity"`, I force the statistical transformation to be the identity function, and
 thus plot the data as is.
 
-To create the pie chart, it is enough to add the option `coord_polar()` at the end of the code: this
-is because a pie chart can be seen as a barplot living in a world with polar coordinates:
+To create the pie chart, first we need to compute the share of each `id` to `var1`, `var2`, etc…
+
+To do this, we first group by `id`, then compute the total. Then we use a new function `ungroup()`.
+After using `ungroup()` all the computations are done on the whole dataset instead of by group, which
+is what we need to compute the share:
+
+```{r}
+test_data_long = test_data_long %>%
+  group_by(id) %>%
+  mutate(total = sum(value)) %>%
+  ungroup() %>%
+  mutate(share = value/total)
+```
+
+Let's take a look to see if this is what we wanted:
+
+```{r}
+print(test_data_long)
+```
+
+If you didn't understand what `ungroup()` did, rerun the last few lines with it and inspect the
+output.
+
+To plot the pie chart, we create a barplot again, but specify polar coordinates:
+
+```{r}
+ggplot(test_data_long) +
+  facet_wrap(~id) +
+  geom_bar(aes(y = share, x = "", fill = variable), stat = "identity") +
+  theme() +
+  coord_polar("y", start = 0)
+```
+
+As you can see, this typical pie chart is not very easy to read; compared to the barplots above it
+is not easy to distinguish `a` from `b` from `c`. It is possible to amend the pie chart a bit to
+make it clearer, by specifying `variable` as the `x`:
+
+```{r}
+ggplot(test_data_long) +
+  facet_wrap(~id) +
+  geom_bar(aes(y = share, x = variable, fill = variable), stat = "identity") +
+  theme() +
+  coord_polar("x", start = 0)
+```
+
+### Adding text to plots
+
+Sometimes you might want to add some text to your plots. This is possible with `geom_text()`:
 
 ```{r}
 ggplot(test_data_long) +
   facet_wrap(~id) +
   geom_bar(aes(variable, value, fill = variable), stat = "identity") +
-  coord_polar()
+  geom_text(aes(variable, value + 1.5, label = value))
 ```
-
-### Adding text to plots
 
 ### Customization
 

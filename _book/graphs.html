@@ -105,6 +105,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-r"><i class="fa fa-check"></i>What is R?</a></li>
+<li><a href="index.html#why-modern-r">Why <em>modern</em> R?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-rstudio"><i class="fa fa-check"></i>What is Rstudio?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-are-packages"><i class="fa fa-check"></i>What are packages?</a><ul>
@@ -312,9 +313,9 @@ unemp_lux_data <span class="op">%&gt;%</span>
 <p>I am not a huge fan of pie charts, but sometimes this is what you have to do. So let’s see how you can create pie charts. First, let’s create a mock dataset with the function <code>tibble::tribble()</code> which allows you to create a dataset line by line:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_data &lt;-<span class="st"> </span><span class="kw">tribble</span>(
   <span class="op">~</span>id, <span class="op">~</span>var1, <span class="op">~</span>var2,  <span class="op">~</span>var3, <span class="op">~</span>var4, <span class="op">~</span>var5,
-  <span class="st">&quot;a&quot;</span>, <span class="fl">16.5</span>, <span class="dv">18</span>, <span class="dv">20</span>, <span class="dv">22</span>, <span class="dv">24</span>,
-  <span class="st">&quot;b&quot;</span>, <span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">18</span>, <span class="dv">22</span>, <span class="dv">20</span>,
-  <span class="st">&quot;c&quot;</span>, <span class="dv">24</span>, <span class="dv">22</span>, <span class="dv">20</span>, <span class="dv">18</span>, <span class="fl">16.5</span>
+  <span class="st">&quot;a&quot;</span>, <span class="fl">26.5</span>, <span class="dv">38</span>, <span class="dv">30</span>, <span class="dv">32</span>, <span class="dv">34</span>,
+  <span class="st">&quot;b&quot;</span>, <span class="dv">30</span>, <span class="dv">30</span>, <span class="dv">28</span>, <span class="dv">32</span>, <span class="dv">30</span>,
+  <span class="st">&quot;c&quot;</span>, <span class="dv">34</span>, <span class="dv">32</span>, <span class="dv">30</span>, <span class="dv">28</span>, <span class="fl">26.5</span>
 )</code></pre></div>
 <p>This data is not in the right format though, which is wide. We need to have it in the long format for it to work with <code>ggplot2</code>. For this, let’s use <code>tidyr::gather()</code> as seen in the previous chapter:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_data_long =<span class="st"> </span>test_data <span class="op">%&gt;%</span>
@@ -325,15 +326,57 @@ unemp_lux_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(variable, value, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>)</code></pre></div>
 <p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
 <p>In the code above, I introduce a new option, called <code>stat = &quot;identity&quot;</code>. By default, <code>geom_bar()</code> counts the number of observations of each category that is plotted, which is a statistical transformation. By adding <code>stat = &quot;identity&quot;</code>, I force the statistical transformation to be the identity function, and thus plot the data as is.</p>
-<p>To create the pie chart, it is enough to add the option <code>coord_polar()</code> at the end of the code: this is because a pie chart can be seen as a barplot living in a world with polar coordinates:</p>
+<p>To create the pie chart, first we need to compute the share of each <code>id</code> to <code>var1</code>, <code>var2</code>, etc…</p>
+<p>To do this, we first group by <code>id</code>, then compute the total. Then we use a new function <code>ungroup()</code>. After using <code>ungroup()</code> all the computations are done on the whole dataset instead of by group, which is what we need to compute the share:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_data_long =<span class="st"> </span>test_data_long <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> <span class="kw">sum</span>(value)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">share =</span> value<span class="op">/</span>total)</code></pre></div>
+<p>Let’s take a look to see if this is what we wanted:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(test_data_long)</code></pre></div>
+<pre><code>## # A tibble: 15 x 5
+##       id variable value total     share
+##    &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
+##  1     a     var1  26.5 160.5 0.1651090
+##  2     b     var1  30.0 150.0 0.2000000
+##  3     c     var1  34.0 150.5 0.2259136
+##  4     a     var2  38.0 160.5 0.2367601
+##  5     b     var2  30.0 150.0 0.2000000
+##  6     c     var2  32.0 150.5 0.2126246
+##  7     a     var3  30.0 160.5 0.1869159
+##  8     b     var3  28.0 150.0 0.1866667
+##  9     c     var3  30.0 150.5 0.1993355
+## 10     a     var4  32.0 160.5 0.1993769
+## 11     b     var4  32.0 150.0 0.2133333
+## 12     c     var4  28.0 150.5 0.1860465
+## 13     a     var5  34.0 160.5 0.2118380
+## 14     b     var5  30.0 150.0 0.2000000
+## 15     c     var5  26.5 150.5 0.1760797</code></pre>
+<p>If you didn’t understand what <code>ungroup()</code> did, rerun the last few lines with it and inspect the output.</p>
+<p>To plot the pie chart, we create a barplot again, but specify polar coordinates:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(test_data_long) <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(variable, value, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_polar</span>()</code></pre></div>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-122-1.png" width="672" /></p>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> share, <span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_polar</span>(<span class="st">&quot;y&quot;</span>, <span class="dt">start =</span> <span class="dv">0</span>)</code></pre></div>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-124-1.png" width="672" /></p>
+<p>As you can see, this typical pie chart is not very easy to read; compared to the barplots above it is not easy to distinguish <code>a</code> from <code>b</code> from <code>c</code>. It is possible to amend the pie chart a bit to make it clearer, by specifying <code>variable</code> as the <code>x</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(test_data_long) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> share, <span class="dt">x =</span> variable, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_polar</span>(<span class="st">&quot;x&quot;</span>, <span class="dt">start =</span> <span class="dv">0</span>)</code></pre></div>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
 </div>
 <div id="adding-text-to-plots" class="section level3">
 <h3><span class="header-section-number">6.2.6</span> Adding text to plots</h3>
+<p>Sometimes you might want to add some text to your plots. This is possible with <code>geom_text()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(test_data_long) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>id) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(variable, value, <span class="dt">fill =</span> variable), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(variable, value <span class="op">+</span><span class="st"> </span><span class="fl">1.5</span>, <span class="dt">label =</span> value))</code></pre></div>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-126-1.png" width="672" /></p>
 </div>
 <div id="customization" class="section level3">
 <h3><span class="header-section-number">6.2.7</span> Customization</h3>
@@ -344,7 +387,7 @@ unemp_lux_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>)<span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-123-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-127-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">unemp_lux_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">color =</span> division)) <span class="op">+</span>
@@ -352,7 +395,7 @@ unemp_lux_data <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-124-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-128-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">unemp_lux_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(division <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luxembourg&quot;</span>, <span class="st">&quot;Esch-sur-Alzette&quot;</span>, <span class="st">&quot;Wiltz&quot;</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, unemployment_rate_in_percent, <span class="dt">group =</span> division, <span class="dt">color =</span> division)) <span class="op">+</span>
@@ -361,7 +404,7 @@ unemp_lux_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">legend.title =</span> <span class="kw">element_blank</span>()) <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Unemployment in Luxembourg, Esch/Alzette and Wiltz&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Rate&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-129-1.png" width="672" /></p>
 
 </div>
 </div>
