@@ -99,12 +99,12 @@ starwars %>%
 ```
 
 Let's take a closer look to the `aes()` function: I've added `fill = gender`. This means that the
-there will be one density plot for each gender in the data, and each will be colored accordingly.
+there will be one density plot for each gender in the data, and each will be coloured accordingly.
 This is where `ggplot2` might be confusing; there is no need to write explicitly (even if it is
 possible) that you want the *female* density to be red and the *male* density to be blue. You just
 map the variable `gender` to this particular aesthetic. You conclude the plot by adding
 `geom_density()` which is this case is the plot you want. We will see late on how to change the
-colors of your plot.
+colours of your plot.
 
 
 ### Line plots
@@ -133,20 +133,20 @@ line. What if you want to plot more than one commune?
 ```{r}
 unemp_lux_data %>%
   filter(division == "Luxembourg" | division == "Esch-sur-Alzette") %>%
-  ggplot(aes(year, unemployment_rate_in_percent, group = division, color = division)) +
+  ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
   geom_line()
 ```
 
 This time, I've specified `group = division` which means that there has to be one line per as many
-communes as in the variable `division`. I do the same for colors. I think the next example
+communes as in the variable `division`. I do the same for colours. I think the next example
 illustrates how `ggplot2` is actually brilliant; if you need to add a third commune, there is no
 need to specify anything else; no need to add anything to the legend, no need to specify a third
-color etc:
+colour etc:
 
 ```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
-  ggplot(aes(year, unemployment_rate_in_percent, group = division, color = division)) +
+  ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
   geom_line()
 ```
 
@@ -305,7 +305,7 @@ ggplot(test_data_long) +
 ## Customization
 
 Every plot you've seen until now was made with the default look of `ggplot2`. If you want to change
-the look, you can apply a theme, and a color scheme. Let's take a look at themes first by using the
+the look, you can apply a theme, and a colour scheme. Let's take a look at themes first by using the
 ones found in the package `ggthemes`. But first, let's learn how to change the names of the axes
 and how to title a plot.
 
@@ -317,7 +317,7 @@ function:
 ```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
-  ggplot(aes(year, unemployment_rate_in_percent, group = division, color = division)) +
+  ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
   labs(title = "Unemployment in Luxembourg, Esch/Alzette and Wiltz", x = "Year", y = "Rate") +
   geom_line()
 ```
@@ -327,7 +327,7 @@ What if you want to make the lines thicker?
 ```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
-  ggplot(aes(year, unemployment_rate_in_percent, group = division, color = division)) +
+  ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
   labs(title = "Unemployment in Luxembourg, Esch/Alzette and Wiltz", x = "Year", y = "Rate") +
   geom_line(size = 2)
 ```
@@ -342,7 +342,7 @@ theme. This is done with the function `theme()`:
 ```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
-  ggplot(aes(year, unemployment_rate_in_percent, group = division, color = division)) +
+  ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
   theme(legend.position = "bottom") +
   labs(title = "Unemployment in Luxembourg, Esch/Alzette and Wiltz", x = "Year", y = "Rate")+
   geom_line()
@@ -353,7 +353,7 @@ What I also like to do is remove the title of the legend, because it is often su
 ```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
-  ggplot(aes(year, unemployment_rate_in_percent, group = division, color = division)) +
+  ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
   theme(legend.position = "bottom", legend.title = element_blank()) +
   labs(title = "Unemployment in Luxembourg, Esch/Alzette and Wiltz", x = "Year", y = "Rate")+
   geom_line()
@@ -369,7 +369,7 @@ choose one from the `ggthemes` package:
 ```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
-  ggplot(aes(year, unemployment_rate_in_percent, group = division, color = division)) +
+  ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
   theme_minimal() +
   theme(legend.position = "bottom", legend.title = element_blank()) +
   labs(title = "Unemployment in Luxembourg, Esch/Alzette and Wiltz", x = "Year", y = "Rate") +
@@ -382,7 +382,7 @@ also a STATA theme, if you like it:
 ```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
-  ggplot(aes(year, unemployment_rate_in_percent, group = division, color = division)) +
+  ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
   theme_stata() +
   labs(title = "Unemployment in Luxembourg, Esch/Alzette and Wiltz", x = "Year", y = "Rate") +
   geom_line()
@@ -395,7 +395,7 @@ it:
 ```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
-  ggplot(aes(year, unemployment_rate_in_percent, group = division, color = division)) +
+  ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
   theme_stata() +
   theme(legend.title = element_blank()) +
   labs(title = "Unemployment in Luxembourg, Esch/Alzette and Wiltz", x = "Year", y = "Rate") +
@@ -407,26 +407,68 @@ Even an Excel 2003 one (don't use it though):
 ```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
-  ggplot(aes(year, unemployment_rate_in_percent, group = division, color = division)) +
+  ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
   theme_excel() +
   labs(title = "Unemployment in Luxembourg, Esch/Alzette and Wiltz", x = "Year", y = "Rate") +
   geom_line()
 ```
 
-### Color schemes from `ggthemes`
+### Colour schemes from `ggthemes`
 
-You can also change color schemes, by specifying either `scale_color_*` or `scale_fill_*`
-functions. A color scheme I like is the [Highcharts](https://www.highcharts.com/) color scheme.
+You can also change colour schemes, by specifying either `scale_colour_*` or `scale_fill_*`
+functions. `scale_colour_*` functions are used for continuous variables, while `scale_fill_*`
+functions for discrete variables (so for barplots for example). A colour scheme I like is the
+[Highcharts](https://www.highcharts.com/) colour scheme.
 
 ```{r}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
-  ggplot(aes(year, unemployment_rate_in_percent, group = division, color = division)) +
+  ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
   theme_minimal() +
-  scale_color_hc() +
+  scale_colour_hc() +
   theme(legend.position = "bottom", legend.title = element_blank()) +
   labs(title = "Unemployment in Luxembourg, Esch/Alzette and Wiltz", x = "Year", y = "Rate") +
   geom_line()
 ```
 
-### Using your own colors
+An example with a barplot:
+
+```{r}
+ggplot(test_data_long) +
+  facet_wrap(~id) +
+  geom_bar(aes(variable, value, fill = variable), stat = "identity") +
+  geom_text(aes(variable, value + 1.5, label = value)) +
+  theme_minimal() +
+  scale_fill_hc()
+```
+
+### Using your own colours
+
+To use your own colours you can use `scale_colour_manual()` and `scale_fill_manual()` and specify
+the html codes of the colours you want to use.
+
+```{r}
+unemp_lux_data %>%
+  filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
+  ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
+  theme_minimal() +
+  scale_colour_manual(values = c("#FF336C", "#334BFF", "#2CAE00")) +
+  theme(legend.position = "bottom", legend.title = element_blank()) +
+  labs(title = "Unemployment in Luxembourg, Esch/Alzette and Wiltz", x = "Year", y = "Rate") +
+  geom_line()
+```
+
+To get html codes of colours you can use [this online
+tool](http://htmlcolorcodes.com/color-picker/).
+
+For a barplot you would do the same:
+
+```{r}
+ggplot(test_data_long) +
+  facet_wrap(~id) +
+  geom_bar(aes(variable, value, fill = variable), stat = "identity") +
+  geom_text(aes(variable, value + 1.5, label = value)) +
+  theme_minimal() +
+  theme(legend.position = "bottom", legend.title = element_blank()) +
+  scale_fill_manual(values = c("#FF336C", "#334BFF", "#2CAE00", "#B3C9C6", "#765234"))
+```
