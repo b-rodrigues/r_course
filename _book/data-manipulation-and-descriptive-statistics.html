@@ -12,7 +12,7 @@
   <meta property="og:title" content="Modern R for STATEC" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:image" content="pics/cover.png" />
+  
   <meta property="og:description" content="In this book, statisticians and economists working at STATEC will learn how use R for their needs. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed." />
   
 
@@ -20,12 +20,12 @@
   <meta name="twitter:title" content="Modern R for STATEC" />
   
   <meta name="twitter:description" content="In this book, statisticians and economists working at STATEC will learn how use R for their needs. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed." />
-  <meta name="twitter:image" content="pics/cover.png" />
+  
 
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2017-10-17">
+<meta name="date" content="2017-10-18">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -173,9 +173,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.3.2" data-path="graphs.html"><a href="graphs.html#themes"><i class="fa fa-check"></i><b>6.3.2</b> Themes</a></li>
 <li class="chapter" data-level="6.3.3" data-path="graphs.html"><a href="graphs.html#colour-schemes-from-ggthemes"><i class="fa fa-check"></i><b>6.3.3</b> Colour schemes from <code>ggthemes</code></a></li>
 <li class="chapter" data-level="6.3.4" data-path="graphs.html"><a href="graphs.html#using-your-own-colours"><i class="fa fa-check"></i><b>6.3.4</b> Using your own colours</a></li>
+<li class="chapter" data-level="6.3.5" data-path="graphs.html"><a href="graphs.html#saving-plots-on-disk"><i class="fa fa-check"></i><b>6.3.5</b> Saving plots on disk</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical models</a></li>
+<li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical models</a><ul>
+<li class="chapter" data-level="7.1" data-path="statistical-models.html"><a href="statistical-models.html#cross-sectional-data"><i class="fa fa-check"></i><b>7.1</b> Cross-sectional data</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="statistical-models.html"><a href="statistical-models.html#linear-models"><i class="fa fa-check"></i><b>7.1.1</b> Linear models</a></li>
+<li class="chapter" data-level="7.1.2" data-path="statistical-models.html"><a href="statistical-models.html#non-linear-models"><i class="fa fa-check"></i><b>7.1.2</b> Non-linear models</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="statistical-models.html"><a href="statistical-models.html#time-series-data"><i class="fa fa-check"></i><b>7.2</b> Time series data</a></li>
+<li class="chapter" data-level="7.3" data-path="statistical-models.html"><a href="statistical-models.html#panel-data-models"><i class="fa fa-check"></i><b>7.3</b> Panel data models</a></li>
+</ul></li>
 <li class="chapter" data-level="8" data-path="programming-with-r.html"><a href="programming-with-r.html"><i class="fa fa-check"></i><b>8</b> Programming with R</a><ul>
 <li class="chapter" data-level="8.1" data-path="programming-with-r.html"><a href="programming-with-r.html#writing-your-own-functions"><i class="fa fa-check"></i><b>8.1</b> Writing your own functions</a></li>
 </ul></li>
@@ -207,16 +215,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="working-with-a-single-dataset" class="section level2">
 <h2><span class="header-section-number">5.1</span> Working with a single dataset</h2>
 <p>First, let’s load <code>dplyr</code> and the included <code>starwars</code> dataset. Let’s also take a look at the first 5 lines of the dataset:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(starwars)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+
+<span class="kw">data</span>(starwars)
 
 <span class="kw">head</span>(starwars)</code></pre></div>
 <pre><code>## # A tibble: 6 x 13

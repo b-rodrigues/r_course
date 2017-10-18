@@ -459,7 +459,15 @@ unemp_lux_data %>%
 ```
 
 To get html codes of colours you can use [this online
-tool](http://htmlcolorcodes.com/color-picker/).
+tool](http://htmlcolorcodes.com/color-picker/). 
+There is also a very nice package, called `colourpicker` that allows you to 
+pick colours from with RStudio. Also, you do not even need to load it to use
+it, since it comes with an Addin:
+
+
+```{r}
+knitr::include_graphics("pics/rstudio_colourpicker.gif")
+```
 
 For a barplot you would do the same:
 
@@ -472,3 +480,28 @@ ggplot(test_data_long) +
   theme(legend.position = "bottom", legend.title = element_blank()) +
   scale_fill_manual(values = c("#FF336C", "#334BFF", "#2CAE00", "#B3C9C6", "#765234"))
 ```
+
+### Saving plots on disk
+
+There are two ways to save plots on disk; one through the *Plots* in RStudio and another using the
+`ggsave()` function. Using RStudio, navigate to the *Plots* pane and click on *Export*. You can
+then choose where to save the plot and other various options:
+
+```{r}
+knitr::include_graphics("pics/rstudio_save_plots.gif")
+```
+
+This is fine if you only generate one or two plots but if you generate a large number of them, it
+is less tedious to use the `ggsave()` function:
+
+```{r, eval=FALSE}
+
+my_plot1 = ggplot(my_data) +
+  geom_bar(aes(variable))
+
+ggsave("path/you/want/to/save/the/plot/to/my_plot1.pdf", my_plot1)
+```
+
+There are other options that you can specify such as the width and height, resolution, units,
+etc... It is possible to save more than one plot at once using `purrr::map()`, but we will learn
+about that in a later chapter.
