@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2017-10-18">
+<meta name="date" content="2017-10-20">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -150,7 +150,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4" data-path="reading-and-writing-data-with-rio.html"><a href="reading-and-writing-data-with-rio.html"><i class="fa fa-check"></i><b>4</b> Reading and writing data with <code>rio</code></a></li>
 <li class="chapter" data-level="5" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html"><i class="fa fa-check"></i><b>5</b> Data manipulation and descriptive statistics</a><ul>
 <li class="chapter" data-level="5.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-single-dataset"><i class="fa fa-check"></i><b>5.1</b> Working with a single dataset</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>5.1.1</b> Reshaping data with <code>tidyr</code></a></li>
+<li class="chapter" data-level="5.1.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#manipulating-and-creating-columns-with-dplyr"><i class="fa fa-check"></i><b>5.1.1</b> Manipulating and creating columns with <code>dplyr</code></a></li>
+<li class="chapter" data-level="5.1.2" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>5.1.2</b> Reshaping data with <code>tidyr</code></a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-list-of-datasets"><i class="fa fa-check"></i><b>5.2</b> Working with a list of datasets</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#getting-to-know-map"><i class="fa fa-check"></i><b>5.2.1</b> Getting to know <code>map()</code></a></li>
@@ -175,6 +176,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.3.4" data-path="graphs.html"><a href="graphs.html#using-your-own-colours"><i class="fa fa-check"></i><b>6.3.4</b> Using your own colours</a></li>
 <li class="chapter" data-level="6.3.5" data-path="graphs.html"><a href="graphs.html#saving-plots-on-disk"><i class="fa fa-check"></i><b>6.3.5</b> Saving plots on disk</a></li>
 </ul></li>
+<li class="chapter" data-level="6.4" data-path="graphs.html"><a href="graphs.html#many-plots"><i class="fa fa-check"></i><b>6.4</b> Many plots</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical models</a><ul>
 <li class="chapter" data-level="7.1" data-path="statistical-models.html"><a href="statistical-models.html#cross-sectional-data"><i class="fa fa-check"></i><b>7.1</b> Cross-sectional data</a><ul>
@@ -211,13 +213,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 5</span> Data manipulation and descriptive statistics</h1>
 <p>Now that we are familiar with some R objects and know how to import data, it is time to actually write some code. In this chapter, we are going to compute descriptive statistics for a single dataset, but also for a list of datasets. However, I will not give a list of functions to compute descriptive statistics; if you need a specific function you can find easily in the <em>Help</em> pane in Rstudio or using any modern internet searh engine. What I will do is show you a workflow that allows you to compute the statisics you need fast.</p>
 <p>R has a lot of built-in functions for descriptive statistics; however, if you want to compute statistics by, say, gender, some more complex manipulations are needed. At least this was true in the past. Nowadays, thanks to the packages from the tidyverse (remember those we installed at the beginning of the book?), it is very easy and fast to compute descriptive statistics by any stratifying variable(s).</p>
-<p>The packages we are going to use for this are called <code>dplyr</code> and <code>tidyr</code>. <code>dplyr</code> contains a lot of functions that make manipulating data and computing descriptive statistics very easy. To make things easier for now, we are going to use example data included with <code>dplyr</code>. So no need to import an external dataset; this does not change anything to the example that we are going to study here; the source of the data does not matter for this. <code>tidyr</code> is very useful to reshape data. We are goig to focus on two functions from <code>tidyr</code>, <code>gather()</code> and <code>spread()</code>.</p>
+<p>The packages we are going to use for this are called <code>dplyr</code> and <code>tidyr</code>. <code>dplyr</code> contains a lot of functions that make manipulating data and computing descriptive statistics very easy. To make things easier for now, we are going to use example data included with <code>dplyr</code>. So no need to import an external dataset; this does not change anything to the example that we are going to study here; the source of the data does not matter for this. <code>tidyr</code> is very useful to reshape data. We are going to focus on two functions from <code>tidyr</code>, <code>gather()</code> and <code>spread()</code>.</p>
 <div id="working-with-a-single-dataset" class="section level2">
 <h2><span class="header-section-number">5.1</span> Working with a single dataset</h2>
+<div id="manipulating-and-creating-columns-with-dplyr" class="section level3">
+<h3><span class="header-section-number">5.1.1</span> Manipulating and creating columns with <code>dplyr</code></h3>
 <p>First, let’s load <code>dplyr</code> and the included <code>starwars</code> dataset. Let’s also take a look at the first 5 lines of the dataset:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-
-<span class="kw">data</span>(starwars)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(starwars)
 
 <span class="kw">head</span>(starwars)</code></pre></div>
 <pre><code>## # A tibble: 6 x 13
@@ -516,10 +527,64 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 10     Obi-Wan Kenobi auburn, white        fair blue-gray   male   Stewjon
 ## # ... with 77 more rows, and 1 more variables: species &lt;chr&gt;</code></pre>
 <p><code>select_if()</code> selects every column that is of type character. There is also <code>select_all()</code> and <code>select_at()</code>, each with they’re own use. I will not go into more detail here. If you are interested, I advise you read <code>dplyr</code>’s help and also the section I wrote in my other <a href="https://b-rodrigues.github.io/fput/tidyverse.html">book</a> which goes into much more detail.</p>
+</div>
 <div id="reshaping-data-with-tidyr" class="section level3">
-<h3><span class="header-section-number">5.1.1</span> Reshaping data with <code>tidyr</code></h3>
+<h3><span class="header-section-number">5.1.2</span> Reshaping data with <code>tidyr</code></h3>
 <p>Another important package from the <code>tidyverse</code> that goes hand in hand with <code>dplyr</code> is <code>tidyr</code>. <code>tidyr</code> is the package you need when it’s time to reshape data. The basic functions from <code>tidyr</code>, <code>spread()</code> and <code>gather()</code> make it possible to go from long to wide datasets respectively.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">survey_data =<span class="st"> </span><span class="kw">tribble</span>(
+  <span class="op">~</span>id, <span class="op">~</span>variable, <span class="op">~</span>value,
+  <span class="dv">1</span>, <span class="st">&quot;var1&quot;</span>, <span class="dv">1</span>,
+  <span class="dv">1</span>, <span class="st">&quot;var2&quot;</span>, <span class="fl">0.2</span>,
+  <span class="dv">2</span>, <span class="st">&quot;var1&quot;</span>, <span class="fl">1.4</span>,
+  <span class="dv">2</span>, <span class="st">&quot;var2&quot;</span>, <span class="fl">1.9</span>,
+  <span class="dv">3</span>, <span class="st">&quot;var1&quot;</span>, <span class="fl">0.1</span>,
+  <span class="dv">3</span>, <span class="st">&quot;var2&quot;</span>, <span class="fl">2.8</span>,
+  <span class="dv">4</span>, <span class="st">&quot;var1&quot;</span>, <span class="fl">1.7</span>,
+  <span class="dv">4</span>, <span class="st">&quot;var2&quot;</span>, <span class="fl">1.9</span>
+)
+
+<span class="kw">head</span>(survey_data)</code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##      id variable value
+##   &lt;dbl&gt;    &lt;chr&gt; &lt;dbl&gt;
+## 1     1     var1   1.0
+## 2     1     var2   0.2
+## 3     2     var1   1.4
+## 4     2     var2   1.9
+## 5     3     var1   0.1
+## 6     3     var2   2.8</code></pre>
+<p>This above is a long dataset. We can reshape it to be wide using the <code>spread()</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wide_data =<span class="st"> </span>survey_data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">spread</span>(variable, value)
+
+<span class="kw">head</span>(wide_data)</code></pre></div>
+<pre><code>## # A tibble: 4 x 3
+##      id  var1  var2
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1   1.0   0.2
+## 2     2   1.4   1.9
+## 3     3   0.1   2.8
+## 4     4   1.7   1.9</code></pre>
+<p>This means that we spread the column called “variable”, which will produce one column per category of “variable”. Then we fill in the rows with the data contained in the column “value”.</p>
+<p>To go from a wide dataset to a long one, we use <code>gather()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">long_data =<span class="st"> </span>wide_data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(variable, value, var1, var2)
+
+<span class="kw">print</span>(long_data)</code></pre></div>
+<pre><code>## # A tibble: 8 x 3
+##      id variable value
+##   &lt;dbl&gt;    &lt;chr&gt; &lt;dbl&gt;
+## 1     1     var1   1.0
+## 2     2     var1   1.4
+## 3     3     var1   0.1
+## 4     4     var1   1.7
+## 5     1     var2   0.2
+## 6     2     var2   1.9
+## 7     3     var2   2.8
+## 8     4     var2   1.9</code></pre>
+<p>In the <code>wide_data</code> tibble, we had 3 columns: <code>id</code>, <code>var1</code> and <code>var2</code>. We want to stack ‘var1’ and ‘var2’ in a new column, that we chose to call “variable”. This is the “key”. For the value, we are using the values contained in <code>var1</code> and <code>var2</code>. Sometimes using <code>spread()</code> or <code>gather()</code> requires some trial and error. I advise you play around with the examples above to really grasp how these powerful functions work.</p>
+<p>The last function from <code>tidyr</code> that we are going to discuss is <code>nest()</code>, but we will keep it for later, in the section about so-called <em>list-columns</em>.</p>
 </div>
 </div>
 <div id="working-with-a-list-of-datasets" class="section level2">
@@ -775,10 +840,10 @@ all_datasets <span class="op">%&gt;%</span>
 <p>This might be surprising at first, because we know that Luke Skywalker has appeared in more than 1 movie… the problem here is that for each individual, <code>films</code> is a list, whose single element is a vector of characters. This means that <code>length(films)</code> computes the length of the list, which is one, and not the length of the vector contained in the list! How can we get the length of the vector of characters contained in the list and for each character? For this we need to use <code>dplyr::rowwise()</code> and remove the <code>filter()</code> function and use <code>mutate()</code> to add this column to the dataset:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars =<span class="st"> </span>starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n_films =</span> <span class="kw">length</span>(films)) </code></pre></div>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n_films =</span> <span class="kw">length</span>(films))</code></pre></div>
 <p><code>dplyr::rowwise()</code> is useful when working with list-columns: columns that have lists as elements.</p>
 <p>Let’s take a look at the characters and the number of films they have appeared in:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span><span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(name, n_films)</code></pre></div>
 <pre><code>## Source: local data frame [87 x 2]
 ## Groups: &lt;by row&gt;
@@ -801,7 +866,41 @@ all_datasets <span class="op">%&gt;%</span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars =<span class="st"> </span>starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">more_1 =</span> <span class="kw">case_when</span>(n_films <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;Exactly one movie&quot;</span>,
                             n_films <span class="op">!=</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;More than 1 movie&quot;</span>))</code></pre></div>
-<p>List columns are very useful, and we will look more into them in the coming chapters.</p>
+<p>It is also possible to create list columns with <code>tidyr::nest()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(survey_data)</code></pre></div>
+<pre><code>## # A tibble: 8 x 3
+##      id variable value
+##   &lt;dbl&gt;    &lt;chr&gt; &lt;dbl&gt;
+## 1     1     var1   1.0
+## 2     1     var2   0.2
+## 3     2     var1   1.4
+## 4     2     var2   1.9
+## 5     3     var1   0.1
+## 6     3     var2   2.8
+## 7     4     var1   1.7
+## 8     4     var2   1.9</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nested_data =<span class="st"> </span>survey_data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">nest</span>(variable, value)
+
+<span class="kw">print</span>(nested_data)</code></pre></div>
+<pre><code>## # A tibble: 4 x 2
+##      id             data
+##   &lt;dbl&gt;           &lt;list&gt;
+## 1     1 &lt;tibble [2 x 2]&gt;
+## 2     2 &lt;tibble [2 x 2]&gt;
+## 3     3 &lt;tibble [2 x 2]&gt;
+## 4     4 &lt;tibble [2 x 2]&gt;</code></pre>
+<p>This creates a new tibble, with columns <code>id</code> and <code>data</code>. <code>data</code> is a list-column that contains tibbles; each tibble is the <code>variable</code> and <code>value</code> for each individual:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nested_data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(id <span class="op">==</span><span class="st"> &quot;1&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">pull</span>(data)</code></pre></div>
+<pre><code>## [[1]]
+## # A tibble: 2 x 2
+##   variable value
+##      &lt;chr&gt; &lt;dbl&gt;
+## 1     var1   1.0
+## 2     var2   0.2</code></pre>
+<p>As you can see, for individual 1, the column data contains a 2x2 tibble with columns <code>variable</code> and <code>value</code>. You might be wondering why this is useful, because this seems to introduce an unnecessary layer of complexity. The usefulness of list-columns will become apparent in the next chapters, where we are going to learn how to repeat actions over, say, individuals.</p>
 
 </div>
 </div>
