@@ -40,7 +40,7 @@ plots, as well as show you how to customize your plots with `ggthemes`.
 
 To follow the examples below, load the following libraries:
 
-```{r}
+```{r, cache=TRUE}
 library(ggplot2)
 library(ggthemes)
 ```
@@ -50,7 +50,7 @@ to read the books to start using it. If we go back to the Star Wars data (contai
 and wish to draw a barplot of the gender, the following lines are enough:
 
 
-```{r}
+```{r, cache=TRUE}
 ggplot(starwars, aes(gender)) +
   geom_bar()
 ```
@@ -62,7 +62,7 @@ geoms*. You can get different kind of plots by using different `geom_` functions
 
 You can also change the coordinate system in your barplot:
 
-```{r}
+```{r, cache=TRUE}
 ggplot(starwars, aes(gender)) +
   geom_bar() +
   coord_flip()
@@ -72,7 +72,7 @@ ggplot(starwars, aes(gender)) +
 
 `geom_density()` is the *geom* that allows you to get density plots:
 
-```{r}
+```{r, cache=TRUE}
 ggplot(starwars, aes(height)) +
   geom_density()
 ```
@@ -91,7 +91,7 @@ The above lines do the filtering; only keep gender if gender is in the vector `"
 This is much easier than having to write `gender == "female" | gender == "male"`. Then, we pipe
 this dataset to `ggplot`:
 
-```{r}
+```{r, cache=TRUE}
 starwars %>%
   filter(gender %in% c("female", "male")) %>%
   ggplot(aes(height, fill = gender)) +
@@ -117,7 +117,7 @@ http://www.statistiques.public.lu/stat/TableViewer/tableView.aspx?ReportId=12950
 
 Let's plot the unemployment for the canton of Luxembourg only:
 
-```{r}
+```{r, cache=TRUE}
 unemp_lux_data = import("datasets/unemployment/all/unemployment_lux_all.csv")
 
 unemp_lux_data %>%
@@ -130,7 +130,7 @@ Because line plots are 2D, you need to specify the y and x axes. There is also a
 need to add, `group = 1`. This is to tell `aes()` that the dots have to be connected with a single
 line. What if you want to plot more than one commune?
 
-```{r}
+```{r, cache=TRUE}
 unemp_lux_data %>%
   filter(division == "Luxembourg" | division == "Esch-sur-Alzette") %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -143,7 +143,7 @@ illustrates how `ggplot2` is actually brilliant; if you need to add a third comm
 need to specify anything else; no need to add anything to the legend, no need to specify a third
 colour etc:
 
-```{r}
+```{r, cache=TRUE}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -157,7 +157,7 @@ categories. If you want to have a plot per category you can use the `facet_grid(
 Careful though, this function does not take a variable as an argument, but a formula, hence the `~`
 symbol in the code below:
 
-```{r}
+```{r, cache=TRUE}
 starwars %>%
   mutate(human = case_when(species == "Human" ~ "Human",
                            species != "Human" ~ "Not Human")) %>%
@@ -169,7 +169,7 @@ starwars %>%
 
 By changing the formula, you change how the facetting is done:
 
-```{r}
+```{r, cache=TRUE}
 starwars %>%
   mutate(human = case_when(species == "Human" ~ "Human",
                            species != "Human" ~ "Not Human")) %>%
@@ -182,7 +182,7 @@ starwars %>%
 Recall the categorical variable `more_1` that we computed in the previous chapter? Let's use it as
 a faceting variable:
 
-```{r}
+```{r, cache=TRUE}
 starwars %>%
   rowwise() %>%
   mutate(n_films = length(films)) %>%
@@ -203,7 +203,7 @@ can create pie charts.
 First, let's create a mock dataset with the function `tibble::tribble()` which allows you to create a
 dataset line by line:
 
-```{r}
+```{r, cache=TRUE}
 test_data <- tribble(
   ~id, ~var1, ~var2,  ~var3, ~var4, ~var5,
   "a", 26.5, 38, 30, 32, 34,
@@ -215,14 +215,14 @@ test_data <- tribble(
 This data is not in the right format though, which is wide. We need to have it in the long format
 for it to work with `ggplot2`. For this, let's use `tidyr::gather()` as seen in the previous chapter:
 
-```{r}
+```{r, cache=TRUE}
 test_data_long = test_data %>%
   gather(variable, value, starts_with("var"))
 ```
 
 Now, let's plot this data, first by creating 3 bar plots:
 
-```{r}
+```{r, cache=TRUE}
 ggplot(test_data_long) +
   facet_wrap(~id) +
   geom_bar(aes(variable, value, fill = variable), stat = "identity")
@@ -239,7 +239,7 @@ To do this, we first group by `id`, then compute the total. Then we use a new fu
 After using `ungroup()` all the computations are done on the whole dataset instead of by group, which
 is what we need to compute the share:
 
-```{r}
+```{r, cache=TRUE}
 test_data_long = test_data_long %>%
   group_by(id) %>%
   mutate(total = sum(value)) %>%
@@ -249,7 +249,7 @@ test_data_long = test_data_long %>%
 
 Let's take a look to see if this is what we wanted:
 
-```{r}
+```{r, cache=TRUE}
 print(test_data_long)
 ```
 
@@ -258,7 +258,7 @@ output.
 
 To plot the pie chart, we create a barplot again, but specify polar coordinates:
 
-```{r}
+```{r, cache=TRUE}
 ggplot(test_data_long) +
   facet_wrap(~id) +
   geom_bar(aes(y = share, x = "", fill = variable), stat = "identity") +
@@ -270,7 +270,7 @@ As you can see, this typical pie chart is not very easy to read; compared to the
 is not easy to distinguish `a` from `b` from `c`. It is possible to amend the pie chart a bit to
 make it clearer, by specifying `variable` as the `x`:
 
-```{r}
+```{r, cache=TRUE}
 ggplot(test_data_long) +
   facet_wrap(~id) +
   geom_bar(aes(y = share, x = variable, fill = variable), stat = "identity") +
@@ -285,7 +285,7 @@ clearer.
 
 Sometimes you might want to add some text to your plots. This is possible with `geom_text()`:
 
-```{r}
+```{r, cache=TRUE}
 ggplot(test_data_long) +
   facet_wrap(~id) +
   geom_bar(aes(variable, value, fill = variable), stat = "identity") +
@@ -295,7 +295,7 @@ ggplot(test_data_long) +
 You can put anything after `label = `but in general what you'd want are the values, so that's what
 I put there. But you can also refine it, imagine the values are actualy, say €:
 
-```{r}
+```{r, cache=TRUE}
 ggplot(test_data_long) +
   facet_wrap(~id) +
   geom_bar(aes(variable, value, fill = variable), stat = "identity") +
@@ -314,7 +314,7 @@ and how to title a plot.
 To change the title of the plot, and of the axes, you need to pass the names to the `labs()`
 function:
 
-```{r}
+```{r, cache=TRUE}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -324,7 +324,7 @@ unemp_lux_data %>%
 
 What if you want to make the lines thicker?
 
-```{r}
+```{r, cache=TRUE}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -339,7 +339,7 @@ modify it a bit. For example, the legend placement is actually a feature of the 
 that if you want to change where the legend is placed you need to modify this feature from the
 theme. This is done with the function `theme()`:
 
-```{r}
+```{r, cache=TRUE}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -350,7 +350,7 @@ unemp_lux_data %>%
 
 What I also like to do is remove the title of the legend, because it is often superfluous:
 
-```{r}
+```{r, cache=TRUE}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -366,7 +366,7 @@ even blank space).
 You could modify every feature of the theme like that, but in some cases it might be easier to
 choose one from the `ggthemes` package:
 
-```{r}
+```{r, cache=TRUE}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -379,7 +379,7 @@ unemp_lux_data %>%
 For example in the code above, I have used `theme_minimal()` which I like quite a lot. There is
 also a STATA theme, if you like it:
 
-```{r}
+```{r, cache=TRUE}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -392,7 +392,7 @@ As you can see, `theme_stata()` has the legend on the bottom by default, because
 legend position is defined within the theme. However the legend title is still there. Let's remove
 it:
 
-```{r}
+```{r, cache=TRUE}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -404,7 +404,7 @@ unemp_lux_data %>%
 
 Even an Excel 2003 one (don't use it though):
 
-```{r}
+```{r, cache=TRUE}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -420,7 +420,7 @@ functions. `scale_colour_*` functions are used for continuous variables, while `
 functions for discrete variables (so for barplots for example). A colour scheme I like is the
 [Highcharts](https://www.highcharts.com/) colour scheme.
 
-```{r}
+```{r, cache=TRUE}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -433,7 +433,7 @@ unemp_lux_data %>%
 
 An example with a barplot:
 
-```{r}
+```{r, cache=TRUE}
 ggplot(test_data_long) +
   facet_wrap(~id) +
   geom_bar(aes(variable, value, fill = variable), stat = "identity") +
@@ -447,7 +447,7 @@ ggplot(test_data_long) +
 To use your own colours you can use `scale_colour_manual()` and `scale_fill_manual()` and specify
 the html codes of the colours you want to use.
 
-```{r}
+```{r, cache=TRUE}
 unemp_lux_data %>%
   filter(division %in% c("Luxembourg", "Esch-sur-Alzette", "Wiltz")) %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division, colour = division)) +
@@ -465,13 +465,13 @@ pick colours from with RStudio. Also, you do not even need to load it to use
 it, since it comes with an Addin:
 
 
-```{r}
+```{r, cache=TRUE}
 knitr::include_graphics("pics/rstudio_colourpicker.gif")
 ```
 
 For a barplot you would do the same:
 
-```{r}
+```{r, cache=TRUE}
 ggplot(test_data_long) +
   facet_wrap(~id) +
   geom_bar(aes(variable, value, fill = variable), stat = "identity") +
@@ -487,7 +487,7 @@ There are two ways to save plots on disk; one through the *Plots* in RStudio and
 `ggsave()` function. Using RStudio, navigate to the *Plots* pane and click on *Export*. You can
 then choose where to save the plot and other various options:
 
-```{r}
+```{r, cache=TRUE}
 knitr::include_graphics("pics/rstudio_save_plots.gif")
 ```
 
@@ -513,7 +513,7 @@ and how it can work together with `ggplot2` to generate many plots.
 For example, suppose that instead of wanting a single plot with the unemployment rate of each
 commune, you need one unemployment plot, per commune:
 
-```{r}
+```{r, cache=TRUE}
 unemp_lux_data %>%
   filter(division == "Luxembourg") %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division)) +
@@ -525,7 +525,7 @@ unemp_lux_data %>%
 and then you would write the same for "Esch-sur-Alzette" and also for "Wiltz". If you only have to
 make to make these 3 plots, copy and pasting the above lines is no big deal:
 
-```{r}
+```{r, cache=TRUE}
 unemp_lux_data %>%
   filter(division == "Esch-sur-Alzette") %>%
   ggplot(aes(year, unemployment_rate_in_percent, group = division)) +
@@ -543,18 +543,18 @@ unemp_lux_data %>%
 
 Put copy and pasting is error prone. Can you spot the copy-paste mistake I made? And what if you
 have to create the above plots for all 108 Luxembourguish communes? That's a lot of copy pasting.
-What if, once you are done copy pasting, you have to change something for example, the theme? You
-could use the search and replace function of RStudio, true, but something search and replace can
+What if, once you are done copy pasting, you have to change something, for example, the theme? You
+could use the search and replace function of RStudio, true, but sometimes search and replace can
 also introduce bugs and typos. You can avoid all these issues by using `purrr::map()`. What do you
 need to map over? The commune names. So let's create a vector of commune names:
 
-```{r}
+```{r, cache=TRUE}
 communes = list("Luxembourg", "Esch-sur-Alzette", "Wiltz")
 ```
 
 Now we can create the graphs using `map()`, or `map2()` to be exact:
 
-```{r}
+```{r, cache=TRUE}
 plots_tibble = unemp_lux_data %>%
   filter(division %in% communes) %>%
   group_by(division) %>%
@@ -569,7 +569,7 @@ Let's study this line by line: the first line is easy, we simply use `filter()` 
 communes we are interested in. Then we group by `division` and use `tidyr::nest()`. As a refresher,
 let's take a look at what this does:
 
-```{r}
+```{r, cache=TRUE}
 unemp_lux_data %>%
   filter(division %in% communes) %>%
   group_by(division) %>%
@@ -582,7 +582,7 @@ because now we can pass these tibbles to `map2()`, to generate the plots. But wh
 what's the difference with `map()`? `map2()` works the same way as `map()`, but maps over two
 inputs:
 
-```{r}
+```{r, cache=TRUE}
 numbers1 = list(1, 2, 3, 4, 5)
 
 numbers2 = list(9, 8, 7, 6, 5)
@@ -596,7 +596,7 @@ second input of `map2()`, the commune names contained in variable `division`.
 
 So what happened? We now have a tibble called `plots_tibble` that looks like this:
 
-```{r}
+```{r, cache=TRUE}
 print(plots_tibble)
 ```
 
@@ -606,7 +606,7 @@ tibbles). `plot` is a list-column, with elements... being plots! Yes you read th
 elements of the column `plot` are literally plots. This is what I meant with list columns.
 Let's see what is inside the `data` and the `plot` columns exactly:
 
-```{r}
+```{r, cache=TRUE}
 plots_tibble %>%
   pull(data)
 ```
@@ -619,7 +619,7 @@ plot multiple lines in the same graph, you need to write `group = division`).
 But more interestingly, how can you actually see the plots? If you want to simply look at them, it
 is enough to use `pull()`:
 
-```{r}
+```{r, cache=TRUE}
 plots_tibble %>%
   pull(plot)
 ```

@@ -1,12 +1,127 @@
 # Statistical models
 
-## Cross-sectional data
+In this chapter, we will not learn about all the models out there that you may or may not need.
+Instead, I will show you how can use what you have learned until now and how you can apply these
+concepts to modelling. Also, as you read in the beginning of the book, R has many many packages. So
+the model you need is most probably already implemented in some package.
 
-### Linear models
+## Simple modelling
 
-### Non-linear models
+Suppose you have a variable `y` that you wish to explain using a set of other variables `x1`, `x2`,
+`x3`, etc. Let's take a look at the `Housing` dataset from the `Ecdat` package:
 
-## Time series data
+```{r, include=FALSE}
+library(Ecdat)
 
-## Panel data models
+data(Housing)
+```
 
+```{r, eval=FALSE}
+library(Ecdat)
+
+data(Housing)
+```
+
+You can read a description of the dataset by running:
+
+```{r, eval=FALSE}
+?Housing
+```
+
+
+```
+Housing                 package:Ecdat                  R Documentation
+
+Sales Prices of Houses in the City of Windsor
+
+Description:
+
+     a cross-section from 1987
+
+     _number of observations_ : 546
+
+     _observation_ : goods
+
+     _country_ : Canada
+
+Usage:
+
+     data(Housing)
+
+Format:
+
+     A dataframe containing :
+
+     price: sale price of a house
+
+     lotsize: the lot size of a property in square feet
+
+     bedrooms: number of bedrooms
+
+     bathrms: number of full bathrooms
+
+     stories: number of stories excluding basement
+
+     driveway: does the house has a driveway ?
+
+     recroom: does the house has a recreational room ?
+
+     fullbase: does the house has a full finished basement ?
+
+     gashw: does the house uses gas for hot water heating ?
+
+     airco: does the house has central air conditioning ?
+
+     garagepl: number of garage places
+
+     prefarea: is the house located in the preferred neighbourhood of the city ?
+
+Source:
+
+     Anglin, P.M.  and R.  Gencay (1996) “Semiparametric estimation of
+     a hedonic price function”, _Journal of Applied Econometrics_,
+     *11(6)*, 633-648.
+
+References:
+
+     Verbeek, Marno (2004) _A Guide to Modern Econometrics_, John Wiley
+     and Sons, chapter 3.
+
+     Journal of Applied Econometrics data archive : <URL:
+     http://qed.econ.queensu.ca/jae/>.
+
+See Also:
+
+     ‘Index.Source’, ‘Index.Economics’, ‘Index.Econometrics’,
+     ‘Index.Observations’
+```
+
+or by looking for `Housing` in the help pane of RStudio. Usually, you would take a look a the data
+before doing any modelling:
+
+```{r}
+glimpse(Housing)
+```
+
+Housing prices depend on a set of variables such as the number of bedrooms, the area it is located
+and so on. If you believe that housing prices depend linearly on a set of explanatory variables,
+you will want to estimate a linear model. To estimate a *linear model*, you will need to use the
+built-in `lm()` function:
+
+```{r}
+model1 = lm(price ~ lotsize + bedrooms, data = Housing)
+```
+
+`lm()` takes a formula as an argument, which defines the model you want to estimate. In this case,
+I ran the following regression:
+
+\[
+\text{price} = \alpha + \beta_1 * \text{lotsize} + \beta_2 * \text{bedrooms} + \varepsilon
+\]
+
+where \(alpha, beta_1\) and \(beta_2\) are three parameters to estimate. To take a look at the
+results, you can use the `summary()` method (not to be confused with `dplyr::summarise()`:
+
+```{r}
+summary(model1)
+```

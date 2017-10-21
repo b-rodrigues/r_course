@@ -1,4 +1,4 @@
-# Reading and writing data with `rio`
+# Reading and writing data
 
 In this chapter, we are going to import example datasets that are available in R, `mtcars` and
 `iris`. I have converted these datasets into several formats. Download those datasets
@@ -12,6 +12,9 @@ one for SAS datasets, and so on. Read `rio`'s
 [vignette](https://cran.r-project.org/web/packages/rio/vignettes/rio.html) for more details. Below
 I show some of `rio`'s functions presented in the vignette. It is also possible to import data from
 other, less "traditional" sources, such as your clipboard.
+
+
+## The swiss army knife of data import and export: `rio`
 
 To import data with `rio`, `import()` is all you need:
 
@@ -128,3 +131,41 @@ folder. You can use `getwd()` to check where you are).
 
 `rio` should cover all your needs, but if not, there is very likely a package out there that will
 import the data you need.
+
+
+## Writing any object to disk
+
+`rio` is an amazing package, but is only able to write tabular representations of data. What if you
+would like to save, say, a list containing any arbitrary object? This is possible with the
+`saveRDS()` function. Literally anything can be saved with `saveRDS()`:
+
+```{r}
+my_list = list("this is a list", list("which contains a list", 12), c(1, 2, 3, 4), matrix(c(2, 4,
+3, 1, 5, 7), nrow = 2))
+
+str(my_list)
+```
+
+`my_list` is a list containing a string, a list which contains a string and a number, a vector and
+a matrix... Now suppose that computing this list takes a very long time (for example, imagine that
+each element of the list is the result of estimating a very complex model on a particular simulated
+dataset for instance) and you would like to save this list to disk. This is possible with
+`saveRDS()`:
+
+```{r}
+saveRDS(my_list, "my_list.RDS")
+```
+
+The next day, after having freshly started your computer and launched RStudio, it is possible to
+retrieved the object exactly like it was using `readRDS()`:
+
+```{r}
+my_list = readRDS("my_list.RDS")
+
+str(my_list)
+```
+
+Even if you want to save a regular dataset, using `saveRDS()` might be a good idea because the data
+gets compressed if you add the option `compress = TRUE` to `saveRDS()`. However keep in mind that
+this will only be readable by R, so if you need to share this data with colleagues that use another
+tool, save it in another format.

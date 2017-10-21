@@ -12,6 +12,12 @@ description: "In this book, statisticians and economists working at STATEC will 
 
 # Preface {-}
 
+```{r, include=FALSE}
+library(tidyverse)
+library(broom)
+library(ggthemes)
+library(janitor)
+```
 
 ## What is R? {-}
 
@@ -31,11 +37,15 @@ and Scheme. If you learned R at university, you've probably learned to use it as
 used FORTRAN; very long scripts where data are represented as matrices and where row-wise
 (or column-wise) operations are implemented with `for` loops. There's nothing wrong with that, mind
 you, but it is a shame not to use R's functional programming capabilities that it inherited from
-Scheme, because I believe that it makes writing code easier and more natural. Also, R evolved a lot
-in the recent years, in great part thanks to the work of [Hadley Wickham](http://hadley.nz/) and
-his collection of packages known as the `tidyverse`. By using the packages from the `tidyverse` and
-R's built-in functional programming capabilities, we can write code that is faster and easier to
-explain to colleagues, and also easier to maintain.
+Scheme, because I believe that it makes writing code easier and more natural. At its core, functional
+programming uses functions, and functions are first class objects in R. We are going to learn what
+that means later. First, we are going to use functions that are already available in R, and then
+use those available in packages, mostly those from the `tidyverse`. The `tidyverse` is a collection
+of packages developed by [Hadley Wickham](http://hadley.nz/). By using the packages from the
+`tidyverse` and R's built-in functional programming capabilities, we can write code that is faster
+and easier to explain to colleagues, and also easier to maintain. This also means that you might
+have to change your expectations and what you know already from R, if you learned it at University
+but haven't touched it in a long time.
 
 ## What is Rstudio? {-}
 
@@ -68,8 +78,8 @@ popular. As of October 2017, R has over 11000 packages.
 
 To install the packages we need, first open Rstudio and then copy and paste this line in the console:
 
-```{r eval=FALSE}
-install.packages(c("tidyverse", "checkpoint", "eurostat", "ggthemes", "janitor", "openxlsx", "rio", "colourpicker"))
+```{r, eval=FALSE}
+install.packages(c("tidyverse", "checkpoint", "Ecdat", "ggthemes", "janitor", "rio", "colourpicker"))
 ```
 
 ```{r, echo=FALSE}

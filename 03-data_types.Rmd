@@ -8,13 +8,13 @@ that you need to become familiar with.
 
 But first, we need to learn how to assign a variable. This can be done in two ways:
 
-```{r}
+```{r, cache=TRUE}
 a <- 3
 ```
 
 or
 
-```{r}
+```{r, cache=TRUE}
 a = 3
 ```
 
@@ -31,19 +31,19 @@ type, and are very useful. Make sure you remember them!
 
 To define single numbers, you can do the following:
 
-```{r}
+```{r, cache=TRUE}
 a = 3
 ```
 
 The `class()` function allows you to check the class of an object:
 
-```{r}
+```{r, cache=TRUE}
 class(a)
 ```
 
 Decimals are defined with the character `.}:
 
-```{r}
+```{r, cache=TRUE}
 a = 3.14
 ```
 
@@ -51,11 +51,11 @@ a = 3.14
 
 Use `" "` to define characters (called strings in other programming languages):
 
-```{r}
+```{r, cache=TRUE}
 a = "this is a string"
 ```
 
-```{r}
+```{r, cache=TRUE}
 class(a)
 ```
 
@@ -69,22 +69,22 @@ numbers (either integers or floats), strings, or even other vectors. The same ap
 
 A very important function that allows you to build a vector is `c()`:
 
-```{r}
+```{r, cache=TRUE}
 a = c(1,2,3,4,5)
 ```
 
 This creates a vector with elements 1, 2, 3, 4, 5. If you check its class:
 
-```{r}
+```{r, cache=TRUE}
 class(a)
 ```
 
-This can be confusing: you where probably expecting a to be of class \emph{vector} or
+This can be confusing: you where probably expecting a to be of class \emph{vector, cache=TRUE} or
 something similar. This is not the case if you use `c()` to create the vector, because `c()`
 doesn't build a vector in the mathematical sense, but rather a list with numbers.
 Checking its dimension:
 
-```{r}
+```{r, cache=TRUE}
 dim(a)
 ```
 
@@ -95,19 +95,19 @@ create a true vector, you need to use `cbind()` or `rbind()`.
 
 You can create a *true* vector with `cbind()`:
 
-```{r}
+```{r, cache=TRUE}
 a = cbind(1,2,3,4,5)
 ```
 
 Check its class now:
 
-```{r}
+```{r, cache=TRUE}
 class(a)
 ```
 
 This is exactly what we expected. Let's check its dimension:
 
-```{r}
+```{r, cache=TRUE}
 dim(a)
 ```
 
@@ -115,14 +115,14 @@ This returns the dimension of `a` using the LICO notation (number of LInes first
 
 It is also possible to bind vectors together to create a matrix.
 
-```{r}
+```{r, cache=TRUE}
 b = cbind(6,7,8,9,10)
 ```
 
 Now let's put vector `a` and `b` into a matrix called `matrix_c` using `rbind()`.
 `rbind()` functions the same way as `cbind()` but glues the vectors together by rows and not by columns.
 
-```{r}
+```{r, cache=TRUE}
 matrix_c = rbind(a,b)
 print(matrix_c)
 ```
@@ -132,7 +132,7 @@ print(matrix_c)
 R also has support for matrices. For example, you can create a matrix of dimension (5,5) filled
 with 0's with the `matrix()` function:
 
-```{r}
+```{r, cache=TRUE}
 matrix_a = matrix(0, nrow = 5, ncol = 5)
 ```
 
@@ -148,7 +148,7 @@ B = \left(
 
 you would do it like this:
 
-```{r}
+```{r, cache=TRUE}
 B = matrix(c(2, 4, 3, 1, 5, 7), nrow = 2, byrow = TRUE)
 ```
 
@@ -157,31 +157,31 @@ The option `byrow = TRUE` means that the rows of the matrix will be filled first
 You can access individual elements of `matrix_a` like so:
 
 
-```{r}
+```{r, cache=TRUE}
 matrix_a[2, 3]
 ```
 
 and R returns its value, 0. We can assign a new value to this element if we want. Try:
 
-```{r}
+```{r, cache=TRUE}
 matrix_a[2, 3] = 7
 ```
 
 and now take a look at `matrix_a` again.
 
-```{r}
+```{r, cache=TRUE}
 print(matrix_a)
 ```
 
 Recall our vector `b`:
 
-```{r}
+```{r, cache=TRUE}
 b = cbind(6,7,8,9,10)
 ```
 
 To access its third element, you can simply write:
 
-```{r}
+```{r, cache=TRUE}
 b[3]
 ```
 
@@ -189,19 +189,19 @@ b[3]
 
 This class is the result of logical comparisons, for example, if you type:
 
-```{r}
+```{r, cache=TRUE}
 4 > 3
 ```
 
 R returns true. If we save this in a variable `l`:
 
-```{r}
+```{r, cache=TRUE}
 l = 4 > 3
 ```
 
 and check `l`'s class:
 
-```{r}
+```{r, cache=TRUE}
 class(l)
 ```
 
@@ -215,31 +215,31 @@ A `logical` variable can only have two values, either `TRUE` or `FALSE`.
 The `list` class is a very flexible class, and thus, very useful. You can put anything inside a list,
 such as numbers:
 
-```{r}
+```{r, cache=TRUE}
 list1 = list(3, 2)
 ```
 
 or vectors:
 
-```{r}
+```{r, cache=TRUE}
 list2 = list(c(1, 2), c(3, 4))
 ```
 
 you can also put objects of different classes in the same list:
 
-```{r}
+```{r, cache=TRUE}
 list3 = list(3, c(1, 2), "lists are amazing!")
 ```
 
 and of course create list of lists:
 
-```{r}
+```{r, cache=TRUE}
 my_lists = list(list1, list2, list3)
 ```
 
 To check the contents of a list, you can use the structure function `str()`:
 
-```{r}
+```{r, cache=TRUE}
 str(my_lists)
 ```
 
@@ -251,19 +251,19 @@ knitr::include_graphics("pics/rstudio_environment_list.gif")
 
 You can also create named lists:
 
-```{r}
+```{r, cache=TRUE}
 list4 = list("a" = 2, "b" = 8, "c" = "this is a named list")
 ```
 
 and you can access the elements in two ways:
 
-```{r}
+```{r, cache=TRUE}
 list4[[1]]
 ```
 
 or, for named lists:
 
-```{r}
+```{r, cache=TRUE}
 list4$c
 ```
 
@@ -281,6 +281,27 @@ niceties. If you want to know more, I go into more detail in my [other
 book](https://b-rodrigues.github.io/fput/tidyverse.html#getting-data-into-r-with-readr-readxl-haven-and-what-are-tibbles)
 but for our purposes, there's not much you need to know about `data.frame` and `tibble` objects,
 apart that this is the representation of a dataset when loaded into R.
+
+## Formulas
+
+We will learn more about formulas later, but because it is an important object, it is useful if you
+alread know about them early on. A formula is defined in the following way:
+
+```{r, cache=TRUE}
+my_formula = ~x
+
+class(my_formula)
+```
+
+Formula objects are defined using the `~` symbol. Formulas are useful to define statistical models,
+for example for a linear regression:
+
+```{r, eval=FALSE}
+lm(y ~ x)
+```
+
+or also to define anonymous functions, but more on this later.
+
 
 ## Exercises
 

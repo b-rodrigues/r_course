@@ -1,0 +1,13 @@
+base
+rio
+dplyr
+bindrcpp
+tidyr
+janitor
+purrr
+ggplot2
+ggthemes
+tidyverse
+tibble
+readr
+broom
