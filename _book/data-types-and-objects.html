@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2017-10-21">
+<meta name="date" content="2017-10-23">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -183,7 +183,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.4" data-path="graphs.html"><a href="graphs.html#many-plots"><i class="fa fa-check"></i><b>6.4</b> Many plots</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical models</a><ul>
-<li class="chapter" data-level="7.1" data-path="statistical-models.html"><a href="statistical-models.html#simple-modelling"><i class="fa fa-check"></i><b>7.1</b> Simple modelling</a></li>
+<li class="chapter" data-level="7.1" data-path="statistical-models.html"><a href="statistical-models.html#simple-modeling"><i class="fa fa-check"></i><b>7.1</b> Simple modeling</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="statistical-models.html"><a href="statistical-models.html#regression"><i class="fa fa-check"></i><b>7.1.1</b> Regression</a></li>
+<li class="chapter" data-level="7.1.2" data-path="statistical-models.html"><a href="statistical-models.html#diagnostics"><i class="fa fa-check"></i><b>7.1.2</b> Diagnostics</a></li>
+<li class="chapter" data-level="7.1.3" data-path="statistical-models.html"><a href="statistical-models.html#comparing-models"><i class="fa fa-check"></i><b>7.1.3</b> Comparing models</a></li>
+<li class="chapter" data-level="7.1.4" data-path="statistical-models.html"><a href="statistical-models.html#beyond-linear-regression"><i class="fa fa-check"></i><b>7.1.4</b> Beyond linear regression</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="programming-with-r.html"><a href="programming-with-r.html"><i class="fa fa-check"></i><b>8</b> Programming with R</a><ul>
 <li class="chapter" data-level="8.1" data-path="programming-with-r.html"><a href="programming-with-r.html#writing-your-own-functions"><i class="fa fa-check"></i><b>8.1</b> Writing your own functions</a></li>
@@ -215,7 +220,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">3</span></code></pre></div>
 <p>or</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="dv">3</span></code></pre></div>
-<p>there is almost no difference between these two approaches. Out of habit, I use <code>=</code>, but you can use <code>=</code> if you wish.</p>
+<p>there is almost no difference between these two approaches. You would need to pay attention to this, and use <code>&lt;-</code> in very specific situations to which you will very likely never be confronted to.</p>
 <p>Another thing you must know is that you can convert from one type to another using <code>as.character()</code>, <code>as.numeric()</code>, <code>as.logical()</code>, etc… For example, <code>as.character(1)</code> converts the number <code>1</code> to the character (or string) “1”. There are also <code>is.character()</code>, <code>is.numeric()</code> and so on that test if the object is of the required class. These functions exist for each object type, and are very useful. Make sure you remember them!</p>
 <div id="the-numeric-class" class="section level2">
 <h2><span class="header-section-number">3.1</span> The <code>numeric</code> class</h2>
@@ -355,10 +360,16 @@ B = \left(
 <div id="the-data.frame-and-tibble-classes" class="section level2">
 <h2><span class="header-section-number">3.6</span> The <code>data.frame</code> and <code>tibble</code> classes</h2>
 <p>In the next chapter we are going to learn how to import datasets into R. Once you import data, the resulting object is either a <code>data.frame</code> or a <code>tibble</code> depending on which package you used to import the data. <code>tibble</code>s extend <code>data.frame</code>s so if you know about <code>data.frame</code> objects already, working with <code>tibble</code>s will be very easy. <code>tibble</code>s have a better <code>print()</code> method, and some other niceties. If you want to know more, I go into more detail in my <a href="https://b-rodrigues.github.io/fput/tidyverse.html#getting-data-into-r-with-readr-readxl-haven-and-what-are-tibbles">other book</a> but for our purposes, there’s not much you need to know about <code>data.frame</code> and <code>tibble</code> objects, apart that this is the representation of a dataset when loaded into R.</p>
+<p>However, I want to stress that these objects are central to R and are thus very important. There are different ways to print a <code>data.frame</code> or a <code>tibble</code> if you wish to inspect it. You can use <code>View(my_data)</code> to show the <code>my_data</code> <code>data.frame</code> in the <em>View</em> pane of RStudio:</p>
+<p><img src="pics/rstudio_view_data.gif" /><!-- --></p>
+<p>You can also use the <code>str()</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(my_data)</code></pre></div>
+<p>And if you need to access an individual column, you can use the <code>$</code> sign, same as for a list:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_data<span class="op">$</span>col1</code></pre></div>
 </div>
 <div id="formulas" class="section level2">
 <h2><span class="header-section-number">3.7</span> Formulas</h2>
-<p>We will learn more about formulas later, but because it is an important object, it is useful if you alread know about them early on. A formula is defined in the following way:</p>
+<p>We will learn more about formulas later, but because it is an important object, it is useful if you already know about them early on. A formula is defined in the following way:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_formula =<span class="st"> </span><span class="er">~</span>x
 
 <span class="kw">class</span>(my_formula)</code></pre></div>

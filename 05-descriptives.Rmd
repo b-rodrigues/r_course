@@ -4,7 +4,7 @@ Now that we are familiar with some R objects and know how to import data, it is 
 write some code. In this chapter, we are going to compute descriptive statistics for a single dataset,
 but also for a list of datasets. However, I will not give a list of functions to compute descriptive
 statistics; if you need a specific function you can find easily in the *Help* pane in Rstudio or
-using any modern internet searh engine. What I will do is show you a workflow that allows you
+using any modern internet search engine. What I will do is show you a workflow that allows you
 to compute the statisics you need fast.
 
 R has a lot of built-in functions for descriptive statistics; however, if you want to compute statistics
@@ -58,9 +58,9 @@ starwars %>%
   summarise(mean(height))
 ```
 
-Ok, I know what you're thinking. *What the hell is this weird `%>%` thing?*. That weird thing is called the
-pipe operator. What it does is take the left-hand side argument and pipe it as the first argument
-of the function on the right-hand side. Try the following in the command line:
+Ok, I know what you're thinking. *What the hell is this weird `%>%` thing?* That weird thing is
+called the pipe operator. What it does is take the left-hand side argument and pipe it as the first
+argument of the function on the right-hand side. Try the following in the command line:
 
 ```{r, cache=TRUE}
 4 %>% sqrt()
@@ -278,6 +278,8 @@ long_data = wide_data %>%
 
 print(long_data)
 ```
+
+`long_data` and `survey_data` are the same datasets, but in a different order.
 
 In the `wide_data` tibble, we had 3 columns: `id`, `var1` and `var2`. We want to stack 'var1' and
 'var2' in a new column, that we chose to call "variable". This is the "key". For the value, we are
@@ -506,8 +508,8 @@ starwars %>%
   select(name, n_films)
 ```
 
-Now we can create a factor variable that groups characters by asking whether they appeared only 1
-movie, or more:
+Now we can create a factor variable that groups characters by asking whether they appeared only in
+1 movie, or more:
 
 ```{r, cache=TRUE}
 starwars = starwars %>%
@@ -515,7 +517,7 @@ starwars = starwars %>%
                             n_films != 1 ~ "More than 1 movie"))
 ```
 
-It is also possible to create list columns with `tidyr::nest()`:
+It is also possible to create list-columns with `tidyr::nest()`:
 
 ```{r, cache=TRUE}
 print(survey_data)

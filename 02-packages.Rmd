@@ -1,8 +1,8 @@
 # Packages
 
 You can think of packages as addons that extend R's core functionality. You can browse all available
-package on [CRAN](https://cloud.r-project.org/). To make it easier to find what you might be
-interested in, you can also browes the [CRAN Task Views](https://cloud.r-project.org/web/views/).
+packages on [CRAN](https://cloud.r-project.org/). To make it easier to find what you might be
+interested in, you can also browse the [CRAN Task Views](https://cloud.r-project.org/web/views/).
 Each package has a landing page that summarises its dependencies, version number etc. For example,
 for the `dplyr` package: [https://cran.r-project.org/web/packages/dplyr/index.html](https://cran.r-project.org/web/packages/dplyr/index.html).
 Take a look at the *Downloads* section, and especially at the Reference Manual and Vignettes:

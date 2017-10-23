@@ -18,8 +18,9 @@ or
 a = 3
 ```
 
-there is almost no difference between these two approaches. Out of habit, I use `=`, but you can
-use `=` if you wish.
+there is almost no difference between these two approaches. You would need to pay attention to
+this, and use `<-` in very specific situations to which you will very likely never be confronted
+to.
 
 Another thing you must know is that you can convert from one type to another using
 `as.character()`, `as.numeric()`, `as.logical()`, etc... For example, `as.character(1)` converts
@@ -282,10 +283,30 @@ book](https://b-rodrigues.github.io/fput/tidyverse.html#getting-data-into-r-with
 but for our purposes, there's not much you need to know about `data.frame` and `tibble` objects,
 apart that this is the representation of a dataset when loaded into R.
 
+However, I want to stress that these objects are central to R and are thus very important. There
+are different ways to print a `data.frame` or a `tibble` if you wish to inspect it. You can use
+`View(my_data)` to show the `my_data` `data.frame` in the *View* pane of RStudio:
+
+```{r, echo=FALSE}
+knitr::include_graphics("pics/rstudio_view_data.gif")
+```
+
+You can also use the `str()` function:
+
+```{r, eval=FALSE}
+str(my_data)
+```
+
+And if you need to access an individual column, you can use the `$` sign, same as for a list:
+
+```{r, eval=FALSE}
+my_data$col1
+```
+
 ## Formulas
 
 We will learn more about formulas later, but because it is an important object, it is useful if you
-alread know about them early on. A formula is defined in the following way:
+already know about them early on. A formula is defined in the following way:
 
 ```{r, cache=TRUE}
 my_formula = ~x

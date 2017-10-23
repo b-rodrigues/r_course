@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2017-10-21">
+<meta name="date" content="2017-10-23">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -183,7 +183,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.4" data-path="graphs.html"><a href="graphs.html#many-plots"><i class="fa fa-check"></i><b>6.4</b> Many plots</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical models</a><ul>
-<li class="chapter" data-level="7.1" data-path="statistical-models.html"><a href="statistical-models.html#simple-modelling"><i class="fa fa-check"></i><b>7.1</b> Simple modelling</a></li>
+<li class="chapter" data-level="7.1" data-path="statistical-models.html"><a href="statistical-models.html#simple-modeling"><i class="fa fa-check"></i><b>7.1</b> Simple modeling</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="statistical-models.html"><a href="statistical-models.html#regression"><i class="fa fa-check"></i><b>7.1.1</b> Regression</a></li>
+<li class="chapter" data-level="7.1.2" data-path="statistical-models.html"><a href="statistical-models.html#diagnostics"><i class="fa fa-check"></i><b>7.1.2</b> Diagnostics</a></li>
+<li class="chapter" data-level="7.1.3" data-path="statistical-models.html"><a href="statistical-models.html#comparing-models"><i class="fa fa-check"></i><b>7.1.3</b> Comparing models</a></li>
+<li class="chapter" data-level="7.1.4" data-path="statistical-models.html"><a href="statistical-models.html#beyond-linear-regression"><i class="fa fa-check"></i><b>7.1.4</b> Beyond linear regression</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="programming-with-r.html"><a href="programming-with-r.html"><i class="fa fa-check"></i><b>8</b> Programming with R</a><ul>
 <li class="chapter" data-level="8.1" data-path="programming-with-r.html"><a href="programming-with-r.html#writing-your-own-functions"><i class="fa fa-check"></i><b>8.1</b> Writing your own functions</a></li>
@@ -210,7 +215,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="data-manipulation-and-descriptive-statistics" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Data manipulation and descriptive statistics</h1>
-<p>Now that we are familiar with some R objects and know how to import data, it is time to actually write some code. In this chapter, we are going to compute descriptive statistics for a single dataset, but also for a list of datasets. However, I will not give a list of functions to compute descriptive statistics; if you need a specific function you can find easily in the <em>Help</em> pane in Rstudio or using any modern internet searh engine. What I will do is show you a workflow that allows you to compute the statisics you need fast.</p>
+<p>Now that we are familiar with some R objects and know how to import data, it is time to actually write some code. In this chapter, we are going to compute descriptive statistics for a single dataset, but also for a list of datasets. However, I will not give a list of functions to compute descriptive statistics; if you need a specific function you can find easily in the <em>Help</em> pane in Rstudio or using any modern internet search engine. What I will do is show you a workflow that allows you to compute the statisics you need fast.</p>
 <p>R has a lot of built-in functions for descriptive statistics; however, if you want to compute statistics by, say, gender, some more complex manipulations are needed. At least this was true in the past. Nowadays, thanks to the packages from the tidyverse (remember those we installed at the beginning of the book?), it is very easy and fast to compute descriptive statistics by any stratifying variable(s).</p>
 <p>The packages we are going to use for this are called <code>dplyr</code> and <code>tidyr</code>. <code>dplyr</code> contains a lot of functions that make manipulating data and computing descriptive statistics very easy. To make things easier for now, we are going to use example data included with <code>dplyr</code>. So no need to import an external dataset; this does not change anything to the example that we are going to study here; the source of the data does not matter for this. <code>tidyr</code> is very useful to reshape data. We are going to focus on two functions from <code>tidyr</code>, <code>gather()</code> and <code>spread()</code>.</p>
 <div id="working-with-a-single-dataset" class="section level2">
@@ -256,7 +261,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  9 Geonosian       183.0000
 ## 10    Gungan       208.6667
 ## # ... with 28 more rows</code></pre>
-<p>Ok, I know what you’re thinking. <em>What the hell is this weird <code>%&gt;%</code> thing?</em>. That weird thing is called the pipe operator. What it does is take the left-hand side argument and pipe it as the first argument of the function on the right-hand side. Try the following in the command line:</p>
+<p>Ok, I know what you’re thinking. <em>What the hell is this weird <code>%&gt;%</code> thing?</em> That weird thing is called the pipe operator. What it does is take the left-hand side argument and pipe it as the first argument of the function on the right-hand side. Try the following in the command line:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">4</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sqrt</span>()</code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>It is equivalent to <code>sqrt(4)</code>. Why use that though? You will see in the next examples that using the <code>%&gt;%</code> makes writing and reading code, much, much easier. For example, the previous manipulation I did could be read as “Take the starwars data, give it to the <code>group_by()</code> function and then compute the mean height”. Without the <code>%&gt;%</code>, one would need to write:</p>
@@ -575,6 +580,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 6     2     var2   1.9
 ## 7     3     var2   2.8
 ## 8     4     var2   1.9</code></pre>
+<p><code>long_data</code> and <code>survey_data</code> are the same datasets, but in a different order.</p>
 <p>In the <code>wide_data</code> tibble, we had 3 columns: <code>id</code>, <code>var1</code> and <code>var2</code>. We want to stack ‘var1’ and ‘var2’ in a new column, that we chose to call “variable”. This is the “key”. For the value, we are using the values contained in <code>var1</code> and <code>var2</code>. Sometimes using <code>spread()</code> or <code>gather()</code> requires some trial and error. I advise you play around with the examples above to really grasp how these powerful functions work.</p>
 <p>The last function from <code>tidyr</code> that we are going to discuss is <code>nest()</code>, but we will keep it for later, in the section about so-called <em>list-columns</em>.</p>
 </div>
@@ -854,11 +860,11 @@ all_datasets <span class="op">%&gt;%</span>
 ##  9  Biggs Darklighter       1
 ## 10     Obi-Wan Kenobi       6
 ## # ... with 77 more rows</code></pre>
-<p>Now we can create a factor variable that groups characters by asking whether they appeared only 1 movie, or more:</p>
+<p>Now we can create a factor variable that groups characters by asking whether they appeared only in 1 movie, or more:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars =<span class="st"> </span>starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">more_1 =</span> <span class="kw">case_when</span>(n_films <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;Exactly one movie&quot;</span>,
                             n_films <span class="op">!=</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;More than 1 movie&quot;</span>))</code></pre></div>
-<p>It is also possible to create list columns with <code>tidyr::nest()</code>:</p>
+<p>It is also possible to create list-columns with <code>tidyr::nest()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(survey_data)</code></pre></div>
 <pre><code>## # A tibble: 8 x 3
 ##      id variable value

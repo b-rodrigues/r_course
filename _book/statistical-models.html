@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2017-10-21">
+<meta name="date" content="2017-10-23">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -183,7 +183,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.4" data-path="graphs.html"><a href="graphs.html#many-plots"><i class="fa fa-check"></i><b>6.4</b> Many plots</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical models</a><ul>
-<li class="chapter" data-level="7.1" data-path="statistical-models.html"><a href="statistical-models.html#simple-modelling"><i class="fa fa-check"></i><b>7.1</b> Simple modelling</a></li>
+<li class="chapter" data-level="7.1" data-path="statistical-models.html"><a href="statistical-models.html#simple-modeling"><i class="fa fa-check"></i><b>7.1</b> Simple modeling</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="statistical-models.html"><a href="statistical-models.html#regression"><i class="fa fa-check"></i><b>7.1.1</b> Regression</a></li>
+<li class="chapter" data-level="7.1.2" data-path="statistical-models.html"><a href="statistical-models.html#diagnostics"><i class="fa fa-check"></i><b>7.1.2</b> Diagnostics</a></li>
+<li class="chapter" data-level="7.1.3" data-path="statistical-models.html"><a href="statistical-models.html#comparing-models"><i class="fa fa-check"></i><b>7.1.3</b> Comparing models</a></li>
+<li class="chapter" data-level="7.1.4" data-path="statistical-models.html"><a href="statistical-models.html#beyond-linear-regression"><i class="fa fa-check"></i><b>7.1.4</b> Beyond linear regression</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="programming-with-r.html"><a href="programming-with-r.html"><i class="fa fa-check"></i><b>8</b> Programming with R</a><ul>
 <li class="chapter" data-level="8.1" data-path="programming-with-r.html"><a href="programming-with-r.html#writing-your-own-functions"><i class="fa fa-check"></i><b>8.1</b> Writing your own functions</a></li>
@@ -210,9 +215,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="statistical-models" class="section level1">
 <h1><span class="header-section-number">Chapter 7</span> Statistical models</h1>
-<p>In this chapter, we will not learn about all the models out there that you may or may not need. Instead, I will show you how can use what you have learned until now and how you can apply these concepts to modelling. Also, as you read in the beginning of the book, R has many many packages. So the model you need is most probably already implemented in some package.</p>
-<div id="simple-modelling" class="section level2">
-<h2><span class="header-section-number">7.1</span> Simple modelling</h2>
+<p>In this chapter, we will not learn about all the models out there that you may or may not need. Instead, I will show you how can use what you have learned until now and how you can apply these concepts to modeling. Also, as you read in the beginning of the book, R has many many packages. So the model you need is most probably already implemented in some package.</p>
+<div id="simple-modeling" class="section level2">
+<h2><span class="header-section-number">7.1</span> Simple modeling</h2>
+<div id="regression" class="section level3">
+<h3><span class="header-section-number">7.1.1</span> Regression</h3>
 <p>Suppose you have a variable <code>y</code> that you wish to explain using a set of other variables <code>x1</code>, <code>x2</code>, <code>x3</code>, etc. Let’s take a look at the <code>Housing</code> dataset from the <code>Ecdat</code> package:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(Ecdat)
 
@@ -283,7 +290,7 @@ See Also:
 
      ‘Index.Source’, ‘Index.Economics’, ‘Index.Econometrics’,
      ‘Index.Observations’</code></pre>
-<p>or by looking for <code>Housing</code> in the help pane of RStudio. Usually, you would take a look a the data before doing any modelling:</p>
+<p>or by looking for <code>Housing</code> in the help pane of RStudio. Usually, you would take a look a the data before doing any modeling:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(Housing)</code></pre></div>
 <pre><code>## Observations: 546
 ## Variables: 12
@@ -326,7 +333,299 @@ See Also:
 ## Residual standard error: 21230 on 543 degrees of freedom
 ## Multiple R-squared:  0.3703, Adjusted R-squared:  0.3679 
 ## F-statistic: 159.6 on 2 and 543 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>if you wish to remove the intercept (<span class="math inline">\(alpha\)</span>) from your model, you can do``<code>{r}  so with</code>-1`:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model2 =<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span><span class="op">-</span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>lotsize <span class="op">+</span><span class="st"> </span>bedrooms, <span class="dt">data =</span> Housing)
 
+<span class="kw">summary</span>(model2)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = price ~ -1 + lotsize + bedrooms, data = Housing)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -67229 -12342  -1333   9627  95509 
+## 
+## Coefficients:
+##           Estimate Std. Error t value Pr(&gt;|t|)    
+## lotsize      6.283      0.390   16.11   &lt;2e-16 ***
+## bedrooms 11968.362    713.194   16.78   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 21250 on 544 degrees of freedom
+## Multiple R-squared:  0.916,  Adjusted R-squared:  0.9157 
+## F-statistic:  2965 on 2 and 544 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>or if you want to use all the columns inside <code>Housing</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model3 =<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Housing)
+
+<span class="kw">summary</span>(model3)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = price ~ ., data = Housing)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -41389  -9307   -591   7353  74875 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -4038.3504  3409.4713  -1.184 0.236762    
+## lotsize         3.5463     0.3503  10.124  &lt; 2e-16 ***
+## bedrooms     1832.0035  1047.0002   1.750 0.080733 .  
+## bathrms     14335.5585  1489.9209   9.622  &lt; 2e-16 ***
+## stories      6556.9457   925.2899   7.086 4.37e-12 ***
+## drivewayyes  6687.7789  2045.2458   3.270 0.001145 ** 
+## recroomyes   4511.2838  1899.9577   2.374 0.017929 *  
+## fullbaseyes  5452.3855  1588.0239   3.433 0.000642 ***
+## gashwyes    12831.4063  3217.5971   3.988 7.60e-05 ***
+## aircoyes    12632.8904  1555.0211   8.124 3.15e-15 ***
+## garagepl     4244.8290   840.5442   5.050 6.07e-07 ***
+## prefareayes  9369.5132  1669.0907   5.614 3.19e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 15420 on 534 degrees of freedom
+## Multiple R-squared:  0.6731, Adjusted R-squared:  0.6664 
+## F-statistic: 99.97 on 11 and 534 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>You can access different elements of <code>model3</code> (for example) with <code>$</code>, because the result of <code>lm()</code> is a list:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(model3<span class="op">$</span>coefficients)</code></pre></div>
+<pre><code>##  (Intercept)      lotsize     bedrooms      bathrms      stories 
+## -4038.350425     3.546303  1832.003466 14335.558468  6556.945711 
+##  drivewayyes   recroomyes  fullbaseyes     gashwyes     aircoyes 
+##  6687.778890  4511.283826  5452.385539 12831.406266 12632.890405 
+##     garagepl  prefareayes 
+##  4244.829004  9369.513239</code></pre>
+<p>but I prefer to use the <code>broom</code> package, and more specifically the <code>tidy()</code> function, which converts <code>model3</code> into a neat <code>data.frame</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results3 =<span class="st"> </span><span class="kw">tidy</span>(model3)
+
+<span class="kw">glimpse</span>(results3)</code></pre></div>
+<pre><code>## Observations: 12
+## Variables: 5
+## $ term      &lt;chr&gt; &quot;(Intercept)&quot;, &quot;lotsize&quot;, &quot;bedrooms&quot;, &quot;bathrms&quot;, &quot;st...
+## $ estimate  &lt;dbl&gt; -4038.350425, 3.546303, 1832.003466, 14335.558468, 6...
+## $ std.error &lt;dbl&gt; 3409.4713, 0.3503, 1047.0002, 1489.9209, 925.2899, 2...
+## $ statistic &lt;dbl&gt; -1.184451, 10.123618, 1.749764, 9.621691, 7.086369, ...
+## $ p.value   &lt;dbl&gt; 2.367616e-01, 3.732442e-22, 8.073341e-02, 2.570369e-...</code></pre>
+<p>this is useful, because you can then work on the results easily, for example if you wish to only keep results that are significant at the 5% level:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results3 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(p.value <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</code></pre></div>
+<pre><code>##           term     estimate std.error statistic      p.value
+## 1      lotsize     3.546303    0.3503 10.123618 3.732442e-22
+## 2      bathrms 14335.558468 1489.9209  9.621691 2.570369e-20
+## 3      stories  6556.945711  925.2899  7.086369 4.374046e-12
+## 4  drivewayyes  6687.778890 2045.2458  3.269914 1.145151e-03
+## 5   recroomyes  4511.283826 1899.9577  2.374413 1.792936e-02
+## 6  fullbaseyes  5452.385539 1588.0239  3.433440 6.422381e-04
+## 7     gashwyes 12831.406266 3217.5971  3.987885 7.595575e-05
+## 8     aircoyes 12632.890405 1555.0211  8.123935 3.150681e-15
+## 9     garagepl  4244.829004  840.5442  5.050096 6.069790e-07
+## 10 prefareayes  9369.513239 1669.0907  5.613544 3.189602e-08</code></pre>
+<p>You can even add new columns, such as the confidence intervals:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results3 =<span class="st"> </span><span class="kw">tidy</span>(model3, <span class="dt">conf.int =</span> <span class="ot">TRUE</span>, <span class="dt">conf.level =</span> <span class="fl">0.95</span>)
+
+<span class="kw">print</span>(results3)</code></pre></div>
+<pre><code>##           term     estimate std.error statistic      p.value      conf.low
+## 1  (Intercept) -4038.350425 3409.4713 -1.184451 2.367616e-01 -10735.971609
+## 2      lotsize     3.546303    0.3503 10.123618 3.732442e-22      2.858168
+## 3     bedrooms  1832.003466 1047.0002  1.749764 8.073341e-02   -224.740890
+## 4      bathrms 14335.558468 1489.9209  9.621691 2.570369e-20  11408.733579
+## 5      stories  6556.945711  925.2899  7.086369 4.374046e-12   4739.291087
+## 6  drivewayyes  6687.778890 2045.2458  3.269914 1.145151e-03   2670.064534
+## 7   recroomyes  4511.283826 1899.9577  2.374413 1.792936e-02    778.975864
+## 8  fullbaseyes  5452.385539 1588.0239  3.433440 6.422381e-04   2332.845419
+## 9     gashwyes 12831.406266 3217.5971  3.987885 7.595575e-05   6510.705975
+## 10    aircoyes 12632.890405 1555.0211  8.123935 3.150681e-15   9578.181593
+## 11    garagepl  4244.829004  840.5442  5.050096 6.069790e-07   2593.650266
+## 12 prefareayes  9369.513239 1669.0907  5.613544 3.189602e-08   6090.724248
+##       conf.high
+## 1   2659.270758
+## 2      4.234438
+## 3   3888.747822
+## 4  17262.383357
+## 5   8374.600336
+## 6  10705.493247
+## 7   8243.591788
+## 8   8571.925660
+## 9  19152.106558
+## 10 15687.599216
+## 11  5896.007742
+## 12 12648.302230</code></pre>
+</div>
+<div id="diagnostics" class="section level3">
+<h3><span class="header-section-number">7.1.2</span> Diagnostics</h3>
+<p>Diagnostics are useful metrics to assess model fit. You can read some of these diagnostics, such as the <span class="math inline">\(R^2\)</span> at the bottom of the summary (when running <code>summary(my_model)</code>), but if you want to do more than simply reading these diagnostics from RStudio, you can put those in a <code>data.frame</code> too, using <code>broom::glance()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(model3)</code></pre></div>
+<pre><code>##   r.squared adj.r.squared    sigma statistic       p.value df    logLik
+## 1 0.6731236     0.6663902 15423.19  99.96774 6.177731e-122 12 -6034.094
+##        AIC      BIC     deviance df.residual
+## 1 12094.19 12150.12 127025071644         534</code></pre>
+<p>You can also plot the usual diagnostics plots using <code>ggfortify::autoplot()</code> which uses the <code>ggplot2</code> package under the hood:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggfortify)</code></pre></div>
+<pre><code>## Loading required package: methods</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(model3, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre></div>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-179-1.png" width="672" /></p>
+<p><code>which=1:6</code> is an additional option that shows you all the diagnostics plot. If you omit this option, you will only get 4 of them.</p>
+<p>You can also get the residuals of the regression in two ways; either you grab them directly from the model fit:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">resi3 =<span class="st"> </span><span class="kw">residuals</span>(model3)</code></pre></div>
+<p>or you can augment the original data with a residuals column, using <code>broom::augment()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">housing_aug =<span class="st"> </span><span class="kw">augment</span>(model3)</code></pre></div>
+<p>Let’s take a look at <code>housing_aug</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(housing_aug)</code></pre></div>
+<pre><code>## Observations: 546
+## Variables: 19
+## $ price      &lt;dbl&gt; 42000, 38500, 49500, 60500, 61000, 66000, 66000, 69...
+## $ lotsize    &lt;dbl&gt; 5850, 4000, 3060, 6650, 6360, 4160, 3880, 4160, 480...
+## $ bedrooms   &lt;dbl&gt; 3, 2, 3, 3, 2, 3, 3, 3, 3, 3, 3, 2, 3, 3, 2, 2, 3, ...
+## $ bathrms    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, ...
+## $ stories    &lt;dbl&gt; 2, 1, 1, 2, 1, 1, 2, 3, 1, 4, 1, 1, 2, 1, 1, 1, 2, ...
+## $ driveway   &lt;fctr&gt; yes, yes, yes, yes, yes, yes, yes, yes, yes, yes, ...
+## $ recroom    &lt;fctr&gt; no, no, no, yes, no, yes, no, no, yes, yes, no, no...
+## $ fullbase   &lt;fctr&gt; yes, no, no, no, no, yes, yes, no, yes, no, yes, n...
+## $ gashw      &lt;fctr&gt; no, no, no, no, no, no, no, no, no, no, no, no, no...
+## $ airco      &lt;fctr&gt; no, no, no, no, no, yes, no, no, no, yes, yes, no,...
+## $ garagepl   &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 2, 0, 0, 1, 3, 0, 0, 0, 0, 0, 1, ...
+## $ prefarea   &lt;fctr&gt; no, no, no, no, no, no, no, no, no, no, no, no, no...
+## $ .fitted    &lt;dbl&gt; 66037.98, 41391.15, 39889.63, 63689.09, 49760.43, 6...
+## $ .se.fit    &lt;dbl&gt; 1790.507, 1406.500, 1534.102, 2262.056, 1567.689, 2...
+## $ .resid     &lt;dbl&gt; -24037.9757, -2891.1515, 9610.3699, -3189.0873, 112...
+## $ .hat       &lt;dbl&gt; 0.013477335, 0.008316321, 0.009893730, 0.021510891,...
+## $ .sigma     &lt;dbl&gt; 15402.01, 15437.14, 15431.98, 15437.02, 15429.89, 1...
+## $ .cooksd    &lt;dbl&gt; 2.803214e-03, 2.476265e-05, 3.265481e-04, 8.004787e...
+## $ .std.resid &lt;dbl&gt; -1.56917096, -0.18823924, 0.62621736, -0.20903274, ...</code></pre>
+<p>A few columns have been added to the original data, among them <code>.resid</code> which contains the residuals. Let’s plot them:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(housing_aug) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(.resid))</code></pre></div>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-184-1.png" width="672" /></p>
+<p>Fitted values are also added to the original data, under the variable <code>.fitted</code>. It would also have been possible to get the fitted values with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit3 =<span class="st"> </span><span class="kw">fitted</span>(model3)</code></pre></div>
+<p>but I prefer using <code>augment()</code>, because the columns get merged to the original data, which then makes it easier to find specific individuals, for example, you might want to know for which housing units the model underestimates the price:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">total_pos =<span class="st"> </span>housing_aug <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(.resid <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">pull</span>(total)</code></pre></div>
+<p>we find that 261 individuals where the residuals are positive. It is also easier to extract outliers:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">housing_aug <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prank =</span> <span class="kw">cume_dist</span>(.cooksd)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(prank <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.99</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">glimpse</span>()</code></pre></div>
+<pre><code>## Observations: 6
+## Variables: 20
+## $ price      &lt;dbl&gt; 163000, 125000, 132000, 175000, 190000, 174500
+## $ lotsize    &lt;dbl&gt; 7420, 4320, 3500, 9960, 7420, 7500
+## $ bedrooms   &lt;dbl&gt; 4, 3, 4, 3, 4, 4
+## $ bathrms    &lt;dbl&gt; 1, 1, 2, 2, 2, 2
+## $ stories    &lt;dbl&gt; 2, 2, 2, 2, 3, 2
+## $ driveway   &lt;fctr&gt; yes, yes, yes, yes, yes, yes
+## $ recroom    &lt;fctr&gt; yes, no, no, no, no, no
+## $ fullbase   &lt;fctr&gt; yes, yes, no, yes, no, yes
+## $ gashw      &lt;fctr&gt; no, yes, yes, no, no, no
+## $ airco      &lt;fctr&gt; yes, no, no, no, yes, yes
+## $ garagepl   &lt;dbl&gt; 2, 2, 2, 2, 2, 3
+## $ prefarea   &lt;fctr&gt; no, no, no, yes, yes, yes
+## $ .fitted    &lt;dbl&gt; 94826.68, 77688.37, 85495.58, 108563.18, 115125.03,...
+## $ .se.fit    &lt;dbl&gt; 2520.691, 3551.954, 3544.961, 2589.680, 2185.603, 2...
+## $ .resid     &lt;dbl&gt; 68173.32, 47311.63, 46504.42, 66436.82, 74874.97, 5...
+## $ .hat       &lt;dbl&gt; 0.02671105, 0.05303793, 0.05282929, 0.02819317, 0.0...
+## $ .sigma     &lt;dbl&gt; 15144.70, 15293.34, 15298.27, 15159.14, 15085.99, 1...
+## $ .cooksd    &lt;dbl&gt; 0.04590995, 0.04637969, 0.04461464, 0.04616068, 0.0...
+## $ .std.resid &lt;dbl&gt; 4.480428, 3.152300, 3.098176, 4.369631, 4.904193, 3...
+## $ prank      &lt;dbl&gt; 0.9963370, 1.0000000, 0.9945055, 0.9981685, 0.99267...</code></pre>
+<p><code>prank</code> is a variable I created with <code>cume_dist()</code> which is a <code>dplyr</code> function that returns the proportion of all values less than or equal to the current rank. For example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">example =<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="fl">4.6</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="fl">0.8</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>)
+<span class="kw">cume_dist</span>(example)</code></pre></div>
+<pre><code>## [1] 1.0000000 0.8571429 0.7142857 0.5714286 0.4285714 0.2857143 0.1428571</code></pre>
+<p>by filtering <code>prank &gt; 0.99</code> we get the top 1% of outliers according to Cook’s distance.</p>
+</div>
+<div id="comparing-models" class="section level3">
+<h3><span class="header-section-number">7.1.3</span> Comparing models</h3>
+<p>Let’s estimate another model on the same data; prices are only positive, so a linear regression might not be the best model, because the model allows for negative prices. Let’s look at the distribution of prices:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(Housing) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(price))</code></pre></div>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-189-1.png" width="672" /></p>
+<p>it looks like taking the log of <code>price</code> might provide a better fit:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_log =<span class="st"> </span><span class="kw">lm</span>(<span class="kw">log</span>(price) <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Housing)
+
+result_log =<span class="st"> </span><span class="kw">tidy</span>(model_log)
+
+<span class="kw">print</span>(result_log)</code></pre></div>
+<pre><code>##           term     estimate    std.error  statistic      p.value
+## 1  (Intercept) 1.002556e+01 4.724349e-02 212.210317 0.000000e+00
+## 2      lotsize 5.057053e-05 4.853947e-06  10.418435 2.908737e-23
+## 3     bedrooms 3.402048e-02 1.450780e-02   2.344978 1.939345e-02
+## 4      bathrms 1.677687e-01 2.064515e-02   8.126299 3.096505e-15
+## 5      stories 9.227447e-02 1.282132e-02   7.196956 2.098439e-12
+## 6  drivewayyes 1.306513e-01 2.834004e-02   4.610130 5.040563e-06
+## 7   recroomyes 7.351654e-02 2.632685e-02   2.792455 5.418509e-03
+## 8  fullbaseyes 9.939967e-02 2.200452e-02   4.517238 7.717764e-06
+## 9     gashwyes 1.783545e-01 4.458477e-02   4.000347 7.217517e-05
+## 10    aircoyes 1.780197e-01 2.154722e-02   8.261841 1.138204e-15
+## 11    garagepl 5.075683e-02 1.164704e-02   4.357918 1.575321e-05
+## 12 prefareayes 1.271134e-01 2.312783e-02   5.496122 6.021383e-08</code></pre>
+<p>Let’s take a look at the diagnostics:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(model_log)</code></pre></div>
+<pre><code>##   r.squared adj.r.squared     sigma statistic       p.value df   logLik
+## 1  0.676591      0.669929 0.2137121    101.56 3.666219e-123 12 73.87312
+##         AIC       BIC deviance df.residual
+## 1 -121.7462 -65.81219  24.3893         534</code></pre>
+<p>Let’s compare these to the ones from the previous model:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diag_lm =<span class="st"> </span><span class="kw">glance</span>(model3)
+
+diag_lm =<span class="st"> </span>diag_lm <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="st">&quot;lin-lin model&quot;</span>)
+
+diag_log =<span class="st"> </span><span class="kw">glance</span>(model_log)
+
+diag_log =<span class="st"> </span>diag_log <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="st">&quot;log-lin model&quot;</span>)
+
+diagnostics_models =<span class="st"> </span><span class="kw">full_join</span>(diag_lm, diag_log)</code></pre></div>
+<pre><code>## Joining, by = c(&quot;r.squared&quot;, &quot;adj.r.squared&quot;, &quot;sigma&quot;, &quot;statistic&quot;, &quot;p.value&quot;, &quot;df&quot;, &quot;logLik&quot;, &quot;AIC&quot;, &quot;BIC&quot;, &quot;deviance&quot;, &quot;df.residual&quot;, &quot;model&quot;)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(diagnostics_models)</code></pre></div>
+<pre><code>##   r.squared adj.r.squared        sigma statistic       p.value df
+## 1 0.6731236     0.6663902 1.542319e+04  99.96774 6.177731e-122 12
+## 2 0.6765910     0.6699290 2.137121e-01 101.56000 3.666219e-123 12
+##        logLik        AIC         BIC     deviance df.residual
+## 1 -6034.09400 12094.1880 12150.12204 1.270251e+11         534
+## 2    73.87312  -121.7462   -65.81219 2.438930e+01         534
+##           model
+## 1 lin-lin model
+## 2 log-lin model</code></pre>
+<p>I saved the diagnostics in two different <code>data.frame</code> using the <code>glance()</code> function and added a <code>model</code> column to indicate which model the diagnostics come from. Then I merged both datasets using <code>full_join()</code>, a <code>dplyr</code> function.</p>
+<p>As you can see, the model with the logarithm of the prices as the explained variable has a higher likelihood (and thus lower AIC and BIC) than the simple linear model. Let’s take a look at the diagnostics plots:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(model_log, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre></div>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-194-1.png" width="672" /></p>
+</div>
+<div id="beyond-linear-regression" class="section level3">
+<h3><span class="header-section-number">7.1.4</span> Beyond linear regression</h3>
+<p>R has a lot of other built-in functions for regression, such as <code>glm()</code> (for Generalized Linear Models) and <code>nls()</code> for (for Nonlinear Least Squares). There are also functions and additional packages for time series, panel data, machine learning, bayesian and nonparametric methods. Presenting everything here would take too much space, and would be pretty useless as you can find whatever you need using an internet search engine. What you have learned until now is quite general and should work on many type of models. To help you out, here is a list of methods and the recommended packages that you can use:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Package</th>
+<th>Quick example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Panel data</td>
+<td><code>plm</code></td>
+<td><code>plm(y ~ x, data = mydata, model = &quot;within|random&quot;)</code></td>
+</tr>
+<tr class="even">
+<td>Logit</td>
+<td><code>glm</code></td>
+<td><code>glm(y ~ x, data = mydata, family = &quot;binomial&quot;)</code></td>
+</tr>
+<tr class="odd">
+<td>Probit</td>
+<td><code>glm</code></td>
+<td><code>glm(y ~ x, data = mydata, family = binomial(link = &quot;probit&quot;))</code></td>
+</tr>
+</tbody>
+</table>
+
+</div>
 </div>
 </div>
             </section>

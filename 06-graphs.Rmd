@@ -5,9 +5,10 @@ packages. However, in this chapter, we are going to learn how to make graphs usi
 is a very powerful package that produces amazing graphs. There is an entry cost to `ggplot2` as it
 works in a very different way than what you would expect, especially if you know how to make plots
 with the basic R functions already. But the resulting graphs are well worth the effort and once
-you'll know more about `ggplot2` you'll see that it in a lot of situations it is actually faster
-and easier. Even if you're not interested in plotting, I advise you read this chapter, as I will
-continue showing you neat functions to manipulate data, such as `dplyr::rowwise()` and `dplyr::pull()`.
+you'll know more about `ggplot2` you'll see that in a lot of situations it is actually faster
+and easier. Even if you are not interested in drawing plots, I advise you continue reading, as we
+will dig deeper into functional programming territory and learn how to graph an arbitrary large
+amount of plots with a few lines of code.
 
 ## Resources
 
@@ -103,9 +104,8 @@ there will be one density plot for each gender in the data, and each will be col
 This is where `ggplot2` might be confusing; there is no need to write explicitly (even if it is
 possible) that you want the *female* density to be red and the *male* density to be blue. You just
 map the variable `gender` to this particular aesthetic. You conclude the plot by adding
-`geom_density()` which is this case is the plot you want. We will see late on how to change the
+`geom_density()` which is this case is the plot you want. We will see later how to change the
 colours of your plot.
-
 
 ### Line plots
 
@@ -363,8 +363,7 @@ The legend title has to be an `element_text` object.`element_text` objects are u
 specify how text should be displayed. `element_blank()` draws nothing and assigns no space (not
 even blank space).
 
-You could modify every feature of the theme like that, but in some cases it might be easier to
-choose one from the `ggthemes` package:
+You could modify every feature of the theme like that, but there are built-in themes that you can use:
 
 ```{r, cache=TRUE}
 unemp_lux_data %>%
@@ -376,8 +375,8 @@ unemp_lux_data %>%
   geom_line()
 ```
 
-For example in the code above, I have used `theme_minimal()` which I like quite a lot. There is
-also a STATA theme, if you like it:
+For example in the code above, I have used `theme_minimal()` which I like quite a lot. You can also
+use themes from the `ggthemes` package, which even contains a STATA theme, if you like it:
 
 ```{r, cache=TRUE}
 unemp_lux_data %>%
@@ -402,7 +401,7 @@ unemp_lux_data %>%
   geom_line()
 ```
 
-Even an Excel 2003 one (don't use it though):
+`ggthemes` even features an Excel 2003 theme (don't use it though):
 
 ```{r, cache=TRUE}
 unemp_lux_data %>%
@@ -508,7 +507,8 @@ etc...
 ## Many plots
 
 In this section, we are going to learn how to use the possibilities offered by the `purrr` package
-and how it can work together with `ggplot2` to generate many plots.
+and how it can work together with `ggplot2` to generate many plots. This is a more advanced topic,
+but what comes next is also what makes R, and the functional programming paradigm so powerful.
 
 For example, suppose that instead of wanting a single plot with the unemployment rate of each
 commune, you need one unemployment plot, per commune:
@@ -576,7 +576,7 @@ unemp_lux_data %>%
   nest()
 ```
 
-This creates a tibble with two columns, `division` and `data`, where for each individual (or
+This creates a tibble with two columns, `division` and `data`, where each individual (or
 commune in this case) is another tibble with all the original variables. This is very useful,
 because now we can pass these tibbles to `map2()`, to generate the plots. But why `map2()` and
 what's the difference with `map()`? `map2()` works the same way as `map()`, but maps over two
@@ -636,3 +636,14 @@ map2(paste0(plots_tibble$division, ".pdf"), plots_tibble$plot, ggsave)
 ## Saving 6.01 x 3.94 in image
 ## Saving 6.01 x 3.94 in image
 ```
+
+This was probably the most advanced topic we have studied yet; but you probably agree with me that
+it is among the most useful ones. This section is a perfect illustration of the power of functional
+programming; you can mix and match functions as long as you give them the correct arguments.
+You can pass data to functions that use data and then pass these functions to other functions that
+use functions as arguments, such as `map()`.^[Functions that have other functions as input are
+called *higher order functions*] `map()` does not care if the functions you pass to it produces tables,
+graphs or even another function. `map()` will simply map this function to a list of inputs, and as
+long as these inputs are correct arguments to the function, `map()` will do its magic. If you
+combine this with list-columns, you can even use `map()` alongside `dplyr` functions and map your
+function by first grouping, filtering, etc...

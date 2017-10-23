@@ -28,8 +28,10 @@ mtcars = import("datasets/mtcars.csv")
 head(mtcars)
 ```
 
-`import()` needs the path to the data, and you can specify additional options if needed. Importing
-a STATA or a SAS file is done just the same:
+`import()` needs the path to the data, and you can specify additional options if needed. On a
+Windows computer, you have to be careful to the path; you cannot simply copy and paste it, because
+paths in Windows use the `\` symbol whereas R uses `/` (just like on Linux or macOS).
+Importing a STATA or a SAS file is done just the same:
 
 ```{r}
 mtcars_stata = import("datasets/mtcars.dta")

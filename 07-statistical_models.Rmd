@@ -2,10 +2,12 @@
 
 In this chapter, we will not learn about all the models out there that you may or may not need.
 Instead, I will show you how can use what you have learned until now and how you can apply these
-concepts to modelling. Also, as you read in the beginning of the book, R has many many packages. So
+concepts to modeling. Also, as you read in the beginning of the book, R has many many packages. So
 the model you need is most probably already implemented in some package.
 
-## Simple modelling
+## Simple modeling
+
+### Regression
 
 Suppose you have a variable `y` that you wish to explain using a set of other variables `x1`, `x2`,
 `x3`, etc. Let's take a look at the `Housing` dataset from the `Ecdat` package:
@@ -97,7 +99,7 @@ See Also:
 ```
 
 or by looking for `Housing` in the help pane of RStudio. Usually, you would take a look a the data
-before doing any modelling:
+before doing any modeling:
 
 ```{r}
 glimpse(Housing)
@@ -108,7 +110,7 @@ and so on. If you believe that housing prices depend linearly on a set of explan
 you will want to estimate a linear model. To estimate a *linear model*, you will need to use the
 built-in `lm()` function:
 
-```{r}
+```{r, cache=TRUE}
 model1 = lm(price ~ lotsize + bedrooms, data = Housing)
 ```
 
@@ -122,6 +124,223 @@ I ran the following regression:
 where \(alpha, beta_1\) and \(beta_2\) are three parameters to estimate. To take a look at the
 results, you can use the `summary()` method (not to be confused with `dplyr::summarise()`:
 
-```{r}
+```{r, cache=TRUE}
 summary(model1)
 ```
+
+if you wish to remove the intercept (\(alpha\)) from your model, you can do```{r}
+ so with `-1`:
+
+```{r, cache=TRUE}
+model2 = lm(price ~ -1 + lotsize + bedrooms, data = Housing)
+
+summary(model2)
+```
+
+or if you want to use all the columns inside `Housing`:
+
+```{r, cache=TRUE}
+model3 = lm(price ~ ., data = Housing)
+
+summary(model3)
+```
+
+You can access different elements of `model3` (for example) with `$`, because the result of `lm()`
+is a list:
+
+```{r, cache=TRUE}
+print(model3$coefficients)
+```
+
+but I prefer to use the `broom` package, and more specifically the `tidy()` function, which
+converts `model3` into a neat `data.frame`:
+
+```{r, cache=TRUE}
+results3 = tidy(model3)
+
+glimpse(results3)
+```
+
+this is useful, because you can then work on the results easily, for example if you wish to only
+keep results that are significant at the 5\% level:
+
+```{r, cache=TRUE}
+results3 %>%
+  filter(p.value < 0.05)
+```
+
+You can even add new columns, such as the confidence intervals:
+
+```{r, cache=TRUE}
+results3 = tidy(model3, conf.int = TRUE, conf.level = 0.95)
+
+print(results3)
+```
+
+### Diagnostics
+
+Diagnostics are useful metrics to assess model fit. You can read some of these diagnostics, such as
+the \(R^2\) at the bottom of the summary (when running `summary(my_model)`), but if you want to do
+more than simply reading these diagnostics from RStudio, you can put those in a `data.frame` too,
+using `broom::glance()`:
+
+```{r, cache=TRUE}
+glance(model3)
+```
+
+You can also plot the usual diagnostics plots using `ggfortify::autoplot()` which uses the
+`ggplot2` package under the hood:
+
+```{r, cache=TRUE}
+library(ggfortify)
+
+autoplot(model3, which = 1:6) + theme_minimal()
+```
+
+`which=1:6` is an additional option that shows you all the diagnostics plot. If you omit this
+option, you will only get 4 of them.
+
+You can also get the residuals of the regression in two ways; either you grab them directly from
+the model fit:
+
+```{r, cache=TRUE}
+resi3 = residuals(model3)
+```
+
+or you can augment the original data with a residuals column, using `broom::augment()`:
+
+```{r, include=FALSE}
+housing_aug = augment(model3)
+```
+
+```{r, eval=FALSE}
+housing_aug = augment(model3)
+```
+
+Let's take a look at `housing_aug`:
+
+```{r, cache=TRUE}
+glimpse(housing_aug)
+```
+
+A few columns have been added to the original data, among them `.resid` which contains the
+residuals. Let's plot them:
+
+```{r, cache=TRUE}
+ggplot(housing_aug) +
+  geom_density(aes(.resid))
+```
+
+Fitted values are also added to the original data, under the variable `.fitted`. It would also have
+been possible to get the fitted values with:
+
+```{r, cache=TRUE}
+fit3 = fitted(model3)
+```
+
+but I prefer using `augment()`, because the columns get merged to the original data, which then
+makes it easier to find specific individuals, for example, you might want to know for which housing
+units the model underestimates the price:
+
+```{r}
+total_pos = housing_aug %>%
+  filter(.resid > 0) %>%
+  summarise(total = n()) %>%
+  pull(total)
+```
+
+we find that `r total_pos` individuals where the residuals are positive. It is also easier to
+extract outliers:
+
+```{r, cache=TRUE}
+housing_aug %>%
+  mutate(prank = cume_dist(.cooksd)) %>%
+  filter(prank > 0.99) %>%
+  glimpse()
+```
+
+`prank` is a variable I created with `cume_dist()` which is a `dplyr` function that returns the
+proportion of all values less than or equal to the current rank. For example:
+
+```{r, cache=TRUE}
+example = c(5, 4.6, 2, 1, 0.8, 0, -1)
+cume_dist(example)
+```
+
+by filtering `prank > 0.99` we get the top 1% of outliers according to Cook's distance.
+
+### Comparing models
+
+Let's estimate another model on the same data; prices are only positive, so a linear regression
+might not be the best model, because the model allows for negative prices. Let's look at the
+distribution of prices:
+
+```{r, cache=TRUE}
+ggplot(Housing) +
+  geom_density(aes(price))
+```
+
+it looks like taking the log of `price` might provide a better fit:
+
+```{r}
+model_log = lm(log(price) ~ ., data = Housing)
+
+result_log = tidy(model_log)
+
+print(result_log)
+```
+
+Let's take a look at the diagnostics:
+
+```{r}
+glance(model_log)
+```
+
+Let's compare these to the ones from the previous model:
+
+```{r}
+diag_lm = glance(model3)
+
+diag_lm = diag_lm %>%
+  mutate(model = "lin-lin model")
+
+diag_log = glance(model_log)
+
+diag_log = diag_log %>%
+  mutate(model = "log-lin model")
+
+diagnostics_models = full_join(diag_lm, diag_log)
+
+print(diagnostics_models)
+```
+
+I saved the diagnostics in two different `data.frame` using the `glance()` function and added a
+`model` column to indicate which model the diagnostics come from. Then I merged both datasets using
+`full_join()`, a `dplyr` function.
+
+As you can see, the model with the logarithm of the prices as the explained variable has a higher
+likelihood (and thus lower AIC and BIC) than the simple linear model. Let's take a look at the diagnostics plots:
+
+```{r, include=FALSE}
+summary(model_log)
+```
+
+```{r, cache=TRUE}
+autoplot(model_log, which = 1:6) + theme_minimal()
+```
+
+### Beyond linear regression
+
+R has a lot of other built-in functions for regression, such as `glm()` (for Generalized Linear
+Models) and `nls()` for (for Nonlinear Least Squares). There are also functions and additional
+packages for time series, panel data, machine learning, bayesian and nonparametric methods.
+Presenting everything here would take too much space, and would be pretty useless as you can find
+whatever you need using an internet search engine. What you have learned until now is quite general
+and should work on many type of models. To help you out, here is a list of methods and the
+recommended packages that you can use:
+
+Model         Package  Quick example
+-----         -------  -------
+Panel data     `plm`   `plm(y ~ x, data = mydata, model = "within|random")`
+Logit          `glm`   `glm(y ~ x, data = mydata, family = "binomial")`
+Probit         `glm`   `glm(y ~ x, data = mydata, family = binomial(link = "probit"))`
