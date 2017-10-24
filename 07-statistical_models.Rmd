@@ -5,9 +5,7 @@ Instead, I will show you how can use what you have learned until now and how you
 concepts to modeling. Also, as you read in the beginning of the book, R has many many packages. So
 the model you need is most probably already implemented in some package.
 
-## Simple modeling
-
-### Regression
+## Fitting a model to data
 
 Suppose you have a variable `y` that you wish to explain using a set of other variables `x1`, `x2`,
 `x3`, etc. Let's take a look at the `Housing` dataset from the `Ecdat` package:
@@ -101,7 +99,7 @@ See Also:
 or by looking for `Housing` in the help pane of RStudio. Usually, you would take a look a the data
 before doing any modeling:
 
-```{r}
+```{r, cache=TRUE}
 glimpse(Housing)
 ```
 
@@ -128,8 +126,7 @@ results, you can use the `summary()` method (not to be confused with `dplyr::sum
 summary(model1)
 ```
 
-if you wish to remove the intercept (\(alpha\)) from your model, you can do```{r}
- so with `-1`:
+if you wish to remove the intercept (\(alpha\)) from your model, you can do so with `-1`:
 
 ```{r, cache=TRUE}
 model2 = lm(price ~ -1 + lotsize + bedrooms, data = Housing)
@@ -177,7 +174,28 @@ results3 = tidy(model3, conf.int = TRUE, conf.level = 0.95)
 print(results3)
 ```
 
-### Diagnostics
+Going back to model estimation, you can of course use `lm()` in a pipe workflow:
+
+```{r, cache=TRUE}
+Housing %>%
+  select(-driveway, -stories) %>%
+  lm(price ~ ., data = .) %>%
+  tidy()
+```
+
+The first `.` in the `lm()` function is used to indicate that we wish to use all the data from `Housing`
+(minus `driveway` and `stories` which I removed using `select()` and the `-` sign), and the second `.` is
+used to *place* the result from the two `dplyr` instructions that preceded is to be placed there.
+The picture below should help you understand:
+
+```{r, cache=TRUE}
+knitr::include_graphics("pics/pipe_to_second_position.png")
+```
+
+You have to specify this, because by default, when using `%>%` the left hand side argument gets
+passed as the first argument of the function on the right hand side.
+
+## Diagnostics
 
 Diagnostics are useful metrics to assess model fit. You can read some of these diagnostics, such as
 the \(R^2\) at the bottom of the summary (when running `summary(my_model)`), but if you want to do
@@ -242,7 +260,7 @@ but I prefer using `augment()`, because the columns get merged to the original d
 makes it easier to find specific individuals, for example, you might want to know for which housing
 units the model underestimates the price:
 
-```{r}
+```{r, cache=TRUE}
 total_pos = housing_aug %>%
   filter(.resid > 0) %>%
   summarise(total = n()) %>%
@@ -269,7 +287,7 @@ cume_dist(example)
 
 by filtering `prank > 0.99` we get the top 1% of outliers according to Cook's distance.
 
-### Comparing models
+## Comparing models
 
 Let's estimate another model on the same data; prices are only positive, so a linear regression
 might not be the best model, because the model allows for negative prices. Let's look at the
@@ -282,7 +300,7 @@ ggplot(Housing) +
 
 it looks like taking the log of `price` might provide a better fit:
 
-```{r}
+```{r, cache=TRUE}
 model_log = lm(log(price) ~ ., data = Housing)
 
 result_log = tidy(model_log)
@@ -292,13 +310,13 @@ print(result_log)
 
 Let's take a look at the diagnostics:
 
-```{r}
+```{r, cache=TRUE}
 glance(model_log)
 ```
 
 Let's compare these to the ones from the previous model:
 
-```{r}
+```{r, cache=TRUE}
 diag_lm = glance(model3)
 
 diag_lm = diag_lm %>%
@@ -329,7 +347,77 @@ summary(model_log)
 autoplot(model_log, which = 1:6) + theme_minimal()
 ```
 
-### Beyond linear regression
+## Using a model for prediction
+
+Once you estimated a model, you might want to use it for prediction. This is easily done using the
+`predict()` function that works with most models. Prediction is also useful as a way to test the
+accuracy of your model: split your data into a training set (used for estimation) and a testing
+set (used for the pseudo-prediction) and see if your model overfits the data. We are going to see
+how to do that in a later section; for now, let's just get acquainted with `predict()`.
+
+Let's go back to the models we estimated in the previous section, `model3` and `model_log`. Let's also
+take a subsample of data, which we will be using for prediction:
+
+```{r, cache=TRUE}
+set.seed(1234)
+
+pred_set = Housing %>%
+  sample_n(20)
+```
+
+so that we get always the same `pred_set` I set the random seed first. Let's take a look at the
+data:
+
+```{r, cache=TRUE}
+print(pred_set)
+```
+
+If we wish to use it for prediction, this is easily done with `predict()`:
+
+```{r, cache=TRUE}
+predict(model3, pred_set)
+```
+
+This returns a vector of predicted prices. This can then be used to compute the Root Mean Squared Error
+for instance. Let's to it within a tidyverse pipeline:
+
+```{r, cache=TRUE}
+rmse = pred_set %>%
+  mutate(predictions = predict(model3, .)) %>%
+  summarise(sqrt(sum(predictions - price)**2/n()))
+```
+
+The root mean square error of `model3` is `r rmse`. Notice the line:
+
+```
+mutate(predictions = predict(model3, .)) %>%
+```
+
+I also use the `n()` function
+which returns the number of observations in a group (or all the observations, if the data is not
+grouped). Let's compare `model3` 's RMSE with the one from `model_log`:
+
+```{r, cache=TRUE}
+rmse2 = pred_set %>%
+  mutate(predictions = exp(predict(model_log, .))) %>%
+  summarise(sqrt(sum(predictions - price)**2/n()))
+```
+
+Don't forget to exponentiate the predictions, remember you're dealing with a log-linear model! `model_log`'s
+RMSE is `r rmse2` which is lower than `model3`'s. However, keep in mind that the model was estimated
+on the whole data, and then the prediction quality was assessed using a subsample of the data the
+model was estimated on... so actually we can't really say if `model_log`'s predictions are very useful.
+In a later section we are going to learn how to do cross validation to avoid this issue.
+
+Also another problem of what I did before, unrelated to statistics per se, is that I wanted to compute
+the same quantity for two different models, and did so by copy and pasting 3 lines of code. That's not
+much, but if I wanted to compare 10 models, copy and paste mistakes could have sneaked in. Instead,
+it would have been nice to have a function that computes the RMSE and then use it on my models. We
+are going to learn how to write our own function and use it just like if it was another built-in
+R function.
+
+## Beyond linear regression
+
 
 R has a lot of other built-in functions for regression, such as `glm()` (for Generalized Linear
 Models) and `nls()` for (for Nonlinear Least Squares). There are also functions and additional
@@ -339,11 +427,80 @@ whatever you need using an internet search engine. What you have learned until n
 and should work on many type of models. To help you out, here is a list of methods and the
 recommended packages that you can use:
 
-Model                 Package                                                            Quick example
------                 -------                                                            -------
-Panel data             `plm`                                                             `plm(y ~ x, data = mydata, model = "within|random")`
-Logit                  `stats`^[This package gets installed with R, no need to add it]          `glm(y ~ x, data = mydata, family = "binomial")`
-Probit                 `stats`                                                           `glm(y ~ x, data = mydata, family = binomial(link = "probit"))`
-Multinomial Logit      `mlogit`                                                           Requires several steps of data pre-processing and formula definition, refer to the [Vignette](https://cran.r-project.org/web/packages/mlogit/vignettes/mlogit.pdf) for more details.
-Cox PH                 `survival`                                                         `coxph(Surv(y_time, y_status) ~ x, data = mydata)`^[`Surv(y_time, y_status)` creates a *survival* object, where `y_time` is the time to event `y_status`. It is possible to create more complex survival objects depending on exactly which data you are dealing with.]
-Time series            Several, depending on your needs.                                 Time series in R is a vast subject that would require a very thick book to cover. You can get started with the following series of blog articles, [Tidy time-series, part 1](http://www.business-science.io/timeseries-analysis/2017/07/02/tidy-timeseries-analysis.html), [Tidy time-series, part 2](http://www.business-science.io/timeseries-analysis/2017/07/23/tidy-timeseries-analysis-pt-2.html), [Tidy time-series, part 3](http://www.business-science.io/timeseries-analysis/2017/07/30/tidy-timeseries-analysis-pt-3.html) and [Tidy time-series, part 3](http://www.business-science.io/timeseries-analysis/2017/08/30/tidy-timeseries-analysis-pt-4.html)
+Model                      Package                                                            Quick example
+-----                      -------                                                            -------
+Robust Linear Regression    `MASS`                                                            `rlm(y ~ x, data = mydata)`
+Nonlinear Least Squares     `stats`^[This package gets installed with R, no need to add it]          `nls(y ~ x1 / (1 + x2), data = mydata)`^[The formula in the example is shown for illustration purposes.]
+Logit                       `stats`                                                           `glm(y ~ x, data = mydata, family = "binomial")`
+Probit                      `stats`                                                           `glm(y ~ x, data = mydata, family = binomial(link = "probit"))`
+K-Means                     `stats`                                                           `kmeans(data, n)`^[`data` must only contain numeric values, and `n` is the number of clusters.]
+PCA                         `stats`                                                           `prcomp(data, scale = TRUE, center = TRUE)`^[`data` must only contain numeric values, or a formula can be provided.]
+Multinomial Logit           `mlogit`                                                           Requires several steps of data pre-processing and formula definition, refer to the [Vignette](https://cran.r-project.org/web/packages/mlogit/vignettes/mlogit.pdf) for more details.
+Cox PH                      `survival`                                                         `coxph(Surv(y_time, y_status) ~ x, data = mydata)`^[`Surv(y_time, y_status)` creates a *survival* object, where `y_time` is the time to event `y_status`. It is possible to create more complex survival objects depending on exactly which data you are dealing with.]
+Time series                 Several, depending on your needs.                                 Time series in R is a vast subject that would require a very thick book to cover. You can get started with the following series of blog articles, [Tidy time-series, part 1](http://www.business-science.io/timeseries-analysis/2017/07/02/tidy-timeseries-analysis.html), [Tidy time-series, part 2](http://www.business-science.io/timeseries-analysis/2017/07/23/tidy-timeseries-analysis-pt-2.html), [Tidy time-series, part 3](http://www.business-science.io/timeseries-analysis/2017/07/30/tidy-timeseries-analysis-pt-3.html) and [Tidy time-series, part 3](http://www.business-science.io/timeseries-analysis/2017/08/30/tidy-timeseries-analysis-pt-4.html)
+Panel data                  `plm`                                                             `plm(y ~ x, data = mydata, model = "within|random")`
+Neural Networks              Several, depending on your needs.                                 R is a very popular programming language for machine learning. [This blog post](http://ww.rblog.uni-freiburg.de/2017/02/07/deep-learning-in-r) lists and compares some of the most useful packages for Neural nets and deep learning.
+Nonparametric regression     `np`                                                              Several functions and options available, refer to the [Vignette](https://cran.r-project.org/web/packages/np/vignettes/np.pdf) for more details.
+
+
+I put neural networks in the table, but you can also find packages for regression trees, naive
+bayes, and pretty much any machine learning method out there! The same goes for Bayesian methods.
+Popular packages include `rstan`, `rjags` which link R to STAN and JAGS (two other pieces of software
+that do the Gibbs sampling for you) which are tools that allow you to fit very general models. It
+is also possible to estimate models using Bayesian inference without the need of external tools,
+with the `bayesm` package which estimates the usual micro-econometric models.
+There really are a lot of packages available for Bayesian inference, and you can find them all in the
+[related CRAN Task View](https://cran.r-project.org/web/views/Bayesian.html).
+
+## Advanced topics
+
+### Bootstrapping
+
+The `broom` package includes a `bootstrap()` function that allows you to resample your data with
+replacement and estimate your model on each sample. A worked example is available in one of the package's
+[Vignette](https://cran.r-project.org/web/packages/broom/vignettes/bootstrapping.html). R also
+includes a more general `boot()` function, but we are going to learn about this one later, as it
+involves some programming. Let's go back to `model_log`, and try to get bootstrapped confidence
+intervals (as shown in the Vignette I linked above):
+
+```{r, include=FALSE, cache=TRUE}
+boot_result = Housing %>%
+  bootstrap(50) %>%
+  do(tidy(lm(log(price) ~ bedrooms + driveway, data = .)))
+```
+
+```{r, eval=FALSE}
+boot_result = Housing %>%
+  bootstrap(50) %>%
+  do(tidy(lm(log(price) ~ bedrooms + driveway, data = .)))
+```
+
+I just use 2 variables to make the output smaller. Let's take a look at `boot_result`:
+
+```{r}
+print(boot_result)
+```
+
+`boot_result` is a `tibble` grouped by the new variable `replicate`. Now it is easy to compute confidence
+intervals for the parameters:
+
+```{r}
+boot_result %>%
+  group_by(term) %>%
+  summarize(low = quantile(estimate, .05/2),
+            high = quantile(estimate, 1 - .05/2))
+```
+
+`quantile()` is a built-in function that returns the quantile at the \(alpha\) level for a given
+vector (in this case the vector of estimates). Of course, we had to group by `term` first, as we
+need to compute the confidence intervals, for each terms (or estimated parameters) separately.
+Plotting the densities of the bootstrapped parameters might also prove interesting:
+
+```{r}
+ggplot(boot_result, aes(estimate)) +
+  geom_density() +
+  facet_wrap(~term, scales = "free")
+```
+
+
+### Cross validation

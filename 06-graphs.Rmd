@@ -634,9 +634,9 @@ map2(paste0(plots_tibble$division, ".pdf"), plots_tibble$plot, ggsave)
 
 
 ```
-## Saving 7 x 5 in image
-## Saving 6.01 x 3.94 in image
-## Saving 6.01 x 3.94 in image
+Saving 7 x 5 in image
+Saving 6.01 x 3.94 in image
+Saving 6.01 x 3.94 in image
 ```
 
 This was probably the most advanced topic we have studied yet; but you probably agree with me that

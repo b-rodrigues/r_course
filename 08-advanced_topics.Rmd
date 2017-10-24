@@ -1,8 +1,8 @@
-# Programming with R
+# Advanced topics
 
-## Writing your own functions
+## For and while loops
 
-
+## Programming your own functions
 
 Before merging these datasets together, we would need them to have a `year` column indicating the
 year. It would also be helpful if gave names to these datasets. For this task, we can use
@@ -24,3 +24,13 @@ access them with the `$` operator:
 ```{r, echo=FALSE}
 knitr::include_graphics("pics/all_datasets_names.png")
 ```
+
+## Generating Pdf or Word reports with R
+
+## Scraping the internet
+
+## Writing your own package
+
+## Random tips and tricks
+
+### Creating a log file
