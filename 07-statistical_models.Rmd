@@ -339,8 +339,11 @@ whatever you need using an internet search engine. What you have learned until n
 and should work on many type of models. To help you out, here is a list of methods and the
 recommended packages that you can use:
 
-Model         Package  Quick example
------         -------  -------
-Panel data     `plm`   `plm(y ~ x, data = mydata, model = "within|random")`
-Logit          `glm`   `glm(y ~ x, data = mydata, family = "binomial")`
-Probit         `glm`   `glm(y ~ x, data = mydata, family = binomial(link = "probit"))`
+Model                 Package                                                            Quick example
+-----                 -------                                                            -------
+Panel data             `plm`                                                             `plm(y ~ x, data = mydata, model = "within|random")`
+Logit                  `stats`^[This package gets installed with R, no need to add it]          `glm(y ~ x, data = mydata, family = "binomial")`
+Probit                 `stats`                                                           `glm(y ~ x, data = mydata, family = binomial(link = "probit"))`
+Multinomial Logit      `mlogit`                                                           Requires several steps of data pre-processing and formula definition, refer to the [Vignette](https://cran.r-project.org/web/packages/mlogit/vignettes/mlogit.pdf) for more details.
+Cox PH                 `survival`                                                         `coxph(Surv(y_time, y_status) ~ x, data = mydata)`^[`Surv(y_time, y_status)` creates a *survival* object, where `y_time` is the time to event `y_status`. It is possible to create more complex survival objects depending on exactly which data you are dealing with.]
+Time series            Several, depending on your needs.                                 Time series in R is a vast subject that would require a very thick book to cover. You can get started with the following series of blog articles, [Tidy time-series, part 1](http://www.business-science.io/timeseries-analysis/2017/07/02/tidy-timeseries-analysis.html), [Tidy time-series, part 2](http://www.business-science.io/timeseries-analysis/2017/07/23/tidy-timeseries-analysis-pt-2.html), [Tidy time-series, part 3](http://www.business-science.io/timeseries-analysis/2017/07/30/tidy-timeseries-analysis-pt-3.html) and [Tidy time-series, part 3](http://www.business-science.io/timeseries-analysis/2017/08/30/tidy-timeseries-analysis-pt-4.html)

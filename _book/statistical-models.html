@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2017-10-23">
+<meta name="date" content="2017-10-24">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -181,6 +181,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.3.5" data-path="graphs.html"><a href="graphs.html#saving-plots-on-disk"><i class="fa fa-check"></i><b>6.3.5</b> Saving plots on disk</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="graphs.html"><a href="graphs.html#many-plots"><i class="fa fa-check"></i><b>6.4</b> Many plots</a></li>
+<li class="chapter" data-level="6.5" data-path="graphs.html"><a href="graphs.html#saving-7-x-5-in-image"><i class="fa fa-check"></i><b>6.5</b> Saving 7 x 5 in image</a></li>
+<li class="chapter" data-level="6.6" data-path="graphs.html"><a href="graphs.html#saving-6.01-x-3.94-in-image"><i class="fa fa-check"></i><b>6.6</b> Saving 6.01 x 3.94 in image</a></li>
+<li class="chapter" data-level="6.7" data-path="graphs.html"><a href="graphs.html#saving-6.01-x-3.94-in-image-1"><i class="fa fa-check"></i><b>6.7</b> Saving 6.01 x 3.94 in image</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical models</a><ul>
 <li class="chapter" data-level="7.1" data-path="statistical-models.html"><a href="statistical-models.html#simple-modeling"><i class="fa fa-check"></i><b>7.1</b> Simple modeling</a><ul>
@@ -193,7 +196,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8" data-path="programming-with-r.html"><a href="programming-with-r.html"><i class="fa fa-check"></i><b>8</b> Programming with R</a><ul>
 <li class="chapter" data-level="8.1" data-path="programming-with-r.html"><a href="programming-with-r.html#writing-your-own-functions"><i class="fa fa-check"></i><b>8.1</b> Writing your own functions</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="9" data-path="placeholder.html"><a href="placeholder.html"><i class="fa fa-check"></i><b>9</b> Placeholder</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -460,10 +463,10 @@ See Also:
 ##        AIC      BIC     deviance df.residual
 ## 1 12094.19 12150.12 127025071644         534</code></pre>
 <p>You can also plot the usual diagnostics plots using <code>ggfortify::autoplot()</code> which uses the <code>ggplot2</code> package under the hood:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggfortify)</code></pre></div>
-<pre><code>## Loading required package: methods</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(model3, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre></div>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-179-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggfortify)
+
+<span class="kw">autoplot</span>(model3, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre></div>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p><code>which=1:6</code> is an additional option that shows you all the diagnostics plot. If you omit this option, you will only get 4 of them.</p>
 <p>You can also get the residuals of the regression in two ways; either you grab them directly from the model fit:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">resi3 =<span class="st"> </span><span class="kw">residuals</span>(model3)</code></pre></div>
@@ -495,7 +498,7 @@ See Also:
 <p>A few columns have been added to the original data, among them <code>.resid</code> which contains the residuals. Let’s plot them:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(housing_aug) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(.resid))</code></pre></div>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-184-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <p>Fitted values are also added to the original data, under the variable <code>.fitted</code>. It would also have been possible to get the fitted values with:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit3 =<span class="st"> </span><span class="kw">fitted</span>(model3)</code></pre></div>
 <p>but I prefer using <code>augment()</code>, because the columns get merged to the original data, which then makes it easier to find specific individuals, for example, you might want to know for which housing units the model underestimates the price:</p>
@@ -541,7 +544,7 @@ See Also:
 <p>Let’s estimate another model on the same data; prices are only positive, so a linear regression might not be the best model, because the model allows for negative prices. Let’s look at the distribution of prices:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(Housing) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(price))</code></pre></div>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-189-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <p>it looks like taking the log of <code>price</code> might provide a better fit:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_log =<span class="st"> </span><span class="kw">lm</span>(<span class="kw">log</span>(price) <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Housing)
 
@@ -593,7 +596,7 @@ diagnostics_models =<span class="st"> </span><span class="kw">full_join</span>(d
 <p>I saved the diagnostics in two different <code>data.frame</code> using the <code>glance()</code> function and added a <code>model</code> column to indicate which model the diagnostics come from. Then I merged both datasets using <code>full_join()</code>, a <code>dplyr</code> function.</p>
 <p>As you can see, the model with the logarithm of the prices as the explained variable has a higher likelihood (and thus lower AIC and BIC) than the simple linear model. Let’s take a look at the diagnostics plots:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(model_log, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre></div>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-194-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 </div>
 <div id="beyond-linear-regression" class="section level3">
 <h3><span class="header-section-number">7.1.4</span> Beyond linear regression</h3>
@@ -614,19 +617,41 @@ diagnostics_models =<span class="st"> </span><span class="kw">full_join</span>(d
 </tr>
 <tr class="even">
 <td>Logit</td>
-<td><code>glm</code></td>
+<td><code>stats</code><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></td>
 <td><code>glm(y ~ x, data = mydata, family = &quot;binomial&quot;)</code></td>
 </tr>
 <tr class="odd">
 <td>Probit</td>
-<td><code>glm</code></td>
+<td><code>stats</code></td>
 <td><code>glm(y ~ x, data = mydata, family = binomial(link = &quot;probit&quot;))</code></td>
+</tr>
+<tr class="even">
+<td>Multinomial Logit</td>
+<td><code>mlogit</code></td>
+<td>Requires several steps of data pre-processing and formula definition, refer to the <a href="https://cran.r-project.org/web/packages/mlogit/vignettes/mlogit.pdf">Vignette</a> for more details.</td>
+</tr>
+<tr class="odd">
+<td>Cox PH</td>
+<td><code>survival</code></td>
+<td><code>coxph(Surv(y_time, y_status) ~ x, data = mydata)</code><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></td>
+</tr>
+<tr class="even">
+<td>Time series</td>
+<td>Several, depending on your needs.</td>
+<td>Time series in R is a vast subject that would require a very thick book to cover. You can get started with the following series of blog articles, <a href="http://www.business-science.io/timeseries-analysis/2017/07/02/tidy-timeseries-analysis.html">Tidy time-series, part 1</a>, <a href="http://www.business-science.io/timeseries-analysis/2017/07/23/tidy-timeseries-analysis-pt-2.html">Tidy time-series, part 2</a>, <a href="http://www.business-science.io/timeseries-analysis/2017/07/30/tidy-timeseries-analysis-pt-3.html">Tidy time-series, part 3</a> and <a href="http://www.business-science.io/timeseries-analysis/2017/08/30/tidy-timeseries-analysis-pt-4.html">Tidy time-series, part 3</a></td>
 </tr>
 </tbody>
 </table>
 
 </div>
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>This package gets installed with R, no need to add it<a href="statistical-models.html#fnref1">↩</a></p></li>
+<li id="fn2"><p><code>Surv(y_time, y_status)</code> creates a <em>survival</em> object, where <code>y_time</code> is the time to event <code>y_status</code>. It is possible to create more complex survival objects depending on exactly which data you are dealing with.<a href="statistical-models.html#fnref2">↩</a></p></li>
+</ol>
 </div>
             </section>
 

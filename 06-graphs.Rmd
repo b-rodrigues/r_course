@@ -15,6 +15,8 @@ amount of plots with a few lines of code.
 Before showing some examples and the general functionality of `ggplot2`, I list here some online
 resources that I keep coming back to:
 
+* [Data Visualization for Social Science](http://socviz.co/)
+
 * [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/)
 
 * [R graph gallery](http://www.r-graph-gallery.com/portfolio/ggplot2-package/)
