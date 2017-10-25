@@ -78,7 +78,7 @@ Format:
 
 Source:
 
-     Anglin, P.M.  and R.  Gencay (1996) “Semiparametric estimation of
+     Anglin, P.M.  and R.  Gencay https://help.github.com/articles/error-permission-denied-publickey/#platform-mac(1996) “Semiparametric estimation of
      a hedonic price function”, _Journal of Applied Econometrics_,
      *11(6)*, 633-648.
 
@@ -387,15 +387,11 @@ rmse = pred_set %>%
   summarise(sqrt(sum(predictions - price)**2/n()))
 ```
 
-The root mean square error of `model3` is `r rmse`. Notice the line:
+The root mean square error of `model3` is `r rmse`.
 
-```
-mutate(predictions = predict(model3, .)) %>%
-```
-
-I also use the `n()` function
-which returns the number of observations in a group (or all the observations, if the data is not
-grouped). Let's compare `model3` 's RMSE with the one from `model_log`:
+I also use the `n()` function which returns the number of observations in a group (or all the
+observations, if the data is not grouped). Let's compare `model3` 's RMSE with the one from
+`model_log`:
 
 ```{r, cache=TRUE}
 rmse2 = pred_set %>%
@@ -417,7 +413,6 @@ are going to learn how to write our own function and use it just like if it was 
 R function.
 
 ## Beyond linear regression
-
 
 R has a lot of other built-in functions for regression, such as `glm()` (for Generalized Linear
 Models) and `nls()` for (for Nonlinear Least Squares). There are also functions and additional
@@ -465,7 +460,7 @@ intervals (as shown in the Vignette I linked above):
 
 ```{r, include=FALSE, cache=TRUE}
 boot_result = Housing %>%
-  bootstrap(50) %>%
+  broom::bootstrap(50) %>%
   do(tidy(lm(log(price) ~ bedrooms + driveway, data = .)))
 ```
 
@@ -502,5 +497,69 @@ ggplot(boot_result, aes(estimate)) +
   facet_wrap(~term, scales = "free")
 ```
 
+### Cross-validation
 
-### Cross validation
+To do cross-validation, we are going to use the `modelr` package, which is also part of the
+`tidyverse`.^[This package is still somewhat young and experimental and might get replaced by two others in the
+future. At some point in the future you might get a warning message telling you that the package is deprecated.
+When this happens, you would need to switch to the new packages, but transition should be fairly easy.]
+
+```{r}
+library(modelr)
+```
+
+`modelr` includes two functions for cross-validation, `crossv_kfold` and `crossv_mc`, which
+do K-fold Cross-Validation and Monte Carlo Cross-Validation respectively. First, let's see what
+`cross_mc()` (`cross_kfold()`) returns when applied to data:
+
+```{r, cache=TRUE}
+Housing %>%
+  crossv_mc(n = 50) %>%
+  print()
+```
+
+This is a `tibble` with 3 colmuns, two of them being list-columns; `train` and `test`. Each element
+of `train` and `test` is a resampled `tibble` of the original data. This means that we can now
+estimate the our first model (the simple linear one) on each resampled data using `map()`:
+
+Now if we want to estimate all these models:
+
+```{r, cache=TRUE}
+cv_models = Housing %>%
+  crossv_mc(n = 50) %>%
+  mutate(model = map(train, ~lm(price ~ ., data = .)))
+
+print(cv_models)
+```
+
+We added a list-column with the 50 models estimated (or trained) on the train data. Now we can compute,
+say, the RMSE from before on each one. `modelr` includes a `rmse()` function, so unlike in the
+previous section where we computed the RMSE manually we are simply going to use this function:
+
+```{r, cache=TRUE}
+rmse_boot = cv_models %>%
+  mutate(rmse_all_models = map2_dbl(model, test, ~rmse(.x, .y))) %>%
+  pull(rmse_all_models)
+
+print(rmse_boot)
+```
+
+We can now compute the mean of this `rmse_boot` variable:
+
+```{r, cache=TRUE}
+booted_rmse_lin_lin = mean(rmse_boot)
+```
+
+which is equal to `r booted_rmse_lin_lin`. Let's do the same calculation for the log-lin model, and
+let's do it in one single pipe workflow:
+
+```{r, cache=TRUE}
+booted_rmse_log_lin = Housing %>%
+  crossv_mc(n = 50) %>%
+  mutate(model = map(train, ~lm(log(price) ~ ., data = .))) %>%
+  mutate(rmse_all_models = map2_dbl(model, test, ~rmse(.x, .y))) %>%
+  pull(rmse_all_models) %>%
+  mean()
+```
+
+`booted_rmse_log_lin` is equal to `r booted_rmse_log_lin`, which is much lower than in the lin-lin model.

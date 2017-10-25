@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2017-10-24">
+<meta name="date" content="2017-10-25">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -190,7 +190,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.5" data-path="statistical-models.html"><a href="statistical-models.html#beyond-linear-regression"><i class="fa fa-check"></i><b>7.5</b> Beyond linear regression</a></li>
 <li class="chapter" data-level="7.6" data-path="statistical-models.html"><a href="statistical-models.html#advanced-topics"><i class="fa fa-check"></i><b>7.6</b> Advanced topics</a><ul>
 <li class="chapter" data-level="7.6.1" data-path="statistical-models.html"><a href="statistical-models.html#bootstrapping"><i class="fa fa-check"></i><b>7.6.1</b> Bootstrapping</a></li>
-<li class="chapter" data-level="7.6.2" data-path="statistical-models.html"><a href="statistical-models.html#cross-validation"><i class="fa fa-check"></i><b>7.6.2</b> Cross validation</a></li>
+<li class="chapter" data-level="7.6.2" data-path="statistical-models.html"><a href="statistical-models.html#cross-validation"><i class="fa fa-check"></i><b>7.6.2</b> Cross-validation</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html"><i class="fa fa-check"></i><b>8</b> Advanced topics</a><ul>
@@ -203,7 +203,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.6.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#creating-a-log-file"><i class="fa fa-check"></i><b>8.6.1</b> Creating a log file</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="placeholder.html"><a href="placeholder.html"><i class="fa fa-check"></i><b>9</b> Placeholder</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -282,7 +282,7 @@ Format:
 
 Source:
 
-     Anglin, P.M.  and R.  Gencay (1996) “Semiparametric estimation of
+     Anglin, P.M.  and R.  Gencay https://help.github.com/articles/error-permission-denied-publickey/#platform-mac(1996) “Semiparametric estimation of
      a hedonic price function”, _Journal of Applied Econometrics_,
      *11(6)*, 633-648.
 
@@ -491,7 +491,7 @@ See Also:
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggfortify)
 
 <span class="kw">autoplot</span>(model3, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre></div>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-181-1.png" width="672" /></p>
 <p><code>which=1:6</code> is an additional option that shows you all the diagnostics plot. If you omit this option, you will only get 4 of them.</p>
 <p>You can also get the residuals of the regression in two ways; either you grab them directly from the model fit:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">resi3 =<span class="st"> </span><span class="kw">residuals</span>(model3)</code></pre></div>
@@ -523,7 +523,7 @@ See Also:
 <p>A few columns have been added to the original data, among them <code>.resid</code> which contains the residuals. Let’s plot them:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(housing_aug) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(.resid))</code></pre></div>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-186-1.png" width="672" /></p>
 <p>Fitted values are also added to the original data, under the variable <code>.fitted</code>. It would also have been possible to get the fitted values with:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit3 =<span class="st"> </span><span class="kw">fitted</span>(model3)</code></pre></div>
 <p>but I prefer using <code>augment()</code>, because the columns get merged to the original data, which then makes it easier to find specific individuals, for example, you might want to know for which housing units the model underestimates the price:</p>
@@ -569,7 +569,7 @@ See Also:
 <p>Let’s estimate another model on the same data; prices are only positive, so a linear regression might not be the best model, because the model allows for negative prices. Let’s look at the distribution of prices:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(Housing) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(price))</code></pre></div>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-191-1.png" width="672" /></p>
 <p>it looks like taking the log of <code>price</code> might provide a better fit:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_log =<span class="st"> </span><span class="kw">lm</span>(<span class="kw">log</span>(price) <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Housing)
 
@@ -621,7 +621,7 @@ diagnostics_models =<span class="st"> </span><span class="kw">full_join</span>(d
 <p>I saved the diagnostics in two different <code>data.frame</code> using the <code>glance()</code> function and added a <code>model</code> column to indicate which model the diagnostics come from. Then I merged both datasets using <code>full_join()</code>, a <code>dplyr</code> function.</p>
 <p>As you can see, the model with the logarithm of the prices as the explained variable has a higher likelihood (and thus lower AIC and BIC) than the simple linear model. Let’s take a look at the diagnostics plots:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(model_log, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre></div>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-196-1.png" width="672" /></p>
 </div>
 <div id="using-a-model-for-prediction" class="section level2">
 <h2><span class="header-section-number">7.4</span> Using a model for prediction</h2>
@@ -687,8 +687,7 @@ pred_set =<span class="st"> </span>Housing <span class="op">%&gt;%</span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rmse =<span class="st"> </span>pred_set <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">predictions =</span> <span class="kw">predict</span>(model3, .)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="kw">sqrt</span>(<span class="kw">sum</span>(predictions <span class="op">-</span><span class="st"> </span>price)<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="kw">n</span>()))</code></pre></div>
-<p>The root mean square error of <code>model3</code> is 1666.1312666. Notice the line:</p>
-<pre><code>mutate(predictions = predict(model3, .)) %&gt;%</code></pre>
+<p>The root mean square error of <code>model3</code> is 1666.1312666.</p>
 <p>I also use the <code>n()</code> function which returns the number of observations in a group (or all the observations, if the data is not grouped). Let’s compare <code>model3</code> ’s RMSE with the one from <code>model_log</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rmse2 =<span class="st"> </span>pred_set <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">predictions =</span> <span class="kw">exp</span>(<span class="kw">predict</span>(model_log, .))) <span class="op">%&gt;%</span>
@@ -715,8 +714,8 @@ pred_set =<span class="st"> </span>Housing <span class="op">%&gt;%</span>
 </tr>
 <tr class="even">
 <td>Nonlinear Least Squares</td>
-<td><code>stats</code><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></td>
-<td><code>nls(y ~ x1 / (1 + x2), data = mydata)</code><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></td>
+<td><code>stats</code><a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></td>
+<td><code>nls(y ~ x1 / (1 + x2), data = mydata)</code><a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a></td>
 </tr>
 <tr class="odd">
 <td>Logit</td>
@@ -731,12 +730,12 @@ pred_set =<span class="st"> </span>Housing <span class="op">%&gt;%</span>
 <tr class="odd">
 <td>K-Means</td>
 <td><code>stats</code></td>
-<td><code>kmeans(data, n)</code><a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></td>
+<td><code>kmeans(data, n)</code><a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a></td>
 </tr>
 <tr class="even">
 <td>PCA</td>
 <td><code>stats</code></td>
-<td><code>prcomp(data, scale = TRUE, center = TRUE)</code><a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></td>
+<td><code>prcomp(data, scale = TRUE, center = TRUE)</code><a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a></td>
 </tr>
 <tr class="odd">
 <td>Multinomial Logit</td>
@@ -746,7 +745,7 @@ pred_set =<span class="st"> </span>Housing <span class="op">%&gt;%</span>
 <tr class="even">
 <td>Cox PH</td>
 <td><code>survival</code></td>
-<td><code>coxph(Surv(y_time, y_status) ~ x, data = mydata)</code><a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a></td>
+<td><code>coxph(Surv(y_time, y_status) ~ x, data = mydata)</code><a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a></td>
 </tr>
 <tr class="odd">
 <td>Time series</td>
@@ -812,22 +811,88 @@ pred_set =<span class="st"> </span>Housing <span class="op">%&gt;%</span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(boot_result, <span class="kw">aes</span>(estimate)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>term, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)</code></pre></div>
-<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p><img src="modern_r_for_statec_files/figure-html/unnamed-chunk-206-1.png" width="672" /></p>
 </div>
 <div id="cross-validation" class="section level3">
-<h3><span class="header-section-number">7.6.2</span> Cross validation</h3>
+<h3><span class="header-section-number">7.6.2</span> Cross-validation</h3>
+<p>To do cross-validation, we are going to use the <code>modelr</code> package, which is also part of the <code>tidyverse</code>.<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(modelr)</code></pre></div>
+<p><code>modelr</code> includes two functions for cross-validation, <code>crossv_kfold</code> and <code>crossv_mc</code>, which do K-fold Cross-Validation and Monte Carlo Cross-Validation respectively. First, let’s see what <code>cross_mc()</code> (<code>cross_kfold()</code>) returns when applied to data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Housing <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">crossv_mc</span>(<span class="dt">n =</span> <span class="dv">50</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">print</span>()</code></pre></div>
+<pre><code>## # A tibble: 50 x 3
+##             train           test   .id
+##            &lt;list&gt;         &lt;list&gt; &lt;chr&gt;
+##  1 &lt;S3: resample&gt; &lt;S3: resample&gt;    01
+##  2 &lt;S3: resample&gt; &lt;S3: resample&gt;    02
+##  3 &lt;S3: resample&gt; &lt;S3: resample&gt;    03
+##  4 &lt;S3: resample&gt; &lt;S3: resample&gt;    04
+##  5 &lt;S3: resample&gt; &lt;S3: resample&gt;    05
+##  6 &lt;S3: resample&gt; &lt;S3: resample&gt;    06
+##  7 &lt;S3: resample&gt; &lt;S3: resample&gt;    07
+##  8 &lt;S3: resample&gt; &lt;S3: resample&gt;    08
+##  9 &lt;S3: resample&gt; &lt;S3: resample&gt;    09
+## 10 &lt;S3: resample&gt; &lt;S3: resample&gt;    10
+## # ... with 40 more rows</code></pre>
+<p>This is a <code>tibble</code> with 3 colmuns, two of them being list-columns; <code>train</code> and <code>test</code>. Each element of <code>train</code> and <code>test</code> is a resampled <code>tibble</code> of the original data. This means that we can now estimate the our first model (the simple linear one) on each resampled data using <code>map()</code>:</p>
+<p>Now if we want to estimate all these models:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cv_models =<span class="st"> </span>Housing <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">crossv_mc</span>(<span class="dt">n =</span> <span class="dv">50</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="kw">map</span>(train, <span class="op">~</span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> .)))
+
+<span class="kw">print</span>(cv_models)</code></pre></div>
+<pre><code>## # A tibble: 50 x 4
+##             train           test   .id    model
+##            &lt;list&gt;         &lt;list&gt; &lt;chr&gt;   &lt;list&gt;
+##  1 &lt;S3: resample&gt; &lt;S3: resample&gt;    01 &lt;S3: lm&gt;
+##  2 &lt;S3: resample&gt; &lt;S3: resample&gt;    02 &lt;S3: lm&gt;
+##  3 &lt;S3: resample&gt; &lt;S3: resample&gt;    03 &lt;S3: lm&gt;
+##  4 &lt;S3: resample&gt; &lt;S3: resample&gt;    04 &lt;S3: lm&gt;
+##  5 &lt;S3: resample&gt; &lt;S3: resample&gt;    05 &lt;S3: lm&gt;
+##  6 &lt;S3: resample&gt; &lt;S3: resample&gt;    06 &lt;S3: lm&gt;
+##  7 &lt;S3: resample&gt; &lt;S3: resample&gt;    07 &lt;S3: lm&gt;
+##  8 &lt;S3: resample&gt; &lt;S3: resample&gt;    08 &lt;S3: lm&gt;
+##  9 &lt;S3: resample&gt; &lt;S3: resample&gt;    09 &lt;S3: lm&gt;
+## 10 &lt;S3: resample&gt; &lt;S3: resample&gt;    10 &lt;S3: lm&gt;
+## # ... with 40 more rows</code></pre>
+<p>We added a list-column with the 50 models estimated (or trained) on the train data. Now we can compute, say, the RMSE from before on each one. <code>modelr</code> includes a <code>rmse()</code> function, so unlike in the previous section where we computed the RMSE manually we are simply going to use this function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rmse_boot =<span class="st"> </span>cv_models <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rmse_all_models =</span> <span class="kw">map2_dbl</span>(model, test, <span class="op">~</span><span class="kw">rmse</span>(.x, .y))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">pull</span>(rmse_all_models)
+
+<span class="kw">print</span>(rmse_boot)</code></pre></div>
+<pre><code>##  [1] 19331.78 13595.67 14595.43 18381.15 15827.10 13778.53 14573.62
+##  [8] 13295.68 15928.93 15541.70 17061.77 15001.47 13137.02 15160.48
+## [15] 14912.78 15000.28 16917.83 14112.38 17061.24 15506.28 13873.93
+## [22] 15587.48 15010.92 15164.69 15528.94 16690.14 14598.18 17585.55
+## [29] 16538.00 17285.54 17426.84 15669.20 14773.61 17770.10 15105.68
+## [36] 14727.60 14460.48 16959.04 17045.19 19100.78 14464.48 15733.42
+## [43] 14962.71 15147.54 18678.01 11970.67 15005.83 13300.56 13794.24
+## [50] 14082.58</code></pre>
+<p>We can now compute the mean of this <code>rmse_boot</code> variable:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">booted_rmse_lin_lin =<span class="st"> </span><span class="kw">mean</span>(rmse_boot)</code></pre></div>
+<p>which is equal to 1.553526110^{4}. Let’s do the same calculation for the log-lin model, and let’s do it in one single pipe workflow:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">booted_rmse_log_lin =<span class="st"> </span>Housing <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">crossv_mc</span>(<span class="dt">n =</span> <span class="dv">50</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="kw">map</span>(train, <span class="op">~</span><span class="kw">lm</span>(<span class="kw">log</span>(price) <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> .))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rmse_all_models =</span> <span class="kw">map2_dbl</span>(model, test, <span class="op">~</span><span class="kw">rmse</span>(.x, .y))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">pull</span>(rmse_all_models) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mean</span>()</code></pre></div>
+<p><code>booted_rmse_log_lin</code> is equal to 0.2161446, which is much lower than in the lin-lin model.</p>
 
 </div>
 </div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="1">
-<li id="fn1"><p>This package gets installed with R, no need to add it<a href="statistical-models.html#fnref1">↩</a></p></li>
-<li id="fn2"><p>The formula in the example is shown for illustration purposes.<a href="statistical-models.html#fnref2">↩</a></p></li>
-<li id="fn3"><p><code>data</code> must only contain numeric values, and <code>n</code> is the number of clusters.<a href="statistical-models.html#fnref3">↩</a></p></li>
-<li id="fn4"><p><code>data</code> must only contain numeric values, or a formula can be provided.<a href="statistical-models.html#fnref4">↩</a></p></li>
-<li id="fn5"><p><code>Surv(y_time, y_status)</code> creates a <em>survival</em> object, where <code>y_time</code> is the time to event <code>y_status</code>. It is possible to create more complex survival objects depending on exactly which data you are dealing with.<a href="statistical-models.html#fnref5">↩</a></p></li>
+<ol start="4">
+<li id="fn4"><p>This package gets installed with R, no need to add it<a href="statistical-models.html#fnref4">↩</a></p></li>
+<li id="fn5"><p>The formula in the example is shown for illustration purposes.<a href="statistical-models.html#fnref5">↩</a></p></li>
+<li id="fn6"><p><code>data</code> must only contain numeric values, and <code>n</code> is the number of clusters.<a href="statistical-models.html#fnref6">↩</a></p></li>
+<li id="fn7"><p><code>data</code> must only contain numeric values, or a formula can be provided.<a href="statistical-models.html#fnref7">↩</a></p></li>
+<li id="fn8"><p><code>Surv(y_time, y_status)</code> creates a <em>survival</em> object, where <code>y_time</code> is the time to event <code>y_status</code>. It is possible to create more complex survival objects depending on exactly which data you are dealing with.<a href="statistical-models.html#fnref8">↩</a></p></li>
+<li id="fn9"><p>This package is still somewhat young and experimental and might get replaced by two others in the future. At some point in the future you might get a warning message telling you that the package is deprecated. When this happens, you would need to switch to the new packages, but transition should be fairly easy.<a href="statistical-models.html#fnref9">↩</a></p></li>
 </ol>
 </div>
             </section>
