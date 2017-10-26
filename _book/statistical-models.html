@@ -965,6 +965,11 @@ pred_set =<span class="st"> </span>Housing <span class="op">%&gt;%</span>
 <h3><span class="header-section-number">7.7.2</span> Cross-validation</h3>
 <p>To do cross-validation, we are going to use the <code>modelr</code> package, which is also part of the <code>tidyverse</code>.<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(modelr)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;modelr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:broom&#39;:
+## 
+##     bootstrap</code></pre>
 <p><code>modelr</code> includes two functions for cross-validation, <code>crossv_kfold</code> and <code>crossv_mc</code>, which do K-fold Cross-Validation and Monte Carlo Cross-Validation respectively. First, let’s see what <code>cross_mc()</code> (<code>cross_kfold()</code>) returns when applied to data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cv_Housing =<span class="st"> </span>Housing <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">crossv_mc</span>(<span class="dt">n =</span> <span class="dv">50</span>)
@@ -1005,11 +1010,11 @@ pred_set =<span class="st"> </span>Housing <span class="op">%&gt;%</span>
 ## 10 &lt;S3: resample&gt; &lt;S3: resample&gt;    10 &lt;S3: lm&gt;
 ## # ... with 40 more rows</code></pre>
 <p>We added a list-column with the 50 models estimated (or trained) on the train data. Now we can compute, say, the RMSE from before on each one. <code>modelr</code> includes a <code>rmse()</code> function, so unlike in the previous section where we computed the RMSE manually we are simply going to use this function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rmse_boot =<span class="st"> </span>cv_models <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rmse_cv =<span class="st"> </span>cv_models <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rmse_all_models =</span> <span class="kw">map2_dbl</span>(model, test, <span class="op">~</span><span class="kw">rmse</span>(.x, .y))) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">pull</span>(rmse_all_models)
 
-<span class="kw">print</span>(rmse_boot)</code></pre></div>
+<span class="kw">print</span>(rmse_cv)</code></pre></div>
 <pre><code>##  [1] 14278.10 16319.37 15894.75 13787.08 17718.08 13909.55 18768.75
 ##  [8] 14207.10 15035.37 14517.33 16683.72 15840.99 15367.34 14712.03
 ## [15] 15700.72 15471.62 17671.22 17406.67 17202.93 15583.84 14194.29
@@ -1018,21 +1023,21 @@ pred_set =<span class="st"> </span>Housing <span class="op">%&gt;%</span>
 ## [36] 14062.81 15659.73 15739.34 14316.86 16180.04 18592.96 18135.36
 ## [43] 15166.21 17783.14 16475.84 16012.22 12702.82 16545.16 15420.06
 ## [50] 15109.43</code></pre>
-<p>We can now compute the mean of this <code>rmse_boot</code> variable:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">booted_rmse_lin_lin =<span class="st"> </span><span class="kw">mean</span>(rmse_boot)</code></pre></div>
+<p>We can now compute the mean of this <code>rmse_cv</code> variable:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cv_rmse_lin_lin =<span class="st"> </span><span class="kw">mean</span>(rmse_cv)</code></pre></div>
 <p>which is equal to 1.577572510^{4}.</p>
-<p>For the log-lin model, this is a bit more complicated, because we need to exponentiate the predictions. However, if we use <code>rmse()</code> as before, there is no way to do that. I show you the code below, and try to understand it. You can see this as an advanced exercise; if you understand these next lines of code, you should understand anything that has to do with the <code>tidyverse</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">booted_rmse_log_lin =<span class="st"> </span>cv_Housing <span class="op">%&gt;%</span>
+<p>For the log-lin model, this is a bit more complicated, because we need to exponentiate the predictions. However, if we use <code>rmse()</code> as before, there is no way to do that. I show you how you can do that, but it involves a few more steps than simply using <code>rmse()</code>. Try to understand the code below that computes the bootstrapped <code>rmse</code> for the log-lin model. You can see this as an advanced exercise; if you understand these next lines of code, you should understand anything that has to do with the <code>tidyverse</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cv_rmse_log_lin =<span class="st"> </span>cv_Housing <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="kw">map</span>(train, <span class="op">~</span><span class="kw">lm</span>(<span class="kw">log</span>(price) <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> .))) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">mutate</span>(<span class="dt">log_pred =</span> <span class="kw">map2</span>(model, test, <span class="op">~</span><span class="kw">exp</span>(<span class="kw">predict</span>(.x, .y)))) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">mutate</span>(<span class="dt">prices =</span> <span class="kw">map</span>(test, <span class="op">~</span><span class="kw">as.data.frame</span>(.x)<span class="op">$</span>price)) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">mutate</span>(
-        <span class="dt">rmse_all =</span> 
-            <span class="kw">map2_dbl</span>(log_pred, prices, 
+        <span class="dt">rmse_all =</span>
+            <span class="kw">map2_dbl</span>(log_pred, prices,
                      <span class="op">~</span><span class="kw">sqrt</span>(<span class="kw">mean</span>((.x <span class="op">-</span><span class="st"> </span>.y)<span class="op">**</span><span class="dv">2</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">pull</span>(rmse_all) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">mean</span>()</code></pre></div>
-<p><code>booted_rmse_log_lin</code> is equal to 1.551068110^{4}, which is lower than in the lin-lin model.</p>
+<p><code>cv_rmse_log_lin</code> is equal to 1.551068110^{4}, which is lower than in the lin-lin model.</p>
 
 </div>
 </div>

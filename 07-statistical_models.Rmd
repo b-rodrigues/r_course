@@ -399,7 +399,7 @@ See Also:
      ‘Index.Observations’
 ```
 
-The variable of interest is lfp: whether the individual participates in the labour force. To know 
+The variable of interest is lfp: whether the individual participates in the labour force. To know
 which variables are relevant in the decision to participate in the labour force, one could estimate
 a logit model, using glm().
 
@@ -452,8 +452,8 @@ dydx(my_subjects, logit_participation, "lnnlinc")
 ```
 
 
-I used the `tribble()` function from the tibble package to create this test data set, row by row. 
-Then, using `dydx()`, I get the marginal effect of variable `lnnlinc` for these two individuals. 
+I used the `tribble()` function from the tibble package to create this test data set, row by row.
+Then, using `dydx()`, I get the marginal effect of variable `lnnlinc` for these two individuals.
 
 
 ## Comparing models
@@ -707,40 +707,39 @@ say, the RMSE from before on each one. `modelr` includes a `rmse()` function, so
 previous section where we computed the RMSE manually we are simply going to use this function:
 
 ```{r}
-rmse_boot = cv_models %>%
+rmse_cv = cv_models %>%
   mutate(rmse_all_models = map2_dbl(model, test, ~rmse(.x, .y))) %>%
   pull(rmse_all_models)
 
-print(rmse_boot)
+print(rmse_cv)
 ```
 
-We can now compute the mean of this `rmse_boot` variable:
+We can now compute the mean of this `rmse_cv` variable:
 
 ```{r}
-booted_rmse_lin_lin = mean(rmse_boot)
+cv_rmse_lin_lin = mean(rmse_cv)
 ```
 
-which is equal to `r booted_rmse_lin_lin`.
+which is equal to `r cv_rmse_lin_lin`.
 
-For the log-lin model, this is a bit more complicated, because
-we need to exponentiate the predictions. However, if we use `rmse()`
-as before, there is no way to do that. I show you the code below,
-and try to understand it. You can see this as an advanced exercise;
-if you understand these next lines of code, you should understand
-anything that has to do with the `tidyverse`.
-
+For the log-lin model, this is a bit more complicated, because we need to exponentiate the
+predictions. However, if we use `rmse()` as before, there is no way to do that. I show you how you
+can do that, but it involves a few more steps than simply using `rmse()`. Try to understand the code
+below that computes the bootstrapped `rmse` for the log-lin model.
+You can see this as an advanced exercise; if you understand these next lines of code, you should
+understand anything that has to do with the `tidyverse`.
 
 ```{r}
-booted_rmse_log_lin = cv_Housing %>%
+cv_rmse_log_lin = cv_Housing %>%
     mutate(model = map(train, ~lm(log(price) ~ ., data = .))) %>%
     mutate(log_pred = map2(model, test, ~exp(predict(.x, .y)))) %>%
     mutate(prices = map(test, ~as.data.frame(.x)$price)) %>%
     mutate(
-        rmse_all = 
-            map2_dbl(log_pred, prices, 
+        rmse_all =
+            map2_dbl(log_pred, prices,
                      ~sqrt(mean((.x - .y)**2, na.rm = TRUE)))) %>%
     pull(rmse_all) %>%
     mean()
 ```
 
-`booted_rmse_log_lin` is equal to `r booted_rmse_log_lin`, which is lower than in the lin-lin model.
+`cv_rmse_log_lin` is equal to `r cv_rmse_log_lin`, which is lower than in the lin-lin model.
