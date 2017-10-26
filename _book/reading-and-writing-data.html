@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Modern R for STATEC</title>
+  <meta name="description" content="In this book, statisticians and economists working at STATEC will learn how use R for their needs. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed.">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Modern R for STATEC" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="In this book, statisticians and economists working at STATEC will learn how use R for their needs. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Modern R for STATEC" />
+  
+  <meta name="twitter:description" content="In this book, statisticians and economists working at STATEC will learn how use R for their needs. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed." />
+  
+
+<meta name="author" content="Bruno Rodrigues">
+
+
+<meta name="date" content="2017-10-26">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="data-types-and-objects.html">
+<link rel="next" href="data-manipulation-and-descriptive-statistics.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Modern R for STATEC</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-r"><i class="fa fa-check"></i>What is R?</a></li>
+<li><a href="index.html#why-modern-r">Why <em>modern</em> R?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-rstudio"><i class="fa fa-check"></i>What is Rstudio?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-are-packages"><i class="fa fa-check"></i>What are packages?</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-author"><i class="fa fa-check"></i>The author</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html"><i class="fa fa-check"></i><b>1</b> Getting to know Rstudio</a><ul>
+<li class="chapter" data-level="1.1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#panes"><i class="fa fa-check"></i><b>1.1</b> Panes</a></li>
+<li class="chapter" data-level="1.2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#console"><i class="fa fa-check"></i><b>1.2</b> Console</a></li>
+<li class="chapter" data-level="1.3" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#scripts"><i class="fa fa-check"></i><b>1.3</b> Scripts</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#the-help-pane"><i class="fa fa-check"></i><b>1.3.1</b> The help pane</a></li>
+<li class="chapter" data-level="1.3.2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#the-environment-pane"><i class="fa fa-check"></i><b>1.3.2</b> The Environment pane</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#options"><i class="fa fa-check"></i><b>1.4</b> Options</a></li>
+<li class="chapter" data-level="1.5" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#keyboard-shortcuts"><i class="fa fa-check"></i><b>1.5</b> Keyboard shortcuts</a></li>
+<li class="chapter" data-level="1.6" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#projects"><i class="fa fa-check"></i><b>1.6</b> Projects</a></li>
+<li class="chapter" data-level="1.7" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#history"><i class="fa fa-check"></i><b>1.7</b> History</a></li>
+<li class="chapter" data-level="1.8" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#plots"><i class="fa fa-check"></i><b>1.8</b> Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>2</b> Packages</a></li>
+<li class="chapter" data-level="3" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html"><i class="fa fa-check"></i><b>3</b> Data types and objects</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-numeric-class"><i class="fa fa-check"></i><b>3.1</b> The <code>numeric</code> class</a></li>
+<li class="chapter" data-level="3.2" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-character-class"><i class="fa fa-check"></i><b>3.2</b> The <code>character</code> class</a></li>
+<li class="chapter" data-level="3.3" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#vectors-and-matrices"><i class="fa fa-check"></i><b>3.3</b> Vectors and matrices</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-c-function"><i class="fa fa-check"></i><b>3.3.1</b> The <code>c()</code> function</a></li>
+<li class="chapter" data-level="3.3.2" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#cbind-and-rbind"><i class="fa fa-check"></i><b>3.3.2</b> <code>cbind()</code> and <code>rbind()</code></a></li>
+<li class="chapter" data-level="3.3.3" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-matrix-class"><i class="fa fa-check"></i><b>3.3.3</b> The <code>matrix</code> class</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-logical-class"><i class="fa fa-check"></i><b>3.4</b> The <code>logical</code> class</a></li>
+<li class="chapter" data-level="3.5" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-list-class"><i class="fa fa-check"></i><b>3.5</b> The <code>list</code> class</a></li>
+<li class="chapter" data-level="3.6" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#the-data.frame-and-tibble-classes"><i class="fa fa-check"></i><b>3.6</b> The <code>data.frame</code> and <code>tibble</code> classes</a></li>
+<li class="chapter" data-level="3.7" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#formulas"><i class="fa fa-check"></i><b>3.7</b> Formulas</a></li>
+<li class="chapter" data-level="3.8" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercises"><i class="fa fa-check"></i><b>3.8</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-1"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="3.8.1" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-2"><i class="fa fa-check"></i><b>3.8.1</b> Exercise 2</a></li>
+<li class="chapter" data-level="3.8.2" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-3"><i class="fa fa-check"></i><b>3.8.2</b> Exercise 3</a></li>
+<li class="chapter" data-level="3.8.3" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-4"><i class="fa fa-check"></i><b>3.8.3</b> Exercise 4</a></li>
+<li class="chapter" data-level="3.8.4" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-5"><i class="fa fa-check"></i><b>3.8.4</b> Exercise 5</a></li>
+<li class="chapter" data-level="3.8.5" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-6"><i class="fa fa-check"></i><b>3.8.5</b> Exercise 6</a></li>
+<li class="chapter" data-level="3.8.6" data-path="data-types-and-objects.html"><a href="data-types-and-objects.html#exercise-7"><i class="fa fa-check"></i><b>3.8.6</b> Exercise 7</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html"><i class="fa fa-check"></i><b>4</b> Reading and writing data</a><ul>
+<li class="chapter" data-level="4.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#the-swiss-army-knife-of-data-import-and-export-rio"><i class="fa fa-check"></i><b>4.1</b> The swiss army knife of data import and export: <code>rio</code></a></li>
+<li class="chapter" data-level="4.2" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#writing-any-object-to-disk"><i class="fa fa-check"></i><b>4.2</b> Writing any object to disk</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html"><i class="fa fa-check"></i><b>5</b> Data manipulation and descriptive statistics</a><ul>
+<li class="chapter" data-level="5.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-single-dataset"><i class="fa fa-check"></i><b>5.1</b> Working with a single dataset</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#manipulating-and-creating-columns-with-dplyr"><i class="fa fa-check"></i><b>5.1.1</b> Manipulating and creating columns with <code>dplyr</code></a></li>
+<li class="chapter" data-level="5.1.2" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>5.1.2</b> Reshaping data with <code>tidyr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-list-of-datasets"><i class="fa fa-check"></i><b>5.2</b> Working with a list of datasets</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#getting-to-know-map"><i class="fa fa-check"></i><b>5.2.1</b> Getting to know <code>map()</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#getting-to-know-reduce"><i class="fa fa-check"></i><b>5.2.2</b> Getting to know <code>reduce()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#list-columns"><i class="fa fa-check"></i><b>5.3</b> List-columns</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>6</b> Graphs</a><ul>
+<li class="chapter" data-level="6.1" data-path="graphs.html"><a href="graphs.html#resources"><i class="fa fa-check"></i><b>6.1</b> Resources</a></li>
+<li class="chapter" data-level="6.2" data-path="graphs.html"><a href="graphs.html#examples"><i class="fa fa-check"></i><b>6.2</b> Examples</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="graphs.html"><a href="graphs.html#barplots"><i class="fa fa-check"></i><b>6.2.1</b> Barplots</a></li>
+<li class="chapter" data-level="6.2.2" data-path="graphs.html"><a href="graphs.html#density"><i class="fa fa-check"></i><b>6.2.2</b> Density</a></li>
+<li class="chapter" data-level="6.2.3" data-path="graphs.html"><a href="graphs.html#line-plots"><i class="fa fa-check"></i><b>6.2.3</b> Line plots</a></li>
+<li class="chapter" data-level="6.2.4" data-path="graphs.html"><a href="graphs.html#facets"><i class="fa fa-check"></i><b>6.2.4</b> Facets</a></li>
+<li class="chapter" data-level="6.2.5" data-path="graphs.html"><a href="graphs.html#pie-charts"><i class="fa fa-check"></i><b>6.2.5</b> Pie Charts</a></li>
+<li class="chapter" data-level="6.2.6" data-path="graphs.html"><a href="graphs.html#adding-text-to-plots"><i class="fa fa-check"></i><b>6.2.6</b> Adding text to plots</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="graphs.html"><a href="graphs.html#customization"><i class="fa fa-check"></i><b>6.3</b> Customization</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="graphs.html"><a href="graphs.html#titles-axes-names-and-more"><i class="fa fa-check"></i><b>6.3.1</b> Titles, axes names and more</a></li>
+<li class="chapter" data-level="6.3.2" data-path="graphs.html"><a href="graphs.html#themes"><i class="fa fa-check"></i><b>6.3.2</b> Themes</a></li>
+<li class="chapter" data-level="6.3.3" data-path="graphs.html"><a href="graphs.html#colour-schemes-from-ggthemes"><i class="fa fa-check"></i><b>6.3.3</b> Colour schemes from <code>ggthemes</code></a></li>
+<li class="chapter" data-level="6.3.4" data-path="graphs.html"><a href="graphs.html#using-your-own-colours"><i class="fa fa-check"></i><b>6.3.4</b> Using your own colours</a></li>
+<li class="chapter" data-level="6.3.5" data-path="graphs.html"><a href="graphs.html#saving-plots-on-disk"><i class="fa fa-check"></i><b>6.3.5</b> Saving plots on disk</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="graphs.html"><a href="graphs.html#many-plots"><i class="fa fa-check"></i><b>6.4</b> Many plots</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical models</a><ul>
+<li class="chapter" data-level="7.1" data-path="statistical-models.html"><a href="statistical-models.html#fitting-a-model-to-data"><i class="fa fa-check"></i><b>7.1</b> Fitting a model to data</a></li>
+<li class="chapter" data-level="7.2" data-path="statistical-models.html"><a href="statistical-models.html#diagnostics"><i class="fa fa-check"></i><b>7.2</b> Diagnostics</a></li>
+<li class="chapter" data-level="7.3" data-path="statistical-models.html"><a href="statistical-models.html#interpreting-models"><i class="fa fa-check"></i><b>7.3</b> Interpreting models</a></li>
+<li class="chapter" data-level="7.4" data-path="statistical-models.html"><a href="statistical-models.html#comparing-models"><i class="fa fa-check"></i><b>7.4</b> Comparing models</a></li>
+<li class="chapter" data-level="7.5" data-path="statistical-models.html"><a href="statistical-models.html#using-a-model-for-prediction"><i class="fa fa-check"></i><b>7.5</b> Using a model for prediction</a></li>
+<li class="chapter" data-level="7.6" data-path="statistical-models.html"><a href="statistical-models.html#beyond-linear-regression"><i class="fa fa-check"></i><b>7.6</b> Beyond linear regression</a></li>
+<li class="chapter" data-level="7.7" data-path="statistical-models.html"><a href="statistical-models.html#advanced-topics"><i class="fa fa-check"></i><b>7.7</b> Advanced topics</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="statistical-models.html"><a href="statistical-models.html#bootstrapping"><i class="fa fa-check"></i><b>7.7.1</b> Bootstrapping</a></li>
+<li class="chapter" data-level="7.7.2" data-path="statistical-models.html"><a href="statistical-models.html#cross-validation"><i class="fa fa-check"></i><b>7.7.2</b> Cross-validation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html"><i class="fa fa-check"></i><b>8</b> Advanced topics</a><ul>
+<li class="chapter" data-level="8.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#for-and-while-loops"><i class="fa fa-check"></i><b>8.1</b> For and while loops</a></li>
+<li class="chapter" data-level="8.2" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#programming-your-own-functions"><i class="fa fa-check"></i><b>8.2</b> Programming your own functions</a></li>
+<li class="chapter" data-level="8.3" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#generating-pdf-or-word-reports-with-r"><i class="fa fa-check"></i><b>8.3</b> Generating Pdf or Word reports with R</a></li>
+<li class="chapter" data-level="8.4" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#scraping-the-internet"><i class="fa fa-check"></i><b>8.4</b> Scraping the internet</a></li>
+<li class="chapter" data-level="8.5" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#writing-your-own-package"><i class="fa fa-check"></i><b>8.5</b> Writing your own package</a></li>
+<li class="chapter" data-level="8.6" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#random-tips-and-tricks"><i class="fa fa-check"></i><b>8.6</b> Random tips and tricks</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#creating-a-log-file"><i class="fa fa-check"></i><b>8.6.1</b> Creating a log file</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modern R for STATEC</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="reading-and-writing-data" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Reading and writing data</h1>
+<p>In this chapter, we are going to import example datasets that are available in R, <code>mtcars</code> and <code>iris</code>. I have converted these datasets into several formats. Download those datasets <a href="https://github.com/b-rodrigues/r_for_statec/tree/master/datasets">here</a> if you want to follow the examples below. R can import some formats without the need of external packages, such as the <code>.csv</code> format. However, for other formats, you will need to use different packages. Because there are a lot of different formats available I suggest you use <code>rio</code>. <code>rio</code> is basically a wrapper around a lot of packages that exist to import/export data. This package is nice because you don’t need to remember which package to use to import, say, STATA datasets and then you need to remember which one for SAS datasets, and so on. Read <code>rio</code>’s <a href="https://cran.r-project.org/web/packages/rio/vignettes/rio.html">vignette</a> for more details. Below I show some of <code>rio</code>’s functions presented in the vignette. It is also possible to import data from other, less “traditional” sources, such as your clipboard.</p>
+<div id="the-swiss-army-knife-of-data-import-and-export-rio" class="section level2">
+<h2><span class="header-section-number">4.1</span> The swiss army knife of data import and export: <code>rio</code></h2>
+<p>To import data with <code>rio</code>, <code>import()</code> is all you need:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rio)
+
+mtcars =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/mtcars.csv&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(mtcars)</code></pre></div>
+<pre><code>##    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## 1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## 2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## 3 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## 4 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## 5 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## 6 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+<p><code>import()</code> needs the path to the data, and you can specify additional options if needed. On a Windows computer, you have to be careful to the path; you cannot simply copy and paste it, because paths in Windows use the <code>\</code> symbol whereas R uses <code>/</code> (just like on Linux or macOS). Importing a STATA or a SAS file is done just the same:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars_stata =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/mtcars.dta&quot;</span>)
+<span class="kw">head</span>(mtcars_stata)</code></pre></div>
+<pre><code>##    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## 1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## 2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## 3 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## 4 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## 5 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## 6 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars_sas =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/mtcars.sas7bdat&quot;</span>)
+<span class="kw">head</span>(mtcars_sas)</code></pre></div>
+<pre><code>##    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## 1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## 2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## 3 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## 4 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## 5 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## 6 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+<p>It is also possible to import Excel files where each sheet is a single table, but you will need <code>import_list()</code> for that. The file <code>multi.xlsx</code> has two sheets, each with a table in it:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">multi =<span class="st"> </span><span class="kw">import_list</span>(<span class="st">&quot;datasets/multi.xlsx&quot;</span>)
+<span class="kw">str</span>(multi)</code></pre></div>
+<pre><code>## List of 2
+##  $ :&#39;data.frame&#39;:    32 obs. of  11 variables:
+##   ..$ mpg : num [1:32] 21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+##   ..$ cyl : num [1:32] 6 6 4 6 8 6 8 4 4 6 ...
+##   ..$ disp: num [1:32] 160 160 108 258 360 ...
+##   ..$ hp  : num [1:32] 110 110 93 110 175 105 245 62 95 123 ...
+##   ..$ drat: num [1:32] 3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+##   ..$ wt  : num [1:32] 2.62 2.88 2.32 3.21 3.44 ...
+##   ..$ qsec: num [1:32] 16.5 17 18.6 19.4 17 ...
+##   ..$ vs  : num [1:32] 0 0 1 1 0 1 0 1 1 1 ...
+##   ..$ am  : num [1:32] 1 1 1 0 0 0 0 0 0 0 ...
+##   ..$ gear: num [1:32] 4 4 4 3 3 3 3 4 4 4 ...
+##   ..$ carb: num [1:32] 4 4 1 1 2 1 4 2 2 4 ...
+##  $ :&#39;data.frame&#39;:    150 obs. of  5 variables:
+##   ..$ Sepal.Length: num [1:150] 5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##   ..$ Sepal.Width : num [1:150] 3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##   ..$ Petal.Length: num [1:150] 1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##   ..$ Petal.Width : num [1:150] 0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##   ..$ Species     : chr [1:150] &quot;setosa&quot; &quot;setosa&quot; &quot;setosa&quot; &quot;setosa&quot; ...</code></pre>
+<p>As you can see <code>multi</code> is a list of datasets. Told you lists were very flexible! It is also possible to import all the datasets in a single directory at once. For this, you first need a vector of paths:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">paths =<span class="st"> </span><span class="kw">Sys.glob</span>(<span class="st">&quot;datasets/unemployment/*.csv&quot;</span>)</code></pre></div>
+<p><code>Sys.glob()</code> allows you to find files using a regular expression. “datasets/unemployment/*.csv&quot; matches all the <code>.csv</code> files inside “datasets/unemployment”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">all_data =<span class="st"> </span><span class="kw">import_list</span>(paths)
+
+<span class="kw">str</span>(all_data)</code></pre></div>
+<pre><code>## List of 4
+##  $ :&#39;data.frame&#39;:    118 obs. of  8 variables:
+##   ..$ Commune                   : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ Total employed population : int [1:118] 223407 17802 1703 844 1431 4094 2146 971 1218 3002 ...
+##   ..$ of which: Wage-earners    : int [1:118] 203535 15993 1535 750 1315 3800 1874 858 1029 2664 ...
+##   ..$ of which: Non-wage-earners: int [1:118] 19872 1809 168 94 116 294 272 113 189 338 ...
+##   ..$ Unemployed                : int [1:118] 19287 1071 114 25 74 261 98 45 66 207 ...
+##   ..$ Active population         : int [1:118] 242694 18873 1817 869 1505 4355 2244 1016 1284 3209 ...
+##   ..$ Unemployment rate (in %)  : num [1:118] 7.95 5.67 6.27 2.88 4.92 ...
+##   ..$ Year                      : int [1:118] 2013 2013 2013 2013 2013 2013 2013 2013 2013 2013 ...
+##  $ :&#39;data.frame&#39;:    118 obs. of  8 variables:
+##   ..$ Commune                   : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ Total employed population : int [1:118] 228423 18166 1767 845 1505 4129 2172 1007 1268 3124 ...
+##   ..$ of which: Wage-earners    : int [1:118] 208238 16366 1606 757 1390 3840 1897 887 1082 2782 ...
+##   ..$ of which: Non-wage-earners: int [1:118] 20185 1800 161 88 115 289 275 120 186 342 ...
+##   ..$ Unemployed                : int [1:118] 19362 1066 122 19 66 287 91 38 61 202 ...
+##   ..$ Active population         : int [1:118] 247785 19232 1889 864 1571 4416 2263 1045 1329 3326 ...
+##   ..$ Unemployment rate (in %)  : num [1:118] 7.81 5.54 6.46 2.2 4.2 ...
+##   ..$ Year                      : int [1:118] 2014 2014 2014 2014 2014 2014 2014 2014 2014 2014 ...
+##  $ :&#39;data.frame&#39;:    118 obs. of  8 variables:
+##   ..$ Commune                   : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ Total employed population : int [1:118] 233130 18310 1780 870 1470 4130 2170 1050 1300 3140 ...
+##   ..$ of which: Wage-earners    : int [1:118] 212530 16430 1620 780 1350 3820 1910 920 1100 2770 ...
+##   ..$ of which: Non-wage-earners: int [1:118] 20600 1880 160 90 120 310 260 130 200 370 ...
+##   ..$ Unemployed                : int [1:118] 18806 988 106 29 73 260 80 41 72 169 ...
+##   ..$ Active population         : int [1:118] 251936 19298 1886 899 1543 4390 2250 1091 1372 3309 ...
+##   ..$ Unemployment rate (in %)  : num [1:118] 7.46 5.12 5.62 3.23 4.73 ...
+##   ..$ Year                      : int [1:118] 2015 2015 2015 2015 2015 2015 2015 2015 2015 2015 ...
+##  $ :&#39;data.frame&#39;:    118 obs. of  8 variables:
+##   ..$ Commune                   : chr [1:118] &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##   ..$ Total employed population : int [1:118] 236100 18380 1790 870 1470 4160 2160 1030 1330 3150 ...
+##   ..$ of which: Wage-earners    : int [1:118] 215430 16500 1640 780 1350 3840 1900 900 1130 2780 ...
+##   ..$ of which: Non-wage-earners: int [1:118] 20670 1880 150 90 120 320 260 130 200 370 ...
+##   ..$ Unemployed                : int [1:118] 18185 975 91 27 66 246 76 35 70 206 ...
+##   ..$ Active population         : int [1:118] 254285 19355 1881 897 1536 4406 2236 1065 1400 3356 ...
+##   ..$ Unemployment rate (in %)  : num [1:118] 7.15 5.04 4.84 3.01 4.3 ...
+##   ..$ Year                      : int [1:118] 2016 2016 2016 2016 2016 2016 2016 2016 2016 2016 ...</code></pre>
+<p>in a subsequent chapter we will learn how to actually use these lists of datasets.</p>
+<p>If something goes wrong, you might need to take a look at the underlying function <code>rio</code> is actually using to import the file. Let’s look at the following example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">testdata =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/problems/mtcars.csv&quot;</span>)
+
+<span class="kw">head</span>(testdata)</code></pre></div>
+<pre><code>##   mpg&amp;cyl&amp;disp&amp;hp&amp;drat&amp;wt&amp;qsec&amp;vs&amp;am&amp;gear&amp;carb
+## 1          21&amp;6&amp;160&amp;110&amp;3.9&amp;2.62&amp;16.46&amp;0&amp;1&amp;4&amp;4
+## 2         21&amp;6&amp;160&amp;110&amp;3.9&amp;2.875&amp;17.02&amp;0&amp;1&amp;4&amp;4
+## 3        22.8&amp;4&amp;108&amp;93&amp;3.85&amp;2.32&amp;18.61&amp;1&amp;1&amp;4&amp;1
+## 4      21.4&amp;6&amp;258&amp;110&amp;3.08&amp;3.215&amp;19.44&amp;1&amp;0&amp;3&amp;1
+## 5       18.7&amp;8&amp;360&amp;175&amp;3.15&amp;3.44&amp;17.02&amp;0&amp;0&amp;3&amp;2
+## 6       18.1&amp;6&amp;225&amp;105&amp;2.76&amp;3.46&amp;20.22&amp;1&amp;0&amp;3&amp;1</code></pre>
+<p>as you can see, the import didn’t work quite well! This is because the separator is the <code>&amp;</code> for some reason. Because we are trying to read a <code>.csv</code> file, <code>rio::import()</code> is trying to use <code>data.table::fread()</code> under the hood (you can read this in <code>imports()</code>’s help). If you go and read <code>data.table::fread()</code>’s help, you see that the <code>fread()</code> has an optional <code>sep =</code> argument that you can use to specify the separator. You can use this argument in <code>import()</code> too, and it will be passed down to <code>fread()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">testdata =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/problems/mtcars.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&amp;&quot;</span>)
+
+<span class="kw">head</span>(testdata)</code></pre></div>
+<pre><code>##    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## 1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## 2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## 3 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## 4 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## 5 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## 6 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+<p><code>export()</code> allows you to write data to disk, by simply providing the path and name of the file you wish to save.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">export</span>(testdata, <span class="st">&quot;path/where/to/save/testdata.csv&quot;</span>)</code></pre></div>
+<p>If you end the name with <code>.csv</code> the file is exported to the csv format, if instead you write <code>.dta</code> the data will be exported to the STATA format, etc.</p>
+<p>If you wish to export to Excel, this is possible, but requires that you change a file on your computer (you only have to do this once). Run the following lines in Rstudio:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;~/.Rprofile&quot;</span>)) <span class="co"># only create if not already there</span>
+    <span class="kw">file.create</span>(<span class="st">&quot;~/.Rprofile&quot;</span>)    <span class="co"># (don&#39;t overwrite it)</span>
+<span class="kw">file.edit</span>(<span class="st">&quot;~/.Rprofile&quot;</span>)</code></pre></div>
+<p>These lines, taken shamelessly from <a href="https://csgillespie.github.io/efficientR/3-3-r-startup.html#rprofile">Efficient R programming</a> (go read it, it’s a very great resource) look for and open the <code>.Rprofile</code> file which is a file that is run every time you open Rstudio. This means that you can put any line of code there that will always be executed whenever you launch Rstudio. The line you need to add is this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.setenv</span>(<span class="st">&quot;R_ZIPCMD&quot;</span> =<span class="st"> &quot;C:/Program Files (x86)/Rtools/zip.exe&quot;</span>)</code></pre></div>
+<p>This tells Rstudio to use <code>zip.exe</code> as the default zip tool, which is needed to export files to the Excel format. Try it out by restarting Rstudio, and then running the following lines:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rio)
+
+<span class="kw">data</span>(mtcars)
+
+<span class="kw">export</span>(mtcars, <span class="st">&quot;mtcars.xlsx&quot;</span>)</code></pre></div>
+<p>You should find the <code>mtcars.xlsx</code> inside your working directory (it should be your Documents folder. You can use <code>getwd()</code> to check where you are).</p>
+<p><code>rio</code> should cover all your needs, but if not, there is very likely a package out there that will import the data you need.</p>
+</div>
+<div id="writing-any-object-to-disk" class="section level2">
+<h2><span class="header-section-number">4.2</span> Writing any object to disk</h2>
+<p><code>rio</code> is an amazing package, but is only able to write tabular representations of data. What if you would like to save, say, a list containing any arbitrary object? This is possible with the <code>saveRDS()</code> function. Literally anything can be saved with <code>saveRDS()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_list =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;this is a list&quot;</span>, <span class="kw">list</span>(<span class="st">&quot;which contains a list&quot;</span>, <span class="dv">12</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>,
+<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="dt">nrow =</span> <span class="dv">2</span>))
+
+<span class="kw">str</span>(my_list)</code></pre></div>
+<pre><code>## List of 4
+##  $ : chr &quot;this is a list&quot;
+##  $ :List of 2
+##   ..$ : chr &quot;which contains a list&quot;
+##   ..$ : num 12
+##  $ : num [1:4] 1 2 3 4
+##  $ : num [1:2, 1:3] 2 4 3 1 5 7</code></pre>
+<p><code>my_list</code> is a list containing a string, a list which contains a string and a number, a vector and a matrix… Now suppose that computing this list takes a very long time (for example, imagine that each element of the list is the result of estimating a very complex model on a particular simulated dataset for instance) and you would like to save this list to disk. This is possible with <code>saveRDS()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">saveRDS</span>(my_list, <span class="st">&quot;my_list.RDS&quot;</span>)</code></pre></div>
+<p>The next day, after having freshly started your computer and launched RStudio, it is possible to retrieved the object exactly like it was using <code>readRDS()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_list =<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;my_list.RDS&quot;</span>)
+
+<span class="kw">str</span>(my_list)</code></pre></div>
+<pre><code>## List of 4
+##  $ : chr &quot;this is a list&quot;
+##  $ :List of 2
+##   ..$ : chr &quot;which contains a list&quot;
+##   ..$ : num 12
+##  $ : num [1:4] 1 2 3 4
+##  $ : num [1:2, 1:3] 2 4 3 1 5 7</code></pre>
+<p>Even if you want to save a regular dataset, using <code>saveRDS()</code> might be a good idea because the data gets compressed if you add the option <code>compress = TRUE</code> to <code>saveRDS()</code>. However keep in mind that this will only be readable by R, so if you need to share this data with colleagues that use another tool, save it in another format.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-types-and-objects.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-manipulation-and-descriptive-statistics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

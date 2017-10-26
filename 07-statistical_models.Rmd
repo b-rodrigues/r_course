@@ -267,7 +267,7 @@ total_pos = housing_aug %>%
   pull(total)
 ```
 
-we find that `r total_pos` individuals where the residuals are positive. It is also easier to
+we find `r total_pos` individuals where the residuals are positive. It is also easier to
 extract outliers:
 
 ```{r, cache=TRUE}
@@ -399,6 +399,11 @@ See Also:
      ‘Index.Observations’
 ```
 
+The variable of interest is lfp: whether the individual participates in the labour force. To know 
+which variables are relevant in the decision to participate in the labour force, one could estimate
+a logit model, using glm().
+
+```{r}
 logit_participation = glm(lfp ~ ., data = Participation, family = "binomial")
 
 tidy(logit_participation)
@@ -439,12 +444,16 @@ Which makes it possible to extract the effect for a list of individuals that you
 ```{r}
 my_subjects = tribble(
     ~lfp,  ~lnnlinc, ~age, ~educ, ~nyc, ~noc, ~foreign,
-    "yes",   10.780,  7.0,     4,    1,    1,      "yes",
-     "no",    1.30,  9.0,     1,    4,    1,      "yes"
+    "yes",   10.780,  7.0,     4,    1,   1,     "yes",
+     "no",     1.30,  9.0,     1,    4,   1,     "yes"
 )
 
 dydx(my_subjects, logit_participation, "lnnlinc")
 ```
+
+
+I used the `tribble()` function from the tibble package to create this test data set, row by row. 
+Then, using `dydx()`, I get the marginal effect of variable `lnnlinc` for these two individuals. 
 
 
 ## Comparing models
@@ -539,7 +548,7 @@ predict(model3, pred_set)
 ```
 
 This returns a vector of predicted prices. This can then be used to compute the Root Mean Squared Error
-for instance. Let's to it within a tidyverse pipeline:
+for instance. Let's do it within a `tidyverse` pipeline:
 
 ```{r, cache=TRUE}
 rmse = pred_set %>%
@@ -563,6 +572,7 @@ Don't forget to exponentiate the predictions, remember you're dealing with a log
 RMSE is `r rmse2` which is lower than `model3`'s. However, keep in mind that the model was estimated
 on the whole data, and then the prediction quality was assessed using a subsample of the data the
 model was estimated on... so actually we can't really say if `model_log`'s predictions are very useful.
+Of course, this is the same for `model3`.
 In a later section we are going to learn how to do cross validation to avoid this issue.
 
 Also another problem of what I did before, unrelated to statistics per se, is that I wanted to compute
@@ -672,21 +682,21 @@ library(modelr)
 do K-fold Cross-Validation and Monte Carlo Cross-Validation respectively. First, let's see what
 `cross_mc()` (`cross_kfold()`) returns when applied to data:
 
-```{r, cache=TRUE}
-Housing %>%
-  crossv_mc(n = 50) %>%
-  print()
+```{r}
+cv_Housing = Housing %>%
+  crossv_mc(n = 50)
+
+print(cv_Housing)
 ```
 
 This is a `tibble` with 3 colmuns, two of them being list-columns; `train` and `test`. Each element
 of `train` and `test` is a resampled `tibble` of the original data. This means that we can now
-estimate the our first model (the simple linear one) on each resampled data using `map()`:
+estimate our first model (the simple linear one) on each resampled data using `map()`:
 
 Now if we want to estimate all these models:
 
-```{r, cache=TRUE}
-cv_models = Housing %>%
-  crossv_mc(n = 50) %>%
+```{r}
+cv_models = cv_Housing %>%
   mutate(model = map(train, ~lm(price ~ ., data = .)))
 
 print(cv_models)
@@ -696,7 +706,7 @@ We added a list-column with the 50 models estimated (or trained) on the train da
 say, the RMSE from before on each one. `modelr` includes a `rmse()` function, so unlike in the
 previous section where we computed the RMSE manually we are simply going to use this function:
 
-```{r, cache=TRUE}
+```{r}
 rmse_boot = cv_models %>%
   mutate(rmse_all_models = map2_dbl(model, test, ~rmse(.x, .y))) %>%
   pull(rmse_all_models)
@@ -706,20 +716,31 @@ print(rmse_boot)
 
 We can now compute the mean of this `rmse_boot` variable:
 
-```{r, cache=TRUE}
+```{r}
 booted_rmse_lin_lin = mean(rmse_boot)
 ```
 
-which is equal to `r booted_rmse_lin_lin`. Let's do the same calculation for the log-lin model, and
-let's do it in one single pipe workflow:
+which is equal to `r booted_rmse_lin_lin`.
 
-```{r, cache=TRUE}
-booted_rmse_log_lin = Housing %>%
-  crossv_mc(n = 50) %>%
-  mutate(model = map(train, ~lm(log(price) ~ ., data = .))) %>%
-  mutate(rmse_all_models = map2_dbl(model, test, ~rmse(.x, .y))) %>%
-  pull(rmse_all_models) %>%
-  mean()
+For the log-lin model, this is a bit more complicated, because
+we need to exponentiate the predictions. However, if we use `rmse()`
+as before, there is no way to do that. I show you the code below,
+and try to understand it. You can see this as an advanced exercise;
+if you understand these next lines of code, you should understand
+anything that has to do with the `tidyverse`.
+
+
+```{r}
+booted_rmse_log_lin = cv_Housing %>%
+    mutate(model = map(train, ~lm(log(price) ~ ., data = .))) %>%
+    mutate(log_pred = map2(model, test, ~exp(predict(.x, .y)))) %>%
+    mutate(prices = map(test, ~as.data.frame(.x)$price)) %>%
+    mutate(
+        rmse_all = 
+            map2_dbl(log_pred, prices, 
+                     ~sqrt(mean((.x - .y)**2, na.rm = TRUE)))) %>%
+    pull(rmse_all) %>%
+    mean()
 ```
 
-`booted_rmse_log_lin` is equal to `r booted_rmse_log_lin`, which is much lower than in the lin-lin model.
+`booted_rmse_log_lin` is equal to `r booted_rmse_log_lin`, which is lower than in the lin-lin model.
