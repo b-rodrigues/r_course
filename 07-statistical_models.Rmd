@@ -78,7 +78,7 @@ Format:
 
 Source:
 
-     Anglin, P.M.  and R.  Gencay https://help.github.com/articles/error-permission-denied-publickey/#platform-mac(1996) “Semiparametric estimation of
+     Anglin, P.M.  and R.  Gencay (1996) “Semiparametric estimation of
      a hedonic price function”, _Journal of Applied Econometrics_,
      *11(6)*, 633-648.
 
@@ -287,6 +287,166 @@ cume_dist(example)
 
 by filtering `prank > 0.99` we get the top 1% of outliers according to Cook's distance.
 
+## Interpreting models
+
+Model interpretation is essential in the social sciences. If one wants to know the effect of
+variable `x` on the dependent variable `y`, marginal effects have to be computed. This is easily
+done in R with the `margins`  package, which aims to provide the same functionality as the
+`margins` command in STATA:
+
+```{r}
+library(margins)
+
+effects_model3 = margins(model3)
+
+summary(effects_model3)
+```
+
+It is also possible to plot the results:
+
+```{r}
+plot(effects_model3)
+```
+
+This uses the basic R plotting capabilities, which is useful because it is a simple call to the
+function `plot()` but if you've been using `ggplot2` and want this graph to have the same feel as
+the others made with `ggplot2` you first need to save the summary in a variable.
+`summary(effects_model3)` is a `data.frame` with many more details. Let's overwrite this
+`effects_model3` with its summary:
+
+```{r}
+effects_model3 = summary(effects_model3)
+```
+
+And now it is possible to use `ggplot2` to have the same plot:
+
+```{r}
+ggplot(data = effects_model3) +
+  geom_point(aes(factor, AME)) +
+  geom_errorbar(aes(x = factor, ymin = lower, ymax = upper)) +
+  geom_hline(yintercept = 0) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45))
+```
+
+Of course for `model3`, the marginal effects are the same as the coefficients, so let's estimate a
+logit model and compute the marginal effects. Logit models can be estimated using the `glm()` function.
+As an example, we are going to use the `Participation` data, also from the `Ecdat` package:
+
+```{r}
+data(Participation)
+```
+
+```{r, eval=FALSE}
+?Particpation
+```
+
+```
+Participation              package:Ecdat               R Documentation
+
+Labor Force Participation
+
+Description:
+
+     a cross-section
+
+     _number of observations_ : 872
+
+     _observation_ : individuals
+
+     _country_ : Switzerland
+
+Usage:
+
+     data(Participation)
+
+Format:
+
+     A dataframe containing :
+
+     lfp labour force participation ?
+
+     lnnlinc the log of nonlabour income
+
+     age age in years divided by 10
+
+     educ years of formal education
+
+     nyc the number of young children (younger than 7)
+
+     noc number of older children
+
+     foreign foreigner ?
+
+Source:
+
+     Gerfin, Michael (1996) “Parametric and semiparametric estimation
+     of the binary response”, _Journal of Applied Econometrics_,
+     *11(3)*, 321-340.
+
+References:
+
+     Davidson, R.  and James G.  MacKinnon (2004) _Econometric Theory
+     and Methods_, New York, Oxford University Press, <URL:
+     http://www.econ.queensu.ca/ETM/>, chapter 11.
+
+     Journal of Applied Econometrics data archive : <URL:
+     http://qed.econ.queensu.ca/jae/>.
+
+See Also:
+
+     ‘Index.Source’, ‘Index.Economics’, ‘Index.Econometrics’,
+     ‘Index.Observations’
+```
+
+logit_participation = glm(lfp ~ ., data = Participation, family = "binomial")
+
+tidy(logit_participation)
+```
+
+From the results above, one can only interpret the sign of the coefficients. To know how much a
+variable influences the labour force participation, one has to use `margins()`:
+
+```{r}
+effects_logit_participation = margins(logit_participation) %>%
+  summary()
+
+print(effects_logit_participation)
+```
+
+We can use the previous code to plot the marginal effects:
+
+```{r}
+ggplot(data = effects_logit_participation) +
+  geom_point(aes(factor, AME)) +
+  geom_errorbar(aes(x = factor, ymin = lower, ymax = upper)) +
+  geom_hline(yintercept = 0) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45))
+```
+
+So an infinitesimal increase, in say, non-labour income (lnnlinc) of 0.001 is associated with a
+decrease of the probability of labour force participation by 0.001*17 percentage points.
+
+You can also extract the marginal effects of a single variable:
+
+```{r}
+head(dydx(Participation, logit_participation, "lnnlinc"))
+```
+
+Which makes it possible to extract the effect for a list of individuals that you can create yourself:
+
+```{r}
+my_subjects = tribble(
+    ~lfp,  ~lnnlinc, ~age, ~educ, ~nyc, ~noc, ~foreign,
+    "yes",   10.780,  7.0,     4,    1,    1,      "yes",
+     "no",    1.30,  9.0,     1,    4,    1,      "yes"
+)
+
+dydx(my_subjects, logit_participation, "lnnlinc")
+```
+
+
 ## Comparing models
 
 Let's estimate another model on the same data; prices are only positive, so a linear regression
@@ -298,7 +458,7 @@ ggplot(Housing) +
   geom_density(aes(price))
 ```
 
-it looks like taking the log of `price` might provide a better fit:
+it looks like modeling the log of `price` might provide a better fit:
 
 ```{r, cache=TRUE}
 model_log = lm(log(price) ~ ., data = Housing)
