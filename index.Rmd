@@ -1,5 +1,5 @@
 ---
-title: "Modern R for STATEC"
+title: "Learn modern R with the tidyverse"
 author: "Bruno Rodrigues"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -7,7 +7,7 @@ documentclass: gitbook
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-description: "In this book, statisticians and economists working at STATEC will learn how use R for their needs. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed."
+description: "In this book, statisticians and economists will learn how use to R for their needs. Importing data, computing descriptive statistics, running regressions and generating reports are some of the topics covered. No previous experience with R is needed."
 ---
 
 # Preface {-}
@@ -30,22 +30,31 @@ as official statistics, economics, finance, data science, etc.
 
 ## Why *modern* R? {-}
 
-*Modern* R instead of just R because we are going to learn how to use modern packages and concepts,
-such as functional programming (which is quite an old concept actually, but one that came into
-fashion recently). R is derived from S, which is a programming language that has roots in FORTRAN
-and Scheme. If you learned R at university, you've probably learned to use it as you would have
-used FORTRAN; very long scripts where data are represented as matrices and where row-wise
-(or column-wise) operations are implemented with `for` loops. There's nothing wrong with that, mind
-you, but it is a shame not to use R's functional programming capabilities that it inherited from
-Scheme, because I believe that it makes writing code easier and more natural. At its core, functional
-programming uses functions, and functions are first class objects in R. We are going to learn what
-that means later. First, we are going to use functions that are already available in R, and then
-use those available in packages, mostly those from the `tidyverse`. The `tidyverse` is a collection
-of packages developed by [Hadley Wickham](http://hadley.nz/). By using the packages from the
-`tidyverse` and R's built-in functional programming capabilities, we can write code that is faster
-and easier to explain to colleagues, and also easier to maintain. This also means that you might
-have to change your expectations and what you know already from R, if you learned it at University
-but haven't touched it in a long time.
+*Modern* R instead of just R because we are going to learn how to use modern packages (mostly
+those from the [tidyverse](https://www.tidyverse.org/)) and concepts, such as functional
+programming (which is quite an old concept actually, but one that came into fashion recently). R is
+derived from S, which is a programming language that has roots in FORTRAN and other languages too.
+If you learned R at university, you've probably learned to use it as you would have used FORTRAN;
+very long scripts where data are represented as matrices and where row-wise (or column-wise)
+operations are implemented with `for` loops. There's nothing wrong with that, mind you, but R
+itself was also influenced by Scheme and Common Lisp, which are functional programming languages.
+This means that it is really a shame not to use R's functional programming capabilities that it
+inherited from these languages, because I believe that it makes writing code easier and more
+natural. At its core, functional programming uses functions, and functions are so-called *first
+class*  objects in R, which means that there is nothing special about them... you can pass them to
+other functions, create functions that return functions and do any kind of operation on them as
+with any other object. This means that functions in R are extremely powerful and flexible tools.
+In the first part of the book, we are going to use functions that are already available in R, and
+then use those available in packages, mostly those from the `tidyverse`. The `tidyverse` is a
+collection of packages developed by [Hadley Wickham](http://hadley.nz/). By using the packages from
+the `tidyverse` and R's built-in functional programming capabilities, we can write code that is
+faster and easier to explain to colleagues, and also easier to maintain. This also means that you
+might have to change your expectations and what you know already from R, if you learned it at
+University but haven't touched it in a long time. For example for and while loops, a very common
+and well-known concept in any programming language, are relegated to chapter 8. This does not mean
+that you will have to wait for 8 chapter to know how to repeat instructions *N* times, but that for
+and while loops are tools that are very useful for one very specific kind of situation. For all the
+rest, they are not needed, and you will learn how to avoid using loops.
 
 ## What is Rstudio? {-}
 
@@ -54,16 +63,31 @@ how to use it.
 R and Rstudio are both open source: this means that the source code is freely available on the internet
 and contributions by anyone are welcome and integrated; provided they are meaningful and useful.
 
+## What to expect from this book? {-}
+
+You can't write "programming language" without "language". And just as you wouldn't expect to learn
+French, Portuguese or Icelandic by reading a single book, you shouldn't expect to become fluent in R
+by reading a single book, not even by reading 10 books. Programming is an art which requires a lot of
+practice. [Teach yourself programming in 10 years](http://www.norvig.com/21-days.html) is a blog
+post written by Peter Norvig which explains that just as with any craft, mastering programming
+takes time. And even if you don't need or want to become an expert in R, if you wish to use R
+effectively and in a way that ultimately saves you time, you need to have some fluency in it, and
+this only comes by continuing to learn about the language, and most importantly practicing. If you
+keep using R every day, you'll definitely become very fluent. To stay informed about developments of
+the language, and the latest news, I advise you read blogs, especially
+[R-bloggers](https://www.r-bloggers.com/) which aggregates blog posts by more than 750 blogs
+discussing R.
+
 ## Prerequisites {-}
 
-R and Rstudio are the two main pieces of software that we are going to use. Both are already installed
-on your desktop computer. R is the programming language and Rstudio is a modern IDE for it. You can
-use R without Rstudio; but you cannot use Rstudio without R.
+R and Rstudio are the two main pieces of software that we are going to use. R is the programming
+language and Rstudio is a modern IDE for it. You can use R without Rstudio; but you cannot use
+Rstudio without R.
 
 If you wish to install R and Rstudio at home to follow the examples in this book you can do it as
-both pieces of software are available free of charge (for firms paid options for Rstudio exist).
-Installation is simple, but operating system dependent. To download and install R for Windows,
-follow [this link](https://cloud.r-project.org/bin/windows/base/).
+both pieces of software are available free of charge (paid options for Rstudio exist, for companies
+that need technical support). Installation is simple, but operating system dependent. To download
+and install R for Windows, follow [this link](https://cloud.r-project.org/bin/windows/base/).
 For macOS, follow [this one](https://cloud.r-project.org/bin/macosx/). If you run a GNU+Linux
 distribution, you can install R using the system's package manager. On Ubuntu, install `r-base`.
 
@@ -94,10 +118,10 @@ knitr::include_graphics("pics/rstudio_install_packages.gif")
 
 ### The author {-}
 
-My name is Bruno Rodrigues and I work in the research department of STATEC. I program almost
-exclusively in R and have been teaching some R courses for a few years now (first started teaching
-for students at the Université of Strasbourg). These notes are an update of those I used at the
-time, plus a lot of things I've learned about R since I started working at STATEC. I also am writing
-another [book](https://b-rodrigues.github.io/fput/) that is more advanced than this one. In my free
-time I like cooking, boxing and [blogging](https://www.brodrigues.co). You can follow me
-on [twitter](https://www.twitter.com/brodriguesco) if you'd like!
+My name is Bruno Rodrigues and I program almost exclusively in R and have been teaching some R
+courses for a few years now (first started teaching for students at the Université of Strasbourg).
+These notes are an update of those I used at the time, plus a lot of things I've learned about R
+since I started working at STATEC Research. I also am writing another
+[book](https://b-rodrigues.github.io/fput/) that is more advanced than this one. In my free time I
+like cooking, boxing and [blogging](https://www.brodrigues.co). You can follow me on
+[twitter](https://www.twitter.com/brodriguesco) if you'd like!

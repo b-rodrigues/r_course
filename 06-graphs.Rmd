@@ -466,7 +466,7 @@ pick colours from with RStudio. Also, you do not even need to load it to use
 it, since it comes with an Addin:
 
 
-```{r, cache=TRUE}
+```{r, cache=TRUE, echo=FALSE}
 knitr::include_graphics("pics/rstudio_colourpicker.gif")
 ```
 
@@ -649,3 +649,10 @@ graphs or even another function. `map()` will simply map this function to a list
 long as these inputs are correct arguments to the function, `map()` will do its magic. If you
 combine this with list-columns, you can even use `map()` alongside `dplyr` functions and map your
 function by first grouping, filtering, etc...
+
+
+## Exercises
+
+### Exercise 1 {-}
+
+Load the `Bwages` dataset from the `Ecdat` package.

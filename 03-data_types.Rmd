@@ -60,6 +60,16 @@ a = "this is a string"
 class(a)
 ```
 
+A very nice package to work with characters is `stringr`, which is also part of the `tidyverse`.
+
+## The `factor` class
+
+Factors look like characters, but are very different. They are the representation of categorical
+variables. A `tidyverse` package to work with factors is `forcats`. You would rarely use factor variables
+outside of datasets, so for now, it is enough to know that this class exists. We are going to
+manipulate factor variables in the next chatper 5.
+
+
 ## Vectors and matrices
 
 You can create a vector in different ways. But first of all, it is important to understand that a
@@ -338,18 +348,18 @@ and add it this other vector:
 
 and save the result to a new variable called `result`.
 
-### Exercise 2
+### Exercise 2 {-}
 
 Using `a` and `b` from before, try to get their dot product.
 
 Try with `a * b` in the R console. What happened?
 Try to find the right function to get the dot product. Don't hesitate to google the answer!
 
-### Exercise 3
+### Exercise 3 {-}
 
 How can you create a matrix of dimension (30,30) filled with 2's by only using the function `matrix()`?
 
-### Exercise 4
+### Exercise 4 {-}
 
 Save your first name in a variable `a` and your surname in a variable `b`. What does the function:
 
@@ -360,7 +370,7 @@ paste(a,b)
 do? Look at the help for `paste()` with `?paste` or using the *Help* pane in Rstudio. What does the
 optional argument `sep` do?
 
-### Exercise 5
+### Exercise 5 {-}
 
 Define the following variables: `a = 8`, `b = 3`, `c = 19`. What do the following lines check?
 What do they return?
@@ -375,7 +385,7 @@ a < b
 (a > b) || (a < b)
 ```
 
-### Exercise 6
+### Exercise 6 {-}
 
 Define the following matrix:
 
@@ -397,7 +407,7 @@ matrix_a = matrix( c(9, 4, 12, 5, 0, 7, 2, 6, 8, 9, 2, 9), nrow = 4, byrow = TRU
 * What does `matrix_a[ , 2]` do?
 * Can you find which function gives you the transpose of this matrix?
 
-### Exercise 7
+### Exercise 7 {-}
 
 Solve the following system of equations using the `solve()` function:
 

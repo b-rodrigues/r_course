@@ -1,7 +1,5 @@
 # Getting to know Rstudio
 
-
-
 ## Panes
 
 Rstudio is divided into different panes. Each pane has a specific function. The gif below shows
@@ -128,3 +126,20 @@ knitr::include_graphics("pics/rstudio_plots.gif")
 
 The plots shown in the gif are made using basic R functions. Later, we will learn how to make nicer
 looking plots using the package `ggplot2`.
+
+## Addins
+
+Some packages install addins, which are accessible through the addins button:
+
+```{r, echo=FALSE}
+knitr::include_graphics("pics/rstudio_addins.png")
+```
+
+This addins make it easier to use some functions and you can read more about them [here](https://rstudio.github.io/rstudioaddins/#overview).
+
+## Exercises
+
+### Exercise 1 {-}
+
+Change the look and feel of RStudio to suit your tastes! I personally like to move the console
+to the right and use a dark theme. Take some 5 minutes to customize it and browse through all the options.

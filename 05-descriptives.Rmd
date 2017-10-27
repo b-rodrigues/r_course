@@ -241,7 +241,6 @@ and `gather()` make it possible to go from long to wide datasets respectively.
 library(tidyr)
 ```
 
-
 ```{r, cache=TRUE}
 survey_data = tribble(
   ~id, ~variable, ~value,
@@ -290,6 +289,65 @@ powerful functions work.
 The last function from `tidyr` that we are going to discuss is `nest()`, but we will keep it for
 later, in the section about so-called *list-columns*.
 
+### Getting to know `factor` variables
+
+Remember in chapter 3 when I very quickly explained what were `factor` variables? In this section,
+we are going to work a little bit with. `factor` variables are very useful, and the `forcats` package
+includes some handy functions to work with `factor`s. First, let's load the `forcats` package:
+
+```{r}
+library(forcats)
+```
+
+as an example, we are going to work with the `gss_cat` dataset that is included in `forcats`. Let's
+load that:
+
+```{r}
+data(gss_cat)
+
+head(gss_cat)
+```
+
+as you can see, `marital`, `race`, `rincome` and `partyid` are all factor variables. Let's take a closer
+look at `marital`:
+
+```{r}
+str(gss_cat$marital)
+```
+
+and let's see `rincome`:
+
+```{r}
+str(gss_cat$rincome)
+```
+
+`factor` variables have different levels, using `forcats::fct_recode()` you can recode levels:
+
+```{r}
+gss_cat = gss_cat %>%
+  mutate(marital = fct_recode(marital,
+                              refuse = "No answer",
+                              never_married = "Never married",
+                              divorced = "Separated",
+                              divorced = "Divorced",
+                              widowed = "Widowed",
+                              married = "Married"))
+
+gss_cat %>%
+  tabyl(marital)
+```
+
+Using `fct_recode()`, I was able to recode the levels and collapse `Separated` and `Divorced` to
+a single category called `divorced`. As you can see, `refuse` and `widowed` are less than 10%, so
+maybe you'd want to lump these categories together:
+
+```{r}
+gss_cat = gss_cat %>%
+  mutate(marital = fct_lump(marital, prop = 0.10, other_level = "other"))
+
+gss_cat %>%
+  tabyl(marital)
+```
 
 ## Working with a list of datasets
 
@@ -541,3 +599,110 @@ As you can see, for individual 1, the column data contains a 2x2 tibble with col
 `value`. You might be wondering why this is useful, because this seems to introduce an unnecessary
 layer of complexity. The usefulness of list-columns will become apparent in the next chapters,
 where we are going to learn how to repeat actions over, say, individuals.
+
+
+## Exercises
+
+### Exercise 1 {-}
+
+Load the `LaborSupply` dataset from the `Ecdat` package and answer the following questions:
+
+* Compute the average annual hours worked by year (plus standard deviation)
+* What age group worked the most hours in the year 1982?
+* Create a variable, `n_years` that equals the number of years an  individual stays in the panel. Is the panel balanced?
+* Which are the individuals that do not have any kids during the whole period? Create a variable, `no_kids`, that flags these individuals (1 = no kids, 0 = kids)
+* Using the `no_kids` variable from before compute the average wage, standard deviation and number of observations in each group for the year 1980 (no kids group vs kids group).
+* Create the lagged logarithm of hours worked and wages. Remember that this is a panel.
+
+```{r, eval=FALSE, include=FALSE}
+library(Ecdat)
+library(dplyr)
+
+data("LaborSupply")
+
+# Compute the average annual hours worked by year (plus standard deviation)
+
+LaborSupply %>%
+  group_by(year) %>%
+  summarise(mean(lnhr), sd(lnhr))
+
+# What age group worked the most hours in the year 1982?
+
+LaborSupply %>%
+  filter(year == 1982) %>%
+  group_by(age) %>%
+  mutate(total_lnhr_age = sum(lnhr)) %>%
+  ungroup() %>%
+  filter(total_lnhr_age == max(total_lnhr_age))
+
+# Create a variable, `n_years` that equals the number of years an
+# individual stays in the panel. Is the panel balanced?
+
+LaborSupply %>%
+  group_by(id) %>%
+  mutate(n_years = n()) %>%
+  ungroup() %>%
+  summarise(mean(10))
+
+# Which are the individuals that do not have any kids during the whole period?
+# Create a variable, `no_kids`, that flags these individuals (1 = no kids, 0 = kids)
+
+LaborSupply = LaborSupply %>%
+  group_by(id) %>%
+  mutate(n_kids = max(kids)) %>%
+  mutate(no_kids = ifelse(n_kids == 0, 1, 0))
+
+# Using the `no_kids` variable from before compute the average wage in 1980 for these two groups (no kids group vs kids group).
+LaborSupply %>%
+  filter(year == 1980) %>%
+  group_by(no_kids) %>%
+  summarise(mean(lnwg), sd(lnwg), n())
+
+```
+
+### Exercise 2 {-}
+
+* What does the following code do? Copy and paste it in an R interpreter to find out!
+
+```{r, eval=FALSE}
+LaborSupply %>%
+  group_by(id) %>%
+  mutate_at(vars(starts_with("l")), funs(lag, lead))
+```
+
+`mutate_at()` is a scoped version of `mutate()` which allows you to specify a number of columns and
+functions in one go. This also exists for `summarise()`.
+
+* Using `summarise_at()`, compute the mean, standard deviation and number of individuals of `lnhr` and `lnwg` for each individual.
+
+```{r, eval=FALSE, include = FALSE}
+LaborSupply %>%
+  group_by(id) %>%
+  summarise_at(vars(starts_with("l"), funs(mean, sd)))
+```
+
+### Exercise 3 {-}
+
+* In the dataset folder you downloaded at the beginning of the chapter, there is a folder called
+"unemployment". I used the data in the section about working with lists of datasets. Using
+`rio::import_list()`, read the 4 datasets into R.
+
+```{r, eval=FALSE, echo=FALSE}
+paths = Sys.glob("datasets/unemployment/*.csv")
+
+all_datasets = import_list(paths)
+```
+
+* Using `map()`, map the `janitor::clean_names()` function to each dataset (just like in the example
+in the section on working with lists of datasets). Then, still with `map()` and `mutate()` convert
+all commune names in the `commune` column with the function `tolower()`, in a new column called `lcommune`.
+This is not an easy exercise; so here are some hints:
+
+    * Remember that `all_datasets` is a list of datasets. Which function do you use when you want to map a function to each element of a list?
+    * Each element of `all_datasets` are `data.frame` objects. Which function do you use to add a column to a `data.frame`?
+    * What symbol can you use to access a column of a `data.frame`?
+
+```{r, eval=FALSE, echo=FALSE}
+all_datasets %>%
+  map(~mutate(., lcommune = tolower(.$commune)))
+```
