@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2017-10-27">
+<meta name="date" content="2017-11-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -106,14 +106,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-r"><i class="fa fa-check"></i>What is R?</a></li>
 <li><a href="index.html#why-modern-r">Why <em>modern</em> R?</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-rstudio"><i class="fa fa-check"></i>What is Rstudio?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-rstudio"><i class="fa fa-check"></i>What is RStudio?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-to-expect-from-this-book"><i class="fa fa-check"></i>What to expect from this book?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-are-packages"><i class="fa fa-check"></i>What are packages?</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-author"><i class="fa fa-check"></i>The author</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html"><i class="fa fa-check"></i><b>1</b> Getting to know Rstudio</a><ul>
+<li class="chapter" data-level="1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html"><i class="fa fa-check"></i><b>1</b> Getting to know RStudio</a><ul>
 <li class="chapter" data-level="1.1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#panes"><i class="fa fa-check"></i><b>1.1</b> Panes</a></li>
 <li class="chapter" data-level="1.2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#console"><i class="fa fa-check"></i><b>1.2</b> Console</a></li>
 <li class="chapter" data-level="1.3" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#scripts"><i class="fa fa-check"></i><b>1.3</b> Scripts</a><ul>
@@ -157,6 +157,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html"><i class="fa fa-check"></i><b>4</b> Reading and writing data</a><ul>
 <li class="chapter" data-level="4.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#the-swiss-army-knife-of-data-import-and-export-rio"><i class="fa fa-check"></i><b>4.1</b> The swiss army knife of data import and export: <code>rio</code></a></li>
 <li class="chapter" data-level="4.2" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#writing-any-object-to-disk"><i class="fa fa-check"></i><b>4.2</b> Writing any object to disk</a></li>
+<li class="chapter" data-level="4.3" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#using-rstudio-projects-to-manage-paths"><i class="fa fa-check"></i><b>4.3</b> Using RStudio projects to manage paths</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html"><i class="fa fa-check"></i><b>5</b> Data manipulation and descriptive statistics</a><ul>
 <li class="chapter" data-level="5.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-single-dataset"><i class="fa fa-check"></i><b>5.1</b> Working with a single dataset</a><ul>
@@ -507,7 +508,7 @@ See Also:
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggfortify)
 
 <span class="kw">autoplot</span>(model3, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre></div>
-<p><img src="modern_r_tidyverse_files/figure-html/unnamed-chunk-193-1.png" width="672" /></p>
+<p><img src="modern_r_tidyverse_files/figure-html/unnamed-chunk-205-1.png" width="672" /></p>
 <p><code>which=1:6</code> is an additional option that shows you all the diagnostics plot. If you omit this option, you will only get 4 of them.</p>
 <p>You can also get the residuals of the regression in two ways; either you grab them directly from the model fit:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">resi3 =<span class="st"> </span><span class="kw">residuals</span>(model3)</code></pre></div>
@@ -539,7 +540,7 @@ See Also:
 <p>A few columns have been added to the original data, among them <code>.resid</code> which contains the residuals. Let’s plot them:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(housing_aug) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(.resid))</code></pre></div>
-<p><img src="modern_r_tidyverse_files/figure-html/unnamed-chunk-198-1.png" width="672" /></p>
+<p><img src="modern_r_tidyverse_files/figure-html/unnamed-chunk-210-1.png" width="672" /></p>
 <p>Fitted values are also added to the original data, under the variable <code>.fitted</code>. It would also have been possible to get the fitted values with:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit3 =<span class="st"> </span><span class="kw">fitted</span>(model3)</code></pre></div>
 <p>but I prefer using <code>augment()</code>, because the columns get merged to the original data, which then makes it easier to find specific individuals, for example, you might want to know for which housing units the model underestimates the price:</p>
@@ -602,7 +603,7 @@ effects_model3 =<span class="st"> </span><span class="kw">margins</span>(model3)
 ##      stories  6556.9457  924.4211  7.0930 0.0000  4745.1137  8368.7777</code></pre>
 <p>It is also possible to plot the results:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(effects_model3)</code></pre></div>
-<p><img src="modern_r_tidyverse_files/figure-html/unnamed-chunk-204-1.png" width="672" /></p>
+<p><img src="modern_r_tidyverse_files/figure-html/unnamed-chunk-216-1.png" width="672" /></p>
 <p>This uses the basic R plotting capabilities, which is useful because it is a simple call to the function <code>plot()</code> but if you’ve been using <code>ggplot2</code> and want this graph to have the same feel as the others made with <code>ggplot2</code> you first need to save the summary in a variable. <code>summary(effects_model3)</code> is a <code>data.frame</code> with many more details. Let’s overwrite this <code>effects_model3</code> with its summary:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">effects_model3 =<span class="st"> </span><span class="kw">summary</span>(effects_model3)</code></pre></div>
 <p>And now it is possible to use <code>ggplot2</code> to have the same plot:</p>
@@ -612,7 +613,7 @@ effects_model3 =<span class="st"> </span><span class="kw">margins</span>(model3)
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>))</code></pre></div>
-<p><img src="modern_r_tidyverse_files/figure-html/unnamed-chunk-206-1.png" width="672" /></p>
+<p><img src="modern_r_tidyverse_files/figure-html/unnamed-chunk-218-1.png" width="672" /></p>
 <p>Of course for <code>model3</code>, the marginal effects are the same as the coefficients, so let’s estimate a logit model and compute the marginal effects. Logit models can be estimated using the <code>glm()</code> function. As an example, we are going to use the <code>Participation</code> data, also from the <code>Ecdat</code> package:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Participation)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?Particpation</code></pre></div>
@@ -703,7 +704,7 @@ See Also:
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>))</code></pre></div>
-<p><img src="modern_r_tidyverse_files/figure-html/unnamed-chunk-211-1.png" width="672" /></p>
+<p><img src="modern_r_tidyverse_files/figure-html/unnamed-chunk-223-1.png" width="672" /></p>
 <p>So an infinitesimal increase, in say, non-labour income (lnnlinc) of 0.001 is associated with a decrease of the probability of labour force participation by 0.001*17 percentage points.</p>
 <p>You can also extract the marginal effects of a single variable:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">dydx</span>(Participation, logit_participation, <span class="st">&quot;lnnlinc&quot;</span>))</code></pre></div>
@@ -732,7 +733,7 @@ See Also:
 <p>Let’s estimate another model on the same data; prices are only positive, so a linear regression might not be the best model, because the model allows for negative prices. Let’s look at the distribution of prices:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(Housing) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(price))</code></pre></div>
-<p><img src="modern_r_tidyverse_files/figure-html/unnamed-chunk-214-1.png" width="672" /></p>
+<p><img src="modern_r_tidyverse_files/figure-html/unnamed-chunk-226-1.png" width="672" /></p>
 <p>it looks like modeling the log of <code>price</code> might provide a better fit:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_log =<span class="st"> </span><span class="kw">lm</span>(<span class="kw">log</span>(price) <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Housing)
 
@@ -784,7 +785,7 @@ diagnostics_models =<span class="st"> </span><span class="kw">full_join</span>(d
 <p>I saved the diagnostics in two different <code>data.frame</code> using the <code>glance()</code> function and added a <code>model</code> column to indicate which model the diagnostics come from. Then I merged both datasets using <code>full_join()</code>, a <code>dplyr</code> function.</p>
 <p>As you can see, the model with the logarithm of the prices as the explained variable has a higher likelihood (and thus lower AIC and BIC) than the simple linear model. Let’s take a look at the diagnostics plots:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(model_log, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre></div>
-<p><img src="modern_r_tidyverse_files/figure-html/unnamed-chunk-219-1.png" width="672" /></p>
+<p><img src="modern_r_tidyverse_files/figure-html/unnamed-chunk-231-1.png" width="672" /></p>
 </div>
 <div id="using-a-model-for-prediction" class="section level2">
 <h2><span class="header-section-number">7.5</span> Using a model for prediction</h2>
@@ -974,17 +975,12 @@ pred_set =<span class="st"> </span>Housing <span class="op">%&gt;%</span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(boot_result, <span class="kw">aes</span>(estimate)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>term, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)</code></pre></div>
-<p><img src="modern_r_tidyverse_files/figure-html/unnamed-chunk-229-1.png" width="672" /></p>
+<p><img src="modern_r_tidyverse_files/figure-html/unnamed-chunk-241-1.png" width="672" /></p>
 </div>
 <div id="cross-validation" class="section level3">
 <h3><span class="header-section-number">7.7.2</span> Cross-validation</h3>
 <p>To do cross-validation, we are going to use the <code>modelr</code> package, which is also part of the <code>tidyverse</code>.<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(modelr)</code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;modelr&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:broom&#39;:
-## 
-##     bootstrap</code></pre>
 <p><code>modelr</code> includes two functions for cross-validation, <code>crossv_kfold</code> and <code>crossv_mc</code>, which do K-fold Cross-Validation and Monte Carlo Cross-Validation respectively. First, let’s see what <code>cross_mc()</code> (<code>cross_kfold()</code>) returns when applied to data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cv_Housing =<span class="st"> </span>Housing <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">crossv_mc</span>(<span class="dt">n =</span> <span class="dv">50</span>)

@@ -1,8 +1,8 @@
-# Getting to know Rstudio
+# Getting to know RStudio
 
 ## Panes
 
-Rstudio is divided into different panes. Each pane has a specific function. The gif below shows
+RStudio is divided into different panes. Each pane has a specific function. The gif below shows
 some of these panes:
 
 ```{r, echo=FALSE}
@@ -58,7 +58,7 @@ complex objects.
 
 ## Options
 
-It is also possible to customize Rstudio's look and feel:
+It is also possible to customize RStudio's look and feel:
 
 ```{r, echo=FALSE}
 knitr::include_graphics("pics/rstudio_options.gif")
@@ -92,7 +92,7 @@ to learn and use whatever shortcuts are useful to you!
 
 ## Projects
 
-One of the best features of Rstudio are projects. Creating a project is simple; the gif below
+One of the best features of RStudio are projects. Creating a project is simple; the gif below
 shows how you can create a project and how you can switch between projects.
 
 ```{r, echo=FALSE}
@@ -108,7 +108,7 @@ I won't discuss it here. You can find a lot of resources online to get you start
 
 ## History
 
-The history pane saves all the previous lines you executed. You can then select these lines and
+The *History* pane saves all the previous lines you executed. You can then select these lines and
 send them back to the console or the script.
 
 ```{r, echo=FALSE}

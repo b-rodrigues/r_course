@@ -1,23 +1,21 @@
 # Data manipulation and descriptive statistics
 
-Now that we are familiar with some R objects and know how to import data, it is time to actually
-write some code. In this chapter, we are going to compute descriptive statistics for a single dataset,
-but also for a list of datasets. However, I will not give a list of functions to compute descriptive
+Now that we are familiar with some R objects and know how to import data, it is time to write some
+code. In this chapter, we are going to compute descriptive statistics for a single dataset, but
+also for a list of datasets. However, I will not give a list of functions to compute descriptive
 statistics; if you need a specific function you can find easily in the *Help* pane in Rstudio or
-using any modern internet search engine. What I will do is show you a workflow that allows you
-to compute the statisics you need fast.
-
-R has a lot of built-in functions for descriptive statistics; however, if you want to compute statistics
-by, say, gender, some more complex manipulations are needed. At least this was true in the past.
-Nowadays, thanks to the packages from the tidyverse (remember those we installed at the beginning
-of the book?), it is very easy and fast to compute descriptive statistics by any stratifying variable(s).
-
-The packages we are going to use for this are called `dplyr` and `tidyr`. `dplyr` contains a lot of functions that
-make manipulating data and computing descriptive statistics very easy. To make things easier for now,
-we are going to use example data included with `dplyr`. So no need to import an external dataset; this
-does not change anything to the example that we are going to study here; the source of the data does
-not matter for this. `tidyr` is very useful to reshape data. We are going to focus on two
-functions from `tidyr`, `gather()` and `spread()`.
+using any modern internet search engine. What I will do is show you a workflow that allows you to
+compute the statisics you need fast.
+R has a lot of built-in functions for descriptive statistics; however, if you want to compute
+statistics by, say, gender, some more complex manipulations are needed. At least this was true in
+the past. Nowadays, thanks to the packages from the `tidyverse`, it is very easy and fast to
+compute descriptive statistics by any stratifying variable(s). The packages we are going to use for
+this are called `dplyr` and `tidyr`. `dplyr` contains a lot of functions that make manipulating
+data and computing descriptive statistics very easy. To make things easier for now, we are going to
+use example data included with `dplyr`. So no need to import an external dataset; this does not
+change anything to the example that we are going to study here; the source of the data does not
+matter for this. `tidyr` is very useful to reshape data. We are going to focus on two functions
+from `tidyr`, `gather()` and `spread()`.
 
 ## Working with a single dataset
 
@@ -35,10 +33,10 @@ head(starwars)
 ```
 
 `data(starwars)` loads the example dataset called `starwars` that is included in the package `dplyr`.
-As I said earlier, this is just an example; you could have loaded an external dataset, from a `.csv`
-for instance. This does not matter for what comes next.
+As I said earlier, this is just an example; you could have loaded an external dataset, from a
+`.csv` file for instance. This does not matter for what comes next.
 
-R includes a lot of function for descriptive statistics, such as `mean()`, `sd()`, `cov()`, and many
+R includes a lot of functions for descriptive statistics, such as `mean()`, `sd()`, `cov()`, and many
 more. What `dplyr` brings to the table is the possibility to apply these functions to the dataset
 easily. For example, imagine you want the average height of everyone in the dataset. Using the basic
 R functions, you could write this:
@@ -48,9 +46,10 @@ mean(starwars$height)
 ```
 
 `starwars$height` means that the user wants to access the column called `height` from the dataset
-`starwars`. This is then given as an argument to the function `mean()`. But what if the user
-wants the average height by species? Before `dplyr`, a solution to this simple problem would have
-required more than a single command. Now this is as easy as:
+`starwars`. Remember that the `$` symbol is how you access elements of a named list. This is the
+same for columns of datasets as you can see. This is then given as an argument to the function
+`mean()`. But what if the user wants the average height by species? Before `dplyr`, a solution to
+this simple problem would have required more than a single command. Now this is as easy as:
 
 ```{r, cache=TRUE}
 starwars %>%
@@ -66,17 +65,17 @@ argument of the function on the right-hand side. Try the following in the comman
 4 %>% sqrt()
 ```
 
-It is equivalent to `sqrt(4)`. Why use that though? You will see in the next examples that using the
+It is equivalent to `sqrt(4)`. Why use that though? You will see in the next examples that using
 `%>%` makes writing and reading code, much, much easier. For example, the previous manipulation I
 did could be read as "Take the starwars data, give it to the `group_by()` function and then
-compute the mean height". Without the `%>%`, one would need to write:
+compute the mean of height". Without the `%>%`, one would need to write:
 
 ```{r, cache=TRUE}
 summarise(group_by(starwars, species), mean(height))
 ```
 
-as you can see, it is much more difficult to read. Imagine now that I want average height by species,
-but only for males. Again, this is very easy using `%>%`:
+as you can clearly see, it is much more difficult to read. Imagine now that I want the average height
+by species, but only for males. Again, this is very easy using `%>%`:
 
 ```{r, cache=TRUE}
 starwars %>%
@@ -85,7 +84,7 @@ starwars %>%
   summarise(mean(height))
 ```
 
-Again, the `%>%` makes the above lines of code very easy to read. Without it, one would write:
+Again, the `%>%` makes the above lines of code very easy to read. Without it, one would need to write:
 
 ```{r, cache=TRUE}
 summarise(group_by(filter(starwars, gender == "male"), species), mean(height))
@@ -95,10 +94,12 @@ I think you agree with me that this is not very readable. Once you're used to `%
 back to not use it.
 
 To make things clearer; `filter()`, `group_by()` and `summarise()` are functions that are included
-in `dplyr`. `%>%` is actually a function from `magrittr`, but this package gets loaded when you
-load `dplyr` automatically, so you do not need to worry about it. `mean()` is a function *native*
-to R. Another thing very nice about using `dplyr`; the result of all these operations are datasets,
-or `tibbles`. This means that you can save them in variable, and then work with these as any other
+in `dplyr`. `%>%` is actually a function from `magrittr`, but this package gets loaded on the fly
+when you load `dplyr`, so you do not need to worry about it. `mean()` is a function *native*
+to R.
+
+The result of all these operations that use `dplyr` functions are actually other datasets, or
+`tibbles`. This means that you can save them in variable, and then work with these as any other
 datasets.
 
 ```{r, cache=TRUE}
@@ -122,8 +123,8 @@ summary_table = starwars %>%
 print(summary_table)
 ```
 
-I did several things there; I've added more functions, `var()` to get the variance and `n()` (which
-is a function from `dplyr`, not base R) to get the number of observations. This is quite useful,
+I've added more functions, namely `var()`, to get the variance of height, and `n()`, which
+is a function from `dplyr`, not base R, to get the number of observations. This is quite useful,
 because we see that for a lot of species we only have one single individual! Let's focus on the
 species for which we have more than 1 individual. Since we save all the previous operations (which
 produce a `tibble`) in a variable, we can keep going from there:
@@ -135,9 +136,12 @@ summary_table2 = summary_table %>%
 print(summary_table2)
 ```
 
-There's a lot of `NA`s; this is because by default, `mean()` and `var()` return `NA` if even one single
-observation is `NA` (unlike STATA). `mean()` and `var()` have a `na.rm` option that the user can set
-to `TRUE` to get the result by ignoring the `NA`s:
+There's a lot of `NA`s; this is because by default, `mean()` and `var()` return `NA` if even one
+single observation is `NA` (unlike STATA). This is good, because it forces you to look at the data
+to see what is going on. If you would get a number, even if there were `NA`s you could very easily
+miss these missing values. It is better for functions to fail early and often than the opposite.
+`mean()` and `var()` have a `na.rm` option that the user can set to `TRUE` to get the result by
+ignoring the `NA`s:
 
 ```{r, cache=TRUE}
 starwars %>%
@@ -174,7 +178,7 @@ starwars %>%
   filter(n_obs > 1)
 ```
 
-And why not compute the same table, but adding another stratifying variable?
+And why not compute the same table, but first add another stratifying variable?
 
 ```{r, cache=TRUE}
 starwars %>%
@@ -184,9 +188,9 @@ starwars %>%
   filter(n_obs > 1)
 ```
 
-`dplyr` contains a lot of different functions, one of which is `mutate()`. `mutate()` allows you to
-create new columns. For instance, suppose you need a column of the height of the individuals in
-meters, and not in centimeters:
+`mutate()` is the next `dplyr` function that we are going to discover. It allows you to
+create new columns and add them to the original dataset. For instance, suppose you need a column of
+the height of the individuals in meters, and not in centimeters:
 
 ```{r, cache=TRUE}
 starwars = starwars %>%
@@ -195,10 +199,11 @@ starwars = starwars %>%
 glimpse(starwars)
 ```
 
-I have used `mutate()` to compute the column I need and `glimpse()` is an alternative to `print()`
-that I find very useful because it shows all the columns with as many observations that fit on your
-screen. We can see the column we created at the very bottom. It might be interesting to reorder the
-columns; this is possible with `select()` another `dplyr` function:
+I have used `mutate()` to add the column I need, which contains the height of the individuals in
+meters. Then I use `glimpse()`, an alternative to `print()` that I find very useful because it
+shows all the columns with as many observations that fit on your screen. We can see the column we
+created at the very bottom. It might be interesting to reorder the columns; this is possible with
+`select()` another `dplyr` function:
 
 ```{r, cache=TRUE}
 starwars = starwars %>%
@@ -217,6 +222,8 @@ starwars %>%
   glimpse()
 ```
 
+This returns a `tibble` with only the `name`, `height`, `height_m` and the `gender` variables.
+
 The last thing I want to show you are the so-called *scoped* version of these functions. For
 example, what if I am only interested in columns that contains text? Is there a way to select them
 automatically? For this type of tasks, you can use `select_if()`:
@@ -227,7 +234,7 @@ starwars %>%
 ```
 
 `select_if()` selects every column that is of type character. There is also `select_all()` and
-`select_at()`, each with they're own use. I will not go into more detail here. If you are
+`select_at()`, each with their own use. I will not go into more detail here. If you are
 interested, I advise you read `dplyr`'s help and also the section I wrote in my other
 [book](https://b-rodrigues.github.io/fput/tidyverse.html) which goes into much more detail.
 
@@ -280,7 +287,7 @@ print(long_data)
 
 `long_data` and `survey_data` are the same datasets, but in a different order.
 
-In the `wide_data` tibble, we had 3 columns: `id`, `var1` and `var2`. We want to stack 'var1' and
+In the `wide_data` `tibble`, we had 3 columns: `id`, `var1` and `var2`. We want to stack 'var1' and
 'var2' in a new column, that we chose to call "variable". This is the "key". For the value, we are
 using the values contained in `var1` and `var2`. Sometimes using `spread()` or `gather()` requires
 some trial and error. I advise you play around with the examples above to really grasp how these
@@ -292,8 +299,8 @@ later, in the section about so-called *list-columns*.
 ### Getting to know `factor` variables
 
 Remember in chapter 3 when I very quickly explained what were `factor` variables? In this section,
-we are going to work a little bit with. `factor` variables are very useful, and the `forcats` package
-includes some handy functions to work with `factor`s. First, let's load the `forcats` package:
+we are going to work a little bit with these type of variable. `factor`s are very useful, and the
+`forcats` package includes some handy functions to work with them. First, let's load the `forcats` package:
 
 ```{r}
 library(forcats)
@@ -321,7 +328,9 @@ and let's see `rincome`:
 str(gss_cat$rincome)
 ```
 
-`factor` variables have different levels, using `forcats::fct_recode()` you can recode levels:
+`factor` variables have different levels and the `forcats` package includes functions that allow
+you to recode, collapse and do all sorts of things on these levels. For example , using
+`forcats::fct_recode()` you can recode levels:
 
 ```{r}
 gss_cat = gss_cat %>%
@@ -348,6 +357,8 @@ gss_cat = gss_cat %>%
 gss_cat %>%
   tabyl(marital)
 ```
+
+I suggest you read `forcats`' help page and discover the other functions it contains.
 
 ## Working with a list of datasets
 
@@ -575,7 +586,12 @@ starwars = starwars %>%
                             n_films != 1 ~ "More than 1 movie"))
 ```
 
-It is also possible to create list-columns with `tidyr::nest()`:
+`case_when()` is a `dplyr` function that works similarly to the standard `if..else..` construct of
+many programming languages (R also has this, we are going to learn about it in later chapters).
+
+You can also create list columns with your own datasets, by using `tidyr::nest()`. Remember the
+fake `survey_data` I created to illustrate `spread()` and `gather()`? Let's go back to that dataset
+again:
 
 ```{r, cache=TRUE}
 print(survey_data)

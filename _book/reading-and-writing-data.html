@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2017-10-27">
+<meta name="date" content="2017-11-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -106,14 +106,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-r"><i class="fa fa-check"></i>What is R?</a></li>
 <li><a href="index.html#why-modern-r">Why <em>modern</em> R?</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-rstudio"><i class="fa fa-check"></i>What is Rstudio?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-rstudio"><i class="fa fa-check"></i>What is RStudio?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-to-expect-from-this-book"><i class="fa fa-check"></i>What to expect from this book?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-are-packages"><i class="fa fa-check"></i>What are packages?</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-author"><i class="fa fa-check"></i>The author</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html"><i class="fa fa-check"></i><b>1</b> Getting to know Rstudio</a><ul>
+<li class="chapter" data-level="1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html"><i class="fa fa-check"></i><b>1</b> Getting to know RStudio</a><ul>
 <li class="chapter" data-level="1.1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#panes"><i class="fa fa-check"></i><b>1.1</b> Panes</a></li>
 <li class="chapter" data-level="1.2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#console"><i class="fa fa-check"></i><b>1.2</b> Console</a></li>
 <li class="chapter" data-level="1.3" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#scripts"><i class="fa fa-check"></i><b>1.3</b> Scripts</a><ul>
@@ -157,6 +157,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html"><i class="fa fa-check"></i><b>4</b> Reading and writing data</a><ul>
 <li class="chapter" data-level="4.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#the-swiss-army-knife-of-data-import-and-export-rio"><i class="fa fa-check"></i><b>4.1</b> The swiss army knife of data import and export: <code>rio</code></a></li>
 <li class="chapter" data-level="4.2" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#writing-any-object-to-disk"><i class="fa fa-check"></i><b>4.2</b> Writing any object to disk</a></li>
+<li class="chapter" data-level="4.3" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#using-rstudio-projects-to-manage-paths"><i class="fa fa-check"></i><b>4.3</b> Using RStudio projects to manage paths</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html"><i class="fa fa-check"></i><b>5</b> Data manipulation and descriptive statistics</a><ul>
 <li class="chapter" data-level="5.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-single-dataset"><i class="fa fa-check"></i><b>5.1</b> Working with a single dataset</a><ul>
@@ -241,7 +242,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="reading-and-writing-data" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Reading and writing data</h1>
-<p>In this chapter, we are going to import example datasets that are available in R, <code>mtcars</code> and <code>iris</code>. I have converted these datasets into several formats. Download those datasets <a href="https://brodriguesco.ocloud.de/index.php/s/5gPpzGpYgYr9X2w">here</a> if you want to follow the examples below. R can import some formats without the need of external packages, such as the <code>.csv</code> format. However, for other formats, you will need to use different packages. Because there are a lot of different formats available I suggest you use <code>rio</code>. <code>rio</code> is basically a wrapper around a lot of packages that exist to import/export data. This package is nice because you don’t need to remember which package to use to import, say, STATA datasets and then you need to remember which one for SAS datasets, and so on. Read <code>rio</code>’s <a href="https://cran.r-project.org/web/packages/rio/vignettes/rio.html">vignette</a> for more details. Below I show some of <code>rio</code>’s functions presented in the vignette. It is also possible to import data from other, less “traditional” sources, such as your clipboard.</p>
+<p>In this chapter, we are going to import example datasets that are available in R, <code>mtcars</code> and <code>iris</code>. I have converted these datasets into several formats. Download those datasets <a href="https://brodriguesco.ocloud.de/index.php/s/5gPpzGpYgYr9X2w">here</a> if you want to follow the examples below. R can import some formats without the need of external packages, such as the <code>.csv</code> format. However, for other formats, you will need to use different packages. Because there are a lot of different formats available I suggest you use <code>rio</code>. <code>rio</code> is a wrapper around different packages that import/export data in different formats. This package is nice because you don’t need to remember which package to use to import, say, STATA datasets and then you need to remember which one for SAS datasets, and so on. Read <code>rio</code>’s <a href="https://cran.r-project.org/web/packages/rio/vignettes/rio.html">vignette</a> for more details. Below I show some of <code>rio</code>’s functions presented in the vignette. It is also possible to import data from other, less “traditional” sources, such as your clipboard. Also note that it is possible to import more than one dataset at once, it is enough to save each dataset in a distinct variable. However, depending on what you want to do, it might be better to save each of these datasets into a list. We are going to learn how to work with lists of datasets in a later chapter.</p>
 <div id="the-swiss-army-knife-of-data-import-and-export-rio" class="section level2">
 <h2><span class="header-section-number">4.1</span> The swiss army knife of data import and export: <code>rio</code></h2>
 <p>To import data with <code>rio</code>, <code>import()</code> is all you need:</p>
@@ -256,7 +257,7 @@ mtcars =<span class="st"> </span><span class="kw">import</span>(<span class="st"
 ## 4 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
 ## 5 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
 ## 6 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
-<p><code>import()</code> needs the path to the data, and you can specify additional options if needed. On a Windows computer, you have to be careful to the path; you cannot simply copy and paste it, because paths in Windows use the <code>\</code> symbol whereas R uses <code>/</code> (just like on Linux or macOS). Importing a STATA or a SAS file is done just the same:</p>
+<p><code>import()</code> needs the path to the data, and you can specify additional options if needed. On a Windows computer, you have to pay attention to the path; you cannot simply copy and paste it, because paths in Windows use the <code>\</code> symbol whereas R uses <code>/</code> (just like on Linux or macOS). Importing a STATA or a SAS file is done just the same:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars_stata =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/mtcars.dta&quot;</span>)
 <span class="kw">head</span>(mtcars_stata)</code></pre></div>
 <pre><code>##    mpg cyl disp  hp drat    wt  qsec vs am gear carb
@@ -341,6 +342,21 @@ mtcars =<span class="st"> </span><span class="kw">import</span>(<span class="st"
 ##   ..$ Unemployment rate (in %)  : num [1:118] 7.15 5.04 4.84 3.01 4.3 ...
 ##   ..$ Year                      : int [1:118] 2016 2016 2016 2016 2016 2016 2016 2016 2016 2016 ...</code></pre>
 <p>in a subsequent chapter we will learn how to actually use these lists of datasets.</p>
+<p>If you know that each dataset in each file has the same colmuns, you can also import them directly into a single dataset by binding each dataset together using <code>rbind = TRUE</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bind_data =<span class="st"> </span><span class="kw">import_list</span>(paths, <span class="dt">rbind =</span> <span class="ot">TRUE</span>)
+<span class="kw">str</span>(bind_data)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    472 obs. of  9 variables:
+##  $ Commune                   : chr  &quot;Grand-Duche de Luxembourg&quot; &quot;Canton Capellen&quot; &quot;Dippach&quot; &quot;Garnich&quot; ...
+##  $ Total employed population : int  223407 17802 1703 844 1431 4094 2146 971 1218 3002 ...
+##  $ of which: Wage-earners    : int  203535 15993 1535 750 1315 3800 1874 858 1029 2664 ...
+##  $ of which: Non-wage-earners: int  19872 1809 168 94 116 294 272 113 189 338 ...
+##  $ Unemployed                : int  19287 1071 114 25 74 261 98 45 66 207 ...
+##  $ Active population         : int  242694 18873 1817 869 1505 4355 2244 1016 1284 3209 ...
+##  $ Unemployment rate (in %)  : num  7.95 5.67 6.27 2.88 4.92 ...
+##  $ Year                      : int  2013 2013 2013 2013 2013 2013 2013 2013 2013 2013 ...
+##  $ _file                     : chr  &quot;datasets/unemployment/unemp_2013.csv&quot; &quot;datasets/unemployment/unemp_2013.csv&quot; &quot;datasets/unemployment/unemp_2013.csv&quot; &quot;datasets/unemployment/unemp_2013.csv&quot; ...
+##  - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt;</code></pre>
+<p>This also add a further column called <code>_file</code> indicating the name of the file that contained the original data.</p>
 <p>If something goes wrong, you might need to take a look at the underlying function <code>rio</code> is actually using to import the file. Let’s look at the following example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">testdata =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/problems/mtcars.csv&quot;</span>)
 
@@ -352,7 +368,7 @@ mtcars =<span class="st"> </span><span class="kw">import</span>(<span class="st"
 ## 4      21.4&amp;6&amp;258&amp;110&amp;3.08&amp;3.215&amp;19.44&amp;1&amp;0&amp;3&amp;1
 ## 5       18.7&amp;8&amp;360&amp;175&amp;3.15&amp;3.44&amp;17.02&amp;0&amp;0&amp;3&amp;2
 ## 6       18.1&amp;6&amp;225&amp;105&amp;2.76&amp;3.46&amp;20.22&amp;1&amp;0&amp;3&amp;1</code></pre>
-<p>as you can see, the import didn’t work quite well! This is because the separator is the <code>&amp;</code> for some reason. Because we are trying to read a <code>.csv</code> file, <code>rio::import()</code> is trying to use <code>data.table::fread()</code> under the hood (you can read this in <code>imports()</code>’s help). If you go and read <code>data.table::fread()</code>’s help, you see that the <code>fread()</code> has an optional <code>sep =</code> argument that you can use to specify the separator. You can use this argument in <code>import()</code> too, and it will be passed down to <code>fread()</code>:</p>
+<p>as you can see, the import didn’t work quite well! This is because the separator is the <code>&amp;</code> for some reason. Because we are trying to read a <code>.csv</code> file, <code>rio::import()</code> is using <code>data.table::fread()</code> under the hood (you can read this in <code>import()</code>’s help). If you then read <code>data.table::fread()</code>’s help, you see that the <code>fread()</code> function has an optional <code>sep =</code> argument that you can use to specify the separator. You can use this argument in <code>import()</code> too, and it will be passed down to <code>fread()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">testdata =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;datasets/problems/mtcars.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&amp;&quot;</span>)
 
 <span class="kw">head</span>(testdata)</code></pre></div>
@@ -365,7 +381,7 @@ mtcars =<span class="st"> </span><span class="kw">import</span>(<span class="st"
 ## 6 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
 <p><code>export()</code> allows you to write data to disk, by simply providing the path and name of the file you wish to save.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">export</span>(testdata, <span class="st">&quot;path/where/to/save/testdata.csv&quot;</span>)</code></pre></div>
-<p>If you end the name with <code>.csv</code> the file is exported to the csv format, if instead you write <code>.dta</code> the data will be exported to the STATA format, etc.</p>
+<p>If you end the name with <code>.csv</code> the file is exported to the csv format, if instead you write <code>.dta</code> the data will be exported to the STATA format, and so on.</p>
 <p>If you wish to export to Excel, this is possible, but requires that you change a file on your computer (you only have to do this once). Run the following lines in Rstudio:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;~/.Rprofile&quot;</span>)) <span class="co"># only create if not already there</span>
     <span class="kw">file.create</span>(<span class="st">&quot;~/.Rprofile&quot;</span>)    <span class="co"># (don&#39;t overwrite it)</span>
@@ -397,7 +413,7 @@ mtcars =<span class="st"> </span><span class="kw">import</span>(<span class="st"
 ##  $ : num [1:2, 1:3] 2 4 3 1 5 7</code></pre>
 <p><code>my_list</code> is a list containing a string, a list which contains a string and a number, a vector and a matrix… Now suppose that computing this list takes a very long time (for example, imagine that each element of the list is the result of estimating a very complex model on a particular simulated dataset for instance) and you would like to save this list to disk. This is possible with <code>saveRDS()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">saveRDS</span>(my_list, <span class="st">&quot;my_list.RDS&quot;</span>)</code></pre></div>
-<p>The next day, after having freshly started your computer and launched RStudio, it is possible to retrieved the object exactly like it was using <code>readRDS()</code>:</p>
+<p>The next day, after having freshly started your computer and launched RStudio, it is possible to retrieve the object exactly like it was using <code>readRDS()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_list =<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;my_list.RDS&quot;</span>)
 
 <span class="kw">str</span>(my_list)</code></pre></div>
@@ -409,6 +425,36 @@ mtcars =<span class="st"> </span><span class="kw">import</span>(<span class="st"
 ##  $ : num [1:4] 1 2 3 4
 ##  $ : num [1:2, 1:3] 2 4 3 1 5 7</code></pre>
 <p>Even if you want to save a regular dataset, using <code>saveRDS()</code> might be a good idea because the data gets compressed if you add the option <code>compress = TRUE</code> to <code>saveRDS()</code>. However keep in mind that this will only be readable by R, so if you need to share this data with colleagues that use another tool, save it in another format.</p>
+</div>
+<div id="using-rstudio-projects-to-manage-paths" class="section level2">
+<h2><span class="header-section-number">4.3</span> Using RStudio projects to manage paths</h2>
+<p>Managing paths can be painful, especially if you’re collaborating with a colleague and both of you saved the data in paths that are different. Whenever one of you wants to work on the script, the path will need to be adapted first. The best way to avoid that is to use projects with RStudio.</p>
+<p><img src="pics/rstudio_projects.gif" /><!-- --></p>
+<p>Imagine that you are working on a project entitled “housing”. You will create a folder called “housing” somewhere on your computer and inside this folder have another folder called “data”, then a bunch of other folders containing different files or the outputs of your analysis. What matters here is that you have a folder called “data” which contains the datasets you will ananlyze. When you are inside an RStudio project, granted that you chose your “housing” folder as the folder to host the project, you can read the data by simply specifying the path like so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_data =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;/data/data.csv&quot;</span>)</code></pre></div>
+<p>Constrast this to what you would need to write if you were not using a project:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_data =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;C:/My Documents/Trevor/Work/Projects/Housing/data/data.csv&quot;</span>)</code></pre></div>
+<p>Not only is that longer, but if Trevor is working on this project with Pollux, Pollux would need to change the above line to this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_data =<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;C:/My Documents/Pollux/Work/Projects/Housing/data/data.csv&quot;</span>)</code></pre></div>
+<p>whenever Pollux needs to work on it. Another, similar issue, is that if you need to write something to disk, such as a dataset or a plot, you would also need to specify the whole path:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">export</span>(my_data, <span class="st">&quot;C:/My Documents/Pollux/Work/Projects/Housing/data/data.csv&quot;</span>)</code></pre></div>
+<p>If you forget to write the whole path, then the dataset will be saved in the standard working directory, which is your “My Documents” folder on Windows, and “Home” on GNU+Linux or macOS. You can check what is the working directory with the <code>getwd()</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>()</code></pre></div>
+<p>On a fresh session on my computer this returns:</p>
+<pre><code>&quot;/home/bruno&quot;</code></pre>
+<p>or, on Windows:</p>
+<pre><code>&quot;C:/Users/Bruno/Documents&quot;</code></pre>
+<p>but if you call this function inside a project, it will return the path to your project. It is also possible to set the working directory with <code>setwd()</code>, so you don’t need to always write the full path, meaning that you can this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&quot;the/path/I/want/&quot;</span>)
+
+<span class="kw">import</span>(<span class="st">&quot;data/my_data.csv&quot;</span>)
+
+<span class="kw">export</span>(processed_data, <span class="st">&quot;processed_data.xlsx&quot;</span>)</code></pre></div>
+<p>instead of:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">import</span>(<span class="st">&quot;the/path/I/want/data/my_data.csv&quot;</span>)
+
+<span class="kw">export</span>(processed_data, <span class="st">&quot;the/path/I/want/processed_data.xlsx&quot;</span>)</code></pre></div>
+<p>However this does not solve the issue of collaboration. Using projects saves a lot of pain in the long term.</p>
 
 </div>
 </div>

@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2017-10-27">
+<meta name="date" content="2017-11-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -106,14 +106,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-r"><i class="fa fa-check"></i>What is R?</a></li>
 <li><a href="index.html#why-modern-r">Why <em>modern</em> R?</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-rstudio"><i class="fa fa-check"></i>What is Rstudio?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-rstudio"><i class="fa fa-check"></i>What is RStudio?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-to-expect-from-this-book"><i class="fa fa-check"></i>What to expect from this book?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-are-packages"><i class="fa fa-check"></i>What are packages?</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-author"><i class="fa fa-check"></i>The author</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html"><i class="fa fa-check"></i><b>1</b> Getting to know Rstudio</a><ul>
+<li class="chapter" data-level="1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html"><i class="fa fa-check"></i><b>1</b> Getting to know RStudio</a><ul>
 <li class="chapter" data-level="1.1" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#panes"><i class="fa fa-check"></i><b>1.1</b> Panes</a></li>
 <li class="chapter" data-level="1.2" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#console"><i class="fa fa-check"></i><b>1.2</b> Console</a></li>
 <li class="chapter" data-level="1.3" data-path="getting-to-know-rstudio.html"><a href="getting-to-know-rstudio.html#scripts"><i class="fa fa-check"></i><b>1.3</b> Scripts</a><ul>
@@ -157,6 +157,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html"><i class="fa fa-check"></i><b>4</b> Reading and writing data</a><ul>
 <li class="chapter" data-level="4.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#the-swiss-army-knife-of-data-import-and-export-rio"><i class="fa fa-check"></i><b>4.1</b> The swiss army knife of data import and export: <code>rio</code></a></li>
 <li class="chapter" data-level="4.2" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#writing-any-object-to-disk"><i class="fa fa-check"></i><b>4.2</b> Writing any object to disk</a></li>
+<li class="chapter" data-level="4.3" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#using-rstudio-projects-to-manage-paths"><i class="fa fa-check"></i><b>4.3</b> Using RStudio projects to manage paths</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html"><i class="fa fa-check"></i><b>5</b> Data manipulation and descriptive statistics</a><ul>
 <li class="chapter" data-level="5.1" data-path="data-manipulation-and-descriptive-statistics.html"><a href="data-manipulation-and-descriptive-statistics.html#working-with-a-single-dataset"><i class="fa fa-check"></i><b>5.1</b> Working with a single dataset</a><ul>
@@ -241,9 +242,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="data-manipulation-and-descriptive-statistics" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Data manipulation and descriptive statistics</h1>
-<p>Now that we are familiar with some R objects and know how to import data, it is time to actually write some code. In this chapter, we are going to compute descriptive statistics for a single dataset, but also for a list of datasets. However, I will not give a list of functions to compute descriptive statistics; if you need a specific function you can find easily in the <em>Help</em> pane in Rstudio or using any modern internet search engine. What I will do is show you a workflow that allows you to compute the statisics you need fast.</p>
-<p>R has a lot of built-in functions for descriptive statistics; however, if you want to compute statistics by, say, gender, some more complex manipulations are needed. At least this was true in the past. Nowadays, thanks to the packages from the tidyverse (remember those we installed at the beginning of the book?), it is very easy and fast to compute descriptive statistics by any stratifying variable(s).</p>
-<p>The packages we are going to use for this are called <code>dplyr</code> and <code>tidyr</code>. <code>dplyr</code> contains a lot of functions that make manipulating data and computing descriptive statistics very easy. To make things easier for now, we are going to use example data included with <code>dplyr</code>. So no need to import an external dataset; this does not change anything to the example that we are going to study here; the source of the data does not matter for this. <code>tidyr</code> is very useful to reshape data. We are going to focus on two functions from <code>tidyr</code>, <code>gather()</code> and <code>spread()</code>.</p>
+<p>Now that we are familiar with some R objects and know how to import data, it is time to write some code. In this chapter, we are going to compute descriptive statistics for a single dataset, but also for a list of datasets. However, I will not give a list of functions to compute descriptive statistics; if you need a specific function you can find easily in the <em>Help</em> pane in Rstudio or using any modern internet search engine. What I will do is show you a workflow that allows you to compute the statisics you need fast. R has a lot of built-in functions for descriptive statistics; however, if you want to compute statistics by, say, gender, some more complex manipulations are needed. At least this was true in the past. Nowadays, thanks to the packages from the <code>tidyverse</code>, it is very easy and fast to compute descriptive statistics by any stratifying variable(s). The packages we are going to use for this are called <code>dplyr</code> and <code>tidyr</code>. <code>dplyr</code> contains a lot of functions that make manipulating data and computing descriptive statistics very easy. To make things easier for now, we are going to use example data included with <code>dplyr</code>. So no need to import an external dataset; this does not change anything to the example that we are going to study here; the source of the data does not matter for this. <code>tidyr</code> is very useful to reshape data. We are going to focus on two functions from <code>tidyr</code>, <code>gather()</code> and <code>spread()</code>.</p>
 <div id="working-with-a-single-dataset" class="section level2">
 <h2><span class="header-section-number">5.1</span> Working with a single dataset</h2>
 <div id="manipulating-and-creating-columns-with-dplyr" class="section level3">
@@ -265,11 +264,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 6      Owen Lars    178   120 brown, grey       light      blue       52.0
 ## # ... with 6 more variables: gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;,
 ## #   films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
-<p><code>data(starwars)</code> loads the example dataset called <code>starwars</code> that is included in the package <code>dplyr</code>. As I said earlier, this is just an example; you could have loaded an external dataset, from a <code>.csv</code> for instance. This does not matter for what comes next.</p>
-<p>R includes a lot of function for descriptive statistics, such as <code>mean()</code>, <code>sd()</code>, <code>cov()</code>, and many more. What <code>dplyr</code> brings to the table is the possibility to apply these functions to the dataset easily. For example, imagine you want the average height of everyone in the dataset. Using the basic R functions, you could write this:</p>
+<p><code>data(starwars)</code> loads the example dataset called <code>starwars</code> that is included in the package <code>dplyr</code>. As I said earlier, this is just an example; you could have loaded an external dataset, from a <code>.csv</code> file for instance. This does not matter for what comes next.</p>
+<p>R includes a lot of functions for descriptive statistics, such as <code>mean()</code>, <code>sd()</code>, <code>cov()</code>, and many more. What <code>dplyr</code> brings to the table is the possibility to apply these functions to the dataset easily. For example, imagine you want the average height of everyone in the dataset. Using the basic R functions, you could write this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(starwars<span class="op">$</span>height)</code></pre></div>
 <pre><code>## [1] NA</code></pre>
-<p><code>starwars$height</code> means that the user wants to access the column called <code>height</code> from the dataset <code>starwars</code>. This is then given as an argument to the function <code>mean()</code>. But what if the user wants the average height by species? Before <code>dplyr</code>, a solution to this simple problem would have required more than a single command. Now this is as easy as:</p>
+<p><code>starwars$height</code> means that the user wants to access the column called <code>height</code> from the dataset <code>starwars</code>. Remember that the <code>$</code> symbol is how you access elements of a named list. This is the same for columns of datasets as you can see. This is then given as an argument to the function <code>mean()</code>. But what if the user wants the average height by species? Before <code>dplyr</code>, a solution to this simple problem would have required more than a single command. Now this is as easy as:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(species) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="kw">mean</span>(height))</code></pre></div>
@@ -290,7 +289,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Ok, I know what you’re thinking. <em>What the hell is this weird <code>%&gt;%</code> thing?</em> That weird thing is called the pipe operator. What it does is take the left-hand side argument and pipe it as the first argument of the function on the right-hand side. Try the following in the command line:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">4</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sqrt</span>()</code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<p>It is equivalent to <code>sqrt(4)</code>. Why use that though? You will see in the next examples that using the <code>%&gt;%</code> makes writing and reading code, much, much easier. For example, the previous manipulation I did could be read as “Take the starwars data, give it to the <code>group_by()</code> function and then compute the mean height”. Without the <code>%&gt;%</code>, one would need to write:</p>
+<p>It is equivalent to <code>sqrt(4)</code>. Why use that though? You will see in the next examples that using <code>%&gt;%</code> makes writing and reading code, much, much easier. For example, the previous manipulation I did could be read as “Take the starwars data, give it to the <code>group_by()</code> function and then compute the mean of height”. Without the <code>%&gt;%</code>, one would need to write:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarise</span>(<span class="kw">group_by</span>(starwars, species), <span class="kw">mean</span>(height))</code></pre></div>
 <pre><code>## # A tibble: 38 x 2
 ##      species `mean(height)`
@@ -306,7 +305,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  9 Geonosian       183.0000
 ## 10    Gungan       208.6667
 ## # ... with 28 more rows</code></pre>
-<p>as you can see, it is much more difficult to read. Imagine now that I want average height by species, but only for males. Again, this is very easy using <code>%&gt;%</code>:</p>
+<p>as you can clearly see, it is much more difficult to read. Imagine now that I want the average height by species, but only for males. Again, this is very easy using <code>%&gt;%</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(gender <span class="op">==</span><span class="st"> &quot;male&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(species) <span class="op">%&gt;%</span>
@@ -325,7 +324,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  9     Human             NA
 ## 10  Iktotchi       188.0000
 ## # ... with 22 more rows</code></pre>
-<p>Again, the <code>%&gt;%</code> makes the above lines of code very easy to read. Without it, one would write:</p>
+<p>Again, the <code>%&gt;%</code> makes the above lines of code very easy to read. Without it, one would need to write:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarise</span>(<span class="kw">group_by</span>(<span class="kw">filter</span>(starwars, gender <span class="op">==</span><span class="st"> &quot;male&quot;</span>), species), <span class="kw">mean</span>(height))</code></pre></div>
 <pre><code>## # A tibble: 32 x 2
 ##      species `mean(height)`
@@ -342,7 +341,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 10  Iktotchi       188.0000
 ## # ... with 22 more rows</code></pre>
 <p>I think you agree with me that this is not very readable. Once you’re used to <code>%&gt;%</code>, you won’t go back to not use it.</p>
-<p>To make things clearer; <code>filter()</code>, <code>group_by()</code> and <code>summarise()</code> are functions that are included in <code>dplyr</code>. <code>%&gt;%</code> is actually a function from <code>magrittr</code>, but this package gets loaded when you load <code>dplyr</code> automatically, so you do not need to worry about it. <code>mean()</code> is a function <em>native</em> to R. Another thing very nice about using <code>dplyr</code>; the result of all these operations are datasets, or <code>tibbles</code>. This means that you can save them in variable, and then work with these as any other datasets.</p>
+<p>To make things clearer; <code>filter()</code>, <code>group_by()</code> and <code>summarise()</code> are functions that are included in <code>dplyr</code>. <code>%&gt;%</code> is actually a function from <code>magrittr</code>, but this package gets loaded on the fly when you load <code>dplyr</code>, so you do not need to worry about it. <code>mean()</code> is a function <em>native</em> to R.</p>
+<p>The result of all these operations that use <code>dplyr</code> functions are actually other datasets, or <code>tibbles</code>. This means that you can save them in variable, and then work with these as any other datasets.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mean_height =<span class="st"> </span>starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(species) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="kw">mean</span>(height))
@@ -379,7 +379,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  9 Geonosian   183.0000         NA     1
 ## 10    Gungan   208.6667   201.3333     3
 ## # ... with 28 more rows</code></pre>
-<p>I did several things there; I’ve added more functions, <code>var()</code> to get the variance and <code>n()</code> (which is a function from <code>dplyr</code>, not base R) to get the number of observations. This is quite useful, because we see that for a lot of species we only have one single individual! Let’s focus on the species for which we have more than 1 individual. Since we save all the previous operations (which produce a <code>tibble</code>) in a variable, we can keep going from there:</p>
+<p>I’ve added more functions, namely <code>var()</code>, to get the variance of height, and <code>n()</code>, which is a function from <code>dplyr</code>, not base R, to get the number of observations. This is quite useful, because we see that for a lot of species we only have one single individual! Let’s focus on the species for which we have more than 1 individual. Since we save all the previous operations (which produce a <code>tibble</code>) in a variable, we can keep going from there:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">summary_table2 =<span class="st"> </span>summary_table <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(n_obs <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)
 
@@ -396,7 +396,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 7  Wookiee   231.0000    18.0000     2
 ## 8   Zabrak   173.0000     8.0000     2
 ## 9     &lt;NA&gt;         NA         NA     5</code></pre>
-<p>There’s a lot of <code>NA</code>s; this is because by default, <code>mean()</code> and <code>var()</code> return <code>NA</code> if even one single observation is <code>NA</code> (unlike STATA). <code>mean()</code> and <code>var()</code> have a <code>na.rm</code> option that the user can set to <code>TRUE</code> to get the result by ignoring the <code>NA</code>s:</p>
+<p>There’s a lot of <code>NA</code>s; this is because by default, <code>mean()</code> and <code>var()</code> return <code>NA</code> if even one single observation is <code>NA</code> (unlike STATA). This is good, because it forces you to look at the data to see what is going on. If you would get a number, even if there were <code>NA</code>s you could very easily miss these missing values. It is better for functions to fail early and often than the opposite. <code>mean()</code> and <code>var()</code> have a <code>na.rm</code> option that the user can set to <code>TRUE</code> to get the result by ignoring the <code>NA</code>s:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(species) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">ave_height =</span> <span class="kw">mean</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">var_height =</span> <span class="kw">var</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">n_obs =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span>
@@ -462,7 +462,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 6  Twi&#39;lek   179.0000     2.0000     2
 ## 7  Wookiee   231.0000    18.0000     2
 ## 8   Zabrak   173.0000     8.0000     2</code></pre>
-<p>And why not compute the same table, but adding another stratifying variable?</p>
+<p>And why not compute the same table, but first add another stratifying variable?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(species)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(species, gender) <span class="op">%&gt;%</span>
@@ -480,7 +480,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 6 Mirialan female   168.0000    8.00000     2
 ## 7  Wookiee   male   231.0000   18.00000     2
 ## 8   Zabrak   male   173.0000    8.00000     2</code></pre>
-<p><code>dplyr</code> contains a lot of different functions, one of which is <code>mutate()</code>. <code>mutate()</code> allows you to create new columns. For instance, suppose you need a column of the height of the individuals in meters, and not in centimeters:</p>
+<p><code>mutate()</code> is the next <code>dplyr</code> function that we are going to discover. It allows you to create new columns and add them to the original dataset. For instance, suppose you need a column of the height of the individuals in meters, and not in centimeters:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars =<span class="st"> </span>starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">height_m =</span> height<span class="op">/</span><span class="dv">100</span>)
 
@@ -501,7 +501,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## $ vehicles   &lt;list&gt; [&lt;&quot;Snowspeeder&quot;, &quot;Imperial Speeder Bike&quot;&gt;, &lt;&gt;, &lt;&gt;,...
 ## $ starships  &lt;list&gt; [&lt;&quot;X-wing&quot;, &quot;Imperial shuttle&quot;&gt;, &lt;&gt;, &lt;&gt;, &quot;TIE Adva...
 ## $ height_m   &lt;dbl&gt; 1.72, 1.67, 0.96, 2.02, 1.50, 1.78, 1.65, 0.97, 1.8...</code></pre>
-<p>I have used <code>mutate()</code> to compute the column I need and <code>glimpse()</code> is an alternative to <code>print()</code> that I find very useful because it shows all the columns with as many observations that fit on your screen. We can see the column we created at the very bottom. It might be interesting to reorder the columns; this is possible with <code>select()</code> another <code>dplyr</code> function:</p>
+<p>I have used <code>mutate()</code> to add the column I need, which contains the height of the individuals in meters. Then I use <code>glimpse()</code>, an alternative to <code>print()</code> that I find very useful because it shows all the columns with as many observations that fit on your screen. We can see the column we created at the very bottom. It might be interesting to reorder the columns; this is possible with <code>select()</code> another <code>dplyr</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars =<span class="st"> </span>starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(name, height, height_m, <span class="kw">everything</span>())
 
@@ -532,6 +532,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## $ height   &lt;int&gt; 172, 167, 96, 202, 150, 178, 165, 97, 183, 182, 188, ...
 ## $ height_m &lt;dbl&gt; 1.72, 1.67, 0.96, 2.02, 1.50, 1.78, 1.65, 0.97, 1.83,...
 ## $ gender   &lt;chr&gt; &quot;male&quot;, NA, NA, &quot;male&quot;, &quot;female&quot;, &quot;male&quot;, &quot;female&quot;, N...</code></pre>
+<p>This returns a <code>tibble</code> with only the <code>name</code>, <code>height</code>, <code>height_m</code> and the <code>gender</code> variables.</p>
 <p>The last thing I want to show you are the so-called <em>scoped</em> version of these functions. For example, what if I am only interested in columns that contains text? Is there a way to select them automatically? For this type of tasks, you can use <code>select_if()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select_if</span>(is.character)</code></pre></div>
@@ -549,7 +550,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  9  Biggs Darklighter         black       light     brown   male  Tatooine
 ## 10     Obi-Wan Kenobi auburn, white        fair blue-gray   male   Stewjon
 ## # ... with 77 more rows, and 1 more variables: species &lt;chr&gt;</code></pre>
-<p><code>select_if()</code> selects every column that is of type character. There is also <code>select_all()</code> and <code>select_at()</code>, each with they’re own use. I will not go into more detail here. If you are interested, I advise you read <code>dplyr</code>’s help and also the section I wrote in my other <a href="https://b-rodrigues.github.io/fput/tidyverse.html">book</a> which goes into much more detail.</p>
+<p><code>select_if()</code> selects every column that is of type character. There is also <code>select_all()</code> and <code>select_at()</code>, each with their own use. I will not go into more detail here. If you are interested, I advise you read <code>dplyr</code>’s help and also the section I wrote in my other <a href="https://b-rodrigues.github.io/fput/tidyverse.html">book</a> which goes into much more detail.</p>
 </div>
 <div id="reshaping-data-with-tidyr" class="section level3">
 <h3><span class="header-section-number">5.1.2</span> Reshaping data with <code>tidyr</code></h3>
@@ -607,12 +608,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 7     3     var2   2.8
 ## 8     4     var2   1.9</code></pre>
 <p><code>long_data</code> and <code>survey_data</code> are the same datasets, but in a different order.</p>
-<p>In the <code>wide_data</code> tibble, we had 3 columns: <code>id</code>, <code>var1</code> and <code>var2</code>. We want to stack ‘var1’ and ‘var2’ in a new column, that we chose to call “variable”. This is the “key”. For the value, we are using the values contained in <code>var1</code> and <code>var2</code>. Sometimes using <code>spread()</code> or <code>gather()</code> requires some trial and error. I advise you play around with the examples above to really grasp how these powerful functions work.</p>
+<p>In the <code>wide_data</code> <code>tibble</code>, we had 3 columns: <code>id</code>, <code>var1</code> and <code>var2</code>. We want to stack ‘var1’ and ‘var2’ in a new column, that we chose to call “variable”. This is the “key”. For the value, we are using the values contained in <code>var1</code> and <code>var2</code>. Sometimes using <code>spread()</code> or <code>gather()</code> requires some trial and error. I advise you play around with the examples above to really grasp how these powerful functions work.</p>
 <p>The last function from <code>tidyr</code> that we are going to discuss is <code>nest()</code>, but we will keep it for later, in the section about so-called <em>list-columns</em>.</p>
 </div>
 <div id="getting-to-know-factor-variables" class="section level3">
 <h3><span class="header-section-number">5.1.3</span> Getting to know <code>factor</code> variables</h3>
-<p>Remember in chapter 3 when I very quickly explained what were <code>factor</code> variables? In this section, we are going to work a little bit with. <code>factor</code> variables are very useful, and the <code>forcats</code> package includes some handy functions to work with <code>factor</code>s. First, let’s load the <code>forcats</code> package:</p>
+<p>Remember in chapter 3 when I very quickly explained what were <code>factor</code> variables? In this section, we are going to work a little bit with these type of variable. <code>factor</code>s are very useful, and the <code>forcats</code> package includes some handy functions to work with them. First, let’s load the <code>forcats</code> package:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(forcats)</code></pre></div>
 <p>as an example, we are going to work with the <code>gss_cat</code> dataset that is included in <code>forcats</code>. Let’s load that:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(gss_cat)
@@ -634,7 +635,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>and let’s see <code>rincome</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(gss_cat<span class="op">$</span>rincome)</code></pre></div>
 <pre><code>##  Factor w/ 16 levels &quot;No answer&quot;,&quot;Don&#39;t know&quot;,..: 8 8 16 16 16 5 4 9 4 4 ...</code></pre>
-<p><code>factor</code> variables have different levels, using <code>forcats::fct_recode()</code> you can recode levels:</p>
+<p><code>factor</code> variables have different levels and the <code>forcats</code> package includes functions that allow you to recode, collapse and do all sorts of things on these levels. For example , using <code>forcats::fct_recode()</code> you can recode levels:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat =<span class="st"> </span>gss_cat <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">marital =</span> <span class="kw">fct_recode</span>(marital,
                               <span class="dt">refuse =</span> <span class="st">&quot;No answer&quot;</span>,
@@ -663,6 +664,7 @@ gss_cat <span class="op">%&gt;%</span>
 ## 2      divorced  4126 0.19205884
 ## 3       married 10117 0.47093050
 ## 4         other  1824 0.08490434</code></pre>
+<p>I suggest you read <code>forcats</code>’ help page and discover the other functions it contains.</p>
 </div>
 </div>
 <div id="working-with-a-list-of-datasets" class="section level2">
@@ -944,7 +946,8 @@ all_datasets <span class="op">%&gt;%</span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starwars =<span class="st"> </span>starwars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">more_1 =</span> <span class="kw">case_when</span>(n_films <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;Exactly one movie&quot;</span>,
                             n_films <span class="op">!=</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;More than 1 movie&quot;</span>))</code></pre></div>
-<p>It is also possible to create list-columns with <code>tidyr::nest()</code>:</p>
+<p><code>case_when()</code> is a <code>dplyr</code> function that works similarly to the standard <code>if..else..</code> construct of many programming languages (R also has this, we are going to learn about it in later chapters).</p>
+<p>You can also create list columns with your own datasets, by using <code>tidyr::nest()</code>. Remember the fake <code>survey_data</code> I created to illustrate <code>spread()</code> and <code>gather()</code>? Let’s go back to that dataset again:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(survey_data)</code></pre></div>
 <pre><code>## # A tibble: 8 x 3
 ##      id variable value

@@ -23,7 +23,7 @@ library(janitor)
 
 Read R's official answer to this question
 [here](https://cran.r-project.org/doc/FAQ/R-FAQ.html#What-is-R_003f). To make it short: R is
-multi-paradigm (procedural, imperative, object-oriented and functional) ^[In this book we are going
+multi-paradigm (procedural, imperative, object-oriented and functional)^[In this book we are going
 to focus on R's functional programming capabilities] programming language that
 focuses on applications in *statistics*. By *statistics* I mean any field that uses statistics such
 as official statistics, economics, finance, data science, etc.
@@ -37,7 +37,7 @@ derived from S, which is a programming language that has roots in FORTRAN and ot
 If you learned R at university, you've probably learned to use it as you would have used FORTRAN;
 very long scripts where data are represented as matrices and where row-wise (or column-wise)
 operations are implemented with `for` loops. There's nothing wrong with that, mind you, but R
-itself was also influenced by Scheme and Common Lisp, which are functional programming languages.
+was also influenced by Scheme and Common Lisp, which are functional programming languages.
 This means that it is really a shame not to use R's functional programming capabilities that it
 inherited from these languages, because I believe that it makes writing code easier and more
 natural. At its core, functional programming uses functions, and functions are so-called *first
@@ -46,21 +46,22 @@ other functions, create functions that return functions and do any kind of opera
 with any other object. This means that functions in R are extremely powerful and flexible tools.
 In the first part of the book, we are going to use functions that are already available in R, and
 then use those available in packages, mostly those from the `tidyverse`. The `tidyverse` is a
-collection of packages developed by [Hadley Wickham](http://hadley.nz/). By using the packages from
-the `tidyverse` and R's built-in functional programming capabilities, we can write code that is
-faster and easier to explain to colleagues, and also easier to maintain. This also means that you
-might have to change your expectations and what you know already from R, if you learned it at
-University but haven't touched it in a long time. For example for and while loops, a very common
-and well-known concept in any programming language, are relegated to chapter 8. This does not mean
-that you will have to wait for 8 chapter to know how to repeat instructions *N* times, but that for
-and while loops are tools that are very useful for one very specific kind of situation. For all the
-rest, they are not needed, and you will learn how to avoid using loops.
+collection of packages developed by [Hadley Wickham](http://hadley.nz/), and several of his colleagues
+at RStudio, Inc. By using the packages from the `tidyverse` and R's built-in functional programming
+capabilities, we can write code that is faster and easier to explain to colleagues, and also easier
+to maintain. This also means that you might have to change your expectations and what you know
+already from R, if you learned it at University but haven't touched it in a long time. For example
+for and while loops, a very common and well-known concept in any programming language, are
+relegated to chapter 8. This does not mean that you will have to wait for 8 chapter to know how to
+repeat instructions *N* times, but that for and while loops are tools that are very useful for one
+very specific kind of situation. For all the rest, they are not needed, and you will learn how to
+avoid using loops.
 
-## What is Rstudio? {-}
+## What is RStudio? {-}
 
-Rstudio is a modern IDE that makes writing R code easier. The first thing we are going to learn is
+RStudio is a modern IDE that makes writing R code easier. The first thing we are going to learn is
 how to use it.
-R and Rstudio are both open source: this means that the source code is freely available on the internet
+R and RStudio are both open source: this means that the source code is freely available on the internet
 and contributions by anyone are welcome and integrated; provided they are meaningful and useful.
 
 ## What to expect from this book? {-}
@@ -78,20 +79,23 @@ the language, and the latest news, I advise you read blogs, especially
 [R-bloggers](https://www.r-bloggers.com/) which aggregates blog posts by more than 750 blogs
 discussing R.
 
+So what you can expect from this book is to learn enough R to make you start using it, but you'd
+need to keep on reading and using R for some time to be fluent.
+
 ## Prerequisites {-}
 
-R and Rstudio are the two main pieces of software that we are going to use. R is the programming
-language and Rstudio is a modern IDE for it. You can use R without Rstudio; but you cannot use
-Rstudio without R.
+R and RStudio are the two main pieces of software that we are going to use. R is the programming
+language and RStudio is a modern IDE for it. You can use R without RStudio; but you cannot use
+RStudio without R.
 
-If you wish to install R and Rstudio at home to follow the examples in this book you can do it as
-both pieces of software are available free of charge (paid options for Rstudio exist, for companies
+If you wish to install R and RStudio at home to follow the examples in this book you can do it as
+both pieces of software are available free of charge (paid options for RStudio exist, for companies
 that need technical support). Installation is simple, but operating system dependent. To download
 and install R for Windows, follow [this link](https://cloud.r-project.org/bin/windows/base/).
 For macOS, follow [this one](https://cloud.r-project.org/bin/macosx/). If you run a GNU+Linux
 distribution, you can install R using the system's package manager. On Ubuntu, install `r-base`.
 
-For Rstudio, look for your operating system [here](https://www.rstudio.com/products/rstudio/download/#download).
+For RStudio, look for your operating system [here](https://www.rstudio.com/products/rstudio/download/#download).
 
 ## What are packages? {-}
 
@@ -100,7 +104,7 @@ code that can be installed from within R with the following function: `install.p
 packages extend R's capabilities significantly, and are probably one of the main reasons R is so
 popular. As of October 2017, R has over 11000 packages.
 
-To install the packages we need, first open Rstudio and then copy and paste this line in the console:
+To install the packages we need, first open RStudio and then copy and paste this line in the console:
 
 ```{r, eval=FALSE}
 install.packages(c("tidyverse", "checkpoint", "Ecdat", "ggthemes", "janitor", "rio", "colourpicker"))
@@ -123,5 +127,7 @@ courses for a few years now (first started teaching for students at the Universi
 These notes are an update of those I used at the time, plus a lot of things I've learned about R
 since I started working at STATEC Research. I also am writing another
 [book](https://b-rodrigues.github.io/fput/) that is more advanced than this one. In my free time I
-like cooking, boxing and [blogging](https://www.brodrigues.co). You can follow me on
-[twitter](https://www.twitter.com/brodriguesco) if you'd like!
+like cooking, boxing and [blogging](https://www.brodrigues.co), while listening to
+[Fip](http://www.fipradio.fr/player). You can follow me on
+[twitter](https://www.twitter.com/brodriguesco), I tweet mostly about R or what's happening in
+Luxembourg.

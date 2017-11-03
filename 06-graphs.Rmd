@@ -655,4 +655,47 @@ function by first grouping, filtering, etc...
 
 ### Exercise 1 {-}
 
-Load the `Bwages` dataset from the `Ecdat` package.
+This exercise will force you to look for `ggplot2` functions that you don't know yet. But it's a
+good exercise, so my advice is to try to do it, even if takes you a long time to find the right
+functions.
+
+Load the `Bwages` dataset from the `Ecdat` package. Your first task is to create a new variable,
+`educ_level`, which is a factor variable that equals:
+
+* "Primary school" if `educ == 1`
+* "High school" if `educ == 2`
+* "Some university" if `educ == 3`
+* "Master's degree" if `educ == 4`
+* "Doctoral degree" if `educ == 5`
+
+Use `case_when()` for this.
+
+```{r, eval=FALSE, echo=FALSE}
+bwages = Bwages %>%
+  mutate(educ_level = case_when(educ == 1 ~ "Primary School",
+                                educ == 2 ~ "High School",
+                                educ == 3 ~ "Some university",
+                                educ == 4 ~ "Master's degree",
+                                educ == 5 ~ "Doctoral degree"))
+```
+
+Then, plot a scatter plot of wages on experience, by education level. Add a theme that you like,
+and remove the title of the legend.
+
+  ```{r, eval=FALSE, echo=FALSE}
+ggplot(bwages) +
+  geom_point(aes(exper, wage, colour = educ_level)) +
+  theme_minimal() +
+  theme(legend.position = "bottom", legend.title = element_blank())
+```
+
+The scatter plot is not very useful, because you cannot make anything out. Instead, use another
+geom that shows you a non-parametric fit with confidence bands. You do not need to estimate a model or
+anything like that, you just need to find the right geom.
+
+```{r, eval=FALSE, echo=FALSE}
+ggplot(bwages) +
+  geom_smooth(aes(exper, wage, colour = educ_level)) +
+  theme_minimal() +
+  theme(legend.position = "bottom", legend.title = element_blank())
+```
