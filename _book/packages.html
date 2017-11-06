@@ -220,16 +220,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.2.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#declaring-functions-in-r"><i class="fa fa-check"></i><b>8.2.1</b> Declaring functions in R</a></li>
 <li class="chapter" data-level="8.2.2" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#fibonacci-numbers"><i class="fa fa-check"></i><b>8.2.2</b> Fibonacci numbers</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#generating-pdf-or-word-reports-with-r"><i class="fa fa-check"></i><b>8.3</b> Generating Pdf or Word reports with R</a></li>
-<li class="chapter" data-level="8.4" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#scraping-the-internet"><i class="fa fa-check"></i><b>8.4</b> Scraping the internet</a></li>
-<li class="chapter" data-level="8.5" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#writing-your-own-package"><i class="fa fa-check"></i><b>8.5</b> Writing your own package</a></li>
-<li class="chapter" data-level="8.6" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#random-tips-and-tricks"><i class="fa fa-check"></i><b>8.6</b> Random tips and tricks</a><ul>
-<li class="chapter" data-level="8.6.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#creating-a-log-file"><i class="fa fa-check"></i><b>8.6.1</b> Creating a log file</a></li>
-</ul></li>
-<li class="chapter" data-level="8.7" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercises-5"><i class="fa fa-check"></i><b>8.7</b> Exercises</a><ul>
+<li class="chapter" data-level="8.3" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercises-4"><i class="fa fa-check"></i><b>8.3</b> Exercises</a><ul>
 <li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-1-4"><i class="fa fa-check"></i>Exercise 1</a></li>
 <li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-2-2"><i class="fa fa-check"></i>Exercise 2</a></li>
 <li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-3-2"><i class="fa fa-check"></i>Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#functions-that-take-columns-of-data-as-arguments"><i class="fa fa-check"></i><b>8.4</b> Functions that take columns of data as arguments</a></li>
+<li class="chapter" data-level="8.5" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#generating-pdf-or-word-reports-with-r"><i class="fa fa-check"></i><b>8.5</b> Generating Pdf or Word reports with R</a></li>
+<li class="chapter" data-level="8.6" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#scraping-the-internet"><i class="fa fa-check"></i><b>8.6</b> Scraping the internet</a></li>
+<li class="chapter" data-level="8.7" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#writing-your-own-package"><i class="fa fa-check"></i><b>8.7</b> Writing your own package</a></li>
+<li class="chapter" data-level="8.8" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#random-tips-and-tricks"><i class="fa fa-check"></i><b>8.8</b> Random tips and tricks</a><ul>
+<li class="chapter" data-level="8.8.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#creating-a-log-file"><i class="fa fa-check"></i><b>8.8.1</b> Creating a log file</a></li>
+</ul></li>
+<li class="chapter" data-level="8.9" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercises-5"><i class="fa fa-check"></i><b>8.9</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-1-5"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-2-3"><i class="fa fa-check"></i>Exercise 2</a></li>
+<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-3-3"><i class="fa fa-check"></i>Exercise 3</a></li>
 <li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-4-1"><i class="fa fa-check"></i>Exercise 4</a></li>
 </ul></li>
 </ul></li>
@@ -256,7 +262,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="packages" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> Packages</h1>
 <p>You can think of packages as addons that extend R’s core functionality. You can browse all available packages on <a href="https://cloud.r-project.org/">CRAN</a>. To make it easier to find what you might be interested in, you can also browse the <a href="https://cloud.r-project.org/web/views/">CRAN Task Views</a>. Each package has a landing page that summarises its dependencies, version number etc. For example, for the <code>dplyr</code> package: <a href="https://cran.r-project.org/web/packages/dplyr/index.html" class="uri">https://cran.r-project.org/web/packages/dplyr/index.html</a>. Take a look at the <em>Downloads</em> section, and especially at the Reference Manual and Vignettes:</p>
-<p><img src="pics/packages_vignette.png" width="486" /></p>
+<p><img src="pics/packages_vignette.png" /><!-- --></p>
 <p>Vignettes are valuable documents; inside vignettes, the purpose of the package is explained in plain English, usually with accompanying examples. The reference manuals list the available functions inside the packages. You can also find vignettes from within Rstudio:</p>
 <p><img src="pics/rstudio_vignette.gif" /><!-- --></p>
 <p>Go to the <em>Packages</em> pane and click on the package you’re interested in. Then you can consult the help for the functions that come with the package as well as the package’s vignettes.</p>

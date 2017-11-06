@@ -197,6 +197,7 @@ or, if you need several functions, use `library(package_name)`, inside the funct
 my_sum = function(a_vector){
   library(purrr)
   reduce(a_vector, `+`)
+}
 ```
 
 Loading the library inside the function has the advantage that you will be sure that the package
@@ -356,7 +357,7 @@ quad_root(1, -4, 3) # should return 3 and 1
 
 In many situations, you will want to write functions that look similar to this:
 
-```{r}
+```{r, eval=FALSE}
 my_function(my_data, one_column_inside_data)
 ```
 
@@ -385,7 +386,7 @@ Error: unknown variable to group by : col_name
 The variable `col_name` is passed to `simpleFunction()` as a string, but `group_by()` requires a variable
 name. So why not try to convert `col_name` to a name?
 
-```{r}
+```{r, eval=FALSE}
 simpleFunction <- function(dataset, col_name){
   require("dplyr")
   col_name <- as.name(col_name)
