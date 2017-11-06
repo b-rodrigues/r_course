@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2017-11-03">
+<meta name="date" content="2017-11-06">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -211,13 +211,26 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html"><i class="fa fa-check"></i><b>8</b> Advanced topics</a><ul>
-<li class="chapter" data-level="8.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#for-and-while-loops"><i class="fa fa-check"></i><b>8.1</b> For and while loops</a></li>
-<li class="chapter" data-level="8.2" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#programming-your-own-functions"><i class="fa fa-check"></i><b>8.2</b> Programming your own functions</a></li>
+<li class="chapter" data-level="8.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#control-flow"><i class="fa fa-check"></i><b>8.1</b> Control flow</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#if-else"><i class="fa fa-check"></i><b>8.1.1</b> If-else</a></li>
+<li class="chapter" data-level="8.1.2" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#for-loops"><i class="fa fa-check"></i><b>8.1.2</b> For loops</a></li>
+<li class="chapter" data-level="8.1.3" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#while-loops"><i class="fa fa-check"></i><b>8.1.3</b> While loops</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#programming-your-own-functions"><i class="fa fa-check"></i><b>8.2</b> Programming your own functions</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#declaring-functions-in-r"><i class="fa fa-check"></i><b>8.2.1</b> Declaring functions in R</a></li>
+<li class="chapter" data-level="8.2.2" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#fibonacci-numbers"><i class="fa fa-check"></i><b>8.2.2</b> Fibonacci numbers</a></li>
+</ul></li>
 <li class="chapter" data-level="8.3" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#generating-pdf-or-word-reports-with-r"><i class="fa fa-check"></i><b>8.3</b> Generating Pdf or Word reports with R</a></li>
 <li class="chapter" data-level="8.4" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#scraping-the-internet"><i class="fa fa-check"></i><b>8.4</b> Scraping the internet</a></li>
 <li class="chapter" data-level="8.5" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#writing-your-own-package"><i class="fa fa-check"></i><b>8.5</b> Writing your own package</a></li>
 <li class="chapter" data-level="8.6" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#random-tips-and-tricks"><i class="fa fa-check"></i><b>8.6</b> Random tips and tricks</a><ul>
 <li class="chapter" data-level="8.6.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#creating-a-log-file"><i class="fa fa-check"></i><b>8.6.1</b> Creating a log file</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercises-5"><i class="fa fa-check"></i><b>8.7</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-1-4"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-2-2"><i class="fa fa-check"></i>Exercise 2</a></li>
+<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-3-2"><i class="fa fa-check"></i>Exercise 3</a></li>
+<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-4-1"><i class="fa fa-check"></i>Exercise 4</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -319,18 +332,18 @@ See Also:
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(Housing)</code></pre></div>
 <pre><code>## Observations: 546
 ## Variables: 12
-## $ price    &lt;dbl&gt; 42000, 38500, 49500, 60500, 61000, 66000, 66000, 69000, 838...
-## $ lotsize  &lt;dbl&gt; 5850, 4000, 3060, 6650, 6360, 4160, 3880, 4160, 4800, 5500,...
-## $ bedrooms &lt;dbl&gt; 3, 2, 3, 3, 2, 3, 3, 3, 3, 3, 3, 2, 3, 3, 2, 2, 3, 4, 1, 2,...
-## $ bathrms  &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2,...
-## $ stories  &lt;dbl&gt; 2, 1, 1, 2, 1, 1, 2, 3, 1, 4, 1, 1, 2, 1, 1, 1, 2, 3, 1, 1,...
-## $ driveway &lt;fctr&gt; yes, yes, yes, yes, yes, yes, yes, yes, yes, yes, yes, no,...
-## $ recroom  &lt;fctr&gt; no, no, no, yes, no, yes, no, no, yes, yes, no, no, no, no...
-## $ fullbase &lt;fctr&gt; yes, no, no, no, no, yes, yes, no, yes, no, yes, no, no, n...
-## $ gashw    &lt;fctr&gt; no, no, no, no, no, no, no, no, no, no, no, no, no, no, no...
-## $ airco    &lt;fctr&gt; no, no, no, no, no, yes, no, no, no, yes, yes, no, no, no,...
-## $ garagepl &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 2, 0, 0, 1, 3, 0, 0, 0, 0, 0, 1, 0, 0, 1,...
-## $ prefarea &lt;fctr&gt; no, no, no, no, no, no, no, no, no, no, no, no, no, no, no...</code></pre>
+## $ price    &lt;dbl&gt; 42000, 38500, 49500, 60500, 61000, 66000, 66000, 6900...
+## $ lotsize  &lt;dbl&gt; 5850, 4000, 3060, 6650, 6360, 4160, 3880, 4160, 4800,...
+## $ bedrooms &lt;dbl&gt; 3, 2, 3, 3, 2, 3, 3, 3, 3, 3, 3, 2, 3, 3, 2, 2, 3, 4,...
+## $ bathrms  &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1,...
+## $ stories  &lt;dbl&gt; 2, 1, 1, 2, 1, 1, 2, 3, 1, 4, 1, 1, 2, 1, 1, 1, 2, 3,...
+## $ driveway &lt;fctr&gt; yes, yes, yes, yes, yes, yes, yes, yes, yes, yes, ye...
+## $ recroom  &lt;fctr&gt; no, no, no, yes, no, yes, no, no, yes, yes, no, no, ...
+## $ fullbase &lt;fctr&gt; yes, no, no, no, no, yes, yes, no, yes, no, yes, no,...
+## $ gashw    &lt;fctr&gt; no, no, no, no, no, no, no, no, no, no, no, no, no, ...
+## $ airco    &lt;fctr&gt; no, no, no, no, no, yes, no, no, no, yes, yes, no, n...
+## $ garagepl &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 2, 0, 0, 1, 3, 0, 0, 0, 0, 0, 1, 0,...
+## $ prefarea &lt;fctr&gt; no, no, no, no, no, no, no, no, no, no, no, no, no, ...</code></pre>
 <p>Housing prices depend on a set of variables such as the number of bedrooms, the area it is located and so on. If you believe that housing prices depend linearly on a set of explanatory variables, you will want to estimate a linear model. To estimate a <em>linear model</em>, you will need to use the built-in <code>lm()</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model1 =<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>lotsize <span class="op">+</span><span class="st"> </span>bedrooms, <span class="dt">data =</span> Housing)</code></pre></div>
 <p><code>lm()</code> takes a formula as an argument, which defines the model you want to estimate. In this case, I ran the following regression:</p>
@@ -414,21 +427,23 @@ See Also:
 ## F-statistic: 99.97 on 11 and 534 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>You can access different elements of <code>model3</code> (for example) with <code>$</code>, because the result of <code>lm()</code> is a list:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(model3<span class="op">$</span>coefficients)</code></pre></div>
-<pre><code>##  (Intercept)      lotsize     bedrooms      bathrms      stories  drivewayyes 
-## -4038.350425     3.546303  1832.003466 14335.558468  6556.945711  6687.778890 
-##   recroomyes  fullbaseyes     gashwyes     aircoyes     garagepl  prefareayes 
-##  4511.283826  5452.385539 12831.406266 12632.890405  4244.829004  9369.513239</code></pre>
+<pre><code>##  (Intercept)      lotsize     bedrooms      bathrms      stories 
+## -4038.350425     3.546303  1832.003466 14335.558468  6556.945711 
+##  drivewayyes   recroomyes  fullbaseyes     gashwyes     aircoyes 
+##  6687.778890  4511.283826  5452.385539 12831.406266 12632.890405 
+##     garagepl  prefareayes 
+##  4244.829004  9369.513239</code></pre>
 <p>but I prefer to use the <code>broom</code> package, and more specifically the <code>tidy()</code> function, which converts <code>model3</code> into a neat <code>data.frame</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results3 =<span class="st"> </span><span class="kw">tidy</span>(model3)
 
 <span class="kw">glimpse</span>(results3)</code></pre></div>
 <pre><code>## Observations: 12
 ## Variables: 5
-## $ term      &lt;chr&gt; &quot;(Intercept)&quot;, &quot;lotsize&quot;, &quot;bedrooms&quot;, &quot;bathrms&quot;, &quot;stories&quot;...
-## $ estimate  &lt;dbl&gt; -4038.350425, 3.546303, 1832.003466, 14335.558468, 6556.94...
-## $ std.error &lt;dbl&gt; 3409.4713, 0.3503, 1047.0002, 1489.9209, 925.2899, 2045.24...
-## $ statistic &lt;dbl&gt; -1.184451, 10.123618, 1.749764, 9.621691, 7.086369, 3.2699...
-## $ p.value   &lt;dbl&gt; 2.367616e-01, 3.732442e-22, 8.073341e-02, 2.570369e-20, 4....</code></pre>
+## $ term      &lt;chr&gt; &quot;(Intercept)&quot;, &quot;lotsize&quot;, &quot;bedrooms&quot;, &quot;bathrms&quot;, &quot;st...
+## $ estimate  &lt;dbl&gt; -4038.350425, 3.546303, 1832.003466, 14335.558468, 6...
+## $ std.error &lt;dbl&gt; 3409.4713, 0.3503, 1047.0002, 1489.9209, 925.2899, 2...
+## $ statistic &lt;dbl&gt; -1.184451, 10.123618, 1.749764, 9.621691, 7.086369, ...
+## $ p.value   &lt;dbl&gt; 2.367616e-01, 3.732442e-22, 8.073341e-02, 2.570369e-...</code></pre>
 <p>this is useful, because you can then work on the results easily, for example if you wish to only keep results that are significant at the 5% level:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results3 <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(p.value <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</code></pre></div>
@@ -498,10 +513,10 @@ See Also:
 <h2><span class="header-section-number">7.2</span> Diagnostics</h2>
 <p>Diagnostics are useful metrics to assess model fit. You can read some of these diagnostics, such as the <span class="math inline">\(R^2\)</span> at the bottom of the summary (when running <code>summary(my_model)</code>), but if you want to do more than simply reading these diagnostics from RStudio, you can put those in a <code>data.frame</code> too, using <code>broom::glance()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(model3)</code></pre></div>
-<pre><code>##   r.squared adj.r.squared    sigma statistic       p.value df    logLik      AIC
-## 1 0.6731236     0.6663902 15423.19  99.96774 6.177731e-122 12 -6034.094 12094.19
-##        BIC     deviance df.residual
-## 1 12150.12 127025071644         534</code></pre>
+<pre><code>##   r.squared adj.r.squared    sigma statistic       p.value df    logLik
+## 1 0.6731236     0.6663902 15423.19  99.96774 6.177731e-122 12 -6034.094
+##        AIC      BIC     deviance df.residual
+## 1 12094.19 12150.12 127025071644         534</code></pre>
 <p>You can also plot the usual diagnostics plots using <code>ggfortify::autoplot()</code> which uses the <code>ggplot2</code> package under the hood:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggfortify)
 
@@ -516,25 +531,25 @@ See Also:
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(housing_aug)</code></pre></div>
 <pre><code>## Observations: 546
 ## Variables: 19
-## $ price      &lt;dbl&gt; 42000, 38500, 49500, 60500, 61000, 66000, 66000, 69000, 8...
-## $ lotsize    &lt;dbl&gt; 5850, 4000, 3060, 6650, 6360, 4160, 3880, 4160, 4800, 550...
-## $ bedrooms   &lt;dbl&gt; 3, 2, 3, 3, 2, 3, 3, 3, 3, 3, 3, 2, 3, 3, 2, 2, 3, 4, 1, ...
-## $ bathrms    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, ...
-## $ stories    &lt;dbl&gt; 2, 1, 1, 2, 1, 1, 2, 3, 1, 4, 1, 1, 2, 1, 1, 1, 2, 3, 1, ...
-## $ driveway   &lt;fctr&gt; yes, yes, yes, yes, yes, yes, yes, yes, yes, yes, yes, n...
-## $ recroom    &lt;fctr&gt; no, no, no, yes, no, yes, no, no, yes, yes, no, no, no, ...
-## $ fullbase   &lt;fctr&gt; yes, no, no, no, no, yes, yes, no, yes, no, yes, no, no,...
-## $ gashw      &lt;fctr&gt; no, no, no, no, no, no, no, no, no, no, no, no, no, no, ...
-## $ airco      &lt;fctr&gt; no, no, no, no, no, yes, no, no, no, yes, yes, no, no, n...
-## $ garagepl   &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 2, 0, 0, 1, 3, 0, 0, 0, 0, 0, 1, 0, 0, ...
-## $ prefarea   &lt;fctr&gt; no, no, no, no, no, no, no, no, no, no, no, no, no, no, ...
-## $ .fitted    &lt;dbl&gt; 66037.98, 41391.15, 39889.63, 63689.09, 49760.43, 66387.1...
-## $ .se.fit    &lt;dbl&gt; 1790.507, 1406.500, 1534.102, 2262.056, 1567.689, 2366.75...
-## $ .resid     &lt;dbl&gt; -24037.9757, -2891.1515, 9610.3699, -3189.0873, 11239.573...
-## $ .hat       &lt;dbl&gt; 0.013477335, 0.008316321, 0.009893730, 0.021510891, 0.010...
-## $ .sigma     &lt;dbl&gt; 15402.01, 15437.14, 15431.98, 15437.02, 15429.89, 15437.6...
-## $ .cooksd    &lt;dbl&gt; 2.803214e-03, 2.476265e-05, 3.265481e-04, 8.004787e-05, 4...
-## $ .std.resid &lt;dbl&gt; -1.56917096, -0.18823924, 0.62621736, -0.20903274, 0.7325...</code></pre>
+## $ price      &lt;dbl&gt; 42000, 38500, 49500, 60500, 61000, 66000, 66000, 69...
+## $ lotsize    &lt;dbl&gt; 5850, 4000, 3060, 6650, 6360, 4160, 3880, 4160, 480...
+## $ bedrooms   &lt;dbl&gt; 3, 2, 3, 3, 2, 3, 3, 3, 3, 3, 3, 2, 3, 3, 2, 2, 3, ...
+## $ bathrms    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, ...
+## $ stories    &lt;dbl&gt; 2, 1, 1, 2, 1, 1, 2, 3, 1, 4, 1, 1, 2, 1, 1, 1, 2, ...
+## $ driveway   &lt;fctr&gt; yes, yes, yes, yes, yes, yes, yes, yes, yes, yes, ...
+## $ recroom    &lt;fctr&gt; no, no, no, yes, no, yes, no, no, yes, yes, no, no...
+## $ fullbase   &lt;fctr&gt; yes, no, no, no, no, yes, yes, no, yes, no, yes, n...
+## $ gashw      &lt;fctr&gt; no, no, no, no, no, no, no, no, no, no, no, no, no...
+## $ airco      &lt;fctr&gt; no, no, no, no, no, yes, no, no, no, yes, yes, no,...
+## $ garagepl   &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 2, 0, 0, 1, 3, 0, 0, 0, 0, 0, 1, ...
+## $ prefarea   &lt;fctr&gt; no, no, no, no, no, no, no, no, no, no, no, no, no...
+## $ .fitted    &lt;dbl&gt; 66037.98, 41391.15, 39889.63, 63689.09, 49760.43, 6...
+## $ .se.fit    &lt;dbl&gt; 1790.507, 1406.500, 1534.102, 2262.056, 1567.689, 2...
+## $ .resid     &lt;dbl&gt; -24037.9757, -2891.1515, 9610.3699, -3189.0873, 112...
+## $ .hat       &lt;dbl&gt; 0.013477335, 0.008316321, 0.009893730, 0.021510891,...
+## $ .sigma     &lt;dbl&gt; 15402.01, 15437.14, 15431.98, 15437.02, 15429.89, 1...
+## $ .cooksd    &lt;dbl&gt; 2.803214e-03, 2.476265e-05, 3.265481e-04, 8.004787e...
+## $ .std.resid &lt;dbl&gt; -1.56917096, -0.18823924, 0.62621736, -0.20903274, ...</code></pre>
 <p>A few columns have been added to the original data, among them <code>.resid</code> which contains the residuals. Let’s plot them:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(housing_aug) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(.resid))</code></pre></div>
@@ -565,14 +580,14 @@ See Also:
 ## $ airco      &lt;fctr&gt; yes, no, no, no, yes, yes
 ## $ garagepl   &lt;dbl&gt; 2, 2, 2, 2, 2, 3
 ## $ prefarea   &lt;fctr&gt; no, no, no, yes, yes, yes
-## $ .fitted    &lt;dbl&gt; 94826.68, 77688.37, 85495.58, 108563.18, 115125.03, 11854...
-## $ .se.fit    &lt;dbl&gt; 2520.691, 3551.954, 3544.961, 2589.680, 2185.603, 2586.007
-## $ .resid     &lt;dbl&gt; 68173.32, 47311.63, 46504.42, 66436.82, 74874.97, 55951.00
-## $ .hat       &lt;dbl&gt; 0.02671105, 0.05303793, 0.05282929, 0.02819317, 0.0200814...
-## $ .sigma     &lt;dbl&gt; 15144.70, 15293.34, 15298.27, 15159.14, 15085.99, 15240.66
-## $ .cooksd    &lt;dbl&gt; 0.04590995, 0.04637969, 0.04461464, 0.04616068, 0.0410731...
-## $ .std.resid &lt;dbl&gt; 4.480428, 3.152300, 3.098176, 4.369631, 4.904193, 3.679815
-## $ prank      &lt;dbl&gt; 0.9963370, 1.0000000, 0.9945055, 0.9981685, 0.9926740, 0....</code></pre>
+## $ .fitted    &lt;dbl&gt; 94826.68, 77688.37, 85495.58, 108563.18, 115125.03,...
+## $ .se.fit    &lt;dbl&gt; 2520.691, 3551.954, 3544.961, 2589.680, 2185.603, 2...
+## $ .resid     &lt;dbl&gt; 68173.32, 47311.63, 46504.42, 66436.82, 74874.97, 5...
+## $ .hat       &lt;dbl&gt; 0.02671105, 0.05303793, 0.05282929, 0.02819317, 0.0...
+## $ .sigma     &lt;dbl&gt; 15144.70, 15293.34, 15298.27, 15159.14, 15085.99, 1...
+## $ .cooksd    &lt;dbl&gt; 0.04590995, 0.04637969, 0.04461464, 0.04616068, 0.0...
+## $ .std.resid &lt;dbl&gt; 4.480428, 3.152300, 3.098176, 4.369631, 4.904193, 3...
+## $ prank      &lt;dbl&gt; 0.9963370, 1.0000000, 0.9945055, 0.9981685, 0.99267...</code></pre>
 <p><code>prank</code> is a variable I created with <code>cume_dist()</code> which is a <code>dplyr</code> function that returns the proportion of all values less than or equal to the current rank. For example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">example =<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="fl">4.6</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="fl">0.8</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>)
 <span class="kw">cume_dist</span>(example)</code></pre></div>
@@ -771,12 +786,15 @@ diag_log =<span class="st"> </span>diag_log <span class="op">%&gt;%</span>
 diagnostics_models =<span class="st"> </span><span class="kw">full_join</span>(diag_lm, diag_log)</code></pre></div>
 <pre><code>## Joining, by = c(&quot;r.squared&quot;, &quot;adj.r.squared&quot;, &quot;sigma&quot;, &quot;statistic&quot;, &quot;p.value&quot;, &quot;df&quot;, &quot;logLik&quot;, &quot;AIC&quot;, &quot;BIC&quot;, &quot;deviance&quot;, &quot;df.residual&quot;, &quot;model&quot;)</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(diagnostics_models)</code></pre></div>
-<pre><code>##   r.squared adj.r.squared        sigma statistic       p.value df      logLik
-## 1 0.6731236     0.6663902 1.542319e+04  99.96774 6.177731e-122 12 -6034.09400
-## 2 0.6765910     0.6699290 2.137121e-01 101.56000 3.666219e-123 12    73.87312
-##          AIC         BIC     deviance df.residual         model
-## 1 12094.1880 12150.12204 1.270251e+11         534 lin-lin model
-## 2  -121.7462   -65.81219 2.438930e+01         534 log-lin model</code></pre>
+<pre><code>##   r.squared adj.r.squared        sigma statistic       p.value df
+## 1 0.6731236     0.6663902 1.542319e+04  99.96774 6.177731e-122 12
+## 2 0.6765910     0.6699290 2.137121e-01 101.56000 3.666219e-123 12
+##        logLik        AIC         BIC     deviance df.residual
+## 1 -6034.09400 12094.1880 12150.12204 1.270251e+11         534
+## 2    73.87312  -121.7462   -65.81219 2.438930e+01         534
+##           model
+## 1 lin-lin model
+## 2 log-lin model</code></pre>
 <p>I saved the diagnostics in two different <code>data.frame</code> using the <code>glance()</code> function and added a <code>model</code> column to indicate which model the diagnostics come from. Then I merged both datasets using <code>full_join()</code>, a <code>dplyr</code> function.</p>
 <p>As you can see, the model with the logarithm of the prices as the explained variable has a higher likelihood (and thus lower AIC and BIC) than the simple linear model. Let’s take a look at the diagnostics plots:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(model_log, <span class="dt">which =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre></div>
@@ -792,56 +810,56 @@ pred_set =<span class="st"> </span>Housing <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">sample_n</span>(<span class="dv">20</span>)</code></pre></div>
 <p>so that we get always the same <code>pred_set</code> I set the random seed first. Let’s take a look at the data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(pred_set)</code></pre></div>
-<pre><code>##      price lotsize bedrooms bathrms stories driveway recroom fullbase gashw
-## 63   52000    4280        2       1       1      yes      no       no    no
-## 340  62500    3900        3       1       2      yes      no       no    no
-## 332 175000    8960        4       4       4      yes      no       no    no
-## 339 141000    8100        4       1       2      yes     yes      yes    no
-## 467  54000    2856        3       1       3      yes      no       no    no
-## 347  52000    4130        3       2       2      yes      no       no    no
-## 6    66000    4160        3       1       1      yes     yes      yes    no
-## 126  95000    4260        4       2       2      yes      no       no   yes
-## 359  97000   12090        4       2       2      yes      no       no    no
-## 277  70000    6300        3       1       1      yes      no       no    no
-## 372  85000    6420        3       1       1      yes      no      yes    no
-## 292  39000    4000        3       1       2      yes      no       no    no
-## 151  59900    3450        3       1       2      yes      no       no    no
-## 493  53000    4050        2       1       1      yes      no       no    no
-## 156  60000    2610        4       3       2       no      no       no    no
-## 445  72500    5720        2       1       2      yes      no       no    no
-## 152  35500    3000        3       1       2       no      no       no    no
-## 142  40000    2650        3       1       2      yes      no      yes    no
-## 99   35000    3500        2       1       1      yes     yes       no    no
-## 123  37000    4400        2       1       1      yes      no       no    no
-##     airco garagepl prefarea
-## 63    yes        2       no
-## 340    no        0       no
-## 332   yes        3       no
-## 339   yes        2      yes
-## 467    no        0      yes
-## 347    no        2       no
-## 6     yes        0       no
-## 126    no        0       no
-## 359    no        2      yes
-## 277   yes        2       no
-## 372   yes        0      yes
-## 292    no        1       no
-## 151    no        1       no
-## 493    no        0       no
-## 156    no        0       no
-## 445   yes        0      yes
-## 152    no        0       no
-## 142    no        1       no
-## 99     no        0       no
-## 123    no        0       no</code></pre>
+<pre><code>##      price lotsize bedrooms bathrms stories driveway recroom fullbase
+## 63   52000    4280        2       1       1      yes      no       no
+## 340  62500    3900        3       1       2      yes      no       no
+## 332 175000    8960        4       4       4      yes      no       no
+## 339 141000    8100        4       1       2      yes     yes      yes
+## 467  54000    2856        3       1       3      yes      no       no
+## 347  52000    4130        3       2       2      yes      no       no
+## 6    66000    4160        3       1       1      yes     yes      yes
+## 126  95000    4260        4       2       2      yes      no       no
+## 359  97000   12090        4       2       2      yes      no       no
+## 277  70000    6300        3       1       1      yes      no       no
+## 372  85000    6420        3       1       1      yes      no      yes
+## 292  39000    4000        3       1       2      yes      no       no
+## 151  59900    3450        3       1       2      yes      no       no
+## 493  53000    4050        2       1       1      yes      no       no
+## 156  60000    2610        4       3       2       no      no       no
+## 445  72500    5720        2       1       2      yes      no       no
+## 152  35500    3000        3       1       2       no      no       no
+## 142  40000    2650        3       1       2      yes      no      yes
+## 99   35000    3500        2       1       1      yes     yes       no
+## 123  37000    4400        2       1       1      yes      no       no
+##     gashw airco garagepl prefarea
+## 63     no   yes        2       no
+## 340    no    no        0       no
+## 332    no   yes        3       no
+## 339    no   yes        2      yes
+## 467    no    no        0      yes
+## 347    no    no        2       no
+## 6      no   yes        0       no
+## 126   yes    no        0       no
+## 359    no    no        2      yes
+## 277    no   yes        2       no
+## 372    no   yes        0      yes
+## 292    no    no        1       no
+## 151    no    no        1       no
+## 493    no    no        0       no
+## 156    no    no        0       no
+## 445    no   yes        0      yes
+## 152    no    no        0       no
+## 142    no    no        1       no
+## 99     no    no        0       no
+## 123    no    no        0       no</code></pre>
 <p>If we wish to use it for prediction, this is easily done with <code>predict()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">predict</span>(model3, pred_set)</code></pre></div>
-<pre><code>##        63       340       332       339       467       347         6       126 
-##  63506.66  49425.47 150689.71 106607.68  61649.59  73066.34  66387.12  79701.11 
-##       359       277       372       292       151       493       156       445 
-## 112496.42  72502.20  79260.00  54024.93  52074.46  41568.47  68666.08  76050.14 
-##       152       142        99       123 
-##  39546.02  54689.81  44129.28  42809.67</code></pre>
+<pre><code>##        63       340       332       339       467       347         6 
+##  63506.66  49425.47 150689.71 106607.68  61649.59  73066.34  66387.12 
+##       126       359       277       372       292       151       493 
+##  79701.11 112496.42  72502.20  79260.00  54024.93  52074.46  41568.47 
+##       156       445       152       142        99       123 
+##  68666.08  76050.14  39546.02  54689.81  44129.28  42809.67</code></pre>
 <p>This returns a vector of predicted prices. This can then be used to compute the Root Mean Squared Error for instance. Let’s do it within a <code>tidyverse</code> pipeline:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rmse =<span class="st"> </span>pred_set <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">predictions =</span> <span class="kw">predict</span>(model3, .)) <span class="op">%&gt;%</span>
@@ -976,6 +994,11 @@ pred_set =<span class="st"> </span>Housing <span class="op">%&gt;%</span>
 <h3><span class="header-section-number">7.7.2</span> Cross-validation</h3>
 <p>To do cross-validation, we are going to use the <code>modelr</code> package, which is also part of the <code>tidyverse</code>.<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(modelr)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;modelr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:broom&#39;:
+## 
+##     bootstrap</code></pre>
 <p><code>modelr</code> includes two functions for cross-validation, <code>crossv_kfold</code> and <code>crossv_mc</code>, which do K-fold Cross-Validation and Monte Carlo Cross-Validation respectively. First, let’s see what <code>cross_mc()</code> (<code>cross_kfold()</code>) returns when applied to data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cv_Housing =<span class="st"> </span>Housing <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">crossv_mc</span>(<span class="dt">n =</span> <span class="dv">50</span>)
@@ -1021,13 +1044,14 @@ pred_set =<span class="st"> </span>Housing <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">pull</span>(rmse_all_models)
 
 <span class="kw">print</span>(rmse_cv)</code></pre></div>
-<pre><code>##  [1] 14278.10 16319.37 15894.75 13787.08 17718.08 13909.55 18768.75 14207.10
-##  [9] 15035.37 14517.33 16683.72 15840.99 15367.34 14712.03 15700.72 15471.62
-## [17] 17671.22 17406.67 17202.93 15583.84 14194.29 17172.91 14780.65 15209.08
-## [25] 14574.40 15488.37 14615.14 17109.50 16463.38 16483.56 14267.87 16318.03
-## [33] 14574.68 18505.86 15049.98 14062.81 15659.73 15739.34 14316.86 16180.04
-## [41] 18592.96 18135.36 15166.21 17783.14 16475.84 16012.22 12702.82 16545.16
-## [49] 15420.06 15109.43</code></pre>
+<pre><code>##  [1] 14278.10 16319.37 15894.75 13787.08 17718.08 13909.55 18768.75
+##  [8] 14207.10 15035.37 14517.33 16683.72 15840.99 15367.34 14712.03
+## [15] 15700.72 15471.62 17671.22 17406.67 17202.93 15583.84 14194.29
+## [22] 17172.91 14780.65 15209.08 14574.40 15488.37 14615.14 17109.50
+## [29] 16463.38 16483.56 14267.87 16318.03 14574.68 18505.86 15049.98
+## [36] 14062.81 15659.73 15739.34 14316.86 16180.04 18592.96 18135.36
+## [43] 15166.21 17783.14 16475.84 16012.22 12702.82 16545.16 15420.06
+## [50] 15109.43</code></pre>
 <p>We can now compute the mean of this <code>rmse_cv</code> variable:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cv_rmse_lin_lin =<span class="st"> </span><span class="kw">mean</span>(rmse_cv)</code></pre></div>
 <p>which is equal to 1.577572510^{4}.</p>

@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2017-11-03">
+<meta name="date" content="2017-11-06">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -211,13 +211,26 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html"><i class="fa fa-check"></i><b>8</b> Advanced topics</a><ul>
-<li class="chapter" data-level="8.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#for-and-while-loops"><i class="fa fa-check"></i><b>8.1</b> For and while loops</a></li>
-<li class="chapter" data-level="8.2" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#programming-your-own-functions"><i class="fa fa-check"></i><b>8.2</b> Programming your own functions</a></li>
+<li class="chapter" data-level="8.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#control-flow"><i class="fa fa-check"></i><b>8.1</b> Control flow</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#if-else"><i class="fa fa-check"></i><b>8.1.1</b> If-else</a></li>
+<li class="chapter" data-level="8.1.2" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#for-loops"><i class="fa fa-check"></i><b>8.1.2</b> For loops</a></li>
+<li class="chapter" data-level="8.1.3" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#while-loops"><i class="fa fa-check"></i><b>8.1.3</b> While loops</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#programming-your-own-functions"><i class="fa fa-check"></i><b>8.2</b> Programming your own functions</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#declaring-functions-in-r"><i class="fa fa-check"></i><b>8.2.1</b> Declaring functions in R</a></li>
+<li class="chapter" data-level="8.2.2" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#fibonacci-numbers"><i class="fa fa-check"></i><b>8.2.2</b> Fibonacci numbers</a></li>
+</ul></li>
 <li class="chapter" data-level="8.3" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#generating-pdf-or-word-reports-with-r"><i class="fa fa-check"></i><b>8.3</b> Generating Pdf or Word reports with R</a></li>
 <li class="chapter" data-level="8.4" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#scraping-the-internet"><i class="fa fa-check"></i><b>8.4</b> Scraping the internet</a></li>
 <li class="chapter" data-level="8.5" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#writing-your-own-package"><i class="fa fa-check"></i><b>8.5</b> Writing your own package</a></li>
 <li class="chapter" data-level="8.6" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#random-tips-and-tricks"><i class="fa fa-check"></i><b>8.6</b> Random tips and tricks</a><ul>
 <li class="chapter" data-level="8.6.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#creating-a-log-file"><i class="fa fa-check"></i><b>8.6.1</b> Creating a log file</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercises-5"><i class="fa fa-check"></i><b>8.7</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-1-4"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-2-2"><i class="fa fa-check"></i>Exercise 2</a></li>
+<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-3-2"><i class="fa fa-check"></i>Exercise 3</a></li>
+<li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-4-1"><i class="fa fa-check"></i>Exercise 4</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -242,11 +255,238 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="advanced-topics-1" class="section level1">
 <h1><span class="header-section-number">Chapter 8</span> Advanced topics</h1>
-<div id="for-and-while-loops" class="section level2">
-<h2><span class="header-section-number">8.1</span> For and while loops</h2>
+<p>In this section we are going to learn some advanced concepts that are going to make you into a full-fledged R programmer. Before this chapter you only used whatever R came with, as well as the numerous R packages, but now, you will learn to actually build your own functions.</p>
+<div id="control-flow" class="section level2">
+<h2><span class="header-section-number">8.1</span> Control flow</h2>
+<div id="if-else" class="section level3">
+<h3><span class="header-section-number">8.1.1</span> If-else</h3>
+<p>Imagine you want a variable to be equal to a certain value if a condition is met. This is a typical problem that requires the <code>if ... else ...</code> construct. For instance:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="dv">4</span>
+b =<span class="st"> </span><span class="dv">5</span></code></pre></div>
+<p>If <code>a &gt; b</code> then <code>f</code> should be equal to 20, else <code>f</code> should be equal to 10. Using <code>if ... else ...</code> you can achieve this like so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (a <span class="op">&gt;</span><span class="st"> </span>b) {
+  f =<span class="st"> </span><span class="dv">20</span>
+    } <span class="cf">else</span> {
+  f =<span class="st"> </span><span class="dv">10</span>
+}</code></pre></div>
+<p>Obviously, here <code>f = 10</code>. Another way to achieve this is by using the <code>ifelse()</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f =<span class="st"> </span><span class="kw">ifelse</span>(a <span class="op">&gt;</span><span class="st"> </span>b, <span class="dv">20</span>, <span class="dv">10</span>)</code></pre></div>
+<p>This is exactly equivalent as using the longer <code>if ... else ...</code> construct.</p>
+<p>Nested <code>if ... else ...</code> constructs can get messy:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="dv">10</span> <span class="op">%%</span><span class="st"> </span><span class="dv">3</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
+  <span class="kw">print</span>(<span class="st">&quot;10 is divisible by 3&quot;</span>)
+  } <span class="cf">else</span> <span class="cf">if</span> (<span class="dv">10</span> <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
+    <span class="kw">print</span>(<span class="st">&quot;10 is divisible by 2&quot;</span>)
+}</code></pre></div>
+<pre><code>## [1] &quot;10 is divisible by 2&quot;</code></pre>
+<p>10 being obviously divisible by 2 and not 3, it is the second phrase that will be printed. The <code>%%</code> operator is the modulus operator, which gives the rest of the division of 10 by 2.</p>
+<p>Remember that if you are working on a dataset and wish to create a new column with values conditionally on the values of another column, you can use <code>case_when()</code>, which is much easier.</p>
+</div>
+<div id="for-loops" class="section level3">
+<h3><span class="header-section-number">8.1.2</span> For loops</h3>
+<p>You are wondering why it took so long for <em>for loops</em> to show up. This is because we learned about <code>map()</code> and <code>reduce()</code> which solve a lot of problems that for loops were originally intended to tackle. And actually, you should only use for loops in a very specific situation; whenever you have a recursive relationship. For all the rest, <code>map()</code> and <code>reduce()</code> are much easier, and return nice objects. However, for the sake of completeness, I will present for loops in the section.</p>
+<p>For loops make it possible to repeat a set of instructions <code>i</code> times. For example, try the following:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>){
+  <span class="kw">print</span>(<span class="st">&quot;hello&quot;</span>)
+}</code></pre></div>
+<pre><code>## [1] &quot;hello&quot;
+## [1] &quot;hello&quot;
+## [1] &quot;hello&quot;
+## [1] &quot;hello&quot;
+## [1] &quot;hello&quot;
+## [1] &quot;hello&quot;
+## [1] &quot;hello&quot;
+## [1] &quot;hello&quot;
+## [1] &quot;hello&quot;
+## [1] &quot;hello&quot;</code></pre>
+<p>If you want print “hello” using a function from <code>purrr</code> you would need to use <code>rerun()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rerun</span>(<span class="dv">10</span>, <span class="st">&quot;hello&quot;</span>)</code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;hello&quot;
+## 
+## [[2]]
+## [1] &quot;hello&quot;
+## 
+## [[3]]
+## [1] &quot;hello&quot;
+## 
+## [[4]]
+## [1] &quot;hello&quot;
+## 
+## [[5]]
+## [1] &quot;hello&quot;
+## 
+## [[6]]
+## [1] &quot;hello&quot;
+## 
+## [[7]]
+## [1] &quot;hello&quot;
+## 
+## [[8]]
+## [1] &quot;hello&quot;
+## 
+## [[9]]
+## [1] &quot;hello&quot;
+## 
+## [[10]]
+## [1] &quot;hello&quot;</code></pre>
+<p><code>rerun()</code> simply runs an expression (which can be arbitrarily complex) <code>n</code> times, whereas <code>map()</code> maps a function to a list of inputs, so to achieve the same with <code>map()</code>, you need to map the <code>print()</code> function to a vector of characters:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(<span class="kw">rep</span>(<span class="st">&quot;hello&quot;</span>, <span class="dv">10</span>), print)</code></pre></div>
+<pre><code>## [1] &quot;hello&quot;
+## [1] &quot;hello&quot;
+## [1] &quot;hello&quot;
+## [1] &quot;hello&quot;
+## [1] &quot;hello&quot;
+## [1] &quot;hello&quot;
+## [1] &quot;hello&quot;
+## [1] &quot;hello&quot;
+## [1] &quot;hello&quot;
+## [1] &quot;hello&quot;</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;hello&quot;
+## 
+## [[2]]
+## [1] &quot;hello&quot;
+## 
+## [[3]]
+## [1] &quot;hello&quot;
+## 
+## [[4]]
+## [1] &quot;hello&quot;
+## 
+## [[5]]
+## [1] &quot;hello&quot;
+## 
+## [[6]]
+## [1] &quot;hello&quot;
+## 
+## [[7]]
+## [1] &quot;hello&quot;
+## 
+## [[8]]
+## [1] &quot;hello&quot;
+## 
+## [[9]]
+## [1] &quot;hello&quot;
+## 
+## [[10]]
+## [1] &quot;hello&quot;</code></pre>
+<p><code>rep()</code> is a function that creates a vector by repeating something, in this case the string “hello”, as many times as needed, here 10. The output here is a bit different that before though, because first you will see “hello” printed 10 times, but <code>map()</code> always returns a list, this means that you will also get a list where each element is the string “hello”.</p>
+<p>It is also possible to do calculations using for loops. Let’s compute the sum of the first 100 integers:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result =<span class="st"> </span><span class="dv">0</span>
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>){
+  result =<span class="st"> </span>result <span class="op">+</span><span class="st"> </span>i
+}
+
+<span class="kw">print</span>(result)</code></pre></div>
+<pre><code>## [1] 5050</code></pre>
+<p><code>result</code> is equal to 5050, the expected result. What happened in that loop? First, we defined a variable called <code>result</code> and set it to 0. Then, when the loops starts, <code>i</code> equals 1, so we add <code>result</code> to <code>1</code>, which is 1. Then, <code>i</code> equals 2, and again, we add <code>result</code> to <code>i</code>. But this time, <code>result</code> equals 1 and <code>i</code> equals 2, so now <code>result</code> equals 3, and we repeat this until <code>i</code> equals 100.</p>
+<p>Contrast this to the <code>purrr</code> solution using <code>reduce()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result =<span class="st"> </span><span class="kw">reduce</span>(<span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">100</span>), <span class="st">`</span><span class="dt">+</span><span class="st">`</span>)
+
+<span class="kw">print</span>(result)</code></pre></div>
+<pre><code>## [1] 5050</code></pre>
+<p>You certainly agree with me that is simpler to understand. You can even see what happens in more detail using <code>accumulate</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">accumulate</span>(<span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">100</span>), <span class="st">`</span><span class="dt">+</span><span class="st">`</span>)</code></pre></div>
+<pre><code>##   [1]    1    3    6   10   15   21   28   36   45   55   66   78   91  105
+##  [15]  120  136  153  171  190  210  231  253  276  300  325  351  378  406
+##  [29]  435  465  496  528  561  595  630  666  703  741  780  820  861  903
+##  [43]  946  990 1035 1081 1128 1176 1225 1275 1326 1378 1431 1485 1540 1596
+##  [57] 1653 1711 1770 1830 1891 1953 2016 2080 2145 2211 2278 2346 2415 2485
+##  [71] 2556 2628 2701 2775 2850 2926 3003 3081 3160 3240 3321 3403 3486 3570
+##  [85] 3655 3741 3828 3916 4005 4095 4186 4278 4371 4465 4560 4656 4753 4851
+##  [99] 4950 5050</code></pre>
+<p>However this does not mean that loops do not have their place. We are going to this in more detail in the next sections, but first, let’s learn about while loops.</p>
+</div>
+<div id="while-loops" class="section level3">
+<h3><span class="header-section-number">8.1.3</span> While loops</h3>
+<p>While loops are very similar to for loops. The instructions inside a while loop are repeat while a certain condition holds true. Let’s consider the sum of the first 100 integers again:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result =<span class="st"> </span><span class="dv">0</span>
+i =<span class="st"> </span><span class="dv">1</span>
+<span class="cf">while</span> (i<span class="op">&lt;=</span><span class="dv">100</span>){
+  result =<span class="st"> </span>result <span class="op">+</span><span class="st"> </span>i
+  i =<span class="st"> </span>i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+}
+
+<span class="kw">print</span>(result)</code></pre></div>
+<pre><code>## [1] 5050</code></pre>
+<p>Here, we first set <code>result</code> and <code>i</code> to 0. Then, while <code>i</code> is inferior, or equal to 100, we add <code>i</code> to <code>result</code>. Notice that there is one more line than in the for loop: we need to increment the value of <code>i</code>, if not, <code>i</code> would stay equal to 1, and the condition would always be fulfilled, and the loop would run forever (not really, only until your computer runs out of memory).</p>
+<p>In the next section we are going to learn how to write our own functions; this is when we are going to learn about recursive relationships that for and while loops can solve very well.</p>
+</div>
 </div>
 <div id="programming-your-own-functions" class="section level2">
 <h2><span class="header-section-number">8.2</span> Programming your own functions</h2>
+<p>As you have seen by now, R includes a very large amount of preprogrammed functions, but also much more functions are available in packages. However, you will always need to write your own. In this section we are going to learn how to write our own functions.</p>
+<div id="declaring-functions-in-r" class="section level3">
+<h3><span class="header-section-number">8.2.1</span> Declaring functions in R</h3>
+<p>Suppose you want to create the following function: <span class="math inline">\(f(x) = \dfrac{1}{\sqrt{x}}\)</span>. This is the syntax you would use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_function =<span class="st"> </span><span class="cf">function</span>(x){
+<span class="kw">return</span>(<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(x))
+}</code></pre></div>
+<p>While in general, it is a good idea to add comments to your functions to explain what they do, I would avoid adding comments to functions that do things that are very obvious, such as with this one. Function names should be of the form: <code>function_name()</code>. Always give your function very explicit names! In mathematics it is standard to give functions just one letter as a name, but I would advise against doing that in your code. Functions that you write are not special in any way; this means that R will treat them the same way, and they will work in conjunction with any other function just as if it was built-in into R. They have one limitation though (which is shared with R’s native function): just like in math, they can only return one value. However, sometimes, you may need to return more than one value. To be able to do this, you must put your values in a list, and return the list of values. For example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">average_and_sd =<span class="st"> </span><span class="cf">function</span>(x){
+  result =<span class="st"> </span><span class="kw">c</span>(<span class="kw">mean</span>(x), <span class="kw">sd</span>(x))
+<span class="kw">return</span>(result)
+}
+
+<span class="kw">average_and_sd</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">12</span>))</code></pre></div>
+<pre><code>## [1] 7.166667 4.262237</code></pre>
+<p>You can put a lot of instructions inside a function, such as loops. Let’s create the function that returns Fibonacci numbers.</p>
+</div>
+<div id="fibonacci-numbers" class="section level3">
+<h3><span class="header-section-number">8.2.2</span> Fibonacci numbers</h3>
+<p>The Fibonacci sequence is the following:</p>
+<p><span class="math display">\[1, 1, 2, 3, 5, 8, 13, 21, 34, 55, ...\]</span></p>
+<p>Each subsequent number is composed of the sum of the two preceding ones. In R, it is possible to define a function that returns the <span class="math inline">\(n^{th}\)</span> Fibonacci number:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Fibo =<span class="st"> </span><span class="cf">function</span>(n){
+ a =<span class="st"> </span><span class="dv">0</span>
+ b =<span class="st"> </span><span class="dv">1</span>
+ <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){
+  temp =<span class="st"> </span>b
+  b =<span class="st"> </span>a
+  a =<span class="st"> </span>a <span class="op">+</span><span class="st"> </span>temp
+ }
+ <span class="kw">return</span>(a)
+}</code></pre></div>
+<p>Inside the loop, we defined a variable called . Defining temporary variables is usually very useful inside loops. Let’s try to understand what happens inside this loop:</p>
+
+<p>What happens if we want the <span class="math inline">\(3^{rd}\)</span> Fibonacci number? At  we have first  and , then ,  and . Then . Now  and . The previous result,  is now assigned to , so . Then, . Finally, .  (because ), the previous result  is assigned to  and finally, . So the third Fibonacci number equals 2. Reading this might be a bit confusing; I strongly advise you to run the algorithm on a sheet of paper, step by step.</p>
+<p>The above algorithm is called an iterative algorithm, because it uses a loop to compute the result. Let’s look at another way to think about the problem, with a recursive algorithm.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">FiboRecur =<span class="st"> </span><span class="cf">function</span>(n){
+ <span class="cf">if</span> (n <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">||</span><span class="st"> </span>n <span class="op">==</span><span class="st"> </span><span class="dv">1</span>){
+ <span class="kw">return</span>(n)} <span class="cf">else</span> {
+ <span class="kw">return</span>(<span class="kw">FiboRecur</span>(n<span class="op">-</span><span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">FiboRecur</span>(n<span class="op">-</span><span class="dv">2</span>))
+}
+}</code></pre></div>
+<p>This algorithm should be easier to understand: if  or  the function should return  (0 or 1). If  is strictly bigger than ,  should return the sum of  and . This version of the function is very much the same as the mathematical definition of the Fibonacci sequence. So why not use only recursive algorithms then? Try to run the following:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">Fibo</span>(<span class="dv">30</span>))</code></pre></div>
+<pre><code>##    user  system elapsed 
+##   0.004   0.000   0.006</code></pre>
+<p>The result should be printed very fast (the  function returns the time that it took to execute ). Let’s try with the recursive version:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">FiboRecur</span>(<span class="dv">30</span>))</code></pre></div>
+<pre><code>##    user  system elapsed 
+##   1.392   0.016   1.408</code></pre>
+<p>It takes much longer to execute! Recursive algorithms are very CPU demanding, so if speed is critical, it’s best to avoid recursive algorithms. Also, in  try to remove this:  and try to run  for example and see what happens. You should get an error: this is because for recursive algorithms you need a stopping condition, or else, it would run forever. This is not the case for iterative algorithms, because the stopping condition is the last step of the loop.</p>
+
+<p></p>
+<p> In this exercise, you will write a function to compute the sum of the n first integers. Combine the algorithm we saw in section  and what you learned about functions in this section.</p>
+<p>%MySum = function(n){ %result = 0 %i = 1 %while (i&lt;=n){ %result = result + i %i = i + 1 %} %return(result) %}</p>
+<p> Write a function called  that computes the factorial of a number . Do it iteratively and recursively.</p>
+<p>%MyFactorialIter = function(n){ %result = 1 %for(i in 1:n){ %result = result * i %i = i + 1 %} %return(result) %}</p>
+<p>%MyFactorialRecur = function(n){ %if(n == 0 || n == 1){ %result = 1 } else { %return(n * MyFactorialRecur(n-1)) %} %}</p>
+<p> In this exercise, we will find the eigenvalues of the following matrix:</p>
+<p><span class="math display">\[A = \left(
+\begin{array}{ccc}
+3 &amp; 1\\
+1 &amp; 3\\
+\end{array}
+\right)\]</span></p>
+<p>For this exercise, we will first think about the problem at hand, and try to simplify it as much as possible before writing any code.</p>
+<p>Remember that if A is full column rank, there will be 2 eigenvalues. Also, remember that the sum of the eigenvalues equals the trace of the matrix and that the product of the eigenvalues equals the determinant of the matrix. This gives you a system of 2 equations. Replace one equation into the other. What do you get? What is it that you finally have to do? Program a function to solve your problem now.</p>
+<p>% To solve the problem, we need to solve a quadratic function. Below is a % function that returns the roots of a quadratic function</p>
+<p>% A = matrix(c(3, 1, 1, 3), nrow = 2, ncol = 2, byrow = TRUE)</p>
+<p>% QuadRoot = function(a, b, c){ % fonction that return the root of a quadratic function % very basic, doesn’t cover the case where delta &lt; 0 % delta = b**2 - 4 * a * c % x1 = (-b + sqrt(delta)) / (2 * a) % x2 = (-b - sqrt(delta)) / (2 * a) % return(c(x1, x2)) %}</p>
+<p>% QuadRoot(1, -sum(diag(A)), det(A))</p>
 <p>Before merging these datasets together, we would need them to have a <code>year</code> column indicating the year. It would also be helpful if gave names to these datasets. For this task, we can use <code>purrr::set_names()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">all_datasets =<span class="st"> </span><span class="kw">set_names</span>(all_datasets, <span class="kw">as.character</span>(<span class="kw">seq</span>(<span class="dv">2013</span>, <span class="dv">2016</span>)))</code></pre></div>
 <p>Let’s take a look at the list now:</p>
@@ -291,6 +531,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>As you can see, each <code>data.frame</code> object contained in the list has been renamed. You can thus access them with the <code>$</code> operator:</p>
 <p><img src="pics/all_datasets_names.png" width="135" /></p>
 </div>
+</div>
 <div id="generating-pdf-or-word-reports-with-r" class="section level2">
 <h2><span class="header-section-number">8.3</span> Generating Pdf or Word reports with R</h2>
 </div>
@@ -304,6 +545,180 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">8.6</span> Random tips and tricks</h2>
 <div id="creating-a-log-file" class="section level3">
 <h3><span class="header-section-number">8.6.1</span> Creating a log file</h3>
+</div>
+</div>
+<div id="exercises-5" class="section level2">
+<h2><span class="header-section-number">8.7</span> Exercises</h2>
+<div id="exercise-1-4" class="section level3 unnumbered">
+<h3>Exercise 1</h3>
+<ul>
+<li>Create the following vector:</li>
+</ul>
+<p><span class="math display">\[a = (1,6,7,8,8,9,2)\]</span></p>
+<p>Using a for loop and a while loop, compute the sum of its elements. To avoid issues, use <code>i</code> as the counter inside the for loop, and <code>j</code> as the counter for the while loop.</p>
+<ul>
+<li>How would you achieve that with a functional (a function that takes a function as an argument)?</li>
+</ul>
+</div>
+<div id="exercise-2-2" class="section level3 unnumbered">
+<h3>Exercise 2</h3>
+<ul>
+<li>Let’s use a loop to get the matrix product of a matrix A and B. Follow these steps to create the loop:</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Create matrix A:</li>
+</ol>
+<p><span class="math display">\[A = \left(
+  \begin{array}{ccc}
+   9 &amp; 4 &amp; 12 \\
+   5 &amp; 0 &amp; 7 \\
+   2 &amp; 6 &amp; 8 \\
+   9 &amp; 2 &amp; 9
+  \end{array} \right)
+\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Create matrix B:</li>
+</ol>
+<p><span class="math display">\[B = \left(
+\begin{array}{cccc}
+ 5 &amp; 4 &amp; 2 &amp; 5 \\
+ 2 &amp; 7 &amp; 2 &amp; 1 \\
+ 8 &amp; 3 &amp; 2 &amp; 6 \\
+\end{array} \right)
+\]</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Create a matrix C, with dimension 4x4 that will hold the result. Use this command: `C = matrix(rep(0,16), nrow = 4)}</p></li>
+<li><p>Using a for loop, loop over the rows of A first: `for(i in 1:nrow(A))}</p></li>
+<li><p>Inside this loop, loop over the columns of B: `for(j in 1:ncol(B))}</p></li>
+<li><p>Again, inside this loop, loop over the rows of B: `for(k in 1:nrow(B))}</p></li>
+<li><p>Inside this last loop, compute the result and save it inside C: `C[i,j] = C[i,j] + A[i,k] * B[k,j]}</p></li>
+</ol>
+<ul>
+<li>R has a built-in function to compute the dot product of 2 matrices. Which is it?</li>
+</ul>
+</div>
+<div id="exercise-3-2" class="section level3 unnumbered">
+<h3>Exercise 3</h3>
+<ul>
+<li>Fizz Buzz: Print integers from 1 to 100. If a number is divisible by 3, print the word <code>Fizz</code> if it’s divisible by 5, print <code>Buzz</code>. Use a for loop and if statements.</li>
+</ul>
+</div>
+<div id="exercise-4-1" class="section level3 unnumbered">
+<h3>Exercise 4</h3>
+<ul>
+<li>Fizz Buzz 2: Same as above, but now add this third condition: if a number is both divisible by 3 and 5, print <code>&quot;FizzBuzz&quot;</code>.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>){
+<span class="cf">if</span> (i <span class="op">%%</span><span class="st"> </span><span class="dv">15</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
+  <span class="kw">print</span>(<span class="st">&quot;FizzBuzz&quot;</span>)
+} <span class="cf">else</span> <span class="cf">if</span> (i <span class="op">%%</span><span class="st"> </span><span class="dv">3</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
+  <span class="kw">print</span>(<span class="st">&quot;Fizz&quot;</span>)
+} <span class="cf">else</span> <span class="cf">if</span> (i <span class="op">%%</span><span class="st"> </span><span class="dv">5</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
+  <span class="kw">print</span>(<span class="st">&quot;Buzz&quot;</span>)
+} <span class="cf">else</span> {
+  <span class="kw">print</span>(i)
+}
+}</code></pre></div>
+<pre><code>## [1] 1
+## [1] 2
+## [1] &quot;Fizz&quot;
+## [1] 4
+## [1] &quot;Buzz&quot;
+## [1] &quot;Fizz&quot;
+## [1] 7
+## [1] 8
+## [1] &quot;Fizz&quot;
+## [1] &quot;Buzz&quot;
+## [1] 11
+## [1] &quot;Fizz&quot;
+## [1] 13
+## [1] 14
+## [1] &quot;FizzBuzz&quot;
+## [1] 16
+## [1] 17
+## [1] &quot;Fizz&quot;
+## [1] 19
+## [1] &quot;Buzz&quot;
+## [1] &quot;Fizz&quot;
+## [1] 22
+## [1] 23
+## [1] &quot;Fizz&quot;
+## [1] &quot;Buzz&quot;
+## [1] 26
+## [1] &quot;Fizz&quot;
+## [1] 28
+## [1] 29
+## [1] &quot;FizzBuzz&quot;
+## [1] 31
+## [1] 32
+## [1] &quot;Fizz&quot;
+## [1] 34
+## [1] &quot;Buzz&quot;
+## [1] &quot;Fizz&quot;
+## [1] 37
+## [1] 38
+## [1] &quot;Fizz&quot;
+## [1] &quot;Buzz&quot;
+## [1] 41
+## [1] &quot;Fizz&quot;
+## [1] 43
+## [1] 44
+## [1] &quot;FizzBuzz&quot;
+## [1] 46
+## [1] 47
+## [1] &quot;Fizz&quot;
+## [1] 49
+## [1] &quot;Buzz&quot;
+## [1] &quot;Fizz&quot;
+## [1] 52
+## [1] 53
+## [1] &quot;Fizz&quot;
+## [1] &quot;Buzz&quot;
+## [1] 56
+## [1] &quot;Fizz&quot;
+## [1] 58
+## [1] 59
+## [1] &quot;FizzBuzz&quot;
+## [1] 61
+## [1] 62
+## [1] &quot;Fizz&quot;
+## [1] 64
+## [1] &quot;Buzz&quot;
+## [1] &quot;Fizz&quot;
+## [1] 67
+## [1] 68
+## [1] &quot;Fizz&quot;
+## [1] &quot;Buzz&quot;
+## [1] 71
+## [1] &quot;Fizz&quot;
+## [1] 73
+## [1] 74
+## [1] &quot;FizzBuzz&quot;
+## [1] 76
+## [1] 77
+## [1] &quot;Fizz&quot;
+## [1] 79
+## [1] &quot;Buzz&quot;
+## [1] &quot;Fizz&quot;
+## [1] 82
+## [1] 83
+## [1] &quot;Fizz&quot;
+## [1] &quot;Buzz&quot;
+## [1] 86
+## [1] &quot;Fizz&quot;
+## [1] 88
+## [1] 89
+## [1] &quot;FizzBuzz&quot;
+## [1] 91
+## [1] 92
+## [1] &quot;Fizz&quot;
+## [1] 94
+## [1] &quot;Buzz&quot;
+## [1] &quot;Fizz&quot;
+## [1] 97
+## [1] 98
+## [1] &quot;Fizz&quot;
+## [1] &quot;Buzz&quot;</code></pre>
 
 </div>
 </div>

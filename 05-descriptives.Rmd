@@ -378,7 +378,8 @@ str(all_datasets)
 For working with lists, another package from the `tidyverse` is very useful, and that would be
 `purrr`. `purrr` has functions to work with lists, and we are going to focus on two of them,
 `map()` and `reduce()`. `map()`... maps a function to each element of a list. `reduce()` is a bit
-more complicated so we'll leave that for later.
+more complicated so we'll leave that for later. `map()` and `reduce()` are also called functionals;
+functions that use functions as arguments.
 
 The first thing we are going to do is use a function to clean the names of the datasets. These
 names are not very easy to work with; there are spaces, and it would be better if the names of the
