@@ -122,6 +122,7 @@ However this does not mean that loops do not have their place. We are going to t
 in the next sections, but first, let's learn about while loops.
 
 ### While loops
+
 While loops are very similar to for loops. The instructions inside a while loop are repeat while a
 certain condition holds true. Let's consider the sum of the first 100 integers again:
 
@@ -181,9 +182,30 @@ return(result)
 average_and_sd(c(1, 3, 8, 9, 10, 12))
 ```
 
+If you need to use a function from a package inside your function, you have two solutions at your
+disposal: if you only need one single function, use `::`:
+
+```{r}
+my_sum = function(a_vector){
+  purrr::reduce(a_vector, `+`)
+}
+```
+
+or, if you need several functions, use `library(package_name)`, inside the function:
+
+```{r}
+my_sum = function(a_vector){
+  library(purrr)
+  reduce(a_vector, `+`)
+```
+
+Loading the library inside the function has the advantage that you will be sure that the package
+upon which your function depends will be loaded. If the package is already loaded, it will not be
+loaded again, thus not impacting performance, but if you forgot to load it at the beginning of your
+script, then, no worries, your function will load it the first time you use it!
 
 You can put a lot of instructions inside a function, such as loops. Let's create the function that
-returns Fibonacci numbers.
+returns my_fibonacci numbers.
 
 ### Fibonacci numbers
 
@@ -191,10 +213,10 @@ The Fibonacci sequence is the following:
 
 $$1, 1, 2, 3, 5, 8, 13, 21, 34, 55, ...$$
 
-Each subsequent number is composed of the sum of the two preceding ones. In R, it is possible to define a function that returns the $n^{th}$ Fibonacci number:
+Each subsequent number is composed of the sum of the two preceding ones. In R, it is possible to define a function that returns the $n^{th}$ my_fibonacci number:
 
 ```{r, cache=TRUE}
-Fibo = function(n){
+my_fibo = function(n){
  a = 0
  b = 1
  for (i in 1:n){
@@ -206,110 +228,200 @@ Fibo = function(n){
 }
 ```
 
-Inside the loop, we defined a variable called \texttt{temp}. Defining temporary variables is usually very useful inside loops. Let's try to understand what happens inside this loop:
+Inside the loop, we defined a variable called `temp`. Defining temporary variables is usually very
+useful inside loops. Let's try to understand what happens inside this loop:
 
-\begin{enumerate}
- \item First, we assign the value 0 to variable \texttt{a} and value 1 to variable \texttt{b}.
- \item We start a loop, that goes from 1 to \texttt{n}.
- \item We assign the value inside of \texttt{b} to a temporary variable, called \texttt{temp}.
- \item \texttt{b} becomes \texttt{a}.
- \item We assign the sum of \texttt{a} and \texttt{temp} to a.
- \item When the loop is finished, we return \texttt{a}.
-\end{enumerate}
+* First, we assign the value 0 to variable `a` and value 1 to variable `b`.
+* We start a loop, that goes from 1 to `n`.
+* We assign the value inside of `b` to a temporary variable, called `temp`.
+* `b` becomes `a`.
+* We assign the sum of `a` and `temp` to `a`.
+* When the loop is finished, we return `a`.
 
-What happens if we want the $3^{rd}$ Fibonacci number? At \texttt{n = 1} we have first \texttt{a = 0} and \texttt{b = 1}, then \texttt{temp = 1}, \texttt{b = 0} and \texttt{a = 0 + 1}. Then \texttt{n = 2}. Now \texttt{b = 0} and \texttt{temp = 0}. The previous result, \texttt{a = 0 + 1} is now assigned to \texttt{b}, so \texttt{b = 1}. Then, \texttt{a = 1 + 0}. Finally, \texttt{n = 3}. \texttt{temp = 1} (because \texttt{b = 1}), the previous result \texttt{a = 1} is assigned to \texttt{b} and finally, \texttt{a = 1 + 1}. So the third Fibonacci number equals 2. Reading this might be a bit confusing; I strongly advise you to run the algorithm on a sheet of paper, step by step.
+What happens if we want the 3rd my_fibonacci number? At `n = 1` we have first `a = 0` and `b = 1`,
+then `temp = 1`, `b = 0` and `a = 0 + 1`. Then `n = 2`. Now `b = 0` and `temp = 0`. The previous
+result, `a = 0 + 1` is now assigned to `b`, so `b = 1`. Then, `a = 1 + 0`. Finally, `n = 3`. `temp
+= 1` (because `b = 1`), the previous result `a = 1` is assigned to `b` and finally, `a = 1 + 1`. So
+the third my_fibonacci number equals 2. Reading this might be a bit confusing; I strongly advise you
+to run the algorithm on a sheet of paper, step by step.
 
-The above algorithm is called an iterative algorithm, because it uses a loop to compute the result. Let's look at another way to think about the problem, with a recursive algorithm.
+The above algorithm is called an iterative algorithm, because it uses a loop to compute the result.
+Let's look at another way to think about the problem, with a so-called recursive function:
 
 ```{r, cache=TRUE}
-FiboRecur = function(n){
+fibo_recur = function(n){
  if (n == 0 || n == 1){
- return(n)} else {
- return(FiboRecur(n-1) + FiboRecur(n-2))
-}
+   return(n)
+   } else {
+     return(fibo_recur(n-1) + fibo_recur(n-2))
+   }
 }
 ```
 
-This algorithm should be easier to understand: if \texttt{n = 0} or \texttt{n = 1} the function should return \texttt{n} (0 or 1). If \texttt{n} is strictly bigger than \texttt{1}, \texttt{FiboRecur} should return the sum of \texttt{FiboRecur(n-1)} and \texttt{FiboRecur(n-2)}. This version of the function is very much the same as the mathematical definition of the Fibonacci sequence. So why not use only recursive algorithms then? Try to run the following:
+This algorithm should be easier to understand: if `n = 0` or `n = 1` the function should return `n`
+(0 or 1). If `n` is strictly bigger than `1`, `fibo_recur()` should return the sum of
+`fibo_recur(n-1)` and `fibo_recur(n-2)`. This version of the function is very much the same as the
+mathematical definition of the fibonacci sequence. So why not use only recursive algorithms
+then? Try to run the following:
 
 ```{r, cache=TRUE}
-system.time(Fibo(30))
+system.time(my_fibo(30))
 ```
 
-The result should be printed very fast (the \texttt{system.time()} function returns the time that it took to execute \texttt{Fibo(30)}). Let's try with the recursive version:
+The result should be printed very fast (the `system.time()` function returns the time that it took
+to execute `my_fibo(30)`). Let's try with the recursive version:
 
 ```{r, cache=TRUE}
-system.time(FiboRecur(30))
+system.time(fibo_recur(30))
 ```
 
-It takes much longer to execute! Recursive algorithms are very CPU demanding, so if speed is critical, it's best to avoid recursive algorithms. Also, in \texttt{FiboRecur} try to remove this: \texttt{if (n == 0 || n == 1)} and try to run \texttt{FiboRecur(5)} for example and see what happens. You should get an error: this is because for recursive algorithms you need a stopping condition, or else, it would run forever. This is not the case for iterative algorithms, because the stopping condition is the last step of the loop.
+It takes much longer to execute! Recursive algorithms are very CPU demanding, so if speed is
+critical, it's best to avoid recursive algorithms. Also, in `fibo_recur()` try to remove this line:
+`if (n == 0 || n == 1)` and try to run `fibo_recur(5)` for example and see what happens. You should
+get an error: this is because for recursive algorithms you need a stopping condition, or else, it would
+run forever. This is not the case for iterative algorithms, because the stopping condition is the
+last step of the loop.
 
-\section*{Exercises}
+So as you can see, for recursive relationships, for or while loops are the way to go in R, whether
+you're writing these loops inside functions or not.
 
-\emph{Write the answers to this exercise inside a file called yourname\_functions.R and send it to me: \texttt{brodrigues```unistra.fr}. Use comments to explain what you do!}\newline
+## Exercises
 
-\emph{Exercise 1} In this exercise, you will write a function to compute the sum of the n first integers. Combine the algorithm we saw in section \ref{whileloops} and what you learned about functions in this section.
+### Exercise 1 {-}
+
+In this exercise, you will write a function to compute the sum of the n first integers. Combine the
+algorithm we saw in section about while loops and what you learned about functions
+in this section.
+
+```{r, include=FALSE}
+MySum = function(n){
+  result = 0
+  i = 1
+  while (i<=n){
+    result = result + i
+    i = i + 1
+  }
+  return(result)
+}
+```
+
+### Exercise 2 {-}
+
+Write a function called `my_fact()` that computes the factorial of a number `n`. Do it using a
+loop, using a recursive function, and using a functional:
+
+```{r, include=FALSE}
+my_fact_iter = function(n){
+  result = 1
+  for(i in 1:n){
+    result = result * i
+    i = i + 1
+  }
+  return(result)
+}
+
+my_fact_recur = function(n){
+  if(n == 0 || n == 1){
+  result = 1
+  } else {
+    return(n * MyFactorialRecur(n-1))
+  }
+}
+
+my_fact_reduce = function(n){
+  return(reduce(seq(1, n), `*`))
+}
+```
+
+### Exercise 3 {-}
+
+Write a function to find the roots of quadratic functions. Your function should take 3 arguments,
+`a`, `b` and `c` and return the two roots. Only consider the case where there are two real roots
+(delta > 0).
+
+```{r, include=FALSE}
+quad_root = function(a, b, c){
+# function that return the root of a quadratic function
+# very basic, doesn't cover the case where delta < 0
+  delta = b**2 - 4 * a * c
+  x1 = (-b + sqrt(delta)) / (2 * a)
+  x2 = (-b - sqrt(delta)) / (2 * a)
+  return(c(x1, x2))
+}
+
+quad_root(1, -4, 3) # should return 3 and 1
+```
+
+## Functions that take columns of data as arguments
+
+In many situations, you will want to write functions that look similar to this:
+
+```{r}
+my_function(my_data, one_column_inside_data)
+```
+
+However, if you try to write something like that, something that might seem unexpected, at first,
+will happen:
+
+```{r, eval=FALSE}
+data(mtcars)
+
+simpleFunction <- function(dataset, col_name){
+  require("dplyr")
+  dataset %>%
+    group_by(col_name) %>%
+    summarise(mean_speed = mean(speed)) -> dataset
+  return(dataset)
+}
 
 
-%MySum = function(n){
-%result = 0
-%i = 1
-%while (i<=n){
-%result = result + i
-%i = i + 1
-%}
-%return(result)
-%}
+simpleFunction(cars, "dist")
+```
+
+```
+Error: unknown variable to group by : col_name
+```
+
+The variable `col_name` is passed to `simpleFunction()` as a string, but `group_by()` requires a variable
+name. So why not try to convert `col_name` to a name?
+
+```{r}
+simpleFunction <- function(dataset, col_name){
+  require("dplyr")
+  col_name <- as.name(col_name)
+  dataset %>%
+    group_by(col_name) %>%
+    summarise(mean_speed = mean(speed)) -> dataset
+  return(dataset)
+}
 
 
-\emph{Exercise 2} Write a function called \texttt{MyFactorial} that computes the factorial of a number \texttt{n}. Do it iteratively and recursively.
+simpleFunction(cars, "dist")
+```
 
-%MyFactorialIter = function(n){
-%result = 1
-%for(i in 1:n){
-%result = result * i
-%i = i + 1
-%}
-%return(result)
-%}
+```
+Error: unknown variable to group by : col_name
+```
+
+This is because R is literally looking for the variable `"dist"` somewhere in the global
+environment. R does not understand that you are refering to the column `"dist"` that is inside the
+dataset. So how can we make R understand what you mean?
 
 
-%MyFactorialRecur = function(n){
-%if(n == 0 || n == 1){
-%result = 1 } else {
-%return(n * MyFactorialRecur(n-1))
-%}
-%}
+```{r}
+data(mtcars)
 
-\emph{Exercise 3} In this exercise, we will find the eigenvalues of the following matrix:
+simpleFunction <- function(dataset, col_name){
+  col_name <- enquo(col_name)
+  dataset %>%
+    group_by(!!col_name) %>%
+    summarise(mean_mpg = mean(mpg)) -> dataset
+  return(dataset)
+}
 
-$$A = \left(
-\begin{array}{ccc}
-3 & 1\\
-1 & 3\\
-\end{array}
-\right)$$
 
-For this exercise, we will first think about the problem at hand, and try to simplify it as much as possible before writing any code.
-
-Remember that if A is full column rank, there will be 2 eigenvalues. Also, remember that the sum of the eigenvalues equals the trace of the matrix and that the product of the eigenvalues equals the determinant of the matrix. This gives you a system of 2 equations. Replace one equation into the other. What do you get? What is it that you finally have to do? Program a function to solve your problem now.
-
-% To solve the problem, we need to solve a quadratic function. Below is a
-% function that returns the roots of a quadratic function
-
-% A = matrix(c(3, 1, 1, 3), nrow = 2, ncol = 2, byrow = TRUE)
-
-% QuadRoot = function(a, b, c){
-% fonction that return the root of a quadratic function
-% very basic, doesn't cover the case where delta < 0
-%  delta = b**2 - 4 * a * c
-%  x1 = (-b + sqrt(delta)) / (2 * a)
-%  x2 = (-b - sqrt(delta)) / (2 * a)
-%  return(c(x1, x2))
-%}
-
-% QuadRoot(1, -sum(diag(A)), det(A))
-
+simpleFunction(mtcars, cyl)
+```
 
 
 
