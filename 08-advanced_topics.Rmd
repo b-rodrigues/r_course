@@ -353,6 +353,78 @@ quad_root = function(a, b, c){
 quad_root(1, -4, 3) # should return 3 and 1
 ```
 
+## Functions that take functions as arguments
+
+Functions that take functions as arguments are very powerful and useful tools. You already know a
+couple, `purrr::map()` and `purrr::reduce()`. But you can also write your own! A very simple example would be the
+following:
+
+```{r}
+my_func = function(x, func){
+  func(x)
+}
+```
+
+`my_func()` is a very simple function that takes `x` and `func()` as arguments and that simply
+executes `func(x)`. This might seem pretty useful (after all, you could simply use `func(x)!`) but
+this is just for illustration purposes, in practice, your functions would be more useful than that!
+Let's try to use `my_func()`:
+
+```{r}
+my_func(c(1, 8, 1, 0, 8), mean)
+```
+
+As expected, this returns the mean of the given vector. But now suppose the following:
+
+```{r}
+my_func(c(1, 8, 1, NA, 8), mean)
+```
+
+Because one element of the list is `NA`, the whole mean is `NA`. `mean()` has a `na.rm` argument
+that you can set to `TRUE` to ignore the `NA`s in the vector. However, here, there is no way to
+provide this argument to the function `mean()`! Let's see what happens when we try to:
+
+```{r, eval=FALSE}
+my_func(c(1, 8, 1, NA, 8), mean, na.rm = TRUE)
+```
+
+```
+Error in my_func(c(1, 8, 1, NA, 8), mean, na.rm = TRUE) :
+  unused argument (na.rm = TRUE)
+```
+
+So what you could do is pass the value `TRUE` to the `na.rm` argument of `mean()` from your own
+function:
+
+```{r}
+my_func = function(x, func, remove_na){
+  func(x, na.rm = remove_na)
+}
+
+my_func(c(1, 8, 1, NA, 8), mean, remove_na = TRUE)
+```
+
+This is one solution, but `mean()` also has another argument called `trim`. What if some other user needs
+this argument? Should you also add it to your function? Surely there's a way to avoid this problem?
+Yes, there is, and it's the *dots*. The `...` simply mean "any other argument as needed", and it's
+very easy to use:
+
+```{r}
+my_func = function(x, func, ...){
+  func(x, ...)
+}
+
+my_func(c(1, 8, 1, NA, 8), mean, na.rm = TRUE)
+```
+
+or, now, if you need the `trim` argument:
+
+```{r}
+my_func(c(1, 8, 1, NA, 8), mean, na.rm = TRUE, trim = 0.1)
+```
+
+The `...` very useful when writing wrappers such as `my_func()`.
+
 ## Functions that take columns of data as arguments
 
 In many situations, you will want to write functions that look similar to this:
@@ -361,13 +433,18 @@ In many situations, you will want to write functions that look similar to this:
 my_function(my_data, one_column_inside_data)
 ```
 
+Such a function would be useful in situation where you have to apply a certain number of operations
+to columns for different data frames. For example if you need to create tables of descriptive
+statistics or graphs periodically, it might be very interesting to put these operations inside a
+function and then call the function whenever you need it, on the fresh batch of data.
+
 However, if you try to write something like that, something that might seem unexpected, at first,
 will happen:
 
 ```{r, eval=FALSE}
 data(mtcars)
 
-simpleFunction <- function(dataset, col_name){
+simple_function <- function(dataset, col_name){
   require("dplyr")
   dataset %>%
     group_by(col_name) %>%
@@ -376,19 +453,19 @@ simpleFunction <- function(dataset, col_name){
 }
 
 
-simpleFunction(cars, "dist")
+simple_function(cars, "dist")
 ```
 
 ```
 Error: unknown variable to group by : col_name
 ```
 
-The variable `col_name` is passed to `simpleFunction()` as a string, but `group_by()` requires a variable
-name. So why not try to convert `col_name` to a name?
+The variable `col_name` is passed to `simple_function()` as a string, but `group_by()` requires a
+variable name. So why not try to convert `col_name` to a name?
 
 ```{r, eval=FALSE}
-simpleFunction <- function(dataset, col_name){
-  require("dplyr")
+simple_function <- function(dataset, col_name){
+  library("dplyr")
   col_name <- as.name(col_name)
   dataset %>%
     group_by(col_name) %>%
@@ -397,7 +474,7 @@ simpleFunction <- function(dataset, col_name){
 }
 
 
-simpleFunction(cars, "dist")
+simple_function(cars, "dist")
 ```
 
 ```
@@ -405,14 +482,19 @@ Error: unknown variable to group by : col_name
 ```
 
 This is because R is literally looking for the variable `"dist"` somewhere in the global
-environment. R does not understand that you are refering to the column `"dist"` that is inside the
-dataset. So how can we make R understand what you mean?
+environment, and not as a column of the data. R does not understand that you are refering to the
+column `"dist"` that is inside the dataset. So how can we make R understand what you mean?
+
+To be able to do that, we need to use a framework that was introduced recently in the `tidyverse`,
+called `tidyeval`. This discussion can get very technical, so I will spare you the details.
+However, you can read about it [here](http://dplyr.tidyverse.org/articles/programming.html) and
+[here](https://cran.r-project.org/web/packages/rlang/vignettes/tidy-evaluation.html). The
+discussion can get complicated, but using `tidyeval` is actually quite easy, and you can get a
+cookbook approach to it. Take a look at the code below:
 
 
 ```{r}
-data(mtcars)
-
-simpleFunction <- function(dataset, col_name){
+simple_function <- function(dataset, col_name){
   col_name <- enquo(col_name)
   dataset %>%
     group_by(!!col_name) %>%
@@ -421,11 +503,144 @@ simpleFunction <- function(dataset, col_name){
 }
 
 
-simpleFunction(mtcars, cyl)
+simple_function(mtcars, cyl)
 ```
 
+As you can see, the previous idea we had, which was using `as.name()` was not very far away from
+the solution. The solution, with `tidyeval`, consists in using `enquo()`, which for our purposes,
+let's say that this function does something similar to `as.name()` (in truth, it doesn't). Now that
+`col_name` is (R programmers call it) quoted, we need to tell `group_by()` to evaluate the input as
+is. This is done with `!!()`, which is another `tidyeval` function. I say it again;
+don't worry if you don't understand everything. Just remember to use `enquo()` on your column names
+and then `!!()` inside the `dplyr` function you want to use.
+
+Let's see some other examples:
+
+```{r}
+simple_function <- function(dataset, col_name, value){
+  col_name <- enquo(col_name)
+  dataset %>%
+    filter((!!col_name) == value) %>%
+    summarise(mean_cyl = mean(cyl)) -> dataset
+  return(dataset)
+}
 
 
+simple_function(mtcars, am, 1)
+```
+
+Notice that I’ve written:
+
+```{r, eval=FALSE}
+filter((!!col_name) == value)
+```
+and not:
+
+```{r, eval=FALSE}
+filter(!!col_name == value)
+```
+I have enclosed `!!col_name` inside parentheses. This is because operators such as `==` have
+precedence over `!!`, so you have to be explicit. Also, notice that I didn't have to quote `1`.
+This is because it's *standard* variable, not a column inside the dataset. Let’s make this function
+a bit more general. I hard-coded the variable cyl inside the body of the function, but maybe you’d
+like the mean of another variable?
+
+```{r}
+simple_function <- function(dataset, filter_col, mean_col, value){
+  filter_col <- enquo(filter_col)
+  mean_col <- enquo(mean_col)
+  dataset %>%
+    filter((!!filter_col) == value) %>%
+    summarise(mean((!!mean_col))) -> dataset
+  return(dataset)
+}
+
+
+simple_function(mtcars, am, cyl, 1)
+```
+
+Notice that I had to quote `mean_col` too.
+
+Using the `...` that we discovered in the previous section, we can pass more than one column:
+
+```{r}
+simple_function <- function(dataset, ...){
+  col_vars <- quos(...)
+  dataset %>%
+    summarise_at(vars(!!!col_vars), funs(mean, sd))
+}
+```
+
+Because these *dots* contain more than one variable, you have to use `quos()` instead of `enquo()`.
+This will put the arguments provided via the dots in a list. Then, because we have a list of
+columns, we have to use `summarise_at()`, which you should know if you did the exercices of
+chapter 5. So if you didn't do them, go back to them and finish them first. Doing the exercise will
+also teach you what `vars()` and `funs()` are. The last thing you have to pay attention to is to
+use `!!!()` if you used `quos()`. So 3 `!` instead of only 2. This allows you to then do things
+like this:
+
+```{r}
+simple_function(mtcars, am, cyl, mpg)
+```
+
+Using `...` with `!!!()` allows you to write very flexible functions.
+
+If you need to be even more general, you can also provide the summary functions as arguments of
+your function, but you have to rewrite your function a little bit:
+
+```{r}
+simple_function <- function(dataset, cols, funcs){
+  dataset %>%
+    summarise_at(vars(!!!cols), funs(!!!funcs))
+}
+```
+
+You might be wondering where the `quos()` went? Well because now we are passing two lists of, a list
+columns that we have to quote, and a list of functions, that we have to quote, we need to use `quos()`
+when calling the function:
+
+```{r}
+simple_function(mtcars, quos(am, cyl, mpg), quos(mean, sd, sum))
+```
+
+This works, but I don't think you'll need to have that much flexibility; either the columns are variable,
+or the functions, but rarely both at the same time. I guess.
+
+## Anonymous functions
+
+As the name implies, anonymous functions are functions that do not have a name. These are useful inside
+functions that have functions as arguments, such as `purrr::map()` or `purrr::reduce()`:
+
+```{r}
+map(c(1,2,3,4), function(x){1/sqrt(x)})
+```
+
+These anonymous functions get defined in a very similar way to regular functions, you just skip the
+name and that's it. `tidyverse` functions also support formulas; these get converted to anonymous functions:
+
+```{r}
+map(c(1,2,3,4), ~{1/sqrt(.)})
+```
+
+Using a formula instead of an anonymous function is less verbose; you use `~` instead of `function(x)`
+and a single dot `.` instead of `x`. What if you need an anonymous function that requires more than
+one argument? This is not a problem:
+
+```{r}
+map2(c(1, 2, 3, 4, 5), c(9, 8, 7, 6, 5), function(x, y){(x**2)/y})
+```
+
+or, using a formula:
+
+```{r}
+map2(c(1, 2, 3, 4, 5), c(9, 8, 7, 6, 5), ~{(.x**2)/.y})
+```
+
+Because you have now two arguments, a single dot could not work, so instead you use `.x` and `.y` to
+avoid confusion.
+
+
+## Mapping your homebrewed functions to lists of datasets
 
 Before merging these datasets together, we would need them to have a `year` column indicating the
 year. It would also be helpful if gave names to these datasets. For this task, we can use
@@ -433,7 +648,7 @@ year. It would also be helpful if gave names to these datasets. For this task, w
 
 ```{r}
 all_datasets = set_names(all_datasets, as.character(seq(2013, 2016)))
-```
+               ```
 
 Let's take a look at the list now:
 

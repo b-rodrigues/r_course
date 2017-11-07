@@ -25,7 +25,7 @@
 <meta name="author" content="Bruno Rodrigues">
 
 
-<meta name="date" content="2017-11-06">
+<meta name="date" content="2017-11-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -225,14 +225,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-2-2"><i class="fa fa-check"></i>Exercise 2</a></li>
 <li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-3-2"><i class="fa fa-check"></i>Exercise 3</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#functions-that-take-columns-of-data-as-arguments"><i class="fa fa-check"></i><b>8.4</b> Functions that take columns of data as arguments</a></li>
-<li class="chapter" data-level="8.5" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#generating-pdf-or-word-reports-with-r"><i class="fa fa-check"></i><b>8.5</b> Generating Pdf or Word reports with R</a></li>
-<li class="chapter" data-level="8.6" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#scraping-the-internet"><i class="fa fa-check"></i><b>8.6</b> Scraping the internet</a></li>
-<li class="chapter" data-level="8.7" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#writing-your-own-package"><i class="fa fa-check"></i><b>8.7</b> Writing your own package</a></li>
-<li class="chapter" data-level="8.8" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#random-tips-and-tricks"><i class="fa fa-check"></i><b>8.8</b> Random tips and tricks</a><ul>
-<li class="chapter" data-level="8.8.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#creating-a-log-file"><i class="fa fa-check"></i><b>8.8.1</b> Creating a log file</a></li>
+<li class="chapter" data-level="8.4" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#functions-that-take-functions-as-arguments"><i class="fa fa-check"></i><b>8.4</b> Functions that take functions as arguments</a></li>
+<li class="chapter" data-level="8.5" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#functions-that-take-columns-of-data-as-arguments"><i class="fa fa-check"></i><b>8.5</b> Functions that take columns of data as arguments</a></li>
+<li class="chapter" data-level="8.6" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#anonymous-functions"><i class="fa fa-check"></i><b>8.6</b> Anonymous functions</a></li>
+<li class="chapter" data-level="8.7" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#mapping-your-homebrewed-functions-to-lists-of-datasets"><i class="fa fa-check"></i><b>8.7</b> Mapping your homebrewed functions to lists of datasets</a></li>
+<li class="chapter" data-level="8.8" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#generating-pdf-or-word-reports-with-r"><i class="fa fa-check"></i><b>8.8</b> Generating Pdf or Word reports with R</a></li>
+<li class="chapter" data-level="8.9" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#scraping-the-internet"><i class="fa fa-check"></i><b>8.9</b> Scraping the internet</a></li>
+<li class="chapter" data-level="8.10" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#writing-your-own-package"><i class="fa fa-check"></i><b>8.10</b> Writing your own package</a></li>
+<li class="chapter" data-level="8.11" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#random-tips-and-tricks"><i class="fa fa-check"></i><b>8.11</b> Random tips and tricks</a><ul>
+<li class="chapter" data-level="8.11.1" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#creating-a-log-file"><i class="fa fa-check"></i><b>8.11.1</b> Creating a log file</a></li>
 </ul></li>
-<li class="chapter" data-level="8.9" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercises-5"><i class="fa fa-check"></i><b>8.9</b> Exercises</a><ul>
+<li class="chapter" data-level="8.12" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercises-5"><i class="fa fa-check"></i><b>8.12</b> Exercises</a><ul>
 <li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-1-5"><i class="fa fa-check"></i>Exercise 1</a></li>
 <li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-2-3"><i class="fa fa-check"></i>Exercise 2</a></li>
 <li class="chapter" data-level="" data-path="advanced-topics-1.html"><a href="advanced-topics-1.html#exercise-3-3"><i class="fa fa-check"></i>Exercise 3</a></li>
@@ -509,14 +512,50 @@ i =<span class="st"> </span><span class="dv">1</span>
 <p>Write a function to find the roots of quadratic functions. Your function should take 3 arguments, <code>a</code>, <code>b</code> and <code>c</code> and return the two roots. Only consider the case where there are two real roots (delta &gt; 0).</p>
 </div>
 </div>
+<div id="functions-that-take-functions-as-arguments" class="section level2">
+<h2><span class="header-section-number">8.4</span> Functions that take functions as arguments</h2>
+<p>Functions that take functions as arguments are very powerful and useful tools. You already know a couple, <code>purrr::map()</code> and <code>purrr::reduce()</code>. But you can also write your own! A very simple example would be the following:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_func =<span class="st"> </span><span class="cf">function</span>(x, func){
+  <span class="kw">func</span>(x)
+}</code></pre></div>
+<p><code>my_func()</code> is a very simple function that takes <code>x</code> and <code>func()</code> as arguments and that simply executes <code>func(x)</code>. This might seem pretty useful (after all, you could simply use <code>func(x)!</code>) but this is just for illustration purposes, in practice, your functions would be more useful than that! Let’s try to use <code>my_func()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">my_func</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">8</span>), mean)</code></pre></div>
+<pre><code>## [1] 3.6</code></pre>
+<p>As expected, this returns the mean of the given vector. But now suppose the following:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">my_func</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">8</span>), mean)</code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<p>Because one element of the list is <code>NA</code>, the whole mean is <code>NA</code>. <code>mean()</code> has a <code>na.rm</code> argument that you can set to <code>TRUE</code> to ignore the <code>NA</code>s in the vector. However, here, there is no way to provide this argument to the function <code>mean()</code>! Let’s see what happens when we try to:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">my_func</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">8</span>), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>Error in my_func(c(1, 8, 1, NA, 8), mean, na.rm = TRUE) :
+  unused argument (na.rm = TRUE)</code></pre>
+<p>So what you could do is pass the value <code>TRUE</code> to the <code>na.rm</code> argument of <code>mean()</code> from your own function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_func =<span class="st"> </span><span class="cf">function</span>(x, func, remove_na){
+  <span class="kw">func</span>(x, <span class="dt">na.rm =</span> remove_na)
+}
+
+<span class="kw">my_func</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">8</span>), mean, <span class="dt">remove_na =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## [1] 4.5</code></pre>
+<p>This is one solution, but <code>mean()</code> also has another argument called <code>trim</code>. What if some other user needs this argument? Should you also add it to your function? Surely there’s a way to avoid this problem? Yes, there is, and it’s the <em>dots</em>. The <code>...</code> simply mean “any other argument as needed”, and it’s very easy to use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_func =<span class="st"> </span><span class="cf">function</span>(x, func, ...){
+  <span class="kw">func</span>(x, ...)
+}
+
+<span class="kw">my_func</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">8</span>), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## [1] 4.5</code></pre>
+<p>or, now, if you need the <code>trim</code> argument:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">my_func</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">8</span>), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">trim =</span> <span class="fl">0.1</span>)</code></pre></div>
+<pre><code>## [1] 4.5</code></pre>
+<p>The <code>...</code> very useful when writing wrappers such as <code>my_func()</code>.</p>
+</div>
 <div id="functions-that-take-columns-of-data-as-arguments" class="section level2">
-<h2><span class="header-section-number">8.4</span> Functions that take columns of data as arguments</h2>
+<h2><span class="header-section-number">8.5</span> Functions that take columns of data as arguments</h2>
 <p>In many situations, you will want to write functions that look similar to this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">my_function</span>(my_data, one_column_inside_data)</code></pre></div>
+<p>Such a function would be useful in situation where you have to apply a certain number of operations to columns for different data frames. For example if you need to create tables of descriptive statistics or graphs periodically, it might be very interesting to put these operations inside a function and then call the function whenever you need it, on the fresh batch of data.</p>
 <p>However, if you try to write something like that, something that might seem unexpected, at first, will happen:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(mtcars)
 
-simpleFunction &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, col_name){
+simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, col_name){
   <span class="kw">require</span>(<span class="st">&quot;dplyr&quot;</span>)
   dataset <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">group_by</span>(col_name) <span class="op">%&gt;%</span>
@@ -525,11 +564,11 @@ simpleFunction &lt;-<span class="st"> </span><span class="cf">function</span>(da
 }
 
 
-<span class="kw">simpleFunction</span>(cars, <span class="st">&quot;dist&quot;</span>)</code></pre></div>
+<span class="kw">simple_function</span>(cars, <span class="st">&quot;dist&quot;</span>)</code></pre></div>
 <pre><code>Error: unknown variable to group by : col_name</code></pre>
-<p>The variable <code>col_name</code> is passed to <code>simpleFunction()</code> as a string, but <code>group_by()</code> requires a variable name. So why not try to convert <code>col_name</code> to a name?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">simpleFunction &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, col_name){
-  <span class="kw">require</span>(<span class="st">&quot;dplyr&quot;</span>)
+<p>The variable <code>col_name</code> is passed to <code>simple_function()</code> as a string, but <code>group_by()</code> requires a variable name. So why not try to convert <code>col_name</code> to a name?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, col_name){
+  <span class="kw">library</span>(<span class="st">&quot;dplyr&quot;</span>)
   col_name &lt;-<span class="st"> </span><span class="kw">as.name</span>(col_name)
   dataset <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">group_by</span>(col_name) <span class="op">%&gt;%</span>
@@ -538,12 +577,11 @@ simpleFunction &lt;-<span class="st"> </span><span class="cf">function</span>(da
 }
 
 
-<span class="kw">simpleFunction</span>(cars, <span class="st">&quot;dist&quot;</span>)</code></pre></div>
+<span class="kw">simple_function</span>(cars, <span class="st">&quot;dist&quot;</span>)</code></pre></div>
 <pre><code>Error: unknown variable to group by : col_name</code></pre>
-<p>This is because R is literally looking for the variable <code>&quot;dist&quot;</code> somewhere in the global environment. R does not understand that you are refering to the column <code>&quot;dist&quot;</code> that is inside the dataset. So how can we make R understand what you mean?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(mtcars)
-
-simpleFunction &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, col_name){
+<p>This is because R is literally looking for the variable <code>&quot;dist&quot;</code> somewhere in the global environment, and not as a column of the data. R does not understand that you are refering to the column <code>&quot;dist&quot;</code> that is inside the dataset. So how can we make R understand what you mean?</p>
+<p>To be able to do that, we need to use a framework that was introduced recently in the <code>tidyverse</code>, called <code>tidyeval</code>. This discussion can get very technical, so I will spare you the details. However, you can read about it <a href="http://dplyr.tidyverse.org/articles/programming.html">here</a> and <a href="https://cran.r-project.org/web/packages/rlang/vignettes/tidy-evaluation.html">here</a>. The discussion can get complicated, but using <code>tidyeval</code> is actually quite easy, and you can get a cookbook approach to it. Take a look at the code below:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, col_name){
   col_name &lt;-<span class="st"> </span><span class="kw">enquo</span>(col_name)
   dataset <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">group_by</span>(<span class="op">!!</span>col_name) <span class="op">%&gt;%</span>
@@ -552,13 +590,134 @@ simpleFunction &lt;-<span class="st"> </span><span class="cf">function</span>(da
 }
 
 
-<span class="kw">simpleFunction</span>(mtcars, cyl)</code></pre></div>
+<span class="kw">simple_function</span>(mtcars, cyl)</code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##     cyl mean_mpg
-##   &lt;dbl&gt;    &lt;dbl&gt;
+##   &lt;int&gt;    &lt;dbl&gt;
 ## 1     4 26.66364
 ## 2     6 19.74286
 ## 3     8 15.10000</code></pre>
+<p>As you can see, the previous idea we had, which was using <code>as.name()</code> was not very far away from the solution. The solution, with <code>tidyeval</code>, consists in using <code>enquo()</code>, which for our purposes, let’s say that this function does something similar to <code>as.name()</code> (in truth, it doesn’t). Now that <code>col_name</code> is (R programmers call it) quoted, we need to tell <code>group_by()</code> to evaluate the input as is. This is done with <code>!!()</code>, which is another <code>tidyeval</code> function. I say it again; don’t worry if you don’t understand everything. Just remember to use <code>enquo()</code> on your column names and then <code>!!()</code> inside the <code>dplyr</code> function you want to use.</p>
+<p>Let’s see some other examples:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, col_name, value){
+  col_name &lt;-<span class="st"> </span><span class="kw">enquo</span>(col_name)
+  dataset <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>((<span class="op">!!</span>col_name) <span class="op">==</span><span class="st"> </span>value) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">summarise</span>(<span class="dt">mean_cyl =</span> <span class="kw">mean</span>(cyl)) -&gt;<span class="st"> </span>dataset
+  <span class="kw">return</span>(dataset)
+}
+
+
+<span class="kw">simple_function</span>(mtcars, am, <span class="dv">1</span>)</code></pre></div>
+<pre><code>##   mean_cyl
+## 1 5.076923</code></pre>
+<p>Notice that I’ve written:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>((<span class="op">!!</span>col_name) <span class="op">==</span><span class="st"> </span>value)</code></pre></div>
+<p>and not:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(<span class="op">!!</span>col_name <span class="op">==</span><span class="st"> </span>value)</code></pre></div>
+<p>I have enclosed <code>!!col_name</code> inside parentheses. This is because operators such as <code>==</code> have precedence over <code>!!</code>, so you have to be explicit. Also, notice that I didn’t have to quote <code>1</code>. This is because it’s <em>standard</em> variable, not a column inside the dataset. Let’s make this function a bit more general. I hard-coded the variable cyl inside the body of the function, but maybe you’d like the mean of another variable?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, filter_col, mean_col, value){
+  filter_col &lt;-<span class="st"> </span><span class="kw">enquo</span>(filter_col)
+  mean_col &lt;-<span class="st"> </span><span class="kw">enquo</span>(mean_col)
+  dataset <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>((<span class="op">!!</span>filter_col) <span class="op">==</span><span class="st"> </span>value) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">summarise</span>(<span class="kw">mean</span>((<span class="op">!!</span>mean_col))) -&gt;<span class="st"> </span>dataset
+  <span class="kw">return</span>(dataset)
+}
+
+
+<span class="kw">simple_function</span>(mtcars, am, cyl, <span class="dv">1</span>)</code></pre></div>
+<pre><code>##   mean((cyl))
+## 1    5.076923</code></pre>
+<p>Notice that I had to quote <code>mean_col</code> too.</p>
+<p>Using the <code>...</code> that we discovered in the previous section, we can pass more than one column:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, ...){
+  col_vars &lt;-<span class="st"> </span><span class="kw">quos</span>(...)
+  dataset <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(<span class="op">!!!</span>col_vars), <span class="kw">funs</span>(mean, sd))
+}</code></pre></div>
+<p>Because these <em>dots</em> contain more than one variable, you have to use <code>quos()</code> instead of <code>enquo()</code>. This will put the arguments provided via the dots in a list. Then, because we have a list of columns, we have to use <code>summarise_at()</code>, which you should know if you did the exercices of chapter 5. So if you didn’t do them, go back to them and finish them first. Doing the exercise will also teach you what <code>vars()</code> and <code>funs()</code> are. The last thing you have to pay attention to is to use <code>!!!()</code> if you used <code>quos()</code>. So 3 <code>!</code> instead of only 2. This allows you to then do things like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">simple_function</span>(mtcars, am, cyl, mpg)</code></pre></div>
+<pre><code>##   am_mean cyl_mean mpg_mean     am_sd   cyl_sd   mpg_sd
+## 1 0.40625   6.1875 20.09062 0.4989909 1.785922 6.026948</code></pre>
+<p>Using <code>...</code> with <code>!!!()</code> allows you to write very flexible functions.</p>
+<p>If you need to be even more general, you can also provide the summary functions as arguments of your function, but you have to rewrite your function a little bit:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">simple_function &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, cols, funcs){
+  dataset <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(<span class="op">!!!</span>cols), <span class="kw">funs</span>(<span class="op">!!!</span>funcs))
+}</code></pre></div>
+<p>You might be wondering where the <code>quos()</code> went? Well because now we are passing two lists of, a list columns that we have to quote, and a list of functions, that we have to quote, we need to use <code>quos()</code> when calling the function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">simple_function</span>(mtcars, <span class="kw">quos</span>(am, cyl, mpg), <span class="kw">quos</span>(mean, sd, sum))</code></pre></div>
+<pre><code>##   am_mean cyl_mean mpg_mean     am_sd   cyl_sd   mpg_sd am_sum cyl_sum
+## 1 0.40625   6.1875 20.09062 0.4989909 1.785922 6.026948     13     198
+##   mpg_sum
+## 1   642.9</code></pre>
+<p>This works, but I don’t think you’ll need to have that much flexibility; either the columns are variable, or the functions, but rarely both at the same time. I guess.</p>
+</div>
+<div id="anonymous-functions" class="section level2">
+<h2><span class="header-section-number">8.6</span> Anonymous functions</h2>
+<p>As the name implies, anonymous functions are functions that do not have a name. These are useful inside functions that have functions as arguments, such as <code>purrr::map()</code> or <code>purrr::reduce()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), <span class="cf">function</span>(x){<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(x)})</code></pre></div>
+<pre><code>## [[1]]
+## [1] 1
+## 
+## [[2]]
+## [1] 0.7071068
+## 
+## [[3]]
+## [1] 0.5773503
+## 
+## [[4]]
+## [1] 0.5</code></pre>
+<p>These anonymous functions get defined in a very similar way to regular functions, you just skip the name and that’s it. <code>tidyverse</code> functions also support formulas; these get converted to anonymous functions:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), <span class="op">~</span>{<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(.)})</code></pre></div>
+<pre><code>## [[1]]
+## [1] 1
+## 
+## [[2]]
+## [1] 0.7071068
+## 
+## [[3]]
+## [1] 0.5773503
+## 
+## [[4]]
+## [1] 0.5</code></pre>
+<p>Using a formula instead of an anonymous function is less verbose; you use <code>~</code> instead of <code>function(x)</code> and a single dot <code>.</code> instead of <code>x</code>. What if you need an anonymous function that requires more than one argument? This is not a problem:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map2</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">5</span>), <span class="cf">function</span>(x, y){(x<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>y})</code></pre></div>
+<pre><code>## [[1]]
+## [1] 0.1111111
+## 
+## [[2]]
+## [1] 0.5
+## 
+## [[3]]
+## [1] 1.285714
+## 
+## [[4]]
+## [1] 2.666667
+## 
+## [[5]]
+## [1] 5</code></pre>
+<p>or, using a formula:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map2</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">5</span>), <span class="op">~</span>{(.x<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>.y})</code></pre></div>
+<pre><code>## [[1]]
+## [1] 0.1111111
+## 
+## [[2]]
+## [1] 0.5
+## 
+## [[3]]
+## [1] 1.285714
+## 
+## [[4]]
+## [1] 2.666667
+## 
+## [[5]]
+## [1] 5</code></pre>
+<p>Because you have now two arguments, a single dot could not work, so instead you use <code>.x</code> and <code>.y</code> to avoid confusion.</p>
+</div>
+<div id="mapping-your-homebrewed-functions-to-lists-of-datasets" class="section level2">
+<h2><span class="header-section-number">8.7</span> Mapping your homebrewed functions to lists of datasets</h2>
 <p>Before merging these datasets together, we would need them to have a <code>year</code> column indicating the year. It would also be helpful if gave names to these datasets. For this task, we can use <code>purrr::set_names()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">all_datasets =<span class="st"> </span><span class="kw">set_names</span>(all_datasets, <span class="kw">as.character</span>(<span class="kw">seq</span>(<span class="dv">2013</span>, <span class="dv">2016</span>)))</code></pre></div>
 <p>Let’s take a look at the list now:</p>
@@ -601,25 +760,25 @@ simpleFunction &lt;-<span class="st"> </span><span class="cf">function</span>(da
 ##   ..$ unemployment_rate_in_percent: num [1:118] 7.15 5.04 4.84 3.01 4.3 ...
 ##   ..$ year                        : int [1:118] 2016 2016 2016 2016 2016 2016 2016 2016 2016 2016 ...</code></pre>
 <p>As you can see, each <code>data.frame</code> object contained in the list has been renamed. You can thus access them with the <code>$</code> operator:</p>
-<p><img src="pics/all_datasets_names.png" /><!-- --></p>
+<p><img src="pics/all_datasets_names.png" width="135" /></p>
 </div>
 <div id="generating-pdf-or-word-reports-with-r" class="section level2">
-<h2><span class="header-section-number">8.5</span> Generating Pdf or Word reports with R</h2>
+<h2><span class="header-section-number">8.8</span> Generating Pdf or Word reports with R</h2>
 </div>
 <div id="scraping-the-internet" class="section level2">
-<h2><span class="header-section-number">8.6</span> Scraping the internet</h2>
+<h2><span class="header-section-number">8.9</span> Scraping the internet</h2>
 </div>
 <div id="writing-your-own-package" class="section level2">
-<h2><span class="header-section-number">8.7</span> Writing your own package</h2>
+<h2><span class="header-section-number">8.10</span> Writing your own package</h2>
 </div>
 <div id="random-tips-and-tricks" class="section level2">
-<h2><span class="header-section-number">8.8</span> Random tips and tricks</h2>
+<h2><span class="header-section-number">8.11</span> Random tips and tricks</h2>
 <div id="creating-a-log-file" class="section level3">
-<h3><span class="header-section-number">8.8.1</span> Creating a log file</h3>
+<h3><span class="header-section-number">8.11.1</span> Creating a log file</h3>
 </div>
 </div>
 <div id="exercises-5" class="section level2">
-<h2><span class="header-section-number">8.9</span> Exercises</h2>
+<h2><span class="header-section-number">8.12</span> Exercises</h2>
 <div id="exercise-1-5" class="section level3 unnumbered">
 <h3>Exercise 1</h3>
 <ul>
