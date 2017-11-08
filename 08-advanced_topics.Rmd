@@ -700,7 +700,6 @@ mtcars %>%
   mutate(double_mpg = .$mpg + .$mpg)
 ```
 
-
 ## Mapping your homebrewed functions to lists of datasets
 
 Before merging these datasets together, we would need them to have a `year` column indicating the
