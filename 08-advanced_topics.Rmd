@@ -606,6 +606,41 @@ simple_function(mtcars, quos(am, cyl, mpg), quos(mean, sd, sum))
 This works, but I don't think you'll need to have that much flexibility; either the columns are variable,
 or the functions, but rarely both at the same time. I guess.
 
+## Functions that use loops
+
+It is entirely possible to put a loop inside a function. For example, consider the following
+function that return the square root of a number using Newton's algorithm:
+
+```{r}
+sqrt_newton <- function(a, init = 1, eps = 0.01){
+    stopifnot(a >= 0)
+    while(abs(init**2 - a) > eps){
+        init <- 1/2 *(init + a/init)
+    }
+    return(init)
+}
+```
+
+This functions contains a while loop inside its body. Let's see if it works:
+
+```{r}
+sqrt_newton(16)
+```
+
+In the definition of the function, I wrote `init = 1` and `eps = 0.01` which means that this
+argument can be omitted and will have the provided value (0.01)  as the default. You can then use
+this function as any other, for example with `map()`:
+
+```{r}
+map(c(16, 7, 8, 9, 12), sqrt_newton)
+```
+
+This is what I meant before with "your functions are nothing special". Once the function is
+defined, you can use it like any other base R function.
+
+Notice the use of `stopifnot()` inside the body of the function. This is a way to return an error
+in case a condition is not fulfilled.
+
 ## Anonymous functions
 
 As the name implies, anonymous functions are functions that do not have a name. These are useful inside
@@ -639,6 +674,32 @@ map2(c(1, 2, 3, 4, 5), c(9, 8, 7, 6, 5), ~{(.x**2)/.y})
 Because you have now two arguments, a single dot could not work, so instead you use `.x` and `.y` to
 avoid confusion.
 
+## Using your functions inside `mutate()`
+
+Once you wrote a function, you can easily use it inside a pipe workflow:
+
+```{r}
+double_number = function(x){
+  x+x
+}
+```
+
+```{r}
+mtcars %>%
+  mutate(double_mpg = double_number(mpg))
+```
+
+Granted this example is stupid, but it shows you, again, that functions you define are nothing
+special. You can use them just as any other.
+
+You can also avoid to define a function altogether, especially if you need an operation only once,
+by using the `.` like this:
+
+```{r}
+mtcars %>%
+  mutate(double_mpg = .$mpg + .$mpg)
+```
+
 
 ## Mapping your homebrewed functions to lists of datasets
 
@@ -648,7 +709,7 @@ year. It would also be helpful if gave names to these datasets. For this task, w
 
 ```{r}
 all_datasets = set_names(all_datasets, as.character(seq(2013, 2016)))
-               ```
+```
 
 Let's take a look at the list now:
 
